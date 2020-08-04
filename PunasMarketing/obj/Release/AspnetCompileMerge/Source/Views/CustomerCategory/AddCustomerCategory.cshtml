@@ -1,0 +1,59 @@
+﻿@model PunasMarketing.Models.DomainModel.CustomerCategory
+
+@{
+    ViewBag.Title = "افزودن دسته بندی مشتری";
+}
+
+
+<div class="layout-content-body">
+    <div class="row gutter-xs">
+        <div class="col-xs-12">
+            <div class="card">
+                <div class="card-header">
+                    @using (Html.BeginForm("AddCustomerCategory", "CustomerCategory", FormMethod.Post, new {autocomplete = "off"}))
+                    {
+                        <div id="divInfo">
+                            <legend>
+                                <h2>افزودن دسته بندی مشتری</h2>
+                            </legend>
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+
+                            <div class="col-xs-12 col-md-12">
+                                <div class="md-form-group md-label-floating">
+                                    @Html.TextBoxFor(model => model.Name, new { @class = "md-form-control", type = "text", spellcheck = "false", required = "" })
+                                    @Html.LabelFor(model => model.Name, new { @class = "md-control-label" })
+                                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Name)</span>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-md-12">
+                                <div class="margin-top">
+                                    <div class="col-xs-12 col-md-12">
+                                        <input class="btn btn-success" type="submit" value="ثبت اطلاعات" />
+                                        <a href="@Url.Action("CustomerCategories", "CustomerCategory")" class="btn btn-default">بازگشت</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

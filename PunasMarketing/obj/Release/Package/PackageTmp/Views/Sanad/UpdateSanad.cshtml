@@ -1,0 +1,138 @@
+﻿@model PunasMarketing.ViewModels.Sanad.SanadViewModel
+@{
+    ViewBag.Title = "ویرایش سند";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int index = 1;
+}
+<div class="layout-content-body">
+    <legend>
+        <h2>ویرایش  سند</h2>
+    </legend>
+    @Html.HiddenFor(m => m.SanadItemDeleted);
+    @Html.HiddenFor(m => m.SanadId);
+    <div class="col-xs-12 col-md-12">
+        <div class="col-xs-9 col-md-9">
+            <div class="md-form-group md-label-static">
+                @Html.LabelFor(model => model.SanadDes, new { @class = "md-form-label" })
+                @Html.TextBoxFor(model => model.SanadDes, new { @class = "md-form-control" })
+                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.SanadDes)</span>
+            </div>
+        </div>
+        <div class="col-xs-3 col-md-3">
+            <div class="md-form-group md-label-static">
+                @Html.LabelFor(model => model.SanadDate, new { @class = "md-form-label" })
+                @Html.TextBoxFor(model => model.SanadDate, new { @class = "md-form-control", @readonly = "readonly" })
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-xs-12 col-md-12">
+        <table id="SanadItemTable" class="table table-striped table-bordered table-nowrap dataTable" cellspacing="0">
+            <thead>
+                <tr class="columnSize">
+                    <th style="width:3%;text-align:center">کد حساب</th>
+                    <th style="width:20%;text-align:center">حساب معین</th>
+                    <th style="width:20%;text-align:center">حساب تفصیلی</th>
+                    <th style="width:25%;text-align:center">شرح</th>
+                    <th style="width:15%;text-align:center">بدهکار(ریال)</th>
+                    <th style="width:15%;text-align:center">بستانکار(ریال)</th>
+                    <th style="width:2%;text-align:center">عملیات</th>
+                </tr>
+            </thead>
+            <tbody id="CurrentTbody">
+                @foreach (var item in Model.SanadItem)
+                {
+                    <tr class="columnSize">
+                        <td style="width:5%;text-align:center">@item.Code</td>
+                        <td style="width:20%;text-align:center" SarfaslId="@item.Sarfasl">
+                            @item.SarfaslName
+                        </td>
+                        <td style="width:20%;text-align:center" TafisiliId="@item.Tafsili">
+                            @item.TafsiliName
+                        </td>
+                        <td style="width:25%;text-align:center">
+                            @item.Description
+                        </td>
+                        <td style="width:15%;text-align:center">
+                            @item.BedehAmount.ToPrice()
+                        </td>
+                        <td style="width:15%;text-align:center">
+                            @item.BestanAmount.ToPrice()
+
+                        </td>
+
+                        <td style="width:2%;text-align:center">
+                            <a id="deleteItem" style="cursor:pointer" class="icon icon-trash-o iconColor" value="@(index++)" SanadItemId="@item.ItemId"></a>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+            <tbody>
+                <tr class="columnSize">
+                    <td style="width:5%;text-align:center">0</td>
+                    <td style="width:20%;text-align:center">
+                        @Html.DropDownList("Sarfasl", Model.SarFasl, "انتخاب کنید", new { @class = "form-control" })
+                    </td>
+                    <td style="width:20%;text-align:center" id="DrpTafsili">
+                        @Html.DropDownList("Tafsili", Enumerable.Empty<SelectListItem>(), "انتخاب کنید", new { @class = "form-control" })
+                    </td>
+                    <td style="width:25%;text-align:center">
+                        <input id="Description" class="form-control" type="text">
+                    </td>
+                    <td style="width:15%;text-align:center">
+                        <input id="BedAmount" class="form-control .amount" type="text" placeholder="0">
+                    </td>
+                    <td style="width:15%;text-align:center">
+                        <input id="BesAmount" class="form-control .amount" type="text" placeholder="0">
+                    </td>
+                    <td style="width:2%;text-align:center">
+                        <a id="AddItem" class="icon icon-plus-square iconColor" style="text-decoration:none; cursor:pointer"></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-xs-12 col-md-12" style="margin-top:20px">
+        <div class="col-xs-6 col-md-6" style="float:left">
+            <div class="col-xs-4 col-md-4">
+                <label class="md-label-static" style="font-size:16px"> جمع (ریال)</label>
+            </div>
+            <div class="col-xs-4 col-md-4">
+                <label class="md-label-static" style="font-size:16px" id="TotalBedeh">@Model.TotalBedeh.ToPrice()</label>
+            </div>
+            <div class="col-xs-4 col-md-4">
+                <label class="md-label-static" style="font-size:16px" id="TotalBestan">@Model.TotalBestan.ToPrice()</label>
+            </div>
+            <div class="col-xs-12 col-md-12" style="border-bottom:1px solid #ddd;margin-top:10px"></div>
+            <div class="col-xs-12 col-md-12" style="border-bottom:1px solid #ddd ; margin-top:10px"></div>
+            <div class="col-xs-6 col-md-6" style="margin-top:10px">
+                <label class="md-label-static" style="font-size:16px"> اختلاف (ریال)</label>
+            </div>
+            <div class="col-xs-6 col-md-6" style="margin-top:10px;text-align:center">
+                <label class="md-label-static" style="font-size:16px" id="TotalDifference">@Model.TotalDiff.ToPrice()</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-md-12" style="border-bottom:1px solid #ddd ; margin-top:10px"></div>
+    <div class="col-xs-12 col-md-12">
+        <div class="margin-top">
+            <div class="col-xs-12 col-md-12">
+                <a href="@Url.Action("Sanads", "Sanad")" class="btn btn-default">بازگشت</a>
+                <input id="EditSanad" class="btn btn-success" type="submit" value="ثبت نهایی" />
+            </div>
+        </div>
+    </div>
+</div>
+@section toastr{
+    @Html.Raw(TempData["saveMassage"])
+}
+@Scripts.Render("~/bundles/Sanadjs")
+@section scripts{
+    <script>
+        updateSanad();
+    </script>
+}
+

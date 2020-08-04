@@ -1,0 +1,83 @@
+﻿@model PunasMarketing.Models.DomainModel.CashDesk
+
+@{
+    ViewBag.Title = "ویرایش صندوق";
+}
+
+
+<div class="layout-content-body">
+    <div class="row gutter-xs">
+        <div class="col-xs-12">
+            <div class="card">
+              
+                <div class="card-body">
+                    @using (Html.BeginForm("UpdateCashDesk", "CashDesk", FormMethod.Post, new {autocomplete="off"}))
+                    {
+                    <div id="divInfo">
+                        <legend>
+                            <h2>ویرایش صندوق</h2>
+                        </legend>
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                        @Html.HiddenFor(model => model.Id)
+
+                        <div class="col-xs-6 col-md-6">
+                            <div class="md-form-group md-label-floating">
+                                @Html.TextBoxFor(model => model.Name, new { @class = "md-form-control", type = "text", spellcheck = "false", required = "" })
+                                @Html.LabelFor(model => model.Name, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Name)</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-6 col-md-6">
+                            <div class="md-form-group md-label-floating">
+                                <label class="custom-control custom-control-primary custom-checkbox">
+                                    <input class="custom-control-input" data-val="true" id="IsAvailable" name="IsAvailable" type="checkbox" value="true">
+                                    <span class="custom-control-indicator"></span>
+                                    <span class="custom-control-label">صندوق فعال است؟</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-12">
+                            <div class="margin-top">
+                                <div class="col-xs-12 col-md-12">
+                                    <input class="btn btn-success" type="submit" value="ویرایش" />
+                                    <a href="@Url.Action("CashDesks", "CashDesk")" class="btn btn-default">برگشت</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    
+    <script>
+        $(document).ready(function () {
+            var isAvailable = '@Html.Raw(Model.IsAvailable)';
+            if (isAvailable === 'True') {
+                $('#IsAvailable').attr('checked', 'checked');
+            }
+        });
+    </script>
+}
+
+
+
+
+
+
+
+
+
+

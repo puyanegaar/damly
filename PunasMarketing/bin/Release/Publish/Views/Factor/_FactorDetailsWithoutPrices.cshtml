@@ -1,0 +1,158 @@
+﻿@model PunasMarketing.ViewModels.Factor.ShowFactorViewModel
+@{
+    int index = 0;
+
+    var warehouseId = Model.FactorItems.FirstOrDefault()?.Product.WarehouseId;
+    bool allWarehouseIdsAreEqual = Model.FactorItems.All(i => i.Product.WarehouseId == warehouseId);
+    string residHavale = Model.Factor.IsBuy ? "رسید" : "حواله";
+}
+
+<div class="card-body">
+    <form action="/" id="FactorForm" method="post" novalidate="novalidate">
+        <div id="Items">
+            <div class="col-xs-12 col-md-3">
+                <div class="md-form-group md-label-floating has-value">
+                    @if (Model.Factor.SupplierId != null)
+                    {
+                        <a class="md-form-control" href="@Url.Action("SupplierDetails", "Supplier", new {id = Model.Factor.SupplierId})">@Model.Factor.Supplier.Name</a>
+                        @Html.LabelFor(model => model.Factor.Supplier.Name, new {@class = "md-control-label"})
+                    }
+                    else
+                    {
+                        <a class="md-form-control" href="@Url.Action("CustomerManagement", "Customer", new {id = Model.Factor.CustomerId})">@Model.Factor.Customer.BusinessName</a>
+                        @Html.LabelFor(model => model.Factor.Customer.BusinessName, new {@class = "md-control-label"})
+                    }
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-3">
+                <div class="md-form-group md-label-static">
+                    @Html.TextBoxFor(model => model.Factor.Id, new {@class = "md-form-control", type = "text", spellcheck = "false", @readonly = "readonly"})
+                    <label class="md-control-label">شماره فاکتور</label>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-3">
+                <div class="md-form-group md-label-static">
+                    @Html.TextBoxFor(model => model.Factor.PaperFactorCode, new {@class = "md-form-control", type = "text", spellcheck = "false", @readonly = "readonly"})
+                    @Html.LabelFor(model => model.Factor.PaperFactorCode, new {@class = "md-control-label"})
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-3">
+                <div class="md-form-group md-label-static has-value">
+                    <input type="text" readonly="readonly" class="md-form-control" value="@Model.Factor.CreatedDate.ToPersianDateTime()">
+                    <label class="md-control-label">تاریخ ایجاد</label>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-md-12">
+                <div class="md-form-group md-label-static">
+                    @Html.TextBoxFor(model => model.Factor.Description, new {@class = "md-form-control", type = "text", spellcheck = "false", @readonly = "readonly"})
+                    @Html.LabelFor(model => model.Factor.Description, new {@class = "md-control-label"})
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-12">
+                <div class="md-form-group md-label-static" style="margin-bottom: 0; padding: 0;">
+                    <div id="FactorItemList">
+                        <table class="table table-bordered table-hover " width="100%" cellspacing="0">
+                            <thead>
+                            <tr class="columnSize">
+                                <th>
+                                    ردیف
+                                </th>
+                                <th>
+                                    شناسه کالا
+                                </th>
+                                <th>
+                                    نام کالا
+                                </th>
+                                <th>
+                                    مقدار
+                                </th>
+                                <th>
+                                    موجودی
+                                </th>
+                                <th>
+                                    واحد اندازه گیری
+                                </th>
+                                <th>
+                                    انبار
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody id="tblItems">
+                            @foreach (var item in Model.FactorItems)
+                            {
+                                <tr class="columnSize">
+                                    <td>
+                                        @(++index)
+                                    </td>
+                                    <td>
+                                        @item.Product.Id
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("ProductManagement", "Product", new {id = item.ProductId})">@item.Product.Name</a>
+                                    </td>
+                                    <td>
+                                        @item.MainUnitCount
+                                    </td>
+                                    <td class="@(item.Product.Inventory < item.MainUnitCount ? "wrongTd" : "")">
+                                        @item.Product.Inventory
+                                    </td>
+                                    <td>
+                                        @item.Product.Unit.Name
+                                    </td>
+                                    <td>
+                                        @item.Product.Warehouse.Name
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+    <div class="col-xs-12 col-md-12" style="margin-top: 20px">
+        <div class="col-xs-12 col-md-12">
+
+            <input style="float: right" id='btnInvoice' class='btn btn-success' type='button' value='صدور @residHavale'/>
+
+            <div class="col-xs-6 col-md-6" style="font-size: 14px">
+                <span id="countError" hidden="hidden" style="color: red">موجودی کالا کمتر از تعداد درخواستی است.</span>
+                <span id="warehouseError" hidden="hidden" style="color: red">همه کالاها باید در یک انبار باشند.</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var btnInvoice = $('#btnInvoice');
+    var theRedTr = $('.wrongTd').closest('tr');
+
+    theRedTr.addClass('deleted');
+
+    if (theRedTr.length > 0) {
+        $('#countError').show();
+        btnInvoice.attr("disabled", true);
+    }
+
+    @if (!allWarehouseIdsAreEqual)
+    {
+        <text>
+            $('#warehouseError').show();
+    btnInvoice.attr("disabled", true);
+        </text>
+    }
+
+    btnInvoice.on('click',
+        function () {
+            $.get("/Factor/InvoiceModal/" + @Model.Factor.Id, function (res) {
+                $('#factorModal').modal('toggle'); // close current factor modal
+
+                $("#invoiceModal").modal(); // open invoice modal
+                $("#invoiceModalBody").html(res);
+            });
+        });
+</script>

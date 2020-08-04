@@ -1,0 +1,409 @@
+﻿@model PunasMarketing.ViewModels.Factor.SellBackFactorViewModel
+@{
+    ViewBag.Title = "فاکتور برگشتی فروش";
+    int index = 1;
+}
+
+<div class="layout-content-body">
+    <div class="col-xs-12 col-md-12">
+        <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19); border-radius:5px;">
+            <div class="card-header">
+                <div class="card-actions">
+                    <button type="button" class="card-action card-toggler" title="Collapse"></button>
+                </div>
+                <strong>فاکتور برگشتی فروش</strong>
+            </div>
+
+            <div class="card-body">
+
+                @using (Html.BeginForm("", "", FormMethod.Post, new { id = "FactorForm" }))
+                {
+                    <div id="Items">
+
+                        <div class="col-xs-12 col-md-4">
+                            <div class="md-form-group md-label-floating">
+
+                                @Html.TextBoxFor(model => model.Factor.Customer.BusinessName, new { @class = "md-form-control", type = "text", spellcheck = "false", @readonly = "readonly" })
+                                @Html.LabelFor(model => model.Factor.Customer.BusinessName, new { @class = "md-control-label" })
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-4">
+                            <div class="md-form-group md-label-static">
+                                @Html.TextBoxFor(model => model.Factor.PaperFactorCode, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                                @Html.LabelFor(model => model.Factor.PaperFactorCode, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Factor.PaperFactorCode)</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-4">
+                            <div class="md-form-group md-label-static">
+                                <input type="text" readonly="readonly" class="md-form-control" value="@Model.Factor.CreatedDate.ToPersianDateTime()">
+                                <label class="md-control-label">تاریخ ایجاد</label>
+
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-12">
+                            <div class="md-form-group md-label-static">
+                                @Html.TextBoxFor(model => model.Factor.Description, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                                @Html.LabelFor(model => model.Factor.Description, new { @class = "md-control-label" })
+
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-12">
+                            <div class="md-form-group md-label-static" style="margin-bottom: 0; padding: 0;">
+
+
+                                <div id="FactorItemList">
+                                    <table class="table table-bordered table-hover " cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr class="columnSize">
+                                                <th>
+                                                    ردیف
+                                                </th>
+                                                <th>
+                                                    نام کالا
+                                                </th>
+                                                <th>
+                                                    قیمت واحد
+                                                </th>
+                                                <th>
+                                                    تعداد
+                                                </th>
+                                                <th>
+                                                    تخفیف
+                                                </th>
+                                                <th>
+                                                    مالیات
+                                                </th>
+                                                <th>
+                                                    قیمت نهایی
+                                                </th>
+                                                <th>
+                                                    حذف
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tblItems">
+
+                                            @*@foreach (var item in Model.FactorItems)
+                                                {
+                                                    <tr class="columnSize">
+                                                        <td>@index</td>
+                                                        <td>@item.Product.Name</td>
+                                                        <td>@item.UnitPrice.ToPrice()</td>
+                                                        <td><input type="number" value="@item.MainUnitCount" min="10" max="@item.MainUnitCount" /></td>
+                                                        <td>@item.Discount.ToPrice()</td>
+                                                        <td>@item.Tax.ToPrice()</td>
+                                                        <td>@item.FinalPrice.ToPrice()</td>
+                                                        <td>
+                                                            <a id='' class="icon icon-remove iconColor"></a>
+                                                        </td>
+
+                                                    </tr>
+                                                    index++;
+                                                }*@
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                }
+
+
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+
+                            <tbody>
+
+                                <tr>
+                                    <th scope="row" colspan="6">
+
+                                        <div class="col-md-4 text-right" style="display: inline-block; float: left">
+                                            قیمت کل
+                                            <br> کل تخفیفات
+                                            <br> تخفیف روی فاکتور
+                                            <br> مالیات
+                                            <br> اضافات
+                                            <br> کسورات
+                                            <br> قیمت نهایی ( قابل پرداخت )
+                                        </div>
+                                    </th>
+                                    <td class="text-center" style="width: 10%">
+                                        <span id="TotalPrice">@Model.Factor.TotalPrice.ToPrice()</span>
+                                        <br> <span id="FinalDiscount">@Model.Factor.TotalDiscount.ToPrice()</span>
+                                        <br> <span id="FactorDiscount">@Model.Factor.DiscountOnFactor.ToPrice()</span>
+                                        <br> <span id="TotalTax">@Model.Factor.TotalTax.ToPrice()</span>
+                                        <br> <span id="Additions">@Model.Factor.Additions.ToPrice()</span>
+                                        <br> <span id="Deductions">@Model.Factor.Deductions.ToPrice()</span>
+                                        <br><strong><span id="FinalPrice">@Model.Factor.FinalPrice.ToPrice()</span></strong>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <input type="submit" class="btn btn-success" style="margin: 20px" id="AddFactorbtnSubmit" value="ثبت فاکتور">
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+<div id="FactorItemModel" tabindex="-1" role="dialog" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">افزودن کالا</h4>
+            </div>
+            <div class="modal-body" id="FactorItemModelBody">
+
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts
+{
+
+
+
+    <script>
+
+        //setInterval(function() {
+        //        procces();
+        //        FactorProccess();
+        //    },
+        //    100)
+
+
+        //function procces() {
+        //    var price = $('#FactorItem_UnitPrice').val();
+        //    var count = $('#FactorItem_MainUnitCount').val();
+        //    var totalPrice = price * count;
+        //    var discount = $('#FactorItem_Discount').val();
+        //    var tax = ((totalPrice - discount) * $('#FactorItem_Tax').val()) / 100;
+
+        //    $('#FactorItem_TotalPrice').val(totalPrice);
+        //    $('#FactorItem_FinalPrice').val((price * count) - discount + tax);
+        //};
+
+        $(function() {
+
+
+            var index = 0;
+            var inventoryCheckingItems = @Html.Raw(Json.Encode(Model.FactorItems));
+
+            for (var i = 0; i < inventoryCheckingItems.length; i++) {
+                var item = inventoryCheckingItems[i];
+
+                var setValue = null;
+                if (item.Discount === item.TotalPrice) {
+                    setValue = item.MainUnitCount;
+                } else {
+                    setValue = '<input type="number" id="' +
+                        index +
+                        '" value="' +
+                        item.MainUnitCount +
+                        '" max ="' +
+                        item.MainUnitCount +
+                        '" min ="1" />';
+                }
+
+
+                index++;
+                var btnDeleteId = "btnButton" + index;
+                $('#tblItems').append('<tr class="columnSize"><td>' +
+                    index +
+                    '</td><td>' +
+                    item.ProductId +
+                    '</td><td>' +
+                    item.UnitPrice +
+                    '</td><td>' +
+                    setValue +
+                    '</td><td>' +
+                    item.Discount +
+                    '</td><td>' +
+                    item.TaxPrice +
+                    'ریا ل ' +
+                    '( ' +
+                    (item.Tax) +
+                    ' درصد)' +
+                    '</td><td id="ItemFinalPrice' + index + '">'
+                    +
+                    item.FinalPrice +
+                    '</td><td><a id="' +
+                    btnDeleteId +
+                    '" data-id=' +
+                    index +
+                    ' class="icon icon-remove iconColor"></a></td></tr>');
+
+           }
+
+
+            $(":input[Type = number]").bind('keyup mouseup', function () {
+
+               var index = $(this).attr('id');
+                var rowId = 1;
+
+                var item = inventoryCheckingItems[index];
+
+                var price = item.UnitPrice;
+                var count = $(this).val();
+                var totalPrice = price * count;
+                var discount = item.Discount;
+                var tax = ((totalPrice - discount) * item.Tax) / 100;
+               item.TotalPrice = totalPrice;
+                var finalPrice = (price * count) - discount + tax;
+                item.FinalPrice = finalPrice;
+
+                $('#ItemFinalPrice' + rowId + '').html(finalPrice);
+                Fun1();
+
+            });
+
+
+
+                    $('#' + btnDeleteId).on('click',
+                        function() {
+                            $(this).closest('tr').remove();
+                            var id = $(this).attr('data-id');
+
+                            var theItem = inventoryCheckingItems.find(x => x.index == id);
+                            inventoryCheckingItems.splice(inventoryCheckingItems.indexOf(theItem), 1);
+                            Fun1();
+                        });
+
+                    //Fun1();
+
+                    function Fun1() {
+                        var total = 0;
+                        var dis = 0;
+                        var ta = 0;
+                        for (var i = 0; i < inventoryCheckingItems.length; i++) {
+                            total += parseInt(inventoryCheckingItems[i].TotalPrice, 10) << 0;
+                        }
+                        $('#TotalPrice').html(total);
+
+                        for (var i = 0; i < inventoryCheckingItems.length; i++) {
+                            dis += parseInt(inventoryCheckingItems[i].Discount, 10) << 0;
+                        }
+                        $('#FinalDiscount').html(dis);
+
+                        for (var i = 0; i < inventoryCheckingItems.length; i++) {
+                            ta+= parseInt(inventoryCheckingItems[i].Tax, 10) << 0;
+                        }
+                        $('#TotalTax').html(tax);
+
+                        for (var i = 0; i < inventoryCheckingItems.length; i++) {
+                            ta += parseInt(inventoryCheckingItems[i].MarketerCommission, 10) << 0;
+                        }
+                        totalMarketerCommission = ta;
+
+                    }
+
+
+
+
+
+            @*$('#AddFactorbtnSubmit').click(function() {
+
+                if ($('#FactorForm').valid()) {
+                    $.ajax({
+                        type: "POST",
+                        dataType: "Json",
+                        url: "/Factor/AddSellFactor",
+                        data: {
+                            Factor: {
+                                CustomerId: $('#Factor_CustomerId').val(),
+                                PaperFactorCode: $('#Factor_PaperFactorCode').val(),
+                                TotalPrice: $('#TotalPrice').html(),
+                                DiscountOnFactor: $('#Factor_DiscountOnFactor').val(),
+                                TotalDiscount: $('#FinalDiscount').html(),
+                                Additions: $('#Factor_Additions').val(),
+                                Deductions: $('#Factor_Deductions').val(),
+                                TotalTax: $('#TotalTax').html(),
+                                FinalPrice: $('#FinalPrice').html(),
+                                MarketerTotalCommission : totalMarketerCommission,
+                                Description: $('#Factor_Description').val(),
+
+                            },
+                            FactorItems: inventoryCheckingItems
+
+                        },
+                        success: function(result) {
+                            if (result.Success) {
+                                var url = '@Url.Action("SellFactors", "Factor")';
+                                window.location.href = url;
+                            } else {
+                                toastr.error('خطا در ثبت اطلاعات');
+                            }
+                        },
+                        error: function() {
+                            toastr.error('خطا در ثبت اطلاعات');
+                        }
+                    });
+                }
+
+            });*@
+        });
+
+        //function FactorProccess() {
+        //    var Factor_DiscountOnFactor = $('#Factor_DiscountOnFactor').val();
+        //    var TotalDiscount = $('#FinalDiscount').html();
+        //    var TotalTax = $('#TotalTax').html();
+        //    var Additions = $('#Factor_Additions').val();
+        //    var Deductions = $('#Factor_Deductions').val();
+        //    var IsTax = $('#IsTax').val();
+        //    var TotalPrice = $('#TotalPrice').html();
+
+            //var FinalPrice = TotalPrice - Factor_DiscountOnFactor + Additions + IsTax;
+
+
+        //    $('#Additions').html(Additions);
+        //    $('#FactorDiscount').html(Factor_DiscountOnFactor);
+        //    $('#Deductions').html(Deductions);
+
+        //    $('#FinalPrice').html(+TotalPrice - +TotalDiscount + +TotalTax + +Deductions + +Additions - +Factor_DiscountOnFactor);
+        //}
+
+        //$('#FactorItem_PriceTypeId').change(function() {
+        //    $('#FactorItem_ProductId').prop('selectedIndex', 0);
+        //    $('#FactorItem_UnitPrice').val("");
+        //    $('#Inventory').html("");
+        //    $('#FactorItemForm input[type = text]').val("");
+
+        //});
+
+
+    </script>
+}
+
+
+@section toastr {
+    <script src="~/Scripts/jquery-1.8.2.js"></script>
+    <script src="~/Scripts/toastr.js"></script>
+
+    @Html.Raw(TempData["SaveMessage"])
+}

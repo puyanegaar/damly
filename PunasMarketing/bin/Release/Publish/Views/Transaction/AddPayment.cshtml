@@ -1,0 +1,593 @@
+﻿@model PunasMarketing.ViewModels.Transaction.PaymentViewModel
+@{
+    ViewBag.Title = "پرداخت وجه / چک";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="layout-content-body">
+    <legend>
+        پرداخت وجه/ چک
+    </legend>
+    @using (Ajax.BeginForm("AddPayment", "Transaction", new AjaxOptions() { HttpMethod = "Post", OnSuccess = "SuccessPayment" }, new { id = "PayForm" }))
+    {
+        @Html.HiddenFor(m => m.pay.TotalAmount)
+        @Html.HiddenFor(m => m.PayChequeIds)
+        <div class="col-xs-12 col-md-12">
+            <div class="col-xs-2 col-md-2">
+                <label class="form-label"> پرداخت&nbsp; وجه / چک &nbsp; به  &nbsp;:</label>
+            </div>
+            <div class="col-xs-2 col-md-2">
+                <label class="custom-control custom-control-primary custom-radio">
+                    <input class="custom-control-input radioactive" type="radio" id="PayType" name="PayType" value="0">
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-label">شخص</span>
+                </label>
+            </div>
+            <div class="col-xs-2 col-md-2">
+                <label class="custom-control custom-control-primary custom-radio">
+                    <input class="custom-control-input radioactive" type="radio" id="PayType" name="PayType" value="1">
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-label">هزینه</span>
+                </label>
+            </div>
+
+        </div>
+        <div class="col-xs-12 col-md-12" id="PersonSelect" style="display:none">
+            <div class="col-xs-6 col-md-6">
+                @{
+                    List<SelectListItem> PersonType_Items = new List<SelectListItem>();
+
+                    PersonType_Items.Add(new SelectListItem { Text = "پرسنل", Value = "1" });
+                    PersonType_Items.Add(new SelectListItem { Text = "مشتری", Value = "2" });
+                    PersonType_Items.Add(new SelectListItem { Text = "تامین کننده", Value = "3" });
+
+                }
+                <div class="md-form-group md-label-static">
+                    @Html.LabelFor(model => model.pay.PersonType, new { @class = "form-label" })
+                    @Html.DropDownListFor(model => model.pay.PersonType, PersonType_Items, "انتخاب کنید", new { @class = "form-control", disabled = "disabled" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.pay.PersonType)</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-6" id="DrpPerson">
+                <div class="md-form-group md-label-static">
+                    @Html.LabelFor(model => model.pay.Persons, new { @class = "form-label" })
+                    @Html.DropDownListFor(model => model.pay.Persons, Enumerable.Empty<SelectListItem>(), "انتخاب کنید", new { @class = "form-control", disabled = "disabled" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.pay.Persons)</span>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-12" id="Blance">
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-12" id="HesabSelect" style="display:none">
+            <div class="col-xs-6 col-md-6">
+
+                <div class="md-form-group md-label-static">
+                    @Html.LabelFor(model => model.pay.sarfasl, new { @class = "form-label" })
+                    @Html.DropDownListFor(model => model.pay.sarfasl, Model.Sarfasls, "انتخاب کنید", new { @class = "form-control", disabled = "disabled" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.pay.sarfasl)</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-6" id="DrpTafsili">
+                <div class="md-form-group md-label-static">
+                    @Html.LabelFor(model => model.pay.Tafsili, new { @class = "form-label" })
+                    @Html.DropDownListFor(model => model.pay.Tafsili, Enumerable.Empty<SelectListItem>(), "انتخاب کنید", new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-12" style="">
+
+        </div>
+        <div class="col-xs-12 col-md-12" style="margin-top:10px">
+            <div class="col-xs-12 col-md-12">
+                @Html.LabelFor(model => model.pay.Description, new { @class = "form-label" })
+                @Html.TextBoxFor(model => model.pay.Description, new { @class = "form-control" })
+                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.pay.Description)</span>
+            </div>
+        </div>
+
+
+
+        <div class="col-xs-12 col-md-12">
+            <div class="margin-top" style="float:left">
+                <div class="col-xs-12 col-md-12">
+                    <input id="CashAdd" class="btn btn-info" type="submit" value="افزودن پرداخت نقدی" />
+                    <input id="BankJarAdd" class="btn btn-warning" type="submit" value="افزودن فیش بانکی" />
+                    <input id="ChequeAdd" class="btn btn-danger" type="submit" value="افزودن چک" />
+                    <input id="PayCheque" class="btn btn-primary" type="submit" value="خرج چک" />
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-12" style="border-bottom:1px solid #ddd ; margin-top:10px"></div>
+        <div id="CashPart">
+        </div>
+        <div id="CardPart">
+        </div>
+        <div id="ChequePart">
+        </div>
+        <div id="PayChequePart">
+
+        </div>
+        <div class="col-xs-12 col-md-12" style="border-bottom:1px solid #ddd ; margin-top:10px"></div>
+        <div class="col-xs-12 col-md-12">
+            <div class="margin-top">
+                <div class="col-xs-12 col-md-12">
+                    <a href="@Url.Action("Payments", "Transaction")" class="btn btn-default">بازگشت به فهرست</a>
+                    <input id="AddReceive" class="btn btn-success" type="submit" value="ثبت اطلاعات" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@section Modal{
+    <div id="modalAvailableCheque" tabindex="-1" role="dialog" class="modal fade">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-success">
+                    <h4 class="modal-title">لیست چک ها</h4>
+                </div>
+                <div class="modal-body" id="AvailableChequeList">
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section toastr{
+    @Html.Raw(TempData["saveMassage"])
+}
+@section styles{
+
+    <link href="~/Scripts/PersianDateTimePicker/jquery-ui-datetimepicker.min.css" rel="stylesheet" />
+}
+@section scripts{
+    <script src="~/Scripts/PersianDateTimePicker/jquery-ui-datetimepicker.min.js"></script>
+    <script>
+        var cashCount = -1;
+        var CardCount = -1;
+        var ChequeCount = -1;
+        var PayCheque = [];
+        $(document).on("keyup", ".Cashprice", function () {
+            // skip for arrow keys
+            if (event.which >= 37 && event.which <= 40) return;
+
+            // format number
+            $(this).val(function (index, value) {
+                return value
+                    .replace(/\D/g, "")
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    ;
+            });
+        });
+        //CardPart
+
+        $(document).on("change", ".CardBankAccount", function () {
+            var Row = $(this).closest('.card').attr("Row");
+            var value = $("#Card_" + Row + "__BankAccountId").find(":selected").val();
+            $.ajax({
+                url: "/Transaction/GetAccountInfo",
+                data: { BookId: value },
+                type: "Post",
+                dataType: "Json",
+                success: function (result) {
+                    $("#Card_" + Row + "__CardAccountNumber").val(result.Html + "/" + result.Option);
+                },
+                error: function () {
+                    alert("خطا!");
+                }
+            });
+        });
+        $(document).on("keyup", ".Cardprice", function () {
+            // skip for arrow keys
+            if (event.which >= 37 && event.which <= 40) return;
+
+            // format number
+            $(this).val(function (index, value) {
+                return value
+                    .replace(/\D/g, "")
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    ;
+            });
+        });
+
+
+        $(document).on("click", "#CashAdd", function (e) {
+            e.preventDefault();
+            cashCount = cashCount + 1;
+            $.ajax({
+                url: "/Transaction/GenerateForm",
+                data: { Row: cashCount, Formtype: 1 },
+                type: "Post",
+                dataType: "Json",
+                success: function (result) {
+                    $("#CashPart").append(result.Html);
+                    var form = $("#PayForm")
+                        .removeData("validator") /* added by the raw jquery.validate plugin */
+                        .removeData("unobtrusiveValidation");  /* added by the jquery unobtrusive plugin*/
+                    $.validator.unobtrusive.parse(form);
+                    $(form).data('unobtrusiveValidation');
+                },
+                error: function () {
+                    alert("خطا!");
+                }
+            });
+
+        });
+        $(document).on("click", "#BankJarAdd", function (e) {
+            e.preventDefault();
+            CardCount = CardCount + 1;
+            $.ajax({
+                url: "/Transaction/GenerateForm",
+                data: { Row: CardCount, Formtype: 2, ptaype: false },
+                type: "Post",
+                dataType: "Json",
+                success: function (result) {
+                    $("#CardPart").append(result.Html);
+                    var form = $("#PayForm")
+                        .removeData("validator") /* added by the raw jquery.validate plugin */
+                        .removeData("unobtrusiveValidation");  /* added by the jquery unobtrusive plugin*/
+                    $.validator.unobtrusive.parse(form);
+                    $(form).data('unobtrusiveValidation');
+                },
+                error: function () {
+                    alert("خطا!");
+                }
+            });
+
+        });
+        $(document).on("click", "#ChequeAdd", function (e) {
+            e.preventDefault();
+            ChequeCount = ChequeCount + 1;
+            $.ajax({
+                url: "/Transaction/GenerateForm",
+                data: { Row: ChequeCount, Formtype: 4 },
+                type: "Post",
+                dataType: "Json",
+                success: function (result) {
+                    $("#ChequePart").append(result.Html);
+                    var form = $("#PayForm")
+                        .removeData("validator") /* added by the raw jquery.validate plugin */
+                        .removeData("unobtrusiveValidation");  /* added by the jquery unobtrusive plugin*/
+                    $.validator.unobtrusive.parse(form);
+                    $(form).data('unobtrusiveValidation');
+                    $(".DatePicker").datepicker({
+                        beforeShow: function (input, inst) {
+                            var cal = inst.dpDiv;
+                            var left = $(this).offset().left;
+                            setTimeout(function () {
+                                cal.css({
+                                    'left': left
+                                });
+                            }, 10);
+                        }
+                    });
+                },
+                error: function () {
+                    alert("خطا!");
+                }
+            });
+
+        });
+        $(document).on("click", "#PayCheque", function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: "/Transaction/GetAvailableCheque",
+                data: {},
+                type: "Post",
+                dataType: "Json",
+                success: function (result) {
+
+                    $("#AvailableChequeList").html(result.Html);
+                    var dataTable = $("#AvailableChequeItems").dataTable({
+                        "bInfo": false,
+                        "bLengthChange": false,
+                        "bSort": false,
+                        "language": {
+                            "paginate": {
+                                "previous": "قبلی",
+                                "next": "بعدی"
+                            }
+                        },
+                        "iDisplayLength": 6
+                    });
+                    $("#Chequesearchbox").keyup(function () {
+                        dataTable.fnFilter(this.value);
+                    });
+                    $("#modalAvailableCheque").modal({ backdrop: true });
+                },
+                error: function () {
+                    alert("خطا!");
+                }
+            });
+        });
+        $(document).on("click", "#AvailableChequeItems tr td a#SelectAvailableCheque", function () {
+            var Row = $(this).closest('tr');
+            var ChequeId = $(this).attr("value");
+
+            if (jQuery.inArray(ChequeId, PayCheque) !== -1) {
+
+                Toast("چک با این شماره به لیست اضافه شده,info");
+            }
+            else {
+                $.ajax({
+                    url: "/Transaction/GenerateForm",
+                    data: { Row: ChequeId, Formtype: 5, ptaype: false },
+                    type: "Post",
+                    dataType: "Json",
+                    success: function (result) {
+                        $("#PayChequePart").append(result.Html);
+                        var Amoutn = Row.find('td:eq(2)').text().trim().replace(/,/g, '');
+                        var TotalAmount = $("#pay_TotalAmount").val();
+                        TotalAmount = +TotalAmount + +Amoutn;
+                        $("#pay_TotalAmount").val(TotalAmount);
+                        var T = TotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        $("#TAmount").text(T);
+                        PayCheque.push(ChequeId);
+                        $("#PayChequeIds").val(PayCheque);
+                        $("#modalAvailableCheque").modal('hide');
+                    },
+                    error: function () {
+                        alert("خطا!");
+                    }
+                });
+
+            }
+
+
+
+
+        });
+        $(document).on("click", ".RemoveCashPart", function () {
+            var Row = $(this).closest('.card').attr('Row');
+            if (cashCount == Row) {
+
+                cashCount = cashCount - 1;
+                var Amount = $("#cash_" + Row + "__Amount").val().replace(/,/g, '');
+                var TotalAmount = $("#pay_TotalAmount").val();
+                TotalAmount = +TotalAmount - +Amount;
+                $("#pay_TotalAmount").val(TotalAmount);
+                var T = TotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                $("#TAmount").text(T);
+                $(this).closest('.card').remove();
+            }
+
+        });
+        $(document).on("click", ".RemoveCardPart", function () {
+            var Row = $(this).closest('.card').attr('Row');
+            if (CardCount == Row) {
+
+                CardCount = CardCount - 1;
+                var Amount = $("#Card_" + Row + "__Amount").val().replace(/,/g, '');
+                var TotalAmount = $("#pay_TotalAmount").val();
+                TotalAmount = +TotalAmount - +Amount;
+                $("#pay_TotalAmount").val(TotalAmount);
+                var T = TotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                $("#TAmount").text(T);
+                $(this).closest('.card').remove();
+
+            }
+
+        });
+        $(document).on("click", ".RemoveChequePart", function () {
+            var Row = $(this).closest('.card').attr('Row');
+
+            if (ChequeCount == Row) {
+
+                ChequeCount = ChequeCount - 1;
+                var Amount = $("#cheques_" + Row + "__Price").val().replace(/,/g, '');
+                var TotalAmount = $("#pay_TotalAmount").val();
+                TotalAmount = +TotalAmount - +Amount;
+                $("#pay_TotalAmount").val(TotalAmount);
+                var T = TotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                $("#TAmount").text(T);
+                $(this).closest('.card').remove();
+            }
+
+        });
+        $(document).on("click", ".RemovePayChequePart", function () {
+
+            var ChequeId = $(this).closest('.card').attr('ChequeId');
+            var Amount = $(this).closest('.card').attr('Amount');
+            var TotalAmount = $("#pay_TotalAmount").val();
+            TotalAmount = +TotalAmount - +Amount;
+            $("#pay_TotalAmount").val(TotalAmount);
+            PayCheque = jQuery.grep(PayCheque, function (value) {
+                return value != ChequeId;
+            });
+            $("#PayChequeIds").val(PayCheque);
+            var T = TotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            $("#TAmount").text(T);
+            $(this).closest('.card').remove()
+
+
+        });
+
+        //select2
+        $(document).ready(function () {
+            $("#pay_PersonType").select2();
+            $("#pay_Persons").select2();
+            $("#pay_sarfasl").select2();
+            $("#pay_Tafsili").select2();
+        });
+
+        //personTypeChange
+        $(document).on("change", "#pay_PersonType", function () {
+
+            var value = $("#pay_PersonType").find(":selected").val();
+            if (value != 0) {
+                $.ajax({
+                    url: "/Transaction/GetPesronsInfo",
+                    data: { PersonType: value },
+                    type: "Post",
+                    dataType: "Json",
+                    success: function (result) {
+                        $("#DrpPerson").html(result.Html);
+                        $("#pay_Persons").select2();
+
+                    },
+                    error: function () {
+                        alert("خطا!");
+                    }
+                });
+            }
+
+        });
+        $(document).on("keyup", ".Chequeprice", function () {
+            // skip for arrow keys
+            if (event.which >= 37 && event.which <= 40) return;
+
+            // format number
+            $(this).val(function (index, value) {
+                return value
+                    .replace(/\D/g, "")
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    ;
+            });
+
+        });
+
+        $(document).on("focusout", ".Chequeprice", function () {
+            var TotalAmount = $("#pay_TotalAmount").val();
+            var cashAmout = $(this).val().replace(/,/g, '');
+            TotalAmount = +TotalAmount + +cashAmout;
+            $("#pay_TotalAmount").val(TotalAmount);
+            var T = TotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            $("#TAmount").text(T);
+        });
+        $(document).on("focusin", ".Chequeprice", function () {
+            var TotalAmount = $("#pay_TotalAmount").val();
+            var cashAmout = $(this).val().replace(/,/g, '');
+            TotalAmount = +TotalAmount - +cashAmout;
+            $("#pay_TotalAmount").val(TotalAmount);
+            var T = TotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            $("#TAmount").text(T);
+        });
+
+        $(document).on("focusin", ".Cashprice", function () {
+            var TotalAmount = $("#pay_TotalAmount").val();
+            var cashAmout = $(this).val().replace(/,/g, '');
+            TotalAmount = +TotalAmount - +cashAmout;
+            $("#pay_TotalAmount").val(TotalAmount);
+            var T = TotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            $("#TAmount").text(T);
+        });
+        $(document).on("focusout", ".Cashprice", function () {
+            var TotalAmount = $("#pay_TotalAmount").val();
+            var cashAmout = $(this).val().replace(/,/g, '');
+            TotalAmount = +TotalAmount + +cashAmout;
+            $("#pay_TotalAmount").val(TotalAmount);
+            var T = TotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            $("#TAmount").text(T);
+        });
+
+        $(document).on("focusout", ".Cardprice", function () {
+            var TotalAmount = $("#pay_TotalAmount").val();
+            var cashAmout = $(this).val().replace(/,/g, '');
+            TotalAmount = +TotalAmount + +cashAmout;
+            $("#pay_TotalAmount").val(TotalAmount);
+            var T = TotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            $("#TAmount").text(T);
+        });
+        $(document).on("focusin", ".Cardprice", function () {
+            var TotalAmount = $("#pay_TotalAmount").val();
+            var cashAmout = $(this).val().replace(/,/g, '');
+            TotalAmount = +TotalAmount - +cashAmout;
+            $("#pay_TotalAmount").val(TotalAmount);
+            var T = TotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            $("#TAmount").text(T);
+        });
+
+        function SuccessPayment(data) {
+            if (data.RedirectUrl) {
+                window.location.href = data.RedirectUrl;
+            }
+        }
+
+        //GetBalance
+        $(document).on("change", "#pay_Persons", function () {
+
+            var pt = $("#pay_PersonType").find(":selected").val();
+            var p = $("#pay_Persons").find(":selected").val();
+            $.ajax({
+                url: "/Transaction/GetPersonBalance",
+                data: { PersonId: p.split('/')[0], PersonType: pt },
+                type: "Post",
+                dataType: "Json",
+                success: function (result) {
+                    $("#Blance").html(result.Html);
+                    var TotalAmount = $("#pay_TotalAmount").val();
+                    var T = TotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    $("#TAmount").text(T);
+
+                },
+                error: function () {
+                    alert("خطا!");
+                }
+            });
+
+        });
+
+        //radio
+        $(document).on("click", ".radioactive", function () {
+            var val = $('input[name=PayType]:checked').val();
+            if (val == 0) {
+                $("#pay_PersonType").removeAttr("disabled");
+                $("#pay_Persons").removeAttr("disabled");
+                setTimeout(function () {
+                    $("#PersonSelect").slideDown();
+                }, 50);
+                $("#HesabSelect").slideUp();
+                setTimeout(function () {
+                    $("#pay_sarfasl").attr("disabled", "disabled");
+                    $("#pay_Tafsili").attr("disabled", "disabled");
+                }, 250);
+
+
+            }
+            else {
+                $("#pay_sarfasl").removeAttr("disabled");
+                $("#pay_Tafsili").removeAttr("disabled");
+                setTimeout(function () {
+                    $("#HesabSelect").slideDown();
+                }, 50);
+                $("#PersonSelect").slideUp();
+                setTimeout(function () {
+                    $("#pay_PersonType").attr("disabled", "disabled");
+                    $("#pay_Persons").attr("disabled", "disabled");
+                }, 250);
+
+
+
+            }
+
+        });
+
+        //HesabChange
+        $(document).on("change", "#pay_sarfasl", function () {
+            var value = $("#pay_sarfasl").find(":selected").val();
+            if (value != 0) {
+                $.ajax({
+                    url: "/Transaction/GetTafsiliInfo",
+                    data: { SarfaslId: value },
+                    type: "Post",
+                    dataType: "Json",
+                    success: function (result) {
+                        $("#DrpTafsili").html(result.Html);
+                        $("#pay_Tafsili").select2();
+                        var form = $("#PayForm")
+                            .removeData("validator") /* added by the raw jquery.validate plugin */
+                            .removeData("unobtrusiveValidation");  /* added by the jquery unobtrusive plugin*/
+                        $.validator.unobtrusive.parse(form);
+                        $(form).data('unobtrusiveValidation');
+
+                    },
+                    error: function () {
+                        alert("خطا!");
+                    }
+                });
+            }
+
+        });
+
+    </script>
+
+}

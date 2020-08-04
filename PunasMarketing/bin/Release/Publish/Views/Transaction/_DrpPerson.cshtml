@@ -1,0 +1,26 @@
+﻿@model PunasMarketing.ViewModels.Transaction.PaymentViewModel
+@if (Model.PersonType == 1)
+{
+    <div class="md-form-group md-label-static">
+        @Html.LabelFor(model => model.pay.Persons, new { @class = "form-label" })
+        @Html.DropDownListFor(model => model.pay.Persons, Model.Personnels,"انتخاب کنید", new { @class = "form-control" })
+        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.pay.Persons)</span>
+    </div>
+}
+else if (Model.PersonType == 2)
+{
+    <div class="md-form-group md-label-static">
+        @Html.LabelFor(model => model.pay.Persons, new { @class = "form-label" })
+        @Html.DropDownListFor(model => model.pay.Persons, Model.Customers,"انتخاب کنید", new { @class = "form-control" })
+        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.pay.Persons)</span>
+    </div>
+}
+else
+{
+    <div class="md-form-group md-label-static">
+        @Html.LabelFor(model => model.pay.Persons, new { @class = "form-label" })
+        @Html.DropDownListFor(model => model.pay.Persons,Model.Suppliers,"انتخاب کنید", new { @class = "form-control" })
+        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.pay.Persons)</span>
+    </div>
+}
+

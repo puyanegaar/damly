@@ -1,0 +1,323 @@
+﻿@model PunasMarketing.ViewModels.Personnel.PersonnelViewModel
+@{
+                /**/
+
+                ViewBag.Title = "افزودن پرسنل";
+}
+
+<div class="layout-content-body">
+    <legend>
+        <h2>افزودن پرسنل</h2>
+    </legend>
+
+    @using (Html.BeginForm("AddPersonnel", "Personnel", 
+        FormMethod.Post, 
+        new { enctype = "multipart/form-data", id = "UploadFrom", autocomplete = "off" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <div class="col-xs-12 col-md-12">
+            <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19); border-radius:5px;">
+                <div class="card-header">
+                    <strong>اطلاعات شخصی</strong>
+                </div>
+
+                <div class="card-body">
+                    <div class="col-xs-8 col-md-8">
+                        <div class="col-xs-6 col-md-6">
+                            <div class="md-form-group md-label-static">
+                                @Html.TextBoxFor(model => model.personnel.FirstName, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                                @Html.LabelFor(model => model.personnel.FirstName, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.personnel.FirstName)</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-6">
+                            <div class="md-form-group md-label-static">
+                                @Html.TextBoxFor(model => model.personnel.LastName, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                                @Html.LabelFor(model => model.personnel.LastName, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.personnel.LastName)</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-6">
+                            <div class="md-form-group md-label-static">
+                                @Html.TextBoxFor(model => model.personnel.FatherName, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                                @Html.LabelFor(model => model.personnel.FatherName, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.personnel.FatherName)</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-6">
+                            <div class="md-form-group md-label-static">
+                                @Html.TextBoxFor(model => model.personnel.CodeMelli, new { @class = "md-form-control", type = "number", spellcheck = "false" })
+                                @Html.LabelFor(model => model.personnel.CodeMelli, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.personnel.CodeMelli)</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-6">
+                            <div class="md-form-group md-label-static">
+                                <select id="personnel_IsMale" name="personnel.IsMale" class="md-form-control">
+                                    <option>انتخاب کنید</option>
+                                    <option value="true">مرد</option>
+                                    <option value="false">زن</option>
+                                </select>
+                                @Html.LabelFor(model => model.personnel.IsMale, new { @class = "md-control-label" })
+                                <span id="genderError" class="has-error md-help-block valError" style="display: none">جنسیت را انتخاب کنید</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-6">
+                            <div class="md-form-group md-label-static">
+                                <select id="personnel_IsMarried" name="personnel.IsMarried" class="md-form-control">
+                                    <option>انتخاب کنید</option>
+                                    <option value="true">متاهل</option>
+                                    <option value="false">مجرد</option>
+                                </select>
+                                @Html.LabelFor(model => model.personnel.IsMarried, new { @class = "md-control-label" })
+                                <span id="maritialStatusError" class="has-error md-help-block valError" style="display: none">وضعیت تأهل را انتخاب کنید</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-4 col-md-4">
+                        <div class="col-xs-12 col-md-12" style="">
+                            <input id="ImageFile" name="ImageFile" type="file" style="display:none" required="" />
+                            <img id="Image" src="~/Content/Upload/Image/Personnels/sampleImage.png" style="width:150px;height:200px; display:block ;margin:auto;cursor:pointer" />
+                        </div>
+                        <div class="col-xs-12 col-md-12" style="margin-top:15px">
+                            <input id="ImageSelect" class="btn btn-info" type="button" value="انتخاب عکس" style="display:block ;margin:auto" />
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-12">
+                        <div class="col-xs-4 col-md-4">
+                            <div class="md-form-group md-label-static">
+                                @Html.DropDownListFor(model => model.personnel.BirthStateId, new SelectList(Model.Provinces, "Id", "Name"), "انتخاب کنید", new { @class = "md-form-control" })
+                                @Html.LabelFor(model => model.personnel.BirthStateId, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.personnel.BirthStateId)</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-md-4">
+                            <div class="md-form-group md-label-static" id="DrpBirthCities">
+                                @Html.DropDownListFor(model => model.personnel.BirthCityId, Enumerable.Empty<SelectListItem>(), "ابتدا استان را انتخاب کنید", new { @class = "md-form-control" })
+                                @Html.LabelFor(model => model.personnel.BirthCityId, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.personnel.BirthCityId)</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-md-4">
+                            <div class="md-form-group md-label-static">
+                                @Html.TextBoxFor(model => model.StrBirthDate, new { id = "birthDate", @class = "md-form-control", type = "text", spellcheck = "false", @readonly = "readonly", data_val_date = "قالب تاریخ صحیح نیست" })
+                                @Html.LabelFor(model => model.StrBirthDate, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.StrBirthDate)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-12">
+            <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19); border-radius:5px;">
+                <div class="card-header">
+                    <strong>اطلاعات تماس</strong>
+                </div>
+
+                <div class="card-body">
+                    <div class="col-xs-4 col-md-4">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.personnel.Mobile1, new { @class = "md-form-control", type = "number", spellcheck = "false" })
+                            @Html.LabelFor(model => model.personnel.Mobile1, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.personnel.Mobile1)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-md-4">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.personnel.Mobile2, new { @class = "md-form-control", type = "number", spellcheck = "false" })
+                            @Html.LabelFor(model => model.personnel.Mobile2, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.personnel.Mobile2)</span>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-4 col-md-4">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.personnel.Phone, new { @class = "md-form-control", type = "number", spellcheck = "false" })
+                            @Html.LabelFor(model => model.personnel.Phone, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.personnel.Phone)</span>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-md-6">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.personnel.RelatedPhone, new { @class = "md-form-control", type = "number", spellcheck = "false" })
+                            @Html.LabelFor(model => model.personnel.RelatedPhone, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.personnel.RelatedPhone)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.personnel.Email, new { @class = "md-form-control", type = "email", spellcheck = "false" })
+                            @Html.LabelFor(model => model.personnel.Email, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.personnel.Email)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6">
+                        <div class="md-form-group md-label-static">
+                            @Html.DropDownListFor(model => model.personnel.HomeStateId, new SelectList(Model.Provinces, "Id", "Name"), "انتخاب کنید", new { @class = "md-form-control" })
+                            @Html.LabelFor(model => model.personnel.HomeStateId, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.personnel.HomeStateId)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6">
+                        <div class="md-form-group md-label-static" id="DrpHomeCities">
+                            @Html.DropDownListFor(model => model.personnel.HomeCityId, Enumerable.Empty<SelectListItem>(), "ابتدا استان را انتخاب کنید", new { @class = "md-form-control" })
+                            @Html.LabelFor(model => model.personnel.HomeCityId, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.personnel.HomeCityId)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-12">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.personnel.HomeAddress, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                            @Html.LabelFor(model => model.personnel.HomeAddress, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.personnel.HomeAddress)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-12">
+            <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19); border-radius:5px;">
+                <div class="card-header">
+                    <strong>اطلاعات شغلی</strong>
+                </div>
+
+                <div class="card-body">
+                    <div class="col-xs-6 col-md-6">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.personnel.PersonnelCode, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                            @Html.LabelFor(model => model.personnel.PersonnelCode, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.personnel.PersonnelCode)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.StrHireDate, new { id = "hireDate", @class = "md-form-control", type = "text", spellcheck = "false", @readonly = "readonly", data_val_date = "قالب تاریخ صحیح نیست" })
+                            @Html.LabelFor(model => model.StrHireDate, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.StrHireDate)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6">
+                        <div class="md-form-group md-label-static">
+                            @Html.DropDownListFor(model => model.personnel.AcademicDegree, new SelectList(Model.Academics, "Id", "Name"), "انتخاب کنید", new { @class = "md-form-control" })
+                            @Html.LabelFor(model => model.personnel.AcademicDegree, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.personnel.AcademicDegree)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.personnel.FieldOfStudy, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                            @Html.LabelFor(model => model.personnel.FieldOfStudy, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.personnel.FieldOfStudy)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6">
+                        <div class="md-form-group md-label-static">
+                            @Html.DropDownListFor(model => model.personnel.SectionId, new SelectList(Model.Sections, "Id", "Name"), "انتخاب کنید", new { @class = "md-form-control" })
+                            @Html.LabelFor(model => model.personnel.SectionId, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.personnel.SectionId)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6">
+                        <div class="md-form-group md-label-static" id="DrpJobTitleId">
+                            @Html.DropDownListFor(model => model.personnel.JobTitleId, Enumerable.Empty<SelectListItem>(), "ابتدا عنوان شغلی را انتخاب کنید", new { @class = "md-form-control" })
+                            @Html.LabelFor(model => model.personnel.JobTitleId, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.personnel.JobTitleId)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-12">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextAreaFor(model => model.personnel.Description, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                            @Html.LabelFor(model => model.personnel.Description, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.personnel.Description)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-12">
+                        <div class="md-form-group md-label-floating">
+                            <label class="custom-control custom-control-primary custom-checkbox">
+                                <input class="custom-control-input" data-val="true" id="personnel_IsGettingSalary" name="personnel.IsGettingSalary" type="checkbox" value="true">
+                                <span class="custom-control-indicator"></span>
+                                <span class="custom-control-label">آیا پرسنل حقوق بگیر است!</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-12">
+                        <div class="md-form-group md-label-floating">
+                            <label class="custom-control custom-control-primary custom-checkbox">
+                                <input class="custom-control-input" data-val="true" id="personnel_SystemUser" name="personnel.SystemUser" type="checkbox" value="true">
+                                <span class="custom-control-indicator"></span>
+                                <span class="custom-control-label">آیا پرسنل یورز سیستمی خواهد بود!</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-12">
+            <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19); border-radius:5px;">
+                <div class="card-header">
+                    <strong>اطلاعات مالی</strong>
+                </div>
+
+                <div class="card-body">
+                    <div class="col-xs-6 col-md-6">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.personnel.BankCardNum, new { @class = "md-form-control", type = "number", spellcheck = "false" })
+                            @Html.LabelFor(model => model.personnel.BankCardNum, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.personnel.BankCardNum)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.personnel.BankName, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                            @Html.LabelFor(model => model.personnel.BankName, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.personnel.BankName)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-12">
+                        <div class="col-xs-11 col-md-11" style="padding: 0px">
+                            <div class="md-form-group md-label-static">
+                                @Html.TextBoxFor(model => model.personnel.Iban, new { @class = "md-form-control", type = "number", spellcheck = "false", dir = "ltr" })
+                                @Html.LabelFor(model => model.personnel.Iban, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.personnel.Iban)</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-1 col-md-1" dir="ltr" style="text-align: right; font-size: 20px; margin-top: 20px">
+                            IR-
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-12">
+            <div class="margin-top">
+                <div class="col-xs-12 col-md-12">
+                    <input id="btnSubmit" class="btn btn-success" type="submit" value="ثبت اطلاعات" />
+                    <a href="@Url.Action("Personnels","Personnel")" class="btn btn-default">برگشت</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section toastr {
+    @Html.Raw(TempData["SaveMessage"])
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/personnelsJs")
+    <script>
+        addPersonnel();
+
+        SelectImage();
+    </script>
+}

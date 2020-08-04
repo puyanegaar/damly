@@ -1,0 +1,196 @@
+﻿@model PunasMarketing.ViewModels.Transaction.TransferViewModel
+@{
+    ViewBag.Title = "ویرایش انتقال وجه";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="layout-content-body">
+    <legend>
+        انتقال وجه
+    </legend>
+    @using (Ajax.BeginForm("UpdateTransfer", "Transaction", new AjaxOptions() { HttpMethod = "Post", OnSuccess = "SuccessTransfer", OnBegin = "start", OnComplete = "Complete" }, new { id = "TransferForm" }))
+    {
+        <div class="col-xs-12 col-md-12" style="margin-top:10px">
+            <div class="col-xs-4 col-md-4">
+                <div class="md-form-group md-label-static">
+                    @Html.HiddenFor(m => m.SanadId)
+                    @Html.HiddenFor(m => m.FirstItemId)
+                    @Html.HiddenFor(m => m.SecondItemId)
+                    @Html.HiddenFor(m => m.IsChanged)
+                    @Html.TextBoxFor(model => model.Amount, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                    @Html.LabelFor(model => model.Amount, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Amount)</span>
+                </div>
+            </div>
+            <div class="col-xs-4 col-md-4" style="float:left">
+                <div class="md-form-group md-label-static">
+                    @Html.TextBoxFor(model => model.Date, new { @class = "md-form-control", type = "text", spellcheck = "false", @readonly = "readonly" })
+                    @Html.LabelFor(model => model.Date, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Date)</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-12">
+            <div class="col-xs-12 col-md-12">
+                <div class="md-form-group md-label-static">
+                    @Html.TextBoxFor(model => model.Description, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                    @Html.LabelFor(model => model.Description, new { @class = "md-control-label" })
+
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-12" style="border-bottom:1px solid #ddd; margin-top:10px">&nbsp;</div>
+        <div class="col-xs-12 col-md-12" style="margin-top:20px">
+            <div class="col-xs-6 col-md-6">
+                <div class="col-xs-4 col-md-4">
+                    <label class="form-label"> مبدا:</label>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                    <label class="custom-control custom-control-primary custom-radio">
+                        <input class="custom-control-input SourceRadioactive" type="radio" id="SourceType" name="SourceType" value="0" @if (Model.IsFromCash) { <text> Checked</text> }>
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-label">صندوق</span>
+                    </label>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                    <label class="custom-control custom-control-primary custom-radio">
+                        <input class="custom-control-input SourceRadioactive" type="radio" id="SourceType" name="SourceType" value="1" @if (!Model.IsFromCash) { <text> Checked</text> }>
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-label">بانک</span>
+                    </label>
+                </div>
+                <div class="col-xs-12 col-md-12" id="DrpSourceCashDesk" @if (!Model.IsFromCash) { <text> style="display:none" </text> }>
+                    <div class="md-form-group md-label-static">
+                        @if (Model.IsFromCash)
+                        {
+                            @Html.LabelFor(model => model.FromCashDesk, new { @class = "form-label" })
+                            @Html.DropDownListFor(model => model.FromCashDesk, new SelectList(Model.cashDesks, "Id", "Name"), "انتخاب کنید", new { @class = "form-control" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.FromCashDesk)</span>
+                        }
+                        else
+                        {
+                            @Html.LabelFor(model => model.FromCashDesk, new { @class = "form-label" })
+                            @Html.DropDownListFor(model => model.FromCashDesk, new SelectList(Model.cashDesks, "Id", "Name"), "انتخاب کنید", new { @class = "form-control", disabled = "disabled" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.FromCashDesk)</span>
+                        }
+
+                    </div>
+                </div>
+                <div id="DrpSourceBank" @if (Model.IsFromCash) { <text> style="display:none" </text> }>
+                    <div class="col-xs-12 col-md-12">
+                        <div class="md-form-group md-label-static">
+                            @if (!Model.IsFromCash)
+                            {
+                                @Html.LabelFor(model => model.FromBank, new { @class = "form-label" })
+                                @Html.DropDownListFor(model => model.FromBank, new SelectList(Model.Banks, "BankAccountId", "HesabCompeletName"), "انتخاب کنید", new { @class = "form-control" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.FromBank)</span>
+                            }
+                            else
+
+                            {
+                                @Html.LabelFor(model => model.FromBank, new { @class = "form-label" })
+                                @Html.DropDownListFor(model => model.FromBank, new SelectList(Model.Banks, "BankAccountId", "HesabCompeletName"), "انتخاب کنید", new { @class = "form-control", disabled = "disabled" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.FromBank)</span>
+                            }
+
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-12">
+
+                        @Html.LabelFor(mpdel => mpdel.FromIssueTracking, new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.FromIssueTracking, new { @class = "form-control", spellcheck = "false" })
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-6">
+                <div class="col-xs-4 col-md-4">
+                    <label class="form-label"> مقصد:</label>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                    <label class="custom-control custom-control-primary custom-radio">
+                        <input class="custom-control-input DestRadioactive" type="radio" id="DestType" name="DestType" value="0" @if (Model.IsToCash) { <text> Checked</text> }>
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-label">صندوق</span>
+                    </label>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                    <label class="custom-control custom-control-primary custom-radio">
+                        <input class="custom-control-input DestRadioactive" type="radio" id="DestType" name="DestType" value="1" @if (!Model.IsToCash) { <text> Checked</text> }>
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-label">بانک</span>
+                    </label>
+                </div>
+                <div class="col-xs-12 col-md-12" id="DrpDestCashDesk" @if (!Model.IsToCash) { <text> style="display:none" </text> }>
+                    <div class="md-form-group md-label-static">
+                        @if (Model.IsToCash)
+                        {
+                            @Html.LabelFor(model => model.ToCashDesk, new { @class = "form-label" })
+                            @Html.DropDownListFor(model => model.ToCashDesk, new SelectList(Model.cashDesks, "Id", "Name"), "انتخاب کنید", new { @class = "form-control" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.ToCashDesk)</span>
+                        }
+                        else
+                        {
+                            @Html.LabelFor(model => model.ToCashDesk, new { @class = "form-label" })
+                            @Html.DropDownListFor(model => model.ToCashDesk, new SelectList(Model.cashDesks, "Id", "Name"), "انتخاب کنید", new { @class = "form-control", disabled = "disabled" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.ToCashDesk)</span>
+                        }
+
+                    </div>
+                </div>
+                <div id="DrpDestBank" @if (Model.IsToCash) { <text> style="display:none" </text> }>
+                    <div class="col-xs-12 col-md-12">
+                        <div class="md-form-group md-label-static">
+                            @if (!Model.IsToCash)
+                            {
+                                @Html.LabelFor(model => model.ToBank, new { @class = "form-label" })
+                                @Html.DropDownListFor(model => model.ToBank, new SelectList(Model.Banks, "BankAccountId", "HesabCompeletName"), "انتخاب کنید", new { @class = "form-control" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.ToBank)</span>
+                            }
+                            else
+                            {
+                                @Html.LabelFor(model => model.ToBank, new { @class = "form-label" })
+                                @Html.DropDownListFor(model => model.ToBank, new SelectList(Model.Banks, "BankAccountId", "HesabCompeletName"), "انتخاب کنید", new { @class = "form-control", disabled = "disabled" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.ToBank)</span>
+                            }
+
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-12">
+                        @Html.LabelFor(mpdel => mpdel.ToIssueTracking, new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.ToIssueTracking, new { @class = "form-control", spellcheck = "false" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-12" style="border-bottom:1px solid #ddd ; margin-top:20px"></div>
+        <div class="col-xs-12 col-md-12">
+            <div class="margin-top">
+                <div class="col-xs-12 col-md-12">
+                    <input id="AddTransfer" class="btn btn-success" type="submit" value="ثبت اطلاعات" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@section toastr{
+    @Html.Raw(TempData["saveMassage"])
+}
+
+  
+@section scripts{
+    @Scripts.Render("~/bundles/Transactionsjs")
+    <script>
+        function SuccessTransfer(data) {
+            if (data.RedirectUrl) {
+                window.location.href = data.RedirectUrl;
+            }
+        }
+        updateTransfer();
+    </script>
+ 
+
+}
+

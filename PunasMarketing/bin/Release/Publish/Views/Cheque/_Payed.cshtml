@@ -1,0 +1,25 @@
+﻿@model int?
+
+<div class="modal-header bg-danger">
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true" style="color: white">×</span>
+        <span class="sr-only">Close</span>
+    </button>
+    <h4 class="modal-title">تغییر وضعیت چک به پرداختی</h4>
+</div>
+
+<div id="myDiv">
+    @using (Html.BeginForm("PayedModal", "Cheque", FormMethod.Post, new { style = "padding: 10px" }))
+    {
+        @Html.HiddenFor(model => model.Value)
+
+        <h4>آیا می خواهید وضعیت چک را به پرداختی تغییر دهید؟</h4>
+        <h5>توجه: سند وصول یا سند عودت چک، در صورت وجود حذف خواهند شد و وضعیت چک به حالت عادی بر می گردد.</h5>
+
+        <input class="btn btn-outline-success btn-next" type="submit" value="تأیید" />
+        <input class="btn btn-outline-danger btn-next" type="button" value="لغو" data-dismiss="modal" />
+    }
+</div>
+
+@Scripts.Render("~/bundles/jqueryval")
+

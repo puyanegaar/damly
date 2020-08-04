@@ -1,0 +1,16 @@
+﻿.disabled-li {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.badge-danger {
+    background-color: #de0b0b;
+}
+
+.deleted {
+    background-color: #ffcaca !important;
+}
+
+a {
+    cursor: pointer;
+}

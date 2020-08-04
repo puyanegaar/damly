@@ -1,0 +1,60 @@
+﻿@model PunasMarketing.ViewModels.Reports.LedgerReportViewModel
+@helper AddOption(int? parentId)
+    {
+        string title = "";
+        foreach (var item in Model.Sarfasls.Where(p => p.ParentId == parentId))
+        {
+            if (item.ParentId == null)
+            {
+                title = "گروه";
+            }
+            else if (item.IsMoeen)
+            {
+                title = "معین";
+            }
+            else
+            {
+                title = "کل";
+            }
+            <li>
+                @{var submenu = Model.Sarfasls.Where(p => p.ParentId == item.Id).Count();}
+                @if (submenu > 0)
+                {
+                    <span class="Sarfaslcollapse collapsible">&nbsp;</span>
+
+                }
+                else
+                {
+                    <span style="width: 15px; display: inline-block">&nbsp;</span>
+
+                }
+
+                <span>
+                    @{ int type = item.IsMoeen ? 1 : 0;
+                       int pId = item.ParentId.HasValue ? item.ParentId.Value : 0;
+                    }
+
+                    <a id="SarfaslName" value="@item.Id" parentid="@pId" SarfaslType="@type" SarfaslName="@item.Name" style="font-size:14px">
+                        (@title) @item.Name
+                    </a>
+                </span>
+
+
+
+                @if (submenu > 0)
+                {
+                    <ul>
+                        @AddOption(item.Id)
+                        @* Recursive  Call for Populate Sub items here*@
+                    </ul>
+                }
+            </li>
+
+        }
+}
+
+<div id="divSarfaslList" class="Sarfasltreeview" style="margin-right:-35px">
+    <ul id="selType">
+        @AddOption(null)
+    </ul>
+</div>

@@ -1,0 +1,205 @@
+﻿@model PunasMarketing.ViewModels.Invoice.InvoiceViewModel
+@{
+    ViewBag.Title = "ویرایش رسید ";
+}
+
+<div class="layout-content-body">
+    @using (Html.BeginForm("UpdateReceiveInvoice", "Invoice", FormMethod.Post))
+    {
+        <div id="divInfo">
+            <legend>
+                <h2>ویرایش رسید </h2>
+            </legend>
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.InvoiceModel.Id)
+            <div class="col-xs-12 col-md-12">
+                <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19); border-radius:5px;">
+                    <div class="card-header">
+                        <div class="card-actions">
+                            <button type="button" class="card-action card-toggler" title="Collapse"></button>
+                        </div>
+                        <strong>اطلاعات رسید</strong>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="col-xs-12 col-md-4" style="right: 33.333333333333%">
+
+                            <div class="md-form-group md-label-static">
+                                <select id="SendInvoiceType" class="md-form-control">
+                                    <option>انتخاب کنید</option>
+                                    <option value="1" @((Model.InvoiceModel.OtherWareHouseId != null) ? "selected" : "")>انبار به انبار</option>
+                                    <option value="2" @((Model.InvoiceModel.FactorNum != null) ? "selected" : "")>خارج به انبار</option>
+                                    <option value="3" @((Model.InvoiceModel.PersonnelId != null) ? "selected" : "")>داخلی</option>
+                                </select>
+                                @Html.Label("نوع حواله", new { @class = "md-control-label" })
+
+                            </div>
+
+                            <div class="md-form-group md-label-static">
+                                @Html.DropDownListFor(model => model.InvoiceModel.ThisWareHouseId, new SelectList(Model.Warehouses, "Id", "Name"), "انتخاب کنید", new { @class = "md-form-control" })
+                                @Html.LabelFor(model => model.InvoiceModel.ThisWareHouseId, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.InvoiceModel.ThisWareHouseId)</span>
+                            </div>
+
+                            <div class="md-form-group md-label-static" id="SendInvoiceOtherWareHouse">
+                                @Html.DropDownListFor(model => model.InvoiceModel.OtherWareHouseId, new SelectList(Model.Warehouses, "Id", "Name"), "انتخاب کنید", new { @class = "md-form-control" })
+                                @Html.LabelFor(model => model.InvoiceModel.OtherWareHouseId, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.InvoiceModel.OtherWareHouseId)</span>
+                            </div>
+
+                            <div class="md-form-group md-label-floating" id="SendInvoicePersonnel">
+                                @Html.DropDownListFor(model => model.InvoiceModel.SectionId, new SelectList(Model.Sections, "Id", "Name", Model.InvoiceModel.SectionId), "نام بخش", new { @class = "md-form-control" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.InvoiceModel.SectionId)</span>
+
+                            </div>
+
+                            <div class="md-form-group md-label-floating" id="DrpPersonnels">
+                                @if (Model.InvoiceModel.PersonnelId != null)
+                                {
+                                    @Html.DropDownListFor(model => model.InvoiceModel.PersonnelId, new SelectList(Model.Personnels, "Id", "FullName", Model.InvoiceModel.PersonnelId), "پرسنل", new { @class = "md-form-control" })
+                                }
+                                else
+                                {
+                                    @Html.DropDownListFor(model => model.InvoiceModel.PersonnelId, Enumerable.Empty<SelectListItem>(), "پرسنل", new { @class = "md-form-control" })
+                                }
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.InvoiceModel.PersonnelId)</span>
+                            </div>
+
+                            <div class="md-form-group md-label-static" id="SendInvoiceFactorNum">
+                                @Html.TextBoxFor(model => model.InvoiceModel.FactorNum, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                                @Html.LabelFor(model => model.InvoiceModel.FactorNum, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.InvoiceModel.FactorNum)</span>
+                            </div>
+
+                            <div class="md-form-group md-label-static">
+                                @Html.TextBoxFor(model => model.InvoiceModel.Description, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                                @Html.LabelFor(model => model.InvoiceModel.Description, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.InvoiceModel.Description)</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-12">
+                            <div class="margin-top">
+                                <div class="col-xs-12 col-md-12">
+                                    <input class="btn btn-success" type="submit" value="ثبت و ادامه" />
+                                    <a href="@Url.Action("SendInvoices","Invoice")" class="btn btn-default">برگشت</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    }
+
+</div>
+
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(function () {
+            var invoiceType = $("#SendInvoiceType").val();
+
+            switch (invoiceType) {
+                case "1":
+                    $("#SendInvoicePersonnel").hide();
+                    $("#SendInvoiceFactorNum").hide();
+                    $("#DrpPersonnels").hide();
+                    $("#SendInvoiceOtherWareHouse").show();
+
+                    break;
+
+                case "2":
+                    $("#SendInvoicePersonnel").hide();
+                    $("#SendInvoiceOtherWareHouse").hide();
+                    $("#DrpPersonnels").hide();
+                    $("#SendInvoiceFactorNum").show();
+                    break;
+
+                case "3":
+                    $("#SendInvoicePersonnel").show();
+                    $("#SendInvoiceOtherWareHouse").hide();
+                    $("#SendInvoiceFactorNum").hide();
+                    $("#DrpPersonnels").show();
+                    break;
+                default:
+                    $("#SendInvoicePersonnel").hide();
+                    $("#SendInvoiceOtherWareHouse").hide();
+                    $("#SendInvoiceFactorNum").hide();
+                    $("#DrpPersonnels").hide();
+            }
+
+        });
+
+        $(document).on("change",
+            "#InvoiceModel_SectionId",
+            function () {
+                $.ajax({
+                    url: "/Invoice/GetPersonnels",
+                    data: { id: $("#InvoiceModel_SectionId").find(":selected").val() },
+                    type: "Post",
+                    dataType: "Json",
+                    success: function (result) {
+
+                        if (result.Success) {
+                            $("#DrpPersonnels").html(result.Html);
+                        }
+                    },
+                    error: function () {
+                        alert("خطا!");
+                    }
+                });
+            });
+
+
+        $("#SendInvoiceType").change(function () {
+            var invoiceType = $("#SendInvoiceType").val();
+
+            switch (invoiceType) {
+                case "1":
+                    $("#SendInvoicePersonnel").hide();
+                    $("#SendInvoiceFactorNum").hide();
+                    $("#DrpPersonnels").hide();
+                    $("#SendInvoiceOtherWareHouse").show();
+                    $("#InvoiceModel_SectionId").val("");
+                    $("#InvoiceModel_PersonnelId").val("");
+                    $("#InvoiceModel_FactorNum").val("");
+                    break;
+
+                case "2":
+                    $("#SendInvoicePersonnel").hide();
+                    $("#SendInvoiceOtherWareHouse").hide();
+                    $("#DrpPersonnels").hide();
+                    $("#SendInvoiceFactorNum").show();
+                    $("#InvoiceModel_SectionId").val("");
+                    $("#InvoiceModel_PersonnelId").val("");
+                    $("#InvoiceModel_OtherWareHouseId").val("");
+                    break;
+
+                case "3":
+                    $("#SendInvoicePersonnel").show();
+                    $("#SendInvoiceOtherWareHouse").hide();
+                    $("#SendInvoiceFactorNum").hide();
+                    $("#DrpPersonnels").show();
+                    $("#InvoiceModel_FactorNum").val("");
+                    $("#InvoiceModel_OtherWareHouseId").val("");
+                    break;
+                default:
+                    $("#SendInvoicePersonnel").hide();
+                    $("#SendInvoiceOtherWareHouse").hide();
+                    $("#SendInvoiceFactorNum").hide();
+                    $("#DrpPersonnels").hide();
+            }
+
+        });
+
+    </script>
+}
+
+

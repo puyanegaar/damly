@@ -1,0 +1,134 @@
+﻿@model PunasMarketing.ViewModels.Factor.ShowFactorViewModel
+@{
+    int index = 1;
+}
+
+<div class="card-body">
+    <form action="/" id="FactorForm" method="post" novalidate="novalidate">
+        <div id="Items">
+
+
+            <div class="col-xs-12 col-md-3">
+                <div class="md-form-group md-label-floating has-value">
+                   @if (Model.Factor.SupplierId != null)
+                   {
+                       @Html.TextBoxFor(model => model.Factor.Supplier.Name, new {@class = "md-form-control", type = "text", spellcheck = "false", @readonly = "readonly"})
+                       @Html.LabelFor(model => model.Factor.Supplier.Name, new {@class = "md-control-label"})
+                   }
+                   else
+                   {
+                       @Html.TextBoxFor(model => model.Factor.Customer.BusinessName, new {@class = "md-form-control", type = "text", spellcheck = "false", @readonly = "readonly"})
+                       @Html.LabelFor(model => model.Factor.Customer.BusinessName, new {@class = "md-control-label"})
+                   }
+
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-3">
+                <div class="md-form-group md-label-static">
+                    @Html.TextBoxFor(model => model.Factor.Id, new {@class = "md-form-control", type = "text", spellcheck = "false", @readonly = "readonly"})
+                    <label class="md-control-label">شماره فاکتور</label>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-3">
+                <div class="md-form-group md-label-static">
+                    @Html.TextBoxFor(model => model.Factor.PaperFactorCode, new {@class = "md-form-control", type = "text", spellcheck = "false", @readonly = "readonly"})
+                    @Html.LabelFor(model => model.Factor.PaperFactorCode, new {@class = "md-control-label"})
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-3">
+                <div class="md-form-group md-label-static has-value">
+                    <input type="text" readonly="readonly" class="md-form-control" value="@Model.Factor.CreatedDate.ToPersianDateTime()">
+                    <label class="md-control-label">تاریخ ایجاد</label>
+                </div>
+            </div>
+       
+            <div class="col-xs-12 col-md-12">
+                <div class="md-form-group md-label-static">
+                    @Html.TextBoxFor(model => model.Factor.Description, new {@class = "md-form-control", type = "text", spellcheck = "false", @readonly = "readonly"})
+                    @Html.LabelFor(model => model.Factor.Description, new {@class = "md-control-label"})
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-12">
+                <div class="md-form-group md-label-static" style="margin-bottom: 0; padding: 0;">
+                    <div id="FactorItemList">
+                        <table class="table table-bordered table-hover " width="100%" cellspacing="0">
+                            <thead>
+                            <tr class="columnSize">
+                                <th>
+                                    ردیف
+                                </th>
+                                <th>
+                                    نام کالا
+                                </th>
+                                <th>
+                                    قیمت واحد
+                                </th>
+                                <th>
+                                    تعداد
+                                </th>
+                                <th>
+                                    تخفیف
+                                </th>
+                                <th>
+                                    مالیات
+                                </th>
+                                <th>
+                                    قیمت نهایی
+                                </th>
+
+                            </tr>
+                            </thead>
+                            <tbody id="tblItems">
+                            @foreach (var item in Model.FactorItems)
+                            {
+                                <tr class="columnSize">
+                                    <td>@index</td>
+                                    <td><a href="@Url.Action("ProductManagement", "Product", new {id = item.ProductId})">@item.Product.Name</a></td>
+                                    <td>@item.UnitPrice.ToPrice()</td>
+                                    <td>@item.MainUnitCount</td>
+                                    <td>@item.Discount.ToPrice()</td>
+                                    <td>@item.Tax.ToPrice()</td>
+                                    <td>@item.FinalPrice.ToPrice()</td>
+
+                                </tr>
+                                index++;
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="col-xs-12">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th scope="row" colspan="6">
+
+                            <div class="col-md-4 text-right" style="display: inline-block; float: left">
+                                قیمت کل
+                                <br> کل تخفیفات
+                                <br> تخفیف روی فاکتور
+                                <br> مالیات
+                                <br> اضافات
+                                <br> کسورات
+                                <br> قیمت نهایی ( قابل پرداخت )
+                            </div>
+                        </th>
+                        <td class="text-center" style="width: 10%">
+                            <span>@Model.Factor.TotalPrice.ToPrice()</span>
+                            <br> <span>@Model.Factor.TotalDiscount.ToPrice()</span>
+                            <br> <span>@Model.Factor.DiscountOnFactor.ToPrice()</span>
+                            <br> <span>@Model.Factor.TotalTax.ToPrice()</span>
+                            <br> <span>@Model.Factor.Additions.ToPrice()</span>
+                            <br> <span>@Model.Factor.Deductions.ToPrice()</span>
+                            <br><strong><span>@Model.Factor.FinalPrice.ToPrice()</span></strong>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

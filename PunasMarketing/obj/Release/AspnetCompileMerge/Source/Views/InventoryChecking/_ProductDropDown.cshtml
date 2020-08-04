@@ -1,0 +1,9 @@
+﻿@model PunasMarketing.ViewModels.InventoryChecking.InventoryCheckingViewModel
+
+<select class="md-form-control">
+    <option value="0">-</option>
+    @foreach (var item in Model.Products)
+    {
+        <option value="@item.Id" data-inventory="@item.Inventory" data-main-unit="@item.Unit.Name">@item.Name</option>
+    }
+</select>

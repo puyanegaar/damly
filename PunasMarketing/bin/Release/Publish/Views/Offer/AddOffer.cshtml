@@ -1,0 +1,382 @@
+﻿@model PunasMarketing.ViewModels.Offer.OfferViewModel
+@{
+    ViewBag.Title = "افزودن جشنواره";
+}
+
+<div class="layout-content-body">
+    @using (Html.BeginForm("AddOffer", "Offer", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div id="divInfo">
+            <legend>
+                <h2>افزودن جشنواره جدید</h2>
+            </legend>
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <div class="col-xs-12 col-md-12">
+
+                <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19); border-radius: 5px;">
+                    <div class="card-header">
+                        <div class="card-actions">
+                            <button type="button" class="card-action card-toggler" title="Collapse"></button>
+                        </div>
+                        <strong>اطلاعات جشنواره</strong>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="col-xs-9 col-md-9">
+                            <div class="col-xs-12 col-md-12">
+                                <div class="md-form-group md-label-static">
+                                    @Html.TextBoxFor(model => model.Offer.Name, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                                    @Html.LabelFor(model => model.Offer.Name, new { @class = "md-control-label" })
+                                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Offer.Name)</span>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-4 col-md-4">
+                                <div class="md-form-group md-label-static">
+                                    @Html.TextBoxFor(model => model.StartDate, new { id = "startDate", @class = "md-form-control", type = "text", spellcheck = "false", @readonly = "readonly" })
+                                    @Html.LabelFor(model => model.StartDate, new { @class = "md-control-label" })
+                                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.StartDate)</span>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-4 col-md-4">
+                                <div class="md-form-group md-label-static">
+                                    @Html.TextBoxFor(model => model.ExpDate, new { id = "expDate", @class = "md-form-control", type = "text", spellcheck = "false", @readonly = "readonly" })
+                                    @Html.LabelFor(model => model.ExpDate, new { @class = "md-control-label" })
+                                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.ExpDate)</span>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-4 col-md-4">
+                                <div class="md-form-group md-label-floating">
+                                    <label class="custom-control custom-control-primary custom-checkbox">
+                                        <input class="custom-control-input" data-val="true" id="IsActive" name="IsActive" type="checkbox" value="true">
+                                        <span class="custom-control-indicator"></span>
+                                        <span class="custom-control-label">جشنواره فعال است.</span>
+                                    </label>
+                                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Offer.IsActive)</span>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-md-12">
+                                <div class="form-group">
+                                    <label for="demo-select2-2">@Html.LabelFor(model => model.Offer.ForCustomerCategories)</label>
+                                    <select id="demo-select2-2" name="cat" class="form-control" multiple="multiple">
+                                        @foreach (var item in Model.CustomerCategories)
+                                        {
+                                            <option value="@item.Id">@item.Name</option>
+                                        }
+                                    </select>
+                                    <span class="help-block">در صورت خالی ماندن لیست، جشنواره برای همه مشتریان قابل نمایش و اعمال روی فاکتور خواهد بود.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-3 col-md-3">
+                            <div class="col-xs-12 col-md-12" style="">
+                                <input id="ImageFile" name="ImageFile" type="file" style="display: none" required="" />
+                                <img id="Image" src="~/Content/Upload/Image/Products/NoImage.jpg" style="width: 150px; height: 150px; display: block; margin: auto; cursor: pointer" />
+                            </div>
+                            <div class="col-xs-12 col-md-12" style="margin-top: 15px">
+                                <input id="ImageSelect" class="btn btn-info" type="submit" value="انتخاب عکس" style="display: block; margin: auto" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19); border-radius: 5px;">
+                    <div class="card-header">
+                        <div class="card-actions">
+                            <button type="button" class="card-action card-toggler" title="Collapse"></button>
+                        </div>
+                        <strong>تخفیف ریالی</strong>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="col-xs-12 col-md-12">
+                            <div id="offeritemlist">
+                                @Html.Action("OfferItemListInSession", "Offer")
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-12">
+                            <div class="margin-top">
+                                <div class="col-xs-12 col-md-12">
+                                    <a id="AddProductToOfferButton" class="btn btn-info">افزودن کالا</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-md-12">
+                    <div class="margin-top">
+                        <div class="col-xs-12 col-md-12">
+                            <input class="btn btn-success" type="submit" value="ثبت نهایی" />
+                            <a href="@Url.Action("Offers", "Offer")" class="btn btn-default">بازگشت</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    }
+</div>
+
+
+<div id="offerModal" tabindex="-1" role="dialog" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">افزودن کالا به جشنواره</h4>
+            </div>
+            <div class="modal-body" id="offerModalBody">
+                @using (Ajax.BeginForm("AddOfferItem", "Offer", FormMethod.Post, new AjaxOptions()
+                {
+                    UpdateTargetId = "offeritemlist",
+                    OnSuccess = "CloseOfferModal",
+
+                }, new { id = "OfferItemForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    <div class="card-body">
+                        <div class="col-xs-12 col-md-6">
+                            <div class="md-form-group md-label-static">
+                                @Html.DropDownListFor(model => model.OfferItems.ProductId, new SelectList(Model.Products, "Id", "Name"), "نام کالا", new { @class = "md-form-control" })
+                                @Html.LabelFor(model => model.OfferItems.ProductId, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.OfferItems.ProductId)</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-6">
+                            <div class="md-form-group md-label-static">
+                                <select id="OfferType" name="OfferItems.OfferTypeId" class="md-form-control">
+                                    <option value="0">انتخاب کنید</option>
+                                    @foreach (var item in Model.OfferTypes)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
+
+                                </select>
+                                @Html.Label("نوع تخفیف", new { @class = "md-control-label" })
+                                <span id="OfferTypeErrorMessage" class="has-error md-help-block valError cusval">مبلغ تخفیف را وارد کنید</span>
+
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-6" id="DiscountAmount">
+                            <div class="md-form-group md-label-static">
+                                @Html.TextBoxFor(model => model.OfferItems.DiscountAmount, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                                @Html.LabelFor(model => model.OfferItems.DiscountAmount, new { @class = "md-control-label" })
+                                <span id="DiscountAmountErrorMessage" class="has-error md-help-block valError cusval">مبلغ تخفیف را وارد کنید</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-6" id="DiscountPercent">
+                            <div class="md-form-group md-label-static">
+                                @Html.TextBoxFor(model => model.OfferItems.DiscountPercent, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                                @Html.LabelFor(model => model.OfferItems.DiscountPercent, new { @class = "md-control-label" })
+                                <span id="DiscountPercentErrorMessage" class="has-error md-help-block valError cusval">درصد تخفیف را وارد کنید</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-6 prooffer">
+                            <div class="md-form-group md-label-static">
+                                @Html.TextBoxFor(model => model.OfferItems.MinProductCount, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                                @Html.LabelFor(model => model.OfferItems.MinProductCount, new { @class = "md-control-label" })
+                                <span id="MinProductCountErrorMessage" class="has-error md-help-block valError cusval">حداقل تعداد کالا را وارد کنید</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-6 prooffer">
+                            <div class="md-form-group md-label-static">
+                                @Html.DropDownListFor(model => model.OfferItems.GiftProductId, new SelectList(Model.Products, "Id", "Name"), "نام کالا", new { @class = "md-form-control" })
+                                @Html.LabelFor(model => model.OfferItems.GiftProductId, new { @class = "md-control-label" })
+                                <span id="GiftProductIdErrorMessage" class="has-error md-help-block valError cusval">کالای هدیه را وارد کنید</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-6 prooffer">
+                            <div class="md-form-group md-label-static" id="SendInvoiceFactorNum">
+                                @Html.TextBoxFor(model => model.OfferItems.GiftProductCount, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                                @Html.LabelFor(model => model.OfferItems.GiftProductCount, new { @class = "md-control-label" })
+                                <span id="GiftProductCountErrorMessage" class="has-error md-help-block valError cusval">تعداد کالای هدیه را وارد کنید</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-12">
+                            <div class="margin-top">
+                                <div class="col-xs-12 col-md-12">
+                                    <input type="submit" id="AddOfferItemButton" class="btn btn-success" value="افزودن" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section toastr {
+    @Html.Raw(TempData["SaveMessage"])
+}
+
+@section styles{
+    <link href="~/Scripts/PersianDateTimePicker/jquery-ui-datetimepicker.min.css" rel="stylesheet" />
+}
+
+
+@section scripts{
+    <script src="~/Scripts/PersianDateTimePicker/jquery-ui-datetimepicker.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script>
+
+        $("#startDate").datepicker({
+            beforeShow: function (input, inst) {
+                var cal = inst.dpDiv;
+                var left = $(this).offset().left;
+                setTimeout(function () {
+                    cal.css({
+                        'left': left
+                    });
+                }, 10);
+            },
+            changeYear: true,
+            yearRange: '1350:1420',
+            changeMonth: true,
+        });
+
+        $("#expDate").datepicker({
+            beforeShow: function (input, inst) {
+                var cal = inst.dpDiv;
+                var left = $(this).offset().left;
+                setTimeout(function () {
+                    cal.css({
+                        'left': left
+                    });
+                }, 10);
+            },
+            changeYear: true,
+            yearRange: '1350:1420',
+            changeMonth: true,
+        });
+
+        SelectImage();
+
+        $('#AddProductToOfferButton').click(function () {
+            $('#OfferItemForm input[type = text]').val("");
+            $('#OfferItems_GiftProductId').prop('selectedIndex', 0);
+            $('#OfferType').prop('selectedIndex', 0);
+            $('#OfferItems_ProductId').prop('selectedIndex', 0);
+            $('#offerModal').modal();
+        });
+
+        $(function () {
+            $("#DiscountAmount").hide();
+            $("#DiscountPercent").hide();
+            $(".prooffer").hide();
+            $('.cusval').hide();
+        });
+
+        $("#OfferType").change(function () {
+            var offerType = $("#OfferType").val();
+
+            switch (offerType) {
+                case "1":
+                    $("#DiscountAmount").show();
+                    $("#DiscountPercent").hide();
+                    $(".prooffer").hide();
+                    $('#OfferItemForm input[type = text]').val("");
+                    $('#OfferItems_GiftProductId').prop('selectedIndex', 0);
+                    $('.cusval').hide();
+                    break;
+
+                case "2":
+                    $("#DiscountAmount").hide();
+                    $(".prooffer").hide();
+                    $("#DiscountPercent").show();
+                    $('#OfferItemForm input[type = text]').val("");
+                    $('#OfferItems_GiftProductId').prop('selectedIndex', 0);
+                    $('.cusval').hide();
+                    break;
+
+                case "3":
+                    $("#DiscountAmount").hide();
+                    $("#DiscountPercent").hide();
+                    $(".prooffer").show();
+                    $('#OfferItemForm input[type = text]').val("");
+                    $('.cusval').hide();
+                    break;
+
+                default:
+                    $("#DiscountAmount").hide();
+                    $("#DiscountPercent").hide();
+                    $(".prooffer").hide();
+                    $('#OfferItemForm input[type = text]').val("");
+                    $('#OfferItems_GiftProductId').prop('selectedIndex', 0);
+                    $('.cusval').hide();
+            }
+
+        });
+
+        $('#AddOfferItemButton').click(function () {
+            var offerType = $("#OfferType").val();
+            switch (offerType) {
+                case "0":
+                    $('#OfferTypeErrorMessage').show();
+                    return false;
+                    break;
+                case "1":
+                    if ($('#OfferItems_DiscountAmount').val() === "") {
+                        $('#DiscountAmountErrorMessage').show();
+                        return false;
+                    }
+                    break;
+
+                case "2":
+                    if ($('#OfferItems_DiscountPercent').val() === "") {
+                        $('#DiscountPercentErrorMessage').show();
+                        return false;
+                    }
+                    break;
+                case "3":
+                    if ($('#OfferItems_MinProductCount').val() === "" || $('#OfferItems_GiftProductCount').val() === "" || $('#OfferItems_GiftProductId').prop('selectedIndex') === 0) {
+                        $('#MinProductCountErrorMessage').show();
+                        $('#GiftProductIdErrorMessage').show();
+                        $('#GiftProductCountErrorMessage').show();
+                        return false;
+                    }
+
+                    break;
+                default:
+                    return false;
+            }
+        });
+
+        function CloseOfferModal() {
+            $("#offerModal").modal('hide');
+            $("#DiscountAmount").hide();
+            $("#DiscountPercent").hide();
+            $(".prooffer").hide();
+        }
+
+        function DeleteOfferItem(id) {
+            $.get("/Offer/DeleteOfferItem/" + id,
+                function (res) {
+                    $("#offeritemlist").html(res);
+                });
+        }
+
+    </script>
+
+}

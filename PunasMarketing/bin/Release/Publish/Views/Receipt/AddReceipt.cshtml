@@ -1,0 +1,1077 @@
+﻿@model PunasMarketing.ViewModels.Receipt.ReceiptViewModel
+@{
+    ViewBag.Title = "AddReceipt";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="layout-content-body">
+    <legend>
+        <h2>صدور فیش دریافت پرداخت</h2>
+    </legend>
+    @using (Ajax.BeginForm("AddReceipt", "Receipt",new AjaxOptions { OnSuccess = "Receiptsuccess", HttpMethod = "Post" }, new { id = "ReceiptForm" }))
+    {
+
+        <div class="col-xs-2 col-md-2">
+            @{
+                List<SelectListItem> ReceiptType_Items = new List<SelectListItem>();
+                ReceiptType_Items.Add(new SelectListItem { Text = "دریافت", Value = "true" });
+                ReceiptType_Items.Add(new SelectListItem { Text = "پرداخت", Value = "false" });
+            }
+
+
+            <div class="md-form-group md-label-static">
+                @Html.DropDownListFor(model => model.receipt.IsReceive, ReceiptType_Items, new { @class = "md-form-control" })
+                @Html.LabelFor(mpdel => mpdel.receipt.IsReceive, new { @class = "md-control-label" })
+                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.receipt.IsReceive)</span>
+            </div>
+        </div>
+
+        <div class="col-xs-2 col-md-2">
+            @{
+                List<SelectListItem> CounterPT_Items = new List<SelectListItem>();
+                CounterPT_Items.Add(new SelectListItem { Text = "حساب بانکی", Value = "1" });
+                CounterPT_Items.Add(new SelectListItem { Text = "هزینه ها", Value = "2" });
+                CounterPT_Items.Add(new SelectListItem { Text = "مشتری ها", Value = "3" });
+                CounterPT_Items.Add(new SelectListItem { Text = "تامین کننده", Value = "4" });
+                CounterPT_Items.Add(new SelectListItem { Text = "پرنسل", Value = "5" });
+                CounterPT_Items.Add(new SelectListItem { Text = "بازاریاب", Value = "6" });
+            }
+            <div class="md-form-group md-label-static">
+                @Html.DropDownListFor(model => model.receipt.CounterPartyType, CounterPT_Items, "انتخاب کنید", new { @class = "md-form-control" })
+                @Html.LabelFor(mpdel => mpdel.receipt.CounterPartyType, new { @class = "md-control-label" })
+                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.receipt.CounterPartyType)</span>
+            </div>
+        </div>
+
+        <div class="col-xs-6 col-md-6">
+            <div class="md-form-group md-label-static">
+                @Html.HiddenFor(model => model.receipt.CounterPartyId)
+                <span style="top:auto;width:100%; text-align:left;position:absolute">
+                    <a id="SelectCounterParty" class="icon icon-folder-open-o iconColor" style="cursor:pointer; text-align:left;text-decoration:none;cursor:pointer"></a>
+                </span>
+                @Html.TextBox("CounterPartyText", "", new { @class = "md-form-control", spellcheck = "false", @readonly = "readonly" })
+                @Html.LabelFor(mpdel => mpdel.receipt.CounterPartyId, new { @class = "md-control-label" })
+                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.receipt.CounterPartyId)</span>
+            </div>
+        </div>
+
+        <div class="col-xs-2 col-md-2">
+            <div class="md-form-group md-label-static">
+                @Html.TextBoxFor(m => m.NowDate, new { @class = "md-form-control", spellcheck = "false", @readonly = "readonly" })
+                <label class="md-control-label"> تاریخ فیش</label>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-12">
+            <div class="md-form-group md-label-static">
+                @Html.TextBoxFor(model => model.receipt.Description, new { @class = "md-form-control", spellcheck = "false" })
+                @Html.LabelFor(model => model.receipt.Description, new { @class = "md-control-label" })
+                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.receipt.Description)</span>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-actions">
+
+                    </div>
+                    <label class="custom-control custom-control-primary custom-checkbox">
+                        <input class="custom-control-input" data-val="true" id="IsCash" name="IsCash" type="checkbox" value="true">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-label">نقدی</span>
+                    </label>
+                </div>
+
+                <div class="card-body" id="CashPart" style="display:none" disable>
+                    <div class="col-xs-3 col-md-3">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.cash.Amount, new { @class = "md-form-control", spellcheck = "false" })
+                            @Html.LabelFor(model => model.cash.Amount, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.cash.Amount)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-md-3">
+                        <div class="md-form-group md-label-static">
+                            @Html.DropDownListFor(model => model.cash.CashDeskId, new SelectList(Model.CashDesks, "Id", "Name"), "انتخاب کنید", new { @class = "md-form-control" })
+                            @Html.LabelFor(model => model.cash.CashDeskId, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.cash.CashDeskId)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-md-3">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBox("CashBalance", "", new { @class = "md-form-control", spellcheck = "false", @readonly = "readonly" })
+                            <label class="md-control-label">موجودی صندوق</label>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-md-3">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.cash.Description, new { @class = "md-form-control", spellcheck = "false" })
+                            @Html.LabelFor(model => model.cash.Description, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.cash.Description)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-actions">
+
+                    </div>
+                    <label class="custom-control custom-control-primary custom-checkbox">
+                        <input class="custom-control-input" data-val="true" id="IsPose" name="IsPose" type="checkbox" value="true">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-label">کارت خوان</span>
+                    </label>
+                </div>
+
+                <div class="card-body" id="PosePart" style="display:none">
+                    <div class="col-xs-3 col-md-3">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.Pose.Amount, new { @class = "md-form-control", spellcheck = "false" })
+                            @Html.LabelFor(model => model.Pose.Amount, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Pose.Amount)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-md-3">
+                        <div class="md-form-group md-label-static">
+                            @Html.DropDownListFor(model => model.Pose.BankAccountId, new SelectList(Model.BankAccountPose, "AccountId", "BankName"), "انتخاب کنید", new { @class = "md-form-control" })
+                            @Html.LabelFor(mpdel => mpdel.Pose.BankAccountId, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Pose.BankAccountId)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-md-3">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBox("PoseAccountNumber", "", new { @class = "md-form-control", spellcheck = "false" })
+                            <label class="md-control-label">به نام</label>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-md-3">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.Pose.IssueTracking, new { @class = "md-form-control", spellcheck = "false" })
+                            @Html.LabelFor(model => model.Pose.IssueTracking, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Pose.IssueTracking)</span>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-3 col-md-3">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.Pose.Commission, new { @class = "md-form-control", spellcheck = "false" })
+                            @Html.LabelFor(model => model.Pose.Commission, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Pose.Commission)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-9 col-md-9">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.Pose.Description, new { @class = "md-form-control", spellcheck = "false" })
+                            @Html.LabelFor(model => model.Pose.Description, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Pose.Description)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-actions">
+
+                    </div>
+                    <label class="custom-control custom-control-primary custom-checkbox">
+                        <input class="custom-control-input" data-val="true" id="IsCard" name="IsCard" type="checkbox" value="true">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-label">کارت - حواله</span>
+                    </label>
+                </div>
+
+                <div class="card-body" id="CardPart" style="display:none">
+                    <div class="col-xs-3 col-md-3">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.Card.Amount, new { @class = "md-form-control", spellcheck = "false" })
+                            @Html.LabelFor(model => model.Card.Amount, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Card.Amount)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-md-3">
+                        <div class="md-form-group md-label-static">
+                            @Html.DropDownListFor(model => model.Card.BankAccountId, new SelectList(Model.BankAccount, "AccountId", "BankName"), "انتخاب کنید", new { @class = "md-form-control" })
+                            @Html.LabelFor(mpdel => mpdel.Card.BankAccountId, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Card.BankAccountId)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-md-3">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBox("CardAccountNumber", "", new { @class = "md-form-control", spellcheck = "false" })
+                            <label class="md-control-label">به نام</label>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-md-3">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.Card.IssueTracking, new { @class = "md-form-control", spellcheck = "false" })
+                            @Html.LabelFor(model => model.Card.IssueTracking, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Card.IssueTracking)</span>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-3 col-md-3">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.Card.Commission, new { @class = "md-form-control", spellcheck = "false" })
+                            @Html.LabelFor(model => model.Card.Commission, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Card.Commission)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-9 col-md-9">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.Card.Description, new { @class = "md-form-control", spellcheck = "false" })
+                            @Html.LabelFor(model => model.Card.Description, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Card.Description)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-12">
+            @Html.HiddenFor(model => model.ChequeIdArray)
+            @Html.HiddenFor(model => model.OurChequeIdArray)
+        </div>
+    }
+
+
+    <div class="col-xs-12 col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-actions">
+
+                </div>
+                <label class="custom-control custom-control-primary custom-checkbox">
+                    <input class="custom-control-input" data-val="true" id="IsOthersCheque" name="IsOthersCheque" type="checkbox" value="true">
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-label">چک-چک های اشخاص</span>
+                </label>
+            </div>
+
+            <div class="card-body" id="OthersChequePart" style="display:none">
+                @using (Ajax.BeginForm("AddCheque", "Receipt", new AjaxOptions { OnSuccess = "AddChequeStatus", HttpMethod = "Post" }, new { id = "AddChequeForm" }))
+                {
+                    @Html.HiddenFor(model => model.cheque.Amount)
+                    <input type="hidden" id="cheque_Id" name="cheque.Id" value="0" />
+                    <div class="col-xs-3 col-md-3">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.cheque.ChequeNum, new { @class = "md-form-control", spellcheck = "false" })
+                            @Html.LabelFor(mpdel => mpdel.cheque.ChequeNum, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.cheque.ChequeNum)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-md-3">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.cheque.Price, new { @class = "md-form-control", spellcheck = "false" })
+                            @Html.LabelFor(mpdel => mpdel.cheque.Price, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.cheque.Price)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-md-3">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.cheque.DueDate, new { @class = "md-form-control", spellcheck = "false", @readonly = "readonly" })
+                            @Html.LabelFor(mpdel => mpdel.cheque.DueDate, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.cheque.DueDate)</span>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-3 col-md-3">
+                        <div class="md-form-group md-label-static">
+                            @Html.DropDownListFor(model => model.cheque.BankId, new SelectList(Model.BankName, "Id", "Name"), "انتخاب کنید", new { @class = "md-form-control" })
+                            @Html.LabelFor(mpdel => mpdel.cheque.BankId, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.cheque.BankId)</span>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-8 col-md-8">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.cheque.Description, new { @class = "md-form-control", spellcheck = "false" })
+                            @Html.LabelFor(mpdel => mpdel.cheque.Description, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.cheque.Description)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-md-4">
+                        <div class="margin-top">
+                            <div class="col-xs-12 col-md-12">
+                                <input id="AddCheque" class="btn btn-success" type="submit" value="ثبت اطلاعات" style="margin-top:12px" />
+                                <input id="EditOTCheque" class="btn btn-warning" type="submit" value="ویرایش چک" style="margin-top:12px;display:none" />
+                                <input id="SelectOtherCheque" class="btn btn-info" type="submit" value="انتخاب چک" style="margin-top:12px" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-12" id="ChequeList">
+                        <table id="OtherChequelistTable" class="table table-striped table-nowrap dataTable" cellspacing="0" width="100%">
+                            <thead>
+                                <tr class="columnSize">
+                                    <th>
+                                        شماره چک
+                                    </th>
+                                    <th>
+                                        تاریخ سررسید
+                                    </th>
+                                    <th>
+                                        مبلغ
+                                    </th>
+                                    <th>
+                                        بانک صادر کننده چک
+                                    </th>
+                                    <th>
+                                        توضیحات
+                                    </th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="columnSize"></tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-md-12" id="IsOurcheckPart" style="display:none">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-actions">
+
+                </div>
+                <label class="custom-control custom-control-primary custom-checkbox">
+                    <input class="custom-control-input" data-val="true" id="IsOurCheque" name="IsOurCheque" type="checkbox" value="true">
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-label">چک-چک های خودمان</span>
+                </label>
+            </div>
+
+            <div class="card-body" id="OurChequePart" style="display:none">
+                @using (Ajax.BeginForm("AddOurCheque", "Receipt", new AjaxOptions { OnSuccess = "AddOurChequeStatus", HttpMethod = "Post" }, new { id = "AddOurChequeForm" }))
+                {
+                    @Html.HiddenFor(model => model.ourcheque.Amount)
+                    <input type="hidden" id="ourcheque_Id" name="ourcheque.Id" value="0" />
+                    <div class="col-xs-3 col-md-3">
+                        <div class="md-form-group md-label-static">
+                            @Html.DropDownListFor(model => model.ourcheque.BankAccountId, new SelectList(Model.BankAccount, "AccountId", "BankName"), "انتخاب کنید", new { @class = "md-form-control" })
+                            @Html.LabelFor(mpdel => mpdel.ourcheque.BankAccountId, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.ourcheque.BankAccountId)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-2 col-md-2">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBox("AccountNumber", "", new { @class = "md-form-control", spellcheck = "false", @readonly = "readonly" })
+                            <label class="md-control-label">شماره حساب</label>
+                        </div>
+                    </div>
+                    <div class="col-xs-2 col-md-2">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBox("AccountOwner", "", new { @class = "md-form-control", spellcheck = "false", @readonly = "readonly" })
+                            <label class="md-control-label">به نام</label>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-5 col-md-5">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.ourcheque.ChequeNum, new { @class = "md-form-control", spellcheck = "false" })
+                            @Html.LabelFor(mpdel => mpdel.ourcheque.ChequeNum, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.ourcheque.ChequeNum)</span>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-3 col-md-3">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.ourcheque.DueDate, new { @class = "md-form-control", spellcheck = "false", @readonly = "readonly" })
+                            @Html.LabelFor(mpdel => mpdel.ourcheque.DueDate, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.ourcheque.DueDate)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-md-3">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.ourcheque.Price, new { @class = "md-form-control", spellcheck = "false" })
+                            @Html.LabelFor(mpdel => mpdel.ourcheque.Price, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.ourcheque.Price)</span>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-xs-6 col-md-6">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.ourcheque.Description, new { @class = "md-form-control", spellcheck = "false" })
+                            @Html.LabelFor(mpdel => mpdel.ourcheque.Description, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.cheque.Description)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-12">
+                        <div class="margin-top">
+                            <div class="col-xs-12 col-md-12">
+                                <input id="AddOurCheque" class="btn btn-success" type="submit" value="ثبت اطلاعات" style="margin-top:12px" />
+                                <input id="EditOUcheque" class="btn btn-warning" type="submit" value="ویرایش چک" style="margin-top:12px;display:none" />
+                                <input id="SelectOureCheque" class="btn btn-info" type="submit" value="انتخاب چک" style="margin-top:12px" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-12" id="ChequeList">
+                        <table id="OurChequelistTable" class="table table-striped table-nowrap dataTable" cellspacing="0" width="100%">
+                            <thead>
+                                <tr class="columnSize">
+                                    <th>
+                                        شماره چک
+                                    </th>
+                                    <th>
+                                        شماره حساب
+                                    </th>
+                                    <th>
+                                        به نام
+                                    </th>
+                                    <th>
+                                        تاریخ سررسید
+                                    </th>
+                                    <th>
+                                        مبلغ
+                                    </th>
+                                    <th>
+                                        بانک صادر کننده چک
+                                    </th>
+                                    <th>
+                                        توضیحات
+                                    </th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="columnSize"></tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-md-12">
+        <div class="margin-top">
+            <div class="col-xs-12 col-md-12">
+                <input id="Add" class="btn btn-success" type="submit" value="ثبت اطلاعات" />
+                <a href="@Url.Action("Personnels","Personnel")" class="btn btn-default">برگشت</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Modal{
+    <div id="modalSelectCounterParty" tabindex="-1" role="dialog" class="modal fade">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-success">
+                    <h4 class="modal-title">انتخاب طرف حساب</h4>
+                </div>
+                <div class="modal-body" id="CounterParty">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalChequeList" tabindex="-1" role="dialog" class="modal fade">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-success">
+                    <h4 class="modal-title">لیست چک ها</h4>
+                </div>
+                <div class="modal-body" id="ChequeSelectList">
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section toastr{
+
+}
+@section styles{
+    <link href="~/Scripts/PersianDateTimePicker/jquery-ui-datetimepicker.min.css" rel="stylesheet" />
+}
+@section scripts{
+
+    <script src="~/Scripts/PersianDateTimePicker/jquery-ui-datetimepicker.min.js"></script>
+    <script>
+        var chequeListId = [];
+        var OurchequeListId = [];
+        $(document).on("click", "#SelectCounterParty", function () {
+            $("#modalSelectCounterParty").modal({ backdrop: true });
+        });
+        $(document).on("change", "#receipt_CounterPartyType", function () {
+            $.ajax({
+                url: "/Receipt/GetCounterParty",
+                data: { type: $("#receipt_CounterPartyType").find(":selected").val() },
+                type: "Post",
+                dataType: "Json",
+                success: function (result) {
+                    if (result.Success) {
+                        $("#CounterParty").html(result.Html);
+                        var dataTable = $("#ItemTable").dataTable({
+                            "bInfo": false,
+                            "bLengthChange": false,
+                            "bSort": false,
+                            "language": {
+                                "paginate": {
+                                    "previous": "قبلی",
+                                    "next": "بعدی"
+                                }
+                            },
+                            "iDisplayLength": 20
+                        });
+                        $("#searchbox").keyup(function () {
+                            dataTable.fnFilter(this.value);
+                        });
+                        $("#modalSelectCounterParty").modal({ backdrop: true });
+
+                    }
+                },
+                error: function () {
+                    alert("خطا!");
+                }
+            });
+        });
+        $(document).on("change", "#receipt_IsReceive", function () {
+
+            var value = $("#receipt_IsReceive").find(":selected").val();
+            if (value == "true") {
+                $("#IsOurcheckPart").slideUp();
+                $("#AddCheque").show();
+            }
+            else {
+                $("#IsOurcheckPart").slideDown();
+                $("#AddCheque").hide();
+            }
+        });
+        $(document).on("change", "#cash_CashDeskId", function () {
+
+            var value = $("#cash_CashDeskId").find(":selected").val();
+            $.ajax({
+                url: "/Receipt/GetCashBalance",
+                data: { CashDeskId: value },
+                type: "Post",
+                dataType: "Json",
+                success: function (result) {
+                    if (result.Success) {
+                        $("#CashBalance").val(result.Html);
+                    }
+                },
+                error: function () {
+                    alert("خطا!");
+                }
+            });
+        });
+        $(document).on("click", "#ItemTable td a#SelectItem", function () {
+            $("#modalSelectCounterParty").modal('hide');
+            $.ajax({
+                url: "/Receipt/GetCounterPartyId",
+                data: { id: $(this).attr("value"), type: $("#receipt_CounterPartyType").find(":selected").val() },
+                type: "Post",
+                dataType: "Json",
+                success: function (result) {
+                    if (result.Success) {
+                        $("#CounterPartyText").val(result.Html);
+                        $("#receipt_CounterPartyId").val(result.Script);
+                    }
+                },
+                error: function () {
+                    alert("خطا!");
+                }
+            });
+        });
+        $(document).on("click", "#IsCash", function () {
+            if ($(this).is(":checked")) {
+                $("#CashPart").slideDown();
+            }
+            else {
+                $("#CashPart").slideUp();
+            }
+        });
+        $(document).on("click", "#IsPose", function () {
+            if ($(this).is(":checked")) {
+                $("#PosePart").slideDown();
+            }
+            else {
+                $("#PosePart").slideUp();
+            }
+
+
+        });
+        $(document).on("click", "#IsCard", function () {
+            if ($(this).is(":checked")) {
+                $("#CardPart").slideDown();
+            }
+            else {
+                $("#CardPart").slideUp();
+            }
+
+
+        });
+        $(document).on("click", "#IsOthersCheque", function () {
+            if ($(this).is(":checked")) {
+                $("#OthersChequePart").slideDown();
+            }
+            else {
+                $("#OthersChequePart").slideUp();
+            }
+
+
+        });
+        $(document).on("click", "#IsOurCheque", function () {
+            if ($(this).is(":checked")) {
+                $("#OurChequePart").slideDown();
+            }
+            else {
+                $("#OurChequePart").slideUp();
+            }
+
+
+        });
+        function AddChequeStatus(result) {
+
+            if (result.Success) {
+                chequeListId.push(result.Html);
+                $("#ChequeIdArray").val(chequeListId);
+                $("#OtherChequelistTable").append('<tr ><td>' + $("#cheque_ChequeNum").val() + '</td><td>' + $("#cheque_DueDate").val() + '</td><td>' + $("#cheque_Amount").val() + '</td><td>' + $("#cheque_BankId").find(":selected").text() + '</td><td>' + $("#cheque_Description").val() + '</td><td><a id="EditOtherCheque" class="icon icon-pencil iconColor" style="text-align:center;text-decoration:none; cursor:pointer" value="' + 1 + '"></a><a id="deleteOtherCheque" class="icon icon-trash-o iconColor" style="text-align:center;text-decoration:none; cursor:pointer" value="' + 1 + '"></a></tr>');
+                $("#cheque_BankId").prop('selectedIndex', 0);
+                $("#cheque_DueDate").val("");
+                $("#cheque_Description").val("");
+                $("#cheque_ChequeNum").val("");
+                $("#cheque_Amount").val("");
+                $("#cheque_Price").val("");
+            }
+            Toast(result.Script);
+
+        }
+        $(document).on("keyup", "#cheque_Price", function () {
+            // skip for arrow keys
+            if (event.which >= 37 && event.which <= 40) return;
+
+            // format number
+            $(this).val(function (index, value) {
+                return value
+                    .replace(/\D/g, "")
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    ;
+            });
+
+            $("#cheque_Amount").val($(this).val().replace(/,/g, ''));
+
+        });
+        $("#cheque_DueDate").datepicker({
+            beforeShow: function (input, inst) {
+                var cal = inst.dpDiv;
+                var left = $(this).offset().left;
+                setTimeout(function () {
+                    cal.css({
+                        'left': left
+                    });
+                }, 10);
+            }
+        });
+        $(document).on("click", "#SelectCheque", function () {
+
+
+        });
+        $(document).on("click", "#SelectOtherCheque", function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: "/Receipt/GetChequeList",
+                data: { type: $("#receipt_IsReceive").find(":selected").val(), chequeType: false },
+                type: "Post",
+                dataType: "Json",
+                success: function (result) {
+
+                    $("#ChequeSelectList").html(result.Html);
+                    var dataTable = $("#ChequeItemList").dataTable({
+                        "bInfo": false,
+                        "bLengthChange": false,
+                        "bSort": false,
+                        "language": {
+                            "paginate": {
+                                "previous": "قبلی",
+                                "next": "بعدی"
+                            }
+                        },
+                        "iDisplayLength": 20
+                    });
+                    $("#Chequesearchbox").keyup(function () {
+                        dataTable.fnFilter(this.value);
+                    });
+                    $("#modalChequeList").modal({ backdrop: true });
+                },
+                error: function () {
+                    alert("خطا!");
+                }
+            });
+        });
+        $(document).on("click", "#ChequeItemList tr td a#SelectOtChequeItem", function () {
+            var Row = $(this).closest('tr');
+            var ChequeId = $(this).attr("value");
+            if (jQuery.inArray(ChequeId, chequeListId) !== -1) {
+
+                Toast("چک با این شماره به لیست اضافه شده,info");
+            }
+            else {
+                chequeListId.push(ChequeId);
+                $("#ChequeIdArray").val(chequeListId);
+                $("#OtherChequelistTable").append('<tr ><td>' + Row.find('td:eq(0)').text().trim() + '</td><td>' + Row.find('td:eq(1)').text().trim() + '</td><td>' + Row.find('td:eq(2)').text().trim() + '</td><td>' + Row.find('td:eq(3)').text().trim() + '</td><td>' + Row.find('td:eq(4)').text().trim() + '</td><td><a id="EditOtherCheque" class="icon icon-pencil iconColor" style="text-align:center;text-decoration:none; cursor:pointer" value="' + ChequeId + '"></a><a id="deleteOtherCheque" class="icon icon-trash-o iconColor" style="text-align:center;text-decoration:none; cursor:pointer" value="' + ChequeId + '"></a></tr>');
+            }
+            $("#modalChequeList").modal('hide');
+
+
+        });
+        $(document).on("click", "#OtherChequelistTable tr td a#EditOtherCheque", function () {
+            var Row = $(this).closest('tr');
+            var ChequeId = $(this).attr("value");
+            $("#cheque_BankId option:contains(" + Row.find('td:eq(3)').text().trim() + ")").attr('selected', 'selected');
+            $("#cheque_DueDate").val(Row.find('td:eq(1)').text().trim());
+            $("#cheque_Description").val(Row.find('td:eq(4)').text().trim());
+            $("#cheque_ChequeNum").val(Row.find('td:eq(0)').text().trim());
+            $("#cheque_Price").val(Row.find('td:eq(2)').text().trim());
+            $("#cheque_Amount").val(Row.find('td:eq(2)').text().trim().replace(/,/g, ''));
+            $("#EditOTCheque").show();
+            $("#SelectOtherCheque").hide();
+            $("#AddCheque").hide();
+            $("#cheque_Id").val(ChequeId);
+            chequeListId = jQuery.grep(chequeListId, function (value) {
+                return value != ChequeId;
+            });
+            $("#ChequeIdArray").val(chequeListId);
+            $(Row).fadeTo(400, 0, function () {
+                Row.remove();
+            });
+        });
+        $(document).on("click", "#OtherChequelistTable tr td a#deleteOtherCheque", function () {
+            var Row = $(this).closest('tr');
+            var ChequeId = $(this).attr("value");
+            chequeListId = jQuery.grep(chequeListId, function (value) {
+                return value != ChequeId;
+            });
+            $("#ChequeIdArray").val(chequeListId);
+            $(Row).fadeTo(400, 0, function () {
+                Row.remove();
+            });
+        });
+        $(document).on("click", "#EditOTCheque", function (e) {
+            e.preventDefault();
+            var data = $('#AddChequeForm').serialize();
+            $.ajax({
+                url: "/Receipt/EditCheque",
+                data: data,
+                type: "Post",
+                dataType: "Json",
+                success: function (result) {
+                    if (result.Success) {
+                        AddChequeStatus(result);
+                        $("#cheque_Id").val(0);
+                        $("#EditOTCheque").hide();
+                        $("#SelectOtherCheque").show();
+                        $("#AddCheque").show();
+                    }
+                },
+                error: function () {
+                    alert("خطا!");
+                }
+            });
+        });
+
+        //-----------------------------------OurChequeOperation-----------------------------------
+        $("#ourcheque_DueDate").datepicker({
+            beforeShow: function (input, inst) {
+                var cal = inst.dpDiv;
+                var left = $(this).offset().left;
+                setTimeout(function () {
+                    cal.css({
+                        'left': left
+                    });
+                }, 10);
+            }
+        });
+        $(document).on("keyup", "#ourcheque_Price", function () {
+            // skip for arrow keys
+            if (event.which >= 37 && event.which <= 40) return;
+
+            // format number
+            $(this).val(function (index, value) {
+                return value
+                    .replace(/\D/g, "")
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    ;
+            });
+
+            $("#ourcheque_Amount").val($(this).val().replace(/,/g, ''));
+
+        });
+        $(document).on("change", "#ourcheque_ChequeAccountId", function () {
+            $.ajax({
+                url: "/Receipt/GetChequeAccountInfo",
+                data: { BookId: $("#ourcheque_ChequeAccountId").find(":selected").val() },
+                type: "Post",
+                dataType: "Json",
+                success: function (result) {
+                    $("#AccountNumber").val(result.Html);
+                    $("#AccountOwner").val(result.Option);
+                },
+                error: function () {
+                    alert("خطا!");
+                }
+            });
+        });
+        function AddOurChequeStatus(result) {
+
+            if (result.Success) {
+                OurchequeListId.push(result.Html);
+                $("#OurChequeIdArray").val(chequeListId);
+                $("#OurChequelistTable").append('<tr ><td>' + $("#ourcheque_ChequeNum").val() + '</td><td>' + $("#AccountNumber").val() + '</td><td>' + $("#AccountOwner").val() + '</td><td>' + $("#ourcheque_DueDate").val() + '</td><td>' + $("#ourcheque_Price").val() + '</td><td>' + $("#ourcheque_ChequeAccountId").find(":selected").text() + '</td><td>' + $("#ourcheque_Description").val() + '</td><td><a id="EditOurCheque" ChequeAccountId="' + $("#ourcheque_ChequeAccountId").find(":selected").val() + '" class="icon icon-pencil iconColor" style="text-align:center;text-decoration:none; cursor:pointer" value="' + result.Html + '"></a><a id="delete" class="icon icon-trash-o iconColor" style="text-align:center;text-decoration:none; cursor:pointer" value="' + result.Html + '"></a></tr>');
+                $("#ourcheque_ChequeAccountId").prop('selectedIndex', 0);
+                $("#ourcheque_DueDate").val("");
+                $("#ourcheque_Description").val("");
+                $("#ourcheque_ChequeNum").val("");
+                $("#ourcheque_Amount").val("");
+                $("#ourcheque_Price").val("");
+                $("#AccountNumber").val("");
+                $("#AccountOwner").val("");
+            }
+            Toast(result.Script);
+
+        }
+        $(document).on("click", "#SelectOureCheque", function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: "/Receipt/GetChequeList",
+                data: { type: $("#receipt_IsReceive").find(":selected").val(), chequeType: true },
+                type: "Post",
+                dataType: "Json",
+                success: function (result) {
+
+                    $("#ChequeSelectList").html(result.Html);
+                    var dataTable = $("#ChequeItemList").dataTable({
+                        "bInfo": false,
+                        "bLengthChange": false,
+                        "bSort": false,
+                        "language": {
+                            "paginate": {
+                                "previous": "قبلی",
+                                "next": "بعدی"
+                            }
+                        },
+                        "iDisplayLength": 20
+                    });
+                    $("#Chequesearchbox").keyup(function () {
+                        dataTable.fnFilter(this.value);
+                    });
+                    $("#modalChequeList").modal({ backdrop: true });
+                },
+                error: function () {
+                    alert("خطا!");
+                }
+            });
+        });
+        $(document).on("click", "#ChequeItemList tr td a#SelectOuChequeItem", function () {
+            var Row = $(this).closest('tr');
+            var OurChequeId = $(this).attr("value");
+            var BankAccountId = $(this).attr("BankAccountId");
+            if (jQuery.inArray(OurChequeId, OurchequeListId) !== -1) {
+
+                Toast("چک با این شماره به لیست اضافه شده,info");
+            }
+            else {
+                OurchequeListId.push(OurChequeId);
+                $("#OurChequeIdArray").val(OurchequeListId);
+                $("#OurChequelistTable").append('<tr ><td>' + Row.find('td:eq(0)').text().trim() + '</td><td>' + Row.find('td:eq(1)').text().trim() + '</td><td>' + Row.find('td:eq(2)').text().trim() + '</td><td>' + Row.find('td:eq(3)').text().trim() + '</td><td>' + Row.find('td:eq(4)').text().trim() + '</td><td>' + Row.find('td:eq(5)').text().trim() + '</td><td>' + Row.find('td:eq(6)').text().trim() + '</td><td><a id="EditOurCheque" ChequeAccountId="' + BankAccountId + '" class="icon icon-pencil iconColor" style="text-align:center;text-decoration:none; cursor:pointer" value="' + OurChequeId + '"></a><a id="deleteOurCheque" class="icon icon-trash-o iconColor" style="text-align:center;text-decoration:none; cursor:pointer" value="' + OurChequeId + '"></a></tr>');
+            }
+            $("#modalChequeList").modal('hide');
+
+
+        });
+        $(document).on("click", "#OurChequelistTable tr td a#EditOurCheque", function () {
+            var Row = $(this).closest('tr');
+            var OurChequeId = $(this).attr("value");
+            var CBA = $(this).attr("ChequeAccountId");
+            $('#ourcheque_ChequeAccountId').val(CBA).change();
+            $("#ourcheque_DueDate").val(Row.find('td:eq(3)').text().trim());
+            $("#ourcheque_Description").val(Row.find('td:eq(6)').text().trim());
+            $("#ourcheque_ChequeNum").val(Row.find('td:eq(0)').text().trim());
+            $("#ourcheque_Price").val(Row.find('td:eq(4)').text().trim());
+            $("#ourcheque_Amount").val(Row.find('td:eq(4)').text().trim().replace(/,/g, ''));
+            $("#AccountNumber").val(Row.find('td:eq(1)').text().trim());
+            $("#AccountOwner").val(Row.find('td:eq(2)').text().trim());
+            $("#EditOUcheque").show();
+            $("#AddOurCheque").hide();
+            $("#SelectOureCheque").hide();
+            $("#ourcheque_Id").val(OurChequeId);
+            OurchequeListId = jQuery.grep(OurchequeListId, function (value) {
+                return value != OurChequeId;
+            });
+            $("#OurChequeIdArray").val(OurchequeListId);
+            $(Row).fadeTo(400, 0, function () {
+                Row.remove();
+            });
+        });
+        $(document).on("click", "#OurChequelistTable tr td a#deleteOurCheque", function () {
+            var Row = $(this).closest('tr');
+            var ourChequeId = $(this).attr("value");
+            OurchequeListId = jQuery.grep(OurchequeListId, function (value) {
+                return value != ourChequeId;
+            });
+            $("#ourcheque_Id").val(OurchequeListId);
+            $(Row).fadeTo(400, 0, function () {
+                Row.remove();
+            });
+        });
+        $(document).on("click", "#EditOUcheque", function (e) {
+            e.preventDefault();
+            var data = $('#AddOurChequeForm').serialize();
+            $.ajax({
+                url: "/Receipt/EditOurCheque",
+                data: data,
+                type: "Post",
+                dataType: "Json",
+                success: function (result) {
+                    if (result.Success) {
+                        AddOurChequeStatus(result);
+                        $("#ourcheque_Id").val(0);
+                        $("#EditOUcheque").hide();
+                        $("#AddOurCheque").show();
+                        $("#SelectOureCheque").show();
+                    }
+
+                },
+                error: function () {
+                    alert("خطا!");
+                }
+            });
+        });
+        //------------------------------------------------------------------------------------------
+        $(document).on("change", "#Pose_BankAccountId", function () {
+            $.ajax({
+                url: "/Receipt/GetChequeAccountInfo",
+                data: { BookId: $("#Pose_BankAccountId").find(":selected").val() },
+                type: "Post",
+                dataType: "Json",
+                success: function (result) {
+                    $("#PoseAccountNumber").val(result.Html + "/" + result.Option);
+
+                },
+                error: function () {
+                    alert("خطا!");
+                }
+            });
+        });
+        $(document).on("change", "#Card_BankAccountId", function () {
+            $.ajax({
+                url: "/Receipt/GetChequeAccountInfo",
+                data: { BookId: $("#Card_BankAccountId").find(":selected").val() },
+                type: "Post",
+                dataType: "Json",
+                success: function (result) {
+                    $("#CardAccountNumber").val(result.Html + "/" + result.Option);
+
+                },
+                error: function () {
+                    alert("خطا!");
+                }
+            });
+        });
+        $(document).on("keyup", "#cash_Amount", function () {
+            // skip for arrow keys
+            if (event.which >= 37 && event.which <= 40) return;
+
+            // format number
+            $(this).val(function (index, value) {
+                return value
+                    .replace(/\D/g, "")
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    ;
+            });
+
+            $("#ourcheque_Amount").val($(this).val().replace(/,/g, ''));
+
+        });
+        $(document).on("keyup", "#Pose_Amount", function () {
+            // skip for arrow keys
+            if (event.which >= 37 && event.which <= 40) return;
+
+            // format number
+            $(this).val(function (index, value) {
+                return value
+                    .replace(/\D/g, "")
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    ;
+            });
+
+            $("#ourcheque_Amount").val($(this).val().replace(/,/g, ''));
+
+        });
+        $(document).on("keyup", "#Card_Amount", function () {
+            // skip for arrow keys
+            if (event.which >= 37 && event.which <= 40) return;
+
+            // format number
+            $(this).val(function (index, value) {
+                return value
+                    .replace(/\D/g, "")
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    ;
+            });
+
+            $("#ourcheque_Amount").val($(this).val().replace(/,/g, ''));
+
+        });
+        $(document).on("keyup", "#Pose_Commission", function () {
+            // skip for arrow keys
+            if (event.which >= 37 && event.which <= 40) return;
+
+            // format number
+            $(this).val(function (index, value) {
+                return value
+                    .replace(/\D/g, "")
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    ;
+            });
+
+            $("#ourcheque_Amount").val($(this).val().replace(/,/g, ''));
+
+        });
+        $(document).on("keyup", "#Card_Commission", function () {
+            // skip for arrow keys
+            if (event.which >= 37 && event.which <= 40) return;
+
+            // format number
+            $(this).val(function (index, value) {
+                return value
+                    .replace(/\D/g, "")
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    ;
+            });
+
+            $("#ourcheque_Amount").val($(this).val().replace(/,/g, ''));
+
+        });
+        $("#Add").click(function () {
+            $("#ReceiptForm").submit();
+        });
+        //------------------------------------------------------------------------
+        function Receiptsuccess(data) {
+            if (data.RedirectUrl) {
+                window.location.href = data.RedirectUrl;
+            }
+            if (data.Message) {
+                Toast(data.Message);
+            }
+        }
+    </script>
+
+
+}

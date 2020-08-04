@@ -1,0 +1,145 @@
+﻿@model PunasMarketing.ViewModels.BankAccount.BankAccountViewModel
+
+@{
+    ViewBag.Title = "ویرایش حساب بانکی";
+}
+
+
+<div class="layout-content-body">
+    <div class="row gutter-xs">
+        <div class="col-xs-12">
+            <div class="card">
+                <div class="card-body">
+                    @using (Html.BeginForm("UpdateBankAccount", "BankAccount", FormMethod.Post, new { autocomplete = "off" }))
+                    {
+                        <div id="divInfo">
+                            <legend>
+                                <h2>ویرایش حساب بانکی</h2>
+                            </legend>
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+                            @Html.HiddenFor(model => model.BankAccountModel.Id)
+
+                            <div class="col-xs-6 col-md-6">
+                                <div class="md-form-group md-label-floating">
+                                    @Html.TextBoxFor(model => model.BankAccountModel.AccountNum, new { @class = "md-form-control", type = "number", spellcheck = "false" })
+                                    @Html.LabelFor(model => model.BankAccountModel.AccountNum, new { @class = "md-control-label" })
+                                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.BankAccountModel.AccountNum)</span>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6 col-md-6">
+                                <div class="md-form-group md-label-floating">
+                                    @Html.DropDownListFor(model => model.BankAccountModel.BankId, new SelectList(Model.Banks, "Id", "Name"), "-", new { @class = "md-form-control" })
+                                    @Html.LabelFor(model => model.BankAccountModel.BankId, new { @class = "md-control-label" })
+                                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.BankAccountModel.BankId)</span>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6 col-md-6">
+                                <div class="md-form-group md-label-floating">
+                                    @Html.TextBoxFor(model => model.BankAccountModel.BranchName, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                                    @Html.LabelFor(model => model.BankAccountModel.BranchName, new { @class = "md-control-label" })
+                                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.BankAccountModel.BranchName)</span>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6 col-md-6">
+                                <div class="md-form-group md-label-floating">
+                                    @Html.TextBoxFor(model => model.BankAccountModel.BranchCode, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                                    @Html.LabelFor(model => model.BankAccountModel.BranchCode, new { @class = "md-control-label" })
+                                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.BankAccountModel.BranchCode)</span>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6 col-md-6">
+                                <div class="md-form-group md-label-floating">
+                                    @Html.TextBoxFor(model => model.BankAccountModel.Owner, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                                    @Html.LabelFor(model => model.BankAccountModel.Owner, new { @class = "md-control-label" })
+                                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.BankAccountModel.Owner)</span>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6 col-md-6">
+                                <div class="col-xs-12 col-md-11" style="padding: 0">
+                                    <div class="md-form-group md-label-floating">
+                                        @Html.TextBoxFor(model => model.BankAccountModel.Iban, new { @class = "md-form-control", type = "number", spellcheck = "false", style = "direction: ltr;" })
+                                        @Html.LabelFor(model => model.BankAccountModel.Iban, new { @class = "md-control-label" })
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-1" style="line-height: 75px; font-size: 17px; padding: 0" dir="ltr">
+                                    IR
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-md-12">
+                                <div class="col-xs-6 col-md-6" style="padding: 0px;">
+                                    <div class="md-form-group md-label-floating">
+                                        <label class="custom-control custom-control-primary custom-checkbox">
+                                            <input class="custom-control-input" data-val="true" id="BankAccountModel_HasPos" name="BankAccountModel.HasPos" type="checkbox" value="true">
+                                            <span class="custom-control-indicator"></span>
+                                            <span class="custom-control-label">آیا این حساب متصل به دستگاه کارت خوان است ؟</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-6 col-md-6">
+                                    <div class="md-form-group md-label-floating">
+                                        <label class="custom-control custom-control-primary custom-checkbox">
+                                            <input class="custom-control-input" data-val="true" id="BankAccountModel_IsAvailable" name="BankAccountModel.IsAvailable" type="checkbox" value="true">
+                                            <span class="custom-control-indicator"></span>
+                                            <span class="custom-control-label">آیا حساب فعال است ؟</span>
+                                        </label>
+                                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.BankAccountModel.IsAvailable)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-xs-12 col-md-12">
+                                <div class="margin-top">
+                                    <div class="col-xs-12 col-md-12">
+                                        <input class="btn btn-success" type="submit" value="ثبت اطلاعات" />
+                                        <a href="@Url.Action("BankAccounts", "BankAccount")" class="btn btn-default">برگشت</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            var hasPos = '@Html.Raw(Model.BankAccountModel.HasPos)';
+            if (hasPos === 'True') {
+                $('#BankAccountModel_HasPos').attr('checked', 'checked');
+            }
+
+            var isAvailable = '@Html.Raw(Model.BankAccountModel.IsAvailable)';
+            if (isAvailable === 'True') {
+                $('#BankAccountModel_IsAvailable').attr('checked', 'checked');
+            }
+        });
+    </script>
+}
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,116 @@
+﻿@model  PunasMarketing.ViewModels.Warehouse.WarehouseViewModel
+
+@{
+    ViewBag.Title = "افزودن انبار";
+}
+
+<div class="layout-content-body">
+    @using (Html.BeginForm("AddWarehouse", "WareHouse", FormMethod.Post, new { autocomplete = "off" }))
+    {
+        <div id="divInfo">
+            <legend>
+                <h2>ایجاد انبار</h2>
+            </legend>
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <div class="col-xs-12 col-md-6">
+                <div class="md-form-group md-label-static">
+                    @Html.TextBoxFor(model => model.Warehouse.Name, new { @class = "md-form-control", type = "text", spellcheck = "false", required = "" })
+                    @Html.LabelFor(model => model.Warehouse.Name, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Warehouse.Name)</span>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <div class="md-form-group md-label-static">
+                    @Html.TextBoxFor(model => model.Warehouse.Tell, new { @class = "md-form-control", type = "Number", spellcheck = "false", required = "" })
+                    @Html.LabelFor(model => model.Warehouse.Tell, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Warehouse.Tell)</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-6">
+                <div class="md-form-group md-label-static" id="JobTitles">
+                    @Html.DropDownListFor(model => model.JobTitleId, new SelectList(Model.JobTitles, "Id", "Name"), "-", new { @class = "md-form-control" })
+                    @Html.LabelFor(model => model.JobTitleId, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.JobTitleId)</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-6">
+                <div class="md-form-group md-label-static">
+                    <div id="DrpPersonnels">
+                        @Html.DropDownListFor(model => model.Warehouse.KeeperId, Enumerable.Empty<SelectListItem>(), "ابتدا عنوان شغلی را انتخاب کنید", new { @class = "md-form-control" })
+                        @Html.Label("انباردار", new { @class = "md-control-label" })
+                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Warehouse.KeeperId)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-md-6">
+                <div class="md-form-group md-label-static">
+                    @Html.TextBoxFor(model => model.Warehouse.Address, new { @class = "md-form-control", type = "text", spellcheck = "false", required = "" })
+                    @Html.LabelFor(model => model.Warehouse.Address, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Warehouse.Address)</span>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <div class="md-form-group md-label-static">
+                    @Html.TextBoxFor(model => model.Warehouse.Description, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                    @Html.LabelFor(model => model.Warehouse.Description, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Warehouse.Description)</span>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-12">
+                <div class="margin-top">
+                    <div class="col-xs-12 col-md-12">
+                        <input class="btn btn-success" type="submit" value="ثبت اطلاعات" />
+                        <a href="@Url.Action("Warehouses","WareHouse")" class="btn btn-default">برگشت</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    }
+
+</div>
+
+@section toastr {
+    <script src="~/Scripts/jquery-1.8.2.js"></script>
+    <script src="~/Scripts/toastr.js"></script>
+    @Html.Raw(TempData["SaveMessage"])
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).on("change",
+            "#JobTitles",
+            function () {
+                var defaultHtml = '<select class="md-form-control" id="Personnels" name="Personnels"><option value="">ابتدا عنوان شغلی را انتخاب کنید</option></select><label class="md-control-label" for="">کاربر</label><span class="has-error md-help-block valError"><span class="field-validation-valid" data-valmsg-for="Warehouse.KeeperId" data-valmsg-replace="true"></span></span>';
+                var selectedIndex = $("#JobTitles").prop('selectedIndex');
+
+                if (selectedIndex != 0) {
+                    $.ajax({
+                        url: "/Warehouse/GetPersonnels",
+                        data: { id: $("#JobTitles").find(":selected").val() },
+                        type: "Post",
+                        dataType: "Json",
+                        success: function (result) {
+                            $("#DrpPersonnels").html(result.Html);
+                            if (result.Success) {
+
+                            }
+                        },
+                        error: function () {
+                            $("#DrpPersonnels").html(defaultHtml);
+                        }
+                    });
+                } else {
+                    $("#DrpPersonnels").html(defaultHtml);
+                }
+            });
+    </script>
+}
+
+
+

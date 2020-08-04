@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "دسترسی غیرمجاز";
+}
+
+<div class="error text-center" style="margin-top: 100px">
+    <div class="error-body">
+        <img src="~/Content/do-not-enter.png" width="200" />
+        <h1 class="error-heading">دسترسی غیرمجاز!</h1>
+        <h4 class="error-subheading" style="margin: 30px">حساب کاربری شما، مجوز دسترسی به این بخش را ندارد.</h4>
+    </div>
+</div>
+
+@section toastr {
+    @Html.Raw(TempData["SaveMessage"])
+}

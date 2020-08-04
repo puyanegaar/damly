@@ -1,0 +1,271 @@
+﻿
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewBag.Title</title>
+    <link rel="icon" type="~/Content/Apalogo.png" href="~/Content/Template/images/logo2.png" sizes="32x32">
+    <link rel="icon" type="~/Content/Apalogo.png" href="~/Content/Template/images/logo2.png" sizes="16x16">
+    <link rel="manifest" href="manifest.json">
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#d9230f">
+    <meta name="theme-color" content="#ffffff">
+
+    <link href="~/Content/AdminHtml/css/elephant-rtl.min.css" rel="stylesheet" />
+
+    <link href="~/Scripts/TimePicker/wickedpicker.min.css" rel="stylesheet" />
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">*@
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/jquery.ui.base.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/jquery.ui.core.css" rel="stylesheet" />
+
+
+    <link href="~/Scripts/Jquery-toast/jquery.toast.css" rel="stylesheet" />
+
+    @Styles.Render("~/Content/themes/base/css")
+
+    <link href="~/Content/CustomStyles.css" rel="stylesheet" />
+    <link href="~/Content/themes/royal.css" rel="stylesheet" />
+    <link href="~/Content/themes/fontStyles/style.css" rel="stylesheet" />
+    @RenderSection("styles", false)
+
+
+</head>
+<body class="layout layout-header-fixed">
+
+    <div class="layout-header">
+        <div class="navbar navbar-default">
+            <div class="navbar-header">
+
+                <a class="navbar-brand navbar-brand-center" href="/">
+                    <div>پنل مدیریت</div>
+                </a>
+
+                <button class="navbar-toggler visible-xs-block collapsed" type="button" data-toggle="collapse" data-target="#sidenav">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="bars">
+                        <span class="bar-line bar-line-1 out"></span>
+                        <span class="bar-line bar-line-2 out"></span>
+                        <span class="bar-line bar-line-3 out"></span>
+                    </span>
+                    <span class="bars bars-x">
+                        <span class="bar-line bar-line-4"></span>
+                        <span class="bar-line bar-line-5"></span>
+                    </span>
+                </button>
+                <button class="navbar-toggler visible-xs-block collapsed" type="button" data-toggle="collapse" data-target="#navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="arrow-up"></span>
+                    <span class="ellipsis ellipsis-vertical">
+                        <img class="ellipsis-object" width="32" height="32" src="~/Content/ArasLogo.png" alt="Menue">
+                    </span>
+                </button>
+            </div>
+            <div class="navbar-toggleable">
+                <nav id="navbar" class="navbar-collapse collapse">
+                    <button class="sidenav-toggler hidden-xs" title="Collapse sidenav ( [ )" aria-expanded="true" type="button">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="bars">
+                            <span class="bar-line bar-line-1 out"></span>
+                            <span class="bar-line bar-line-2 out"></span>
+                            <span class="bar-line bar-line-3 out"></span>
+                            <span class="bar-line bar-line-4 in"></span>
+                            <span class="bar-line bar-line-5 in"></span>
+                            <span class="bar-line bar-line-6 in"></span>
+                        </span>
+                    </button>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @Html.Action("NavBar", "Home")
+                    }
+
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="layout-main">
+        <div class="layout-sidebar">
+            <div class="layout-sidebar-backdrop"></div>
+            <div class="layout-sidebar-body">
+                <div class="custom-scrollbar">
+                    <nav id="sidenav" class="sidenav-collapse collapse">
+                        <ul class="sidenav">
+
+                            <li class="sidenav-item has-subnav">
+                                <a href="/" aria-haspopup="true">
+                                    <span class="sidenav-icon icon icon icon-newspaper-o"></span>
+                                    <span class="sidenav-label">داشبورد</span>
+                                </a>
+                            </li>
+
+                            <li class="sidenav-item has-subnav">
+                                <a href="#" aria-haspopup="true">
+                                    <span class="sidenav-icon icon icon icon-newspaper-o"></span>
+                                    <span class="sidenav-label">مدیریت اشخاص</span>
+                                </a>
+                                <ul class="sidenav-subnav collapse">
+                                    <li><a href="/Supplier/Suppliers">تامین کننده ها</a></li>
+                                    <li><a href="/Customer/Customers">مشتریان</a></li>
+                                    <li><a href="/CustomerCategory/CustomerCategories">دسته بندی مشتریان</a></li>
+                                    <li><a href="/Personnel/Personnels">کارکنان</a></li>
+                                    <li><a href="/Marketer/Marketers">بازاریاب ها</a></li>
+                                    <li><a href="/JobTitle/JobTitles">عناوین شغلی</a></li>
+                                    <li><a href="/Section/Sections">بخش ها</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="sidenav-item has-subnav">
+                                <a href="#" aria-haspopup="true">
+                                    <span class="sidenav-icon icon icon icon-newspaper-o"></span>
+                                    <span class="sidenav-label">مدیریت محصولات</span>
+                                </a>
+                                <ul class="sidenav-subnav collapse">
+                                    <li><a href="/Product/Products">محصولات</a></li>
+                                    <li><a href="/ProductCategory/Categories">دسته بندی محصولات</a></li>
+                                    <li><a href="/Unit/Units">واحدهای اندازه گیری</a></li>
+                                    <li><a href="/PriceType/PriceTypes">نوع قیمت</a></li>
+                                    <li><a href="/Offer/Offers">جشنواره تخفیفات</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="sidenav-item has-subnav">
+                                <a href="#" aria-haspopup="true">
+                                    <span class="sidenav-icon icon icon icon-newspaper-o"></span>
+                                    <span class="sidenav-label">مدیریت سفارش ها</span>
+                                </a>
+                                <ul class="sidenav-subnav collapse">
+                                    <li><a href="/Order/AllOrders">همه سفارش ها</a></li>
+                                    <li><a href="/Order/VerifyingOrders">در انتظار تأیید</a></li>
+                                    <li><a href="/Order/FactoringOrders">در انتظار صدور فاکتور</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="sidenav-item has-subnav">
+                                <a href="#" aria-haspopup="true">
+                                    <span class="sidenav-icon icon icon icon-newspaper-o"></span>
+                                    <span class="sidenav-label">مدیریت انبار</span>
+                                </a>
+                                <ul class="sidenav-subnav collapse">
+                                    <li><a href="/WareHouse/WareHouses">انبارها</a></li>
+                                    <li><a href="/Invoice/ReceiveInvoices">رسیدها</a></li>
+                                    <li><a href="/Invoice/SendInvoices">حواله ها</a></li>
+                                    <li><a href="/InventoryChecking/InventoryCheckings">انبارگردانی</a></li>
+                                    <li><a href="/Factor/SellFactorsWithoutInvoice">فاکتورهای فروش در انتظار صدور حواله</a></li>
+                                    <li><a href="/Factor/BuyFactorsWithoutInvoice">فاکتورهای خرید در انتظار صدور رسید</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="sidenav-item has-subnav">
+                                <a href="#" aria-haspopup="true">
+                                    <span class="sidenav-icon icon icon icon-newspaper-o"></span>
+                                    <span class="sidenav-label">فاکتورها</span>
+                                </a>
+                                <ul class="sidenav-subnav collapse">
+                                    <li><a href="/Factor/SellFactors">فاکتورهای فروش</a></li>
+                                    <li><a href="/Factor/BuyFactors">فاکتورهای خرید</a></li>
+                                    @*<li><a href="/Factor/SellBackFactors">فاکتورهای برگشت از فروش</a></li>
+                                    <li><a href="/Factor/BuyBackFactors">فاکتورهای برگشت از خرید</a></li>*@
+                                </ul>
+                            </li>
+
+                            <li class="sidenav-item has-subnav">
+                                <a href="#" aria-haspopup="true">
+                                    <span class="sidenav-icon icon icon icon-newspaper-o"></span>
+                                    <span class="sidenav-label">حسابداری</span>
+                                </a>
+                                <ul class="sidenav-subnav collapse">
+                                    <li><a href="/Sarfasl/Sarfasls">سرفصل ها</a></li>
+                                    <li><a href="/OtherTafsili/OtherTafsilis">تفصیلی ها</a></li>
+                                    <li><a href="/Bank/Banks">بانک</a></li>
+                                    <li><a href="/BankAccount/BankAccounts">حساب بانکی</a></li>
+                                    <li><a href="/CashDesk/CashDesks">صندوق ها</a></li>
+                                    <li><a href="/FiscalPeriod/FiscalPeriods">تنظیمات دوره مالی جاری</a></li>
+                                    <li><a href="/FiscalYearOpController/CloseFinanceYear">بستن دوره مالی</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="sidenav-item has-subnav">
+                                <a href="#" aria-haspopup="true">
+                                    <span class="sidenav-icon icon icon icon-newspaper-o"></span>
+                                    <span class="sidenav-label">گزارش های مالی</span>
+                                </a>
+                                <ul class="sidenav-subnav collapse">
+                                    <li><a href="/Sanad/Sanads">اسناد حسابداری</a></li>
+                                    <li><a href="/Reports/JournalReport">دفتر روزنامه</a></li>
+                                    <li><a href="/Reports/journalTotalAccountsReport">دفتر روزنامه در سطح معین</a></li>
+                                    <li><a href="/Reports/LedgerReport">دفتر کل، معین و تفضیلی</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="sidenav-item has-subnav">
+                                <a href="#" aria-haspopup="true">
+                                    <span class="sidenav-icon icon icon icon-newspaper-o"></span>
+                                    <span class="sidenav-label">دریافت و پرداخت</span>
+                                </a>
+                                <ul class="sidenav-subnav collapse">
+                                    <li><a href="/Transaction/Receives">رسیدهای دریافت</a></li>
+                                    <li><a href="/Transaction/Payments">رسیدهای پرداخت</a></li>
+                                    <li><a href="/Transaction/Transfers">رسیدهای انتقال وجه</a></li>
+                                    <li><a href="/Sanad/AsnadDasti">اسناد دستی</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="sidenav-item has-subnav">
+                                <a href="#" aria-haspopup="true">
+                                    <span class="sidenav-icon icon icon icon-newspaper-o"></span>
+                                    <span class="sidenav-label">چک ها</span>
+                                </a>
+                                <ul class="sidenav-subnav collapse">
+                                    <li><a href="/Cheque/RecieveCheques">چک های دریافتی</a></li>
+                                    <li><a href="/Cheque/PayCheques">چک های پرداختی</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div class="layout-content">
+
+            @RenderBody()
+
+            <div id="progress" class="addModal" style="z-index:99999">
+                <div class="addCenter">
+                    <img src="~/Content/loading.gif" />
+                </div>
+            </div>
+        </div>
+
+        <div class="layout-footer">
+            <div class="layout-footer-body">
+                <small class="version" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;font-size:larger">Punas Marketing 2019</small>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-3.2.1.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.8.24.js"></script>
+    @*<script src="~/Scripts/bootstrap.min.js"></script>*@
+    <script src="~/Content/AdminHtml/js/vendor.min.js"></script>
+    <script src="~/Content/AdminHtml/js/elephant.min.js"></script>
+    <script src="~/Content/AdminHtml/js/application.min.js"></script>
+    <script src="~/Content/AdminHtml/js/demo.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>*@
+
+    <script src="~/Scripts/sweetalert.min.js"></script>
+    <script src="~/Scripts/PunasMarketing.js"></script>
+    <script src="~/Scripts/toastr.js"></script>
+
+    @RenderSection("toastr", false)
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @RenderSection("Modal", false)
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/AjaxOption.js"></script>
+
+</body>
+
+
+</html>

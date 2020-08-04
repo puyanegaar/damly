@@ -1,0 +1,18 @@
+﻿@model int?
+<div class="modal-header bg-success">
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true" style="color: white">×</span>
+        <span class="sr-only">Close</span>
+    </button>
+    <h4 class="modal-title">تغییر وضعیت چک پرداختی به برگشت خورده</h4>
+</div>
+
+@using (Html.BeginForm("BouncedPayModal", "Cheque", FormMethod.Post, new { style = "padding: 10px" }))
+{
+    @Html.HiddenFor(model => model.Value)
+
+    <h5>آیا می خواهید وضعیت چک را به برگشت خورده تغییر دهید؟</h5>
+
+    <input class="btn btn-success btn-next" type="submit" value="تأیید" />
+    <input class="btn btn-danger btn-next" type="button" value="لغو" data-dismiss="modal" />
+}

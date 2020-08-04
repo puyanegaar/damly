@@ -1,0 +1,116 @@
+﻿@model IQueryable<PunasMarketing.Models.DomainModel.Warehouse>
+
+@{
+    ViewBag.Title = "انبارها";
+    int counter = 0;
+}
+
+<div class="layout-content-body">
+    <div class="row gutter-xs">
+        <div class="col-xs-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>لیست انبارها</strong>
+                </div>
+
+                <div class="card-body">
+                    @AntiForgery.GetHtml()
+                    <div class="md-form-group md-label-floating col-md-6">
+                        <input class="md-form-control" type="text" name="name" id="searchbox" spellcheck="false" required="" aria-required="true">
+                        <label class="md-control-label">جستجو</label>
+                    </div>
+                    <div class="md-form-group md-label-floating col-md-6">
+                        <div class="margin-top">
+                            <div class="col-xs-6 col-md-6">
+                                <a href="@Url.Action("AddWarehouse","WareHouse")" class="btn btn-success">افزودن انبار</a>
+                            </div>
+                        </div>
+                    </div>
+                    <table id="demo-datatables-1" class="table table-striped table-nowrap dataTable" cellspacing="0" width="100%">
+                        <thead>
+                            <tr class="columnSize">
+                                <th>
+                                    ردیف
+                                </th>
+                                <th>
+                                    شناسه
+                                </th>
+                                <th>
+                                    نام انبار
+                                </th>
+                                <th>
+                                    انباردار
+                                </th>
+                                <th>
+                                    تلفن
+                                </th>
+                                <th>
+                                    نشانی
+                                </th>
+                                <th>
+                                    توضیحات
+                                </th>
+                                <th>
+                                    عملیات
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="columnSize" id="Supplier_@item.Id">
+                                    <td>
+                                        @(++counter)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @{
+                                            var personnelFullName = new
+                                            {
+                                                FullName = item.User.Personnel.FirstName + " " + item.User.Personnel.LastName
+                                            };
+                                        }
+                                        @Html.DisplayFor(modelItem => personnelFullName.FullName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => item.Tell)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => item.Address)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => item.Description)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink(" ", "warehouse", "Print", new { id = item.Id }, new { @class = "icon icon-print iconColor" })
+                                        @Html.ActionLink(" ", "UpdateWarehouse", new { id = item.Id }, new { @class = "icon icon-pencil iconColor" })
+                                        <a id="Delete" value="@item.Id" class="icon icon-remove iconColor"></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section toastr {
+    @Html.Raw(TempData["SaveMessage"])
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/datatable")
+    <script>
+        Delete('Warehouse', 'DeleteWarehouse');
+    </script>
+}
+
+
+

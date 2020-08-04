@@ -1,0 +1,122 @@
+﻿@model PunasMarketing.ViewModels.Cheque.UpdatePayChequeViewModel
+@{
+    ViewBag.Title = "ویرایش چک پرداختی";
+}
+
+<div class="layout-content-body">
+    @using (Html.BeginForm("UpdatePayCheque", "Cheque", FormMethod.Post))
+    {
+        <div id="divInfo">
+            <legend>
+                <h2>ویرایش چک پرداختی</h2>
+            </legend>
+
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            @Html.HiddenFor(model => model.UpdatePayChequeMetaData.Id)
+            @Html.HiddenFor(model => model.UpdatePayChequeMetaData.IsRecieve)
+            @Html.HiddenFor(model => model.UpdatePayChequeMetaData.SubmitDate)
+            @Html.HiddenFor(model => model.UpdatePayChequeMetaData.UserId)
+            @Html.HiddenFor(model => model.UpdatePayChequeMetaData.ChequeStatus)
+
+            <div class="col-xs-6 col-md-6">
+                <div class="md-form-group md-label-floating">
+                    @Html.TextBoxFor(model => model.UpdatePayChequeMetaData.ChequeNum, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                    @Html.LabelFor(model => model.UpdatePayChequeMetaData.ChequeNum, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.UpdatePayChequeMetaData.ChequeNum)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-md-6">
+                <div class="md-form-group md-label-floating">
+                    @Html.DropDownListFor(model => model.UpdatePayChequeMetaData.BankId, new SelectList(Model.Banks, "Id", "Name"), "نام بانک", new { @class = "md-form-control" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.UpdatePayChequeMetaData.BankId)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-md-6">
+                <div class="md-form-group md-label-floating">
+                    @Html.TextBoxFor(model => model.UpdatePayChequeMetaData.Amount, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                    @Html.LabelFor(model => model.UpdatePayChequeMetaData.Amount, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.UpdatePayChequeMetaData.Amount)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-md-6">
+                <div class="md-form-group md-label-floating">
+                    @Html.DropDownListFor(model => model.UpdatePayChequeMetaData.BankAccountId, new SelectList(Model.BankAccounts, "Id", "AccountNum"), "شماره حساب چک", new { @class = "md-form-control" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.UpdatePayChequeMetaData.BankAccountId)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-md-6">
+                <div class="md-form-group md-label-floating">
+                    @Html.TextBoxFor(model => model.UpdatePayChequeMetaData.DueDate, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                    @Html.LabelFor(model => model.UpdatePayChequeMetaData.DueDate, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.UpdatePayChequeMetaData.DueDate)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-md-6">
+                <div class="md-form-group md-label-floating">
+                    @Html.TextBoxFor(model => model.UpdatePayChequeMetaData.IssueDate, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                    @Html.LabelFor(model => model.UpdatePayChequeMetaData.IssueDate, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.UpdatePayChequeMetaData.IssueDate)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-md-6">
+                <div class="md-form-group md-label-floating">
+                    @Html.TextBoxFor(model => model.UpdatePayChequeMetaData.OwnerName, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                    @Html.LabelFor(model => model.UpdatePayChequeMetaData.OwnerName, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.UpdatePayChequeMetaData.OwnerName)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-md-6">
+                <div class="md-form-group md-label-floating">
+                    @Html.DropDownListFor(model => model.UpdatePayChequeMetaData.PayForSupCusId, new SelectList(Model.Suppliers, "Id", "Name"), "پرداخت به تأمین کننده/مشتری", new { @class = "md-form-control" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.UpdatePayChequeMetaData.PayForSupCusId)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-md-6">
+                <div class="md-form-group md-label-floating">
+                    @Html.DropDownList("Costs", new SelectList(Model.Costs, "Id", "Name"), "پرداخت به هزینه", new { @class = "md-form-control" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.UpdatePayChequeMetaData.PayForCostId)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-md-12">
+                <div class="md-form-group md-label-floating">
+                    @Html.TextBoxFor(model => model.UpdatePayChequeMetaData.Description, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                    @Html.LabelFor(model => model.UpdatePayChequeMetaData.Description, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.UpdatePayChequeMetaData.Description)</span>
+                </div>
+            </div>
+
+
+            <div class="col-xs-12 col-md-12">
+                <div class="margin-top">
+                    <div class="col-xs-12 col-md-12">
+                        <input class="btn btn-success" type="submit" value="ثبت اطلاعات" />
+                        <a href="@Url.Action("PayCheques","Cheque")" class="btn btn-default">بازگشت</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    }
+
+</div>
+
+@section toastr {
+    @Html.Raw(TempData["UploadMessage"])
+    @Html.Raw(TempData["deleteMessage"])
+    @Html.Raw(TempData["SaveMessage"])
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

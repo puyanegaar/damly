@@ -1,0 +1,39 @@
+﻿@model PunasMarketing.ViewModels.Cheque.DepositReceiveChequeViewModel
+
+<div class="modal-header bg-success">
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true" style="color: white">×</span>
+        <span class="sr-only">Close</span>
+    </button>
+    <h4 class="modal-title">خواباندن چک دریافتی به حساب</h4>
+</div>
+
+@using (Html.BeginForm("DepositReceiveModal", "Cheque", FormMethod.Post, new { style = "padding: 10px" }))
+{
+    @Html.HiddenFor(model => model.ChequeId)
+
+    <h5>شماره حساب جهت خواباندن چک را انتخاب کنید:</h5>
+    <div class="md-form-group md-label-static">
+        @Html.DropDownListFor(model =>
+            model.BankAccountId,
+            new SelectList(Model.BankAccounts, "Id", "BankNameAcc"),
+            "-",
+            new { @class = "md-form-control" })
+        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.BankAccountId)</span>
+    </div>
+
+    <div class="md-form-group md-label-static">
+        <input class="md-form-control" type="text" spellcheck="false" readonly="readonly" id="txtDepositDate" value="@Model.DepositDate.ToMiladiDate().ToPersianDateTime().ToStringDate()" name="DepositDate" />
+        @Html.LabelFor(model => model.DepositDate, new { @class = "md-control-label" })
+        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.DepositDate)</span>
+    </div>
+
+    <input class="btn btn-success btn-block btn-next" type="submit" value="تأیید" />
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/cheques")
+
+<script>
+    DepositeReceiveCheque();
+</script>

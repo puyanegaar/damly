@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "خطای چاپ";
+}
+
+<div class="error text-center" style="margin-top: 100px">
+    <div class="error-body">
+        <img src="~/Content/print-error-icon.png" width="200" />
+        <h1 class="error-heading">@ViewBag.Title!</h1>
+        <h4 class="error-subheading" style="margin: 30px">خطا در چاپ سند!</h4>
+    </div>
+</div>
+
+@section toastr {
+    @Html.Raw(TempData["SaveMessage"])
+}

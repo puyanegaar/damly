@@ -1,0 +1,74 @@
+﻿@model PunasMarketing.ViewModels.Region.RegionViewModel
+@{
+    ViewBag.Title = "افزودن منطقه شهری";
+}
+
+
+<div class="layout-content-body">
+    @using (Html.BeginForm("AddRegion", "Region", FormMethod.Post, new {autocomplete = "off"}))
+    {
+        <div id="divInfo">
+            <legend>
+                <h2>افزودن منطقه شهری</h2>
+            </legend>
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+        
+            <div class="col-xs-4 col-md-4">
+                <div class="md-form-group md-label-static">
+                    @Html.DropDownListFor(model => model.RegionModel.StateId, new SelectList(Model.Provinces, "Id", "Name"), "نام استان", new { @class = "md-form-control" })
+                    @Html.LabelFor(model => model.RegionModel.StateId, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.RegionModel.StateId)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-4 col-md-4">
+                <div class="md-form-group md-label-static" id="DrpCities">
+                    @Html.DropDownListFor(model => model.RegionModel.CityId, Enumerable.Empty<SelectListItem>(), "ابتدا استان را انتخاب کنید.", new { @class = "md-form-control" })
+                    @Html.LabelFor(model => model.RegionModel.CityId, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.RegionModel.CityId)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-4 col-md-4">
+                <div class="md-form-group md-label-static">
+                    @Html.TextBoxFor(model => model.RegionModel.Name, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                    @Html.LabelFor(model => model.RegionModel.Name, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.RegionModel.Name)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-md-12">
+                <div class="margin-top">
+                    <div class="col-xs-12 col-md-12">
+                        <input class="btn btn-success" type="submit" value="ثبت اطلاعات" />
+                        <a href="@Url.Action("Regions","Region")" class="btn btn-default">برگشت</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    }
+
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/regionsJs")
+
+    <script>
+        regions();
+    </script>
+}
+
+
+
+
+
+
+
+
+
+

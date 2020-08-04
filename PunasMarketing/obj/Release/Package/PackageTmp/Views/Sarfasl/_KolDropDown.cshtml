@@ -1,0 +1,3 @@
+﻿@model PunasMarketing.ViewModels.Sarfasl.SarfaslViewModel
+
+@Html.DropDownListFor(model => model.KolSarfaslId, new SelectList(Model.KolSarfasls, "Id", "CodingAndName"), "-", new { @class = "md-form-control" })

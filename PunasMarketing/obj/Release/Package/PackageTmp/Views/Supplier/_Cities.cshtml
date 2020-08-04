@@ -1,0 +1,4 @@
+﻿@model PunasMarketing.ViewModels.Supplier.SupplierViewModel
+
+@Html.DropDownListFor(model => model.Supplier.CityId, new SelectList(Model.Cities, "Id", "Name"), "شهر", new { @class = "md-form-control" })
+<span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Supplier.CityId)</span>

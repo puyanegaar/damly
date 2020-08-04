@@ -1,0 +1,66 @@
+﻿@model PunasMarketing.ViewModels.Cheque.ClearReceiveChequeViewModel
+
+<div class="modal-header bg-success">
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true" style="color: white">×</span>
+        <span class="sr-only">Close</span>
+    </button>
+    <h4 class="modal-title">وصول کردن چک دریافتی</h4>
+</div>
+
+@using (Html.BeginForm("ClearReceiveModal", "Cheque", FormMethod.Post, new { style = "padding: 10px;", id = "myForm" }))
+{
+    @Html.HiddenFor(model => model.ChequeId, new { id = "hiddenChequeId" })
+
+    <div class="col-xs-12 col-md-12" style="margin-bottom: 10px">
+        <label class="custom-control custom-control-success custom-radio">
+            <input id="rbnCash" class="custom-control-input" type="radio" name="tranType" value="cash" checked="checked">
+            <span class="custom-control-indicator"></span>
+            <span class="custom-control-label">نقدی</span>
+        </label>
+        <label class="custom-control custom-control-success custom-radio">
+            <input id="rbnAccount" class="custom-control-input" type="radio" name="tranType" value="account">
+            <span class="custom-control-indicator"></span>
+            <span class="custom-control-label">واریز به بانک</span>
+        </label>
+    </div>
+
+    <div class="col-xs-12 col-md-12">
+        <div class="md-form-group md-label-static">
+            <input class="md-form-control" type="text" spellcheck="false" readonly="readonly" id="txtClearDate" value="@Model.ClearDate.ToMiladiDate().ToPersianDateTime().ToStringDate()" name="ClearDate" />
+            @Html.LabelFor(model => model.ClearDate, new { @class = "md-control-label" })
+            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.ClearDate)</span>
+        </div>
+    </div>
+
+    <div id="accountDiv">
+        <h5>شماره حساب جهت واریز چک را انتخاب کنید:</h5>
+        <div class="md-form-group md-label-static">
+            @Html.DropDownListFor(model =>
+                model.BankAccountId,
+                new SelectList(Model.BankAccounts, "Id", "BankNameAcc"),
+                "-",
+                new { @class = "md-form-control", id = "drpAccount" })
+            <span id="accountError" class="has-error md-help-block valError">حساب بانکی واریزی را انتخاب کنید</span>
+        </div>
+    </div>
+    <div id="cashDiv">
+        <h5>صندوق را انتخاب کنید:</h5>
+        <div class="md-form-group md-label-static">
+            @Html.DropDownListFor(model =>
+                model.CashDeskId,
+                new SelectList(Model.CashDesks, "Id", "Name"),
+                "-",
+                new { @class = "md-form-control", id = "drpCashDesk" })
+            <span id="cashDeskError" class="has-error md-help-block valError">صندوق را انتخاب کنید</span>
+        </div>
+    </div>
+
+    <input id="btnSubmitClearReceiveCheque" class="btn btn-success btn-block btn-next" type="button" value="تأیید" />
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/cheques")
+<script>
+    ClearReceiveCheque();
+</script>

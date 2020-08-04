@@ -1,0 +1,56 @@
+﻿@model PunasMarketing.ViewModels.Transaction.PaymentStatusViewModel
+@if (Model.Balance > 0)
+{
+    <div class="col-xs-12 col-md-12" style="background-color:#dff0d8;border-color:#dff0d8;color:black;min-height:50px;height:auto">
+        <div class="col-xs-9 col-md-9">
+            <label class="md-form-control" style="border:none">مانده (تراز) @Model.Name :</label>
+        </div>
+        <div class="col-xs-3 col-md-3">
+            <label class="md-form-control" style="border:none;float:left">@Model.Balance.ToPrice() <span style="margin-right:5px">ریال</span> <span style="margin-right:10px">(بستانکار)</span></label>
+        </div>
+
+        <div class="col-xs-9 col-md-9">
+            <label class="md-form-control" style="border:none">مبلغ تراکنش</label>
+        </div>
+        <div class="col-xs-3 col-md-3">
+            <label class="md-form-control" style="border:none;float:left"><span style="margin-right:5px" id="TAmount">0</span><span style="margin-right:5px">ریال</span></label>
+        </div>
+    </div>
+}
+else if (Model.Balance < 0)
+{
+    <div class="col-xs-12 col-md-12" style="background-color:#f2dede;border-color:#dff0d8;color:black;min-height:50px;height:auto;">
+        <div class="col-xs-9 col-md-9">
+            <label class="md-form-control" style="border:none">مانده (تراز) @Model.Name :</label>
+        </div>
+        <div class="col-xs-3 col-md-3">
+            @{ var b = Model.Balance * -1;}
+            <label class="md-form-control" style="border:none;float:left">@b.ToPrice() <span style="margin-right:5px">ریال</span> <span style="margin-right:10px">(بدهکار)</span></label>
+        </div>
+
+        <div class="col-xs-9 col-md-9">
+            <label class="md-form-control" style="border:none">مبلغ تراکنش</label>
+        </div>
+        <div class="col-xs-3 col-md-3">
+            <label class="md-form-control" style="border:none;float:left"><span style="margin-right:5px" id="TAmount">0</span><span style="margin-right:5px">ریال</span></label>
+        </div>
+    </div>
+}
+else if (Model.Balance == 0)
+{
+    <div class="col-xs-12 col-md-12" style="background-color:#d9edf7;border-color:#dff0d8;color:black;min-height:50px;height:auto">
+        <div class="col-xs-9 col-md-9">
+            <label class="md-form-control" style="border:none">مانده (تراز) @Model.Name :</label>
+        </div>
+        <div class="col-xs-3 col-md-3">
+            <label class="md-form-control" style="border:none;float:left">@Model.Balance.ToPrice() <span style="margin-right:5px">ریال</span> <span style="margin-right:10px">(-)</span></label>
+        </div>
+
+        <div class="col-xs-9 col-md-9">
+            <label class="md-form-control" style="border:none">مبلغ تراکنش</label>
+        </div>
+        <div class="col-xs-3 col-md-3">
+            <label class="md-form-control" style="border:none;float:left"><span style="margin-right:5px" id="TAmount">0</span><span style="margin-right:5px">ریال</span></label>
+        </div>
+    </div>
+}

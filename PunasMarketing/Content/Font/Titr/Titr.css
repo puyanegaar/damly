@@ -1,0 +1,8 @@
+﻿@font-face {
+  font-family: 'Titr';
+  src: url('Font/Titr/TitrBold.eot') format('eot'),  
+       url('Font/Titr/TitrBold.woff') format('woff'),
+       url('Font/Titr/TitrBold.ttf') format('truetype');
+  font-style:normal;
+  font-weight:normal;
+}

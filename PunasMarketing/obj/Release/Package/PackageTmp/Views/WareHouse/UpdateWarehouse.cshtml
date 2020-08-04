@@ -1,0 +1,82 @@
+﻿@model  PunasMarketing.ViewModels.Warehouse.WarehouseViewModel
+
+@{
+    ViewBag.Title = "ویرایش انبار";
+}
+
+<div class="layout-content-body">
+
+    @using (Html.BeginForm("UpdateWarehouse", "WareHouse", FormMethod.Post, new { autocomplete = "off" }))
+    {
+        <div id="divInfo">
+            <legend>
+                <h2>ویرایش انبار</h2>
+            </legend>
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.Warehouse.Id)
+
+            <div class="col-xs-12 col-md-6">
+                <div class="md-form-group md-label-floating">
+                    @Html.TextBoxFor(model => model.Warehouse.Name, new { @class = "md-form-control", type = "text", spellcheck = "false", required = "" })
+                    @Html.LabelFor(model => model.Warehouse.Name, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Warehouse.Name)</span>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <div class="md-form-group md-label-floating">
+                    @Html.TextBoxFor(model => model.Warehouse.Tell, new { @class = "md-form-control", type = "Number", spellcheck = "false", required = "" })
+                    @Html.LabelFor(model => model.Warehouse.Tell, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Warehouse.Tell)</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-6">
+                <div class="md-form-group md-label-floating" id="JobTitles">
+                    @Html.DropDownListFor(model => model.JobTitleId, new SelectList(Model.JobTitles, "Id", "Name"), "عنوان شغلی", new { @class = "md-form-control" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.JobTitleId)</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-6">
+                <div class="md-form-group md-label-floating" id="DrpPersonnels">
+                    @Html.DropDownListFor(model => model.Warehouse.KeeperId, new SelectList(Model.Personnels, "Id", "FullName", Model.Warehouse.KeeperId), "کاربر", new { @class = "md-form-control" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Warehouse.KeeperId)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-md-6">
+                <div class="md-form-group md-label-floating">
+                    @Html.TextBoxFor(model => model.Warehouse.Address, new { @class = "md-form-control", type = "text", spellcheck = "false", required = "" })
+                    @Html.LabelFor(model => model.Warehouse.Address, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Warehouse.Address)</span>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <div class="md-form-group md-label-floating">
+                    @Html.TextBoxFor(model => model.Warehouse.Description, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                    @Html.LabelFor(model => model.Warehouse.Description, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Warehouse.Description)</span>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-12">
+                <div class="margin-top">
+                    <div class="col-xs-12 col-md-12">
+                        <input class="btn btn-success" type="submit" value="ثبت اطلاعات" />
+                        <a href="@Url.Action("Warehouses","WareHouse")" class="btn btn-default">برگشت</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    }
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/warehousesJs")
+
+    <script>
+        updateWarehouse();
+    </script>
+}
+
+

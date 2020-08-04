@@ -1,0 +1,225 @@
+﻿@model PunasMarketing.ViewModels.Cheque.ChequeListViewModel
+
+@{
+    ViewBag.Title = "چک های دریافتی";
+}
+
+<div class="layout-content-body">
+    <div class="row gutter-xs">
+        <div class="col-xs-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>لیست چک های دریافتی</strong>
+                </div>
+
+                <div class="card-body">
+                    @AntiForgery.GetHtml()
+                    <div class="md-form-group md-label-floating col-md-6">
+                        <input class="md-form-control" type="text" name="name" id="searchbox" spellcheck="false" required="" aria-required="true">
+                        <label class="md-control-label">جستجو</label>
+                    </div>
+
+                    <table id="demo-datatables-1" class="table table-striped table-nowrap dataTable" cellspacing="0" width="100%">
+                        <thead>
+                            <tr class="columnSize">
+                                <th>
+                                    ردیف
+                                </th>
+                                <th>
+                                    شناسه
+                                </th>
+                                <th>
+                                    شماره چک
+                                </th>
+                                <th>
+                                    بانک صادرکننده
+                                </th>
+                                <th>
+                                    مبلغ (ریال)
+                                </th>
+                                <th>
+                                    وضعیت چک
+                                </th>
+                                <th>
+                                    تاریخ سررسید
+                                </th>
+                                <th>
+                                    جزئیات
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int index = 0; index < Model.Cheques.Count(); index++)
+                            {
+                                var cheque = Model.Cheques.ToList()[index];
+                                <tr class="columnSize">
+                                    <td>
+                                        @(index + 1)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => cheque.Id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => cheque.ChequeNum)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => Model.Banks.FirstOrDefault(i => i.Id == cheque.BankId).Name)
+                                    </td>
+                                    <td>
+                                        @($"{cheque.Amount:n0}")
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => Model.ChequeStatuses.FirstOrDefault(i => i.Id == cheque.StatusId).Name)
+                                    </td>
+                                    <td>
+                                        @cheque.DueDate.ToStringShamsiDate()
+                                    </td>
+
+                                    <td>
+                                        @Html.ActionLink(" ", "ChequeDetails", new { id = cheque.Id }, new { @class = "icon icon-folder-open iconColor" })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="progress" class="addModal">
+    <div class="addCenter">
+        <img src="~/Content/loading.gif" />
+    </div>
+</div>
+<div id="infoModalAlertColored" tabindex="-1" role="dialog" class="modal fade">
+
+</div>
+<div id="successModalAlert" tabindex="-1" role="dialog" class="modal fade">
+
+</div>
+
+
+<div id="modal" tabindex="-1" role="dialog" class="modal fade in" style="display: none;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div id="modalBody" class="modal-body" style="padding: 0">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section toastr {
+    @Html.Raw(TempData["UploadMessage"])
+    @Html.Raw(TempData["deleteMessage"])
+    @Html.Raw(TempData["SaveMessage"])
+}
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            var dataTable = $('#demo-datatables-1').dataTable();
+            $("#searchbox").keyup(function () {
+                dataTable.fnFilter(this.value);
+            });
+        });
+
+        $(function () {
+            $("#demo-datatables-1").dataTable();
+        });
+
+        $(document).ready(function () {
+            $("#demo-datatables-1_info").parent().addClass('col-sm-12');
+        });
+
+        // دریافتی
+        $(".dropDownItem_0").click(function () {
+            var theLi = $(this);
+
+            $.get("/Cheque/ReceivedModal/" + theLi.parent().attr("data-cheque-id"), function (res) {
+                $("#modal").modal();
+                $("#modalBody").html(res);
+            });
+        });
+
+        // وصول کردن به حساب
+        $(".dropDownItem_1").click(function () {
+            var theLi = $(this);
+
+            $.get("/Cheque/ClearChequeModal/" + theLi.parent().attr("data-cheque-id"), function (res) {
+                $("#modal").modal();
+                $("#modalBody").html(res);
+            });
+        });
+
+        // عودت داده شده
+        $(".dropDownItem_2").click(function () {
+            var theLi = $(this);
+
+            $.get("/Cheque/ReturnedModal/" + theLi.parent().attr("data-cheque-id"), function (res) {
+                $("#modal").modal();
+                $("#modalBody").html(res);
+            });
+        });
+
+        // برگشت خورده
+        $(".dropDownItem_3").click(function () {
+            var theLi = $(this);
+
+            $.get("/Cheque/BouncedModal/" + theLi.parent().attr("data-cheque-id"), function (res) {
+                $("#modal").modal();
+                $("#modalBody").html(res);
+            });
+        });
+
+        // خرج کردن به مشتری
+        $(".dropDownItem_4").click(function () {
+            var theLi = $(this);
+
+            $.get("/Cheque/PayForCustomerModal/" + theLi.parent().attr("data-cheque-id"), function (res) {
+                $("#modal").modal();
+                $("#modalBody").html(res);
+            });
+        });
+
+        // خرج کردن به تأمین کننده
+        $(".dropDownItem_5").click(function () {
+            var theLi = $(this);
+
+            $.get("/Cheque/PayForSupplierModal/" + theLi.parent().attr("data-cheque-id"), function (res) {
+                $("#modal").modal();
+                $("#modalBody").html(res);
+            });
+        });
+
+        // خرج کردن به هزینه
+        $(".dropDownItem_6").click(function () {
+            var theLi = $(this);
+
+            $.get("/Cheque/PayForCostModal/" + theLi.parent().attr("data-cheque-id"), function (res) {
+                $("#modal").modal();
+                $("#modalBody").html(res);
+            });
+        });
+
+        // خواباندن به حساب
+        $(".dropDownItem_7").click(function () {
+            var theLi = $(this);
+
+            $.get("/Cheque/DepositModal/" + theLi.parent().attr("data-cheque-id"), function (res) {
+                $("#modal").modal();
+                $("#modalBody").html(res);
+            });
+        });
+
+        Delete('Cheque', 'DeleteCheque');
+    </script>
+}
+
+
+
+
+

@@ -1,0 +1,62 @@
+﻿@model IEnumerable<PunasMarketing.Models.DomainModel.InvoiceItem>
+
+@{
+    Layout = null;
+}
+
+@if (Model.Any())
+{
+    <table id="SendInvoiceItems" class="table table-bordered table-hover " cellspacing="0" width="100%">
+        <thead>
+            <tr class="columnSize">
+                <th>
+                    محصول
+                </th>
+                <th>
+                    تعداد واحد اصلی
+                </th>
+                <th>
+                    تعداد واحد فرعی
+                </th>
+                <th>
+                    ضریب واحد اصلی به فرعی
+                </th>
+
+                <th>عملیات</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="columnSize">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MainUnitCount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SubUnitCount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UnitsRate)
+                    </td>
+                    <td>
+
+                        <a onclick="EditInvoiceItem(@item.Id)" class="icon icon-pencil iconColor"></a>
+                        <a id="Delete" value="@item.Id" class="icon icon-remove iconColor"></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-warning text-center">
+        کالایی موجود نمی باشد
+    </div>
+}
+
+
+

@@ -1,0 +1,508 @@
+﻿@using Antlr.Runtime.Tree
+@using PunasMarketing.Models.Enums
+@model PunasMarketing.ViewModels.Cheque.ChequeDetailsViewModel
+@{
+    ViewBag.Title = "جزئیات چک";
+
+    bool isReceive = Model.Cheque.StatusId <= 10;
+
+    int counter = 0;
+}
+
+<div class="layout-content-body">
+    @Html.AntiForgeryToken()
+
+    <div id="divInfo">
+        <legend>
+            <h2>جزئیات چک</h2>
+        </legend>
+
+        <div class="card-body">
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label">شناسه چک</label>
+                <div class="col-md-9">
+                    <p>
+                        @(Model.Cheque.Id)
+                    </p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label">نوع چک</label>
+                <div class="col-md-9">
+                    <p>
+                        @(isReceive ? "دریافتی" : "پرداختی")
+                    </p>
+                </div>
+            </div>
+
+            @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>*@
+
+            @{
+                var activeChequeStatus = Model.ChequeStatuses.FirstOrDefault(i => i.Id == Model.Cheque.StatusId);
+                string buttonClass = string.Empty;
+                if (activeChequeStatus != null)
+                {
+                    switch (activeChequeStatus.Id)
+                    {
+                        case (byte)ChequeStatus.chequeDaryafti:
+                        case (byte)ChequeStatus.ChequePardakhti:
+                            buttonClass = "btn-default";
+                            break;
+
+                        case (byte)ChequeStatus.ChequeVosolShode:
+                        case (byte)ChequeStatus.ChequeVosolPardakhti:
+                            buttonClass = "btn-success";
+                            break;
+
+                        case (byte)ChequeStatus.ChequeKhabidebeHesab:
+                            buttonClass = "btn-info";
+                            break;
+
+                        case (byte)ChequeStatus.ChequeOdadt:
+                        case (byte)ChequeStatus.ChequeOdatPardakhti:
+                            buttonClass = "btn-primary";
+                            break;
+
+                        case (byte)ChequeStatus.ChequeKharj:
+                            buttonClass = "btn-danger";
+                            break;
+                    }
+                }
+            }
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.Cheque.StatusName, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-3" id="eee">
+                    <div class="input-group-btn dropdown">
+                        <button class="btn @buttonClass dropdown-toggle" data-toggle="dropdown" type="button">
+                            @Html.DisplayFor(modelItem => Model.Cheque.StatusName)
+                            <span class="caret"></span>
+                        </button>
+                        <ul id="drp" class="dropdown-menu" data-cheque-id='@Model.Cheque.Id'>
+                            @foreach (var chequeStatus in Model.ChequeStatuses)
+                            {
+                                <li class="@(activeChequeStatus != null && chequeStatus.Id == activeChequeStatus.Id
+                                             ? "active disabled-li "
+                                             : string.Empty)
+                                           @(chequeStatus.Id == 6
+                                                 ? "disabled-li "
+                                                 : string.Empty)
+                                    dropDownItem_@chequeStatus.Id">
+                                    <a href="#">
+                                        <div class="media">
+                                            <div class="media-body">
+                                                @chequeStatus.Name
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            @if (!string.IsNullOrWhiteSpace(Model.SettleAccountNum))
+            {
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label">شماره حساب واریزی چک دریافتی</label>
+                    <div class="col-md-9">
+                        <p>@Model.SettleAccountNum</p>
+                    </div>
+                </div>
+            }
+            <div class="form-group row">
+                @Html.LabelFor(model => model.Cheque.ChequeNum, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-9">
+                    <p>@Model.Cheque.ChequeNum</p>
+                </div>
+            </div>
+
+            @if (!isReceive && !string.IsNullOrWhiteSpace(Model.ChequeAccountNum))
+            {
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label">شماره حساب چک پرداختی</label>
+                    <div class="col-md-9">
+                        <p>@Model.ChequeAccountNum</p>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label">بانک صادرکننده چک</label>
+                    <div class="col-md-9">
+                        <p>@(Model.Cheque.Bank.Name ?? "")</p>
+                    </div>
+                </div>
+            }
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.Cheque.DueDate, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-9">
+                    <p>@Model.Cheque.DueDate.ToStringShamsiDate()</p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label">مبلغ</label>
+                <div class="col-md-9">
+                    <p>@($"{Model.Cheque.Amount:n0}") ریال</p>
+                </div>
+            </div>
+
+            @{
+                string ownerName = Model.Cheque.OwnerName;
+
+                if (!string.IsNullOrWhiteSpace(ownerName))
+                {
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">در وجه:</label>
+                        <div class="col-md-9">
+                            <p>@Model.Cheque.OwnerName</p>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-md-12">
+        <div class="margin-top">
+            <div class="col-xs-12 col-md-12">
+                @if (isReceive) // دریافتی
+                {
+                    <a href="@Url.Action("RecieveCheques", "Cheque")" class="btn btn-default">فهرست چک های دریافتی</a>
+                }
+                else // پرداختی
+                {
+                    <a href="@Url.Action("PayCheques", "Cheque")" class="btn btn-default">فهرست چک های پرداختی</a>
+                }
+
+                @if (!Model.ChequeSanads.Any())
+                {
+                    <a id="btnDelete" value="@Model.Cheque.Id" class="btn btn-primary">حذف چک</a>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div id="divInfo">
+        <legend>
+            <h2>فهرست اسناد حسابداری مرتبط با چک</h2>
+        </legend>
+
+        <div class="card-body">
+            <table id="sanadsList" class="table table-striped table-bordered  dataTable no-footer" cellspacing="0" style="width: 100%">
+                <thead>
+                    <tr class="columnSize">
+                        <th style="width: 2%">
+                            ردیف
+                        </th>
+                        <th style="width: 2%">
+                            شماره سند
+                        </th>
+                        <th style="width: 10%">
+                            تاریخ
+                        </th>
+                        <th style="width: 20%">
+                            شرح
+                        </th>
+                        <th style="width: 10%">
+                            وضعیت
+                        </th>
+                        <th style="width: 10%">
+                            نوع سند
+                        </th>
+                        <th style="width: 8%">
+                            بدهکار (ریال)
+                        </th>
+                        <th style="width: 8%">
+                            بستانکار (ریال)
+                        </th>
+                        <th style="width: 2%">
+                            اسناد
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ChequeSanads)
+                    {
+                        <tr class="columnSize">
+                            <td style="width: 2%">
+                                @(++counter)
+                            </td>
+                            <td style="width: 2%">
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td style="width: 10%">
+                                @(item.ConfirmDate.ToStringShamsiDate())
+                            </td>
+                            <td style="width: 20%">
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td style="width: 10%">
+                                @(item.IsConfirmed ? "تأیید شده" : "پیش نویس")
+                            </td>
+                            <td style="width: 10%">
+                                @{ SandType sanadType = (SandType)item.SanadTypeId; }
+                                @sanadType.GetDescription()
+                            </td>
+                            <td style="width: 8%">
+                                @(item.TotalAmount.ToPrice())
+                            </td>
+                            <td style="width: 8%">
+                                @(item.TotalAmount.ToPrice())
+                            </td>
+                            <td style="width: 2%; text-align: center">
+                                <a id="SanadDetail" value="@item.Id" style="cursor: pointer; text-decoration: none" class="icon icon-folder-open iconColor"></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+<div id="modal" tabindex="-1" role="dialog" class="modal fade in" style="display: none;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div id="modalBody" class="modal-body" style="padding: 0">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Modal{
+    <div id="modalSanadDetail" tabindex="-1" role="dialog" class="modal fade">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-success">
+                    <h4 class="modal-title">سند حسابداری شماره <span id="SanadNum"></span></h4>
+                </div>
+                <div class="modal-body" id="SanadDetailList">
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section toastr {
+    @Html.Raw(TempData["SaveMessage"])
+}
+
+@section Styles
+{
+    <style>
+        .col-form-label {
+            padding-top: 0;
+            font-weight: bold !important
+        }
+    </style>
+}
+
+@section scripts {
+    <script>
+        var CurrentDetail = 0;
+
+        $(document).ready(function () {
+            $('#btnDelete').click(function () {
+
+                var id = $(this).attr('value');
+
+                swal({
+                        title: "آیا از حذف این چک مطمئن هستید؟",
+                        text: "بعد از حذف، امکان بازیابی اطلاعات وجود ندارد!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                        buttons: ['انصراف', 'حذف']
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            var token = $("input[name = __RequestVerificationToken]").val();
+                            $.post("/Cheque/DeleteCheque/" + id,
+                                {
+                                    __RequestVerificationToken: token
+                                },
+                                function (result) {
+                                    if (result.Success) {
+                                        swal("عملیات با موفقیت انجام شد.",
+                                            {
+                                                icon: "success",
+                                                button: "تایید"
+                                            });
+
+                                        window.location.href = '@(isReceive ? Url.Action("RecieveCheques", "Cheque") : Url.Action("PayCheques", "Cheque"))';
+
+                                    } else {
+                                        swal("خطایی در انجام عملیات رخ داد. دوباره تلاش کنید.",
+                                            {
+                                                icon: "error",
+                                                button: "تایید"
+                                            });
+                                    }
+                                });
+                        }
+
+                    });
+            });
+        });
+
+        $(document).on("click", "#SanadDetail", function () {
+            var value = $(this).attr("value");
+            if (CurrentDetail == value) {
+                $("#modalSanadDetail").modal({ backdrop: true });
+            }
+            else {
+                $.ajax({
+                    url: "/Sanad/SanadDetail",
+                    data: { SanadId: value },
+                    type: "Post",
+                    dataType: "Json",
+                    success: function (result) {
+                        $("#SanadNum").text(value);
+                        $("#SanadDetailList").html(result.Html);
+                        $("#modalSanadDetail").modal({ backdrop: true });
+                        CurrentDetail = value;
+                    },
+                    error: function () {
+                        //alert("خطا!");
+                    }
+                });
+            }
+        });
+
+
+        // دریافتی
+        $(".dropDownItem_1").click(function () {
+            var theLi = $(this);
+
+            $.get("/Cheque/ReceivedModal/" + theLi.parent().attr("data-cheque-id"), function (res) {
+                $("#modal").modal();
+                $("#modalBody").html(res);
+            });
+        });
+
+        // به حساب خواباندن دریافتی
+        $(".dropDownItem_2").click(function () {
+            var theLi = $(this);
+
+            $.get("/Cheque/DepositReceiveModal/" + theLi.parent().attr("data-cheque-id"), function (res) {
+                $("#modal").modal();
+                $("#modalBody").html(res);
+            });
+        });
+
+        // وصول کردن چک دریافتی
+        $(".dropDownItem_3").click(function () {
+            var theLi = $(this);
+
+            $.get("/Cheque/ClearReceiveModal/" + theLi.parent().attr("data-cheque-id"), function (res) {
+                $("#modal").modal();
+                $("#modalBody").html(res);
+            });
+        });
+
+        // عودت دادن چک دریافتی
+        $(".dropDownItem_4").click(function () {
+            var theLi = $(this);
+
+            $.get("/Cheque/ReturnedReceiveModal/" + theLi.parent().attr("data-cheque-id"), function (res) {
+                $("#modal").modal();
+                $("#modalBody").html(res);
+            });
+        });
+
+        // برگشت خوردن چک دریافتی
+        $(".dropDownItem_5").click(function () {
+            var theLi = $(this);
+
+            $.get("/Cheque/BouncedReceiveModal/" + theLi.parent().attr("data-cheque-id"), function (res) {
+                $("#modal").modal();
+                $("#modalBody").html(res);
+            });
+        });
+
+        // خرج کردن چک دریافتی
+        $(".dropDownItem_6").click(function () {
+            var theLi = $(this);
+
+            $.get("/Cheque/SpendReceiveModal/" + theLi.parent().attr("data-cheque-id"), function (res) {
+                $("#modal").modal();
+                $("#modalBody").html(res);
+            });
+        });
+
+        // پس دادن چک دریافتی
+        $(".dropDownItem_7").click(function () {
+            var theLi = $(this);
+
+            $.get("/Cheque/GivenBackReceiveModal/" + theLi.parent().attr("data-cheque-id"), function (res) {
+                $("#modal").modal();
+                $("#modalBody").html(res);
+            });
+        });
+
+
+        //////////////////////////////////////////////////////
+
+        // پرداختی
+        $(".dropDownItem_11").click(function () {
+            var theLi = $(this);
+
+            $.get("/Cheque/PayedModal/" + theLi.parent().attr("data-cheque-id"), function (res) {
+                $("#modal").modal();
+                $("#modalBody").html(res);
+            });
+        });
+
+        // وصول کردن چک پرداختی
+        $(".dropDownItem_12").click(function () {
+            var theLi = $(this);
+
+            $.get("/Cheque/ClearPayModal/" + theLi.parent().attr("data-cheque-id"), function (res) {
+                $("#modal").modal();
+                $("#modalBody").html(res);
+            });
+        });
+
+        // عودت دادن چک پرداختی
+        $(".dropDownItem_13").click(function () {
+            var theLi = $(this);
+
+            $.get("/Cheque/ReturnedPayModal/" + theLi.parent().attr("data-cheque-id"), function (res) {
+                $("#modal").modal();
+                $("#modalBody").html(res);
+            });
+        });
+
+        // برگشت خوردن چک پرداختی
+        $(".dropDownItem_14").click(function () {
+            var theLi = $(this);
+
+            $.get("/Cheque/BouncedPayModal/" + theLi.parent().attr("data-cheque-id"), function (res) {
+                $("#modal").modal();
+                $("#modalBody").html(res);
+            });
+        });
+
+        // پس دادن چک پرداختی
+        $(".dropDownItem_15").click(function () {
+            var theLi = $(this);
+
+            $.get("/Cheque/GivenBackPayModal/" + theLi.parent().attr("data-cheque-id"), function (res) {
+                $("#modal").modal();
+                $("#modalBody").html(res);
+            });
+        });
+
+        Cheque();
+    </script>
+}

@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "عملیات غیرمجاز";
+}
+
+<div class="error text-center" style="margin-top: 100px">
+    <div class="error-body">
+        <img src="~/Content/fiscal-error.png" width="200" />
+        <h1 class="error-heading">عملیات غیرمجاز!</h1>
+        <h4 class="error-subheading" style="margin: 30px">تاریخ فعلی سیستم، خارج از محدوده سال مالی جاری است.</h4>
+    </div>
+</div>
+
+@section toastr {
+    @Html.Raw(TempData["SaveMessage"])
+}

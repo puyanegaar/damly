@@ -1,0 +1,62 @@
+﻿@model PunasMarketing.ViewModels.Cheque.ReturnReceiveChequeViewModel
+    <div class="modal-header bg-success">
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true" style="color: white">×</span>
+            <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title">تغییر وضعیت چک دریافتی به عودت داده شده</h4>
+    </div>
+
+    @using (Html.BeginForm("ReturnedReceiveModal", "Cheque", FormMethod.Post, new { style = "padding: 10px" }))
+    {
+        @Html.HiddenFor(model => model.ChequeId)
+
+        <h5>آیا می خواهید وضعیت چک را به عودت داده شده تغییر دهید؟</h5>
+
+        <div class="md-form-group md-label-static">
+            <input class="md-form-control" type="text" spellcheck="false" readonly="readonly" id="txtReturnDate" value="@Model.ReturnDate.ToMiladiDate().ToPersianDateTime().ToStringDate()" name="ReturnDate" />
+            @Html.LabelFor(model => model.ReturnDate, new { @class = "md-control-label" })
+            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.ReturnDate)</span>
+        </div>
+
+        <input class="btn btn-success btn-next" type="submit" value="تأیید" />
+        <input class="btn btn-danger btn-next" type="button" value="لغو" data-dismiss="modal" />
+
+    }
+
+@Scripts.Render("~/bundles/jqueryval")
+
+
+@section styles{
+    <link href="~/Scripts/PersianDateTimePicker/jquery-ui-datetimepicker.min.css" rel="stylesheet" />
+}
+
+@section toastr {
+    <script src="~/Scripts/jquery-1.8.2.js"></script>
+    <script src="~/Scripts/toastr.js"></script>
+
+    @Html.Raw(TempData["SaveMessage"])
+}
+
+
+<script src="~/Scripts/PersianDateTimePicker/jquery-ui-datetimepicker.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#txtReturnDate").datepicker({
+            beforeShow: function (input, inst) {
+                var cal = inst.dpDiv;
+                var left = $(this).offset().left;
+                setTimeout(function () {
+                        cal.css({
+                            'left': left
+                        });
+                    },
+                    10);
+            },
+            changeYear: true,
+            yearRange: '1350:1420',
+            changeMonth: true
+        });
+    })
+</script>

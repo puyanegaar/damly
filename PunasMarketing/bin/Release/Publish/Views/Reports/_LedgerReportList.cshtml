@@ -1,0 +1,242 @@
+﻿@model PunasMarketing.ViewModels.Reports.LedgerReportViewModel
+@{
+    decimal TotalBed = Model.TBed;
+    decimal totalBes = Model.TBes;
+    decimal Mondeh = Model.Mondeh;
+    int Row =0;
+}
+<div class="col-xs-8 col-md-8">
+    <div class="md-form-group md-label-static">
+        <input class="md-form-control" type="text" name="name" id="SearchLedgerReport" spellcheck="false" aria-required="true">
+        <label class="md-control-label">جستجو</label>
+    </div>
+</div>
+<div class="col-xs-12 col-md-12">
+    <table id="LedgerList" class="table table-striped table-bordered  dataTable" cellspacing="0" style=" width: 100%">
+        <thead>
+            <tr class="columnSize">
+                <th style="width:1%;text-align:center">
+                    #
+                </th>
+                <th style="width:4%;text-align:center">
+                    تاریخ
+                </th>
+                <th style="width:5%;text-align:center">
+                    سند
+                </th>
+                <th style="width:10%;text-align:center">
+                    کد حساب
+                </th>
+                <th style="width:20%;text-align:center">
+                    نام حساب
+                </th>
+                <th style="width:32%;text-align:center">
+                    شرح
+                </th>
+
+                <th style="width:9%;text-align:center">
+                    بدهکار
+                </th>
+
+                <th style="width:9%;text-align:center">
+                    بستانکار
+                </th>
+                <th style="width:9%;text-align:center">
+                    مانده
+                </th>
+                <th style="width:1%;text-align:center">
+                    تشخیص
+                </th>
+            </tr>
+        </thead>
+        @if (Model.MondehAzGhable)
+        {
+            <tbody>
+                <tr class="columnSize">
+                    <td style="width:1%;text-align:center"></td>
+                    <td style="width:4%;text-align:center">
+                        @Model.BeforeFromDate
+                    </td>
+                    <td style="width:5%;text-align:center"></td>
+                    <td style="width:10%;text-align:center"></td>
+                    <td style="width:20%;text-align:center"></td>
+                    <td style="width:32%;text-align:right">
+                        مانده از قبل
+                    </td>
+
+                    <td style="width:9%;text-align:center">
+                        @TotalBed.ToPrice()
+                    </td>
+
+                    <td style="width:9%;text-align:center">
+                        @totalBes.ToPrice()
+                    </td>
+                    <td style="width:9%;text-align:center">
+                        @if (Mondeh < 0)
+                        {
+
+                            <text>@((Math.Abs(Mondeh)).ToPrice()) </text>
+                        }
+
+                        else
+                        {
+                            <text>@Mondeh.ToPrice()</text>
+                        }
+                    </td>
+                    <td style="width:1%;text-align:center">
+                        @if (Mondeh < 0)
+                        {
+
+                            <text>بد</text>
+                        }
+
+                        else if (Mondeh > 0)
+                        {
+                            <text>بس</text>
+                        }
+                        else
+                        {
+                            <text>-</text>
+                        }
+                    </td>
+                </tr>
+            </tbody>
+
+        }
+
+        <tbody>
+            @foreach (var item in Model.ledgerReport)
+            {
+                TotalBed += item.Bedeh;
+                totalBes += item.Bestan;
+                Mondeh += item.Bestan - item.Bedeh;
+                <tr class="columnSize" >
+                    <td style="width:1%;text-align:center">
+                        @(++Row)
+                    </td>
+                    <td style="width:4%;text-align:center">
+                        @item.ConfirmDate.ToPersianDateTime().ToString("yyyy/MM/dd")
+                    </td>
+                    <td style="width:5%;text-align:center">
+                        <a id="SanadDetail" style="cursor:pointer;text-decoration:none" value="@item.SandId">@item.SandId</a>
+                    </td>
+                    <td style="width:10%;text-align:center">
+                        @if (item.PersonTypeId.HasValue)
+                        {
+                            <text>@item.Coding@item.PersonTypeId@item.HesabCode.HesabFormatation()</text>
+                        }
+                        else
+                        {
+                            if (!string.IsNullOrEmpty(item.TafsiliName))
+                            {
+                                <text>@item.Coding@item.HesabCode.HesabFormatation()</text>
+                            }
+                            else
+                            {
+                                <text>@item.Coding</text>
+                            }
+                        }
+                    </td>
+                    <td style="width:20%;text-align:center">
+                        @if (!string.IsNullOrEmpty(item.TafsiliName))
+                        {
+                            <text>@item.Name / @item.TafsiliName</text>
+                        }
+                        else
+                        {
+                            <text>@item.Name</text>
+                        }
+                    </td>
+                    <td style="width:32%;text-align:right;word-wrap:break-word">
+                        @item.Description
+                    </td>
+
+                    <td style="width:9%;text-align:center">
+                        @item.Bedeh.ToPrice()
+                    </td>
+
+                    <td style="width:9%;text-align:center">
+                        @item.Bestan.ToPrice()
+                    </td>
+                    <td style="width:9%;text-align:center">
+                        @if (Mondeh < 0)
+                        {
+
+                            <text>@((Math.Abs(Mondeh)).ToPrice()) </text>
+                        }
+
+                        else
+                        {
+                            <text>@Mondeh.ToPrice()</text>
+                        }
+
+
+                    </td>
+                    <td style="width:1%;text-align:center">
+                        @if (Mondeh < 0)
+                        {
+
+                            <text>بد</text>
+                        }
+
+                        else if (Mondeh > 0)
+                        {
+                            <text>بس</text>
+                        }
+                        else
+                        {
+                            <text>-</text>
+                        }
+                    </td>
+                </tr>
+            }
+            <tr class="columnSize">
+                <td style="width:1%;text-align:center"></td>
+                <td style="width:4%;text-align:center">
+                <td style="width:5%;text-align:center"></td>
+                <td style="width:10%;text-align:center"></td>
+                <td style="width:20%;text-align:center"></td>
+                <td style="width:32%;text-align:right">
+                    مجموع
+                </td>
+
+                <td style="width:9%;text-align:center">
+                    @TotalBed.ToPrice()
+                </td>
+
+                <td style="width:9%;text-align:center">
+                    @totalBes.ToPrice()
+                </td>
+                <td style="width:9%;text-align:center">
+                    @if (Mondeh < 0)
+                    {
+
+                        <text>@((Math.Abs(Mondeh)).ToPrice()) </text>
+                    }
+
+                    else
+                    {
+                        <text>@Mondeh.ToPrice()</text>
+                    }
+                </td>
+                <td style="width:1%;text-align:center">
+                    @if (Mondeh < 0)
+                    {
+
+                        <text>بد</text>
+                    }
+
+                    else if (Mondeh > 0)
+                    {
+                        <text>بس</text>
+                    }
+                    else
+                    {
+                        <text>-</text>
+                    }
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+</div>

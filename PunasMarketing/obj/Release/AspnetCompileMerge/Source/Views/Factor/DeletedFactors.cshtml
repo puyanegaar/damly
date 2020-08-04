@@ -1,0 +1,183 @@
+﻿@using PunasMarketing.Models.Enums
+@model IQueryable<PunasMarketing.Models.DomainModel.Factor>
+@{
+    /**/
+
+    ViewBag.Title = "فهرست فاکتورهای ابطال شده";
+    int index = 1;
+}
+
+<div class="layout-content-body">
+    <div class="row gutter-xs">
+        <div class="col-xs-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>@ViewBag.Title</strong>
+                </div>
+
+                <div class="card-body">
+                    @AntiForgery.GetHtml()
+                    <div class="md-form-group md-label-floating col-md-6">
+                        <input class="md-form-control" type="text" name="name" id="searchbox" spellcheck="false" required="" aria-required="true">
+                        <label class="md-control-label">جستجو</label>
+                    </div>
+                    <table id="demo-datatables-1" class="table table-striped table-nowrap dataTable" cellspacing="0" width="100%">
+                        <thead>
+                            <tr class="columnSize">
+                                <th>
+                                    ردیف
+                                </th>
+                                <th>
+                                    نوع فاکتور
+                                </th>
+                                <th>
+                                    شماره فاکتور
+                                </th>
+                                <th>
+                                    فاکتور برگشتی
+                                </th>
+                                <th>
+                                    رسید/حواله
+                                </th>
+                                <th>
+                                    طرف حساب
+                                </th>
+                                <th>
+                                    مبلغ فاکتور
+                                </th>
+                                <th>
+                                    تاریخ صدور
+                                </th>
+                                <th>
+                                    عملیات
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="columnSize">
+                                    <td>
+                                        @index
+                                    </td>
+                                    <td>
+                                        @{
+                                            string factorType = ((FactorType)item.FactorTypeId).GetDescription();
+                                        }
+
+                                        @(factorType)
+                                    </td>
+                                    <td>
+                                        <a onclick="ShowFactorDetails(@item.Id , @item.PeriodId)" style="cursor: pointer">@item.Id</a>
+                                    </td>
+                                    <td>
+                                        @{
+                                            var returnFactor = item.Factors1.FirstOrDefault();
+                                            if (returnFactor != null)
+                                            {
+                                                <a title="نمایش فاکتور برگشتی" onclick="ShowFactorDetails(@returnFactor.Id , @returnFactor.PeriodId)" style="cursor: pointer">@returnFactor.Id</a>
+                                            }
+                                            else
+                                            {
+                                                @("-")
+                                            }
+                                        }
+                                    </td>
+                                    <td>
+                                        @{
+                                            var invoice = item.Invoice;
+                                            if (invoice != null)
+                                            {
+                                                <a title="نمایش رسید" onclick="ShowInvoiceDetails(@invoice.Id)">@invoice.Id</a>
+                                            }
+                                            else
+                                            {
+                                                @("-")
+                                            }
+                                        }
+                                    </td>
+                                    <td>
+                                        @{
+                                            string counterParty = "-";
+                                            string action = "";
+                                            if (item.CustomerId.HasValue)
+                                            {
+                                                action = Url.Action("CustomerManagement", "Customer", new {id = item.CustomerId});
+                                                counterParty = $"{item.Customer.BusinessName}-{item.Customer.OwnerName}";
+                                            }
+                                            else if (item.SupplierId.HasValue)
+                                            {
+                                                action = Url.Action("SupplierManagement", "Supplier", new { id = item.SupplierId });
+                                                counterParty = $"{item.Supplier.Name}";
+                                            }
+                                        }
+                                        
+                                        <a href="@action">@counterParty</a> 
+                                    </td>
+                                    <td>
+                                        @item.FinalPrice.ToString("#,0")
+                                    </td>
+                                    <td>
+                                        @item.CreatedDate.ToStringShamsiDate()
+                                    </td>
+
+                                    <td>
+                                        <a title="نمایش جزئیات فاکتور" onclick="ShowFactorDetails(@item.Id ,@item.PeriodId)" class="icon icon-eye iconColor"></a>
+                                    </td>
+                                </tr>
+                                index++;
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="ShowFactorModal" tabindex="-1" role="dialog" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">نمایش فاکتور</h4>
+            </div>
+            <div class="modal-body" id="ShowFactorModalBody">
+
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
+<div id="invoiceModal" tabindex="-1" role="dialog" class="modal fade in" style="display: none;">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div id="invoiceModalBody" class="modal-body" style="padding: 0">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section toastr {
+    @Html.Raw(TempData["SaveMessage"])
+}
+
+
+@section scripts {
+    @Scripts.Render("~/bundles/datatable")
+    @Scripts.Render("~/bundles/Factorjs")
+    @Scripts.Render("~/bundles/invoiceJs")
+    <script>
+        Delete('Factor', 'DeleteFactor');
+
+    </script>
+}
+
+
+

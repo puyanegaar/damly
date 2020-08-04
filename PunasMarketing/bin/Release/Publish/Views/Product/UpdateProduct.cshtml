@@ -1,0 +1,162 @@
+﻿@model PunasMarketing.ViewModels.Product.ProductViewModel
+
+
+@{
+    ViewBag.Title = "ویرایش کالا";
+}
+
+<div class="layout-content-body">
+    <div id="divInfo">
+        @using (Ajax.BeginForm("UpdateProduct", "Product", new AjaxOptions { OnSuccess = "createsuccess", HttpMethod = "Post" }))
+        {
+            <legend>
+                <h2>ویرایش کالا</h2>
+            </legend>
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(m => m.ProductModel.Id)
+
+
+            <div class="col-xs-3 col-md-3">
+                <div class="md-form-group md-label-static">
+                    @Html.TextBoxFor(model => model.ProductModel.ProductCode, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                    @Html.LabelFor(model => model.ProductModel.ProductCode, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.ProductModel.ProductCode)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-3 col-md-3">
+                <div class="md-form-group md-label-static">
+                    @Html.TextBoxFor(model => model.ProductModel.Name, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                    @Html.LabelFor(model => model.ProductModel.Name, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.ProductModel.Name)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-3 col-md-3">
+                <div class="md-form-group md-label-static">
+                    @Html.DropDownListFor(model => model.ProductModel.WarehouseId, new SelectList(Model.Warehouses, "Id", "Name"), "-", new { @class = "md-form-control" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.ProductModel.WarehouseId)</span>
+                    <label class="md-control-label">@Html.LabelFor(model => model.ProductModel.WarehouseId, new { @class = "md-control-label" })</label>
+                </div>
+            </div>
+            <div class="col-xs-3 col-md-3">
+                <div class="md-form-group md-label-static">
+                    @Html.DropDownListFor(model => model.ProductModel.ProductCategoryId, new SelectList(Model.ProductCategories, "Id", "Name"), "-", new { @class = "md-form-control" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.ProductModel.ProductCategoryId)</span>
+                    <label class="md-control-label">@Html.LabelFor(model => model.ProductModel.ProductCategoryId, new { @class = "md-control-label" })</label>
+                </div>
+            </div>
+            <div class="col-xs-4 col-md-4">
+                <div class="md-form-group md-label-static">
+                    @Html.DropDownListFor(model => model.ProductModel.MainUnitId, new SelectList(Model.Units.Where(i => i.IsMain), "Id", "Name"), "-", new { @class = "md-form-control" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.ProductModel.MainUnitId)</span>
+                    <label class="md-control-label">@Html.LabelFor(model => model.ProductModel.MainUnitId, new { @class = "md-control-label" })</label>
+                </div>
+            </div>
+
+            <div class="col-xs-4 col-md-4">
+                <div class="md-form-group md-label-static">
+                    @Html.DropDownListFor(model => model.ProductModel.SubUnitId, new SelectList(Model.Units.Where(i => !i.IsMain), "Id", "Name"), "-", new { @class = "md-form-control" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.ProductModel.SubUnitId)</span>
+                    <label class="md-control-label">@Html.LabelFor(model => model.ProductModel.SubUnitId, new { @class = "md-control-label" })</label>
+                </div>
+            </div>
+
+            <div class="col-xs-4 col-md-4">
+                <div class="md-form-group md-label-static">
+                    @Html.TextBoxFor(model => model.ProductModel.UnitRate, new { @class = "md-form-control", type = "number", spellcheck = "false" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.ProductModel.UnitRate)</span>
+                    @Html.LabelFor(model => model.ProductModel.UnitRate, new { @class = "md-control-label" })
+                </div>
+            </div>
+
+
+            <div class="col-xs-12 col-md-12">
+                <div class="md-form-group md-label-static">
+                    @Html.TextBoxFor(model => model.ProductModel.Description, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                    @Html.LabelFor(model => model.ProductModel.Description, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.ProductModel.Description)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-md-12">
+                <div class="md-form-group md-label-floating">
+                    <label class="custom-control custom-control-primary custom-checkbox">
+                        <input class="custom-control-input" data-val="true" id="ProductModel_IsSellable" name="ProductModel.IsSellable" type="checkbox" value="true" @if (Model.ProductModel.IsSellable) { <text> checked</text>}>
+
+
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-label">قابل فروش</span>
+                    </label>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="col-xs-12 col-md-12">
+                <div class="margin-top">
+                    <div class="col-xs-12 col-md-12">
+                        <input class="btn btn-success" type="submit" value="ثبت اطلاعات" />
+                      
+                    </div>
+                </div>
+            </div>
+
+
+        }
+    </div>
+    <div id="divUploadPic" style="display:none">
+        <legend>
+            <h2>افزودن تصاویر</h2>
+        </legend>
+        <div class="col-xs-12 col-md-12">
+            @using (Html.BeginForm("UploadImage", "Admin", FormMethod.Post, new { id = "dropzoneForm", @class = "dropzone", enctype = "multipart/form-data" }))
+
+            {
+                <input type="hidden" id="ProductId" name="ProductId" value="@Model.ProductModel.Id" />
+                <span class="whiteText">انتخاب تصاویر</span>
+                <div class="dz-message" data-dz-message></div>
+                <input type="hidden" id="imgCount" value="@Model.ProductModel.ProductImages.Count" />
+
+            }
+        </div>
+        <div class="col-xs-12 col-md-12">
+            <div class="margin-top">
+                <div class="col-xs-6 col-md-6">
+                    <a href="@Url.Action("Products","Product")" class="btn btn-default">بازگشت به لیست</a>
+                </div>
+                <div class="col-xs-6 col-md-6">
+                    <input class="btn btn-success" type="submit" value="آپلود تصاویر" id="send" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section toastr {
+    @Html.Raw(TempData["SaveMessage"])
+}
+@section styles{
+    @Styles.Render("~/Content/dropzonescss")
+    @Scripts.Render("~/bundles/dropzonescripts")
+}
+@section scripts
+{
+
+    <script>
+        function createsuccess(data) {
+            if (data.isvalid == true) {
+                $('#divInfo').slideUp("slow", function () { });
+                $("#divUploadPic").slideDown("slow", function () { });
+            }
+            if (data.Message) {
+                Toast(data.Message);
+            }
+        }
+        UpdateUploadImage();
+    </script>
+
+}

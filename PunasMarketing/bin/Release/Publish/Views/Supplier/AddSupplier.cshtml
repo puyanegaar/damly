@@ -1,0 +1,116 @@
+﻿@model PunasMarketing.ViewModels.Supplier.SupplierViewModel
+
+@{
+    ViewBag.Title = "افزودن تأمین کننده";
+}
+
+
+<div class="layout-content-body">
+    @using (Html.BeginForm("AddSupplier", "Supplier", FormMethod.Post, new {autocomplete = "off"}))
+    {
+        <div id="divInfo">
+            <legend>
+                <h2>افزودن تامین کننده</h2>
+            </legend>
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <div class="col-xs-4 col-md-4">
+                <div class="md-form-group md-label-floating">
+                    @Html.TextBoxFor(model => model.Supplier.Name, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                    @Html.LabelFor(model => model.Supplier.Name, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Supplier.Name)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-4 col-md-4">
+                <div class="md-form-group md-label-floating">
+                    @Html.DropDownListFor(model => model.Supplier.ProvinceId, new SelectList(Model.Provinces, "Id", "Name", Model.Supplier.ProvinceId), "نام استان", new { @class = "md-form-control" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Supplier.ProvinceId)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-4 col-md-4">
+                <div class="md-form-group md-label-floating" id="DrpCities">
+                    @Html.DropDownListFor(model => model.Supplier.CityId, Enumerable.Empty<SelectListItem>(), "ابتدا استان را انتخاب کنید", new { @class = "md-form-control" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Supplier.CityId)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-md-6">
+                <div class="md-form-group md-label-floating">
+                    @Html.TextBoxFor(model => model.Supplier.Phone, new { @class = "md-form-control", type = "number", spellcheck = "false" })
+                    @Html.LabelFor(model => model.Supplier.Phone, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Supplier.Phone)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-md-6">
+                <div class="md-form-group md-label-floating">
+                    @Html.TextBoxFor(model => model.Supplier.Mobile, new { @class = "md-form-control", type = "number", spellcheck = "false" })
+                    @Html.LabelFor(model => model.Supplier.Mobile, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Supplier.Mobile)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-md-6">
+                <div class="md-form-group md-label-floating">
+                    @Html.TextBoxFor(model => model.Supplier.Address, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                    @Html.LabelFor(model => model.Supplier.Address, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Supplier.Address)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-md-6">
+                <div class="md-form-group md-label-floating">
+                    @Html.TextBoxFor(model => model.Supplier.Description, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                    @Html.LabelFor(model => model.Supplier.Description, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Supplier.Description)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-md-12">
+                <div class="margin-top">
+                    <div class="col-xs-12 col-md-12">
+                        <input class="btn btn-success" type="submit" value="ثبت اطلاعات" />
+                        <a href="@Url.Action("Suppliers","Supplier")" class="btn btn-default">برگشت</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section toastr {
+    @Html.Raw(TempData["SaveMessage"])
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).on("change",
+            "#Supplier_ProvinceId",
+            function () {
+                $.ajax({
+                    url: "/Supplier/GetCities",
+                    data: { id: $("#Supplier_ProvinceId").find(":selected").val() },
+                    type: "Post",
+                    dataType: "Json",
+                    success: function (result) {
+                        $("#DrpCities").html(result.Html);
+                        if (result.Success) {
+
+                        }
+                    },
+                    error: function () {
+                        alert("خطا!");
+                    }
+                });
+            });
+
+       
+    </script>
+}
+
+

@@ -1,0 +1,31 @@
+﻿@model PunasMarketing.ViewModels.Cheque.ClearReceiveDepositedChequeViewModel
+
+<div class="modal-header bg-success">
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true" style="color: white">×</span>
+        <span class="sr-only">Close</span>
+    </button>
+    <h4 class="modal-title">وصول کردن چک دریافتی خوابیده به حساب</h4>
+</div>
+
+@using (Html.BeginForm("ClearReceiveDepositedModal", "Cheque", FormMethod.Post, new { style = "padding: 10px;", id = "myForm" }))
+{
+    @Html.HiddenFor(model => model.ChequeId)
+
+    <h5>آیا می خواهید چکی که به حساب خوابیده است را وصول کنید؟</h5>
+
+    <div class="md-form-group md-label-static">
+        <input class="md-form-control" type="text" spellcheck="false" readonly="readonly" id="txtDepositDate" value="@Model.DepositDate.ToMiladiDate().ToPersianDateTime().ToStringDate()" name="DepositDate" />
+        @Html.LabelFor(model => model.DepositDate, new { @class = "md-control-label" })
+        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.DepositDate)</span>
+    </div>
+
+    <input class="btn btn-success btn-next" type="submit" value="تأیید" />
+    <input class="btn btn-danger btn-next" type="button" value="لغو" data-dismiss="modal" />
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/cheques")
+<script>
+    ClearReceiveDepositedCheque();
+</script>

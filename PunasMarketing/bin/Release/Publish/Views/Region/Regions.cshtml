@@ -1,0 +1,119 @@
+﻿@model IQueryable<PunasMarketing.Models.DomainModel.Region>
+@{
+    ViewBag.Title = "لیست مناطق شهری";
+    int counter = 0;
+}
+
+<div class="layout-content-body">
+    <div class="row gutter-xs">
+        <div class="col-xs-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>لیست مناطق شهری</strong>
+                </div>
+
+                <div class="card-body">
+                    @AntiForgery.GetHtml()
+                    <div class="md-form-group md-label-floating col-md-6">
+                        <input class="md-form-control" type="text" name="name" id="searchbox" spellcheck="false" required="" aria-required="true">
+                        <label class="md-control-label">جستجو</label>
+                    </div>
+                    <div class="md-form-group md-label-floating col-md-6">
+                        <div class="margin-top">
+                            <div class="col-xs-6 col-md-6">
+                                <a href="/Region/AddRegion" class="btn btn-success">افزودن منطقه شهری</a>
+                            </div>
+                        </div>
+                    </div>
+                    <table id="demo-datatables-1" class="table table-striped table-nowrap dataTable" cellspacing="0" width="100%">
+                        <thead>
+                            <tr class="columnSize">
+                                <th>
+                                    ردیف
+                                </th>
+                                <th>
+                                    شناسه
+                                </th>
+                                <th>
+                                    استان
+                                </th>
+                                <th>
+                                    شهر
+                                </th>
+                                <th>
+                                    منطقه شهری
+                                </th>
+
+                                <th>عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="columnSize">
+                                    <td>
+                                        @(++counter)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.City.Province.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.City.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink(" ", "UpdateRegion", new { id = item.Id }, new { @class = "icon icon-pencil iconColor" })
+                                        <a id="Delete" value="@item.Id" class="icon icon-remove iconColor"></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="progress" class="addModal">
+    <div class="addCenter">
+        <img src="~/Content/loading.gif" />
+    </div>
+</div>
+<div id="infoModalAlertColored" tabindex="-1" role="dialog" class="modal fade">
+
+</div>
+<div id="successModalAlert" tabindex="-1" role="dialog" class="modal fade">
+
+</div>
+@section toastr {
+    @Html.Raw(TempData["UploadMessage"])
+    @Html.Raw(TempData["deleteMessage"])
+    @Html.Raw(TempData["SaveMessage"])
+}
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            var dataTable = $('#demo-datatables-1').dataTable();
+            $("#searchbox").keyup(function () {
+                dataTable.fnFilter(this.value);
+            });
+        });
+        $(function () {
+            $("#demo-datatables-1").dataTable();
+        });
+        $(document).ready(function () {
+            $("#demo-datatables-1_info").parent().addClass('col-sm-12');
+        });
+
+        //Region();
+        Delete('Region', 'DeleteRegion');
+    </script>
+}
+

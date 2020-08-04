@@ -1,0 +1,2531 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="gsharing_DamliModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="gsharing_DamliEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="GetChequeCounterPartyName" ReturnType="Collection(String)">
+      <Parameter Name="cheque_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetPendingCheques" ReturnType="Collection(gsharing_DamliModel.GetPendingCheques_Result)">
+      <Parameter Name="IsReceive" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="GetTafsiliForLedgerReport" ReturnType="Collection(gsharing_DamliModel.GetTafsiliForLedgerReport_Result)">
+      <Parameter Name="SarfaslId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="LedgerReportByKol" ReturnType="Collection(gsharing_DamliModel.LedgerReportByKol_Result)">
+      <Parameter Name="Fiscal" Mode="In" Type="Int16" />
+      <Parameter Name="SarfaslKol" Mode="In" Type="Int16" />
+      <Parameter Name="Page" Mode="In" Type="Int32" />
+      <Parameter Name="Size" Mode="In" Type="Int32" />
+      <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+      <Parameter Name="ToDate" Mode="In" Type="DateTime" />
+      <Parameter Name="TotalCount" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="LedgerReportBySarfasl" ReturnType="Collection(gsharing_DamliModel.LedgerReportBySarfasl_Result)">
+      <Parameter Name="Fiscal" Mode="In" Type="Int16" />
+      <Parameter Name="Sarfasl" Mode="In" Type="Int16" />
+      <Parameter Name="Page" Mode="In" Type="Int32" />
+      <Parameter Name="Size" Mode="In" Type="Int32" />
+      <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+      <Parameter Name="ToDate" Mode="In" Type="DateTime" />
+      <Parameter Name="TotalCount" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="LedgerReportByTafsili" ReturnType="Collection(gsharing_DamliModel.LedgerReportByTafsili_Result)">
+      <Parameter Name="Fiscal" Mode="In" Type="Int16" />
+      <Parameter Name="Tafsili" Mode="In" Type="Int32" />
+      <Parameter Name="Page" Mode="In" Type="Int32" />
+      <Parameter Name="Size" Mode="In" Type="Int32" />
+      <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+      <Parameter Name="ToDate" Mode="In" Type="DateTime" />
+      <Parameter Name="TotalCount" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateBankAccountTafsili">
+      <Parameter Name="Id" Mode="In" Type="Int16" />
+      <Parameter Name="Name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateCashDeskTafsili">
+      <Parameter Name="Id" Mode="In" Type="Int16" />
+      <Parameter Name="Name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateCustomerTafsili">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+      <Parameter Name="Name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateOtherTafsiliTafsili">
+      <Parameter Name="Id" Mode="In" Type="Int16" />
+      <Parameter Name="Name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="UpdatePersonnelTafsili">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+      <Parameter Name="Name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateProductTafsili">
+      <Parameter Name="Id" Mode="In" Type="Int16" />
+      <Parameter Name="Name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateSupplierTafsili">
+      <Parameter Name="Id" Mode="In" Type="Int16" />
+      <Parameter Name="Name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="GetMondehForLedger">
+      <Parameter Name="type" Mode="In" Type="Byte" />
+      <Parameter Name="SarfaslId" Mode="In" Type="Int32" />
+      <Parameter Name="Fiscal" Mode="In" Type="Int16" />
+      <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+      <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+      <Parameter Name="TafsiliId" Mode="In" Type="Int32" />
+      <Parameter Name="TotalBedeh" Mode="InOut" Type="Decimal" />
+      <Parameter Name="TotalBestan" Mode="InOut" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="GetLedgerReport" ReturnType="Collection(gsharing_DamliModel.GetLedgerReport_Result)">
+      <Parameter Name="type" Mode="In" Type="Byte" />
+      <Parameter Name="SarfaslId" Mode="In" Type="Int32" />
+      <Parameter Name="Fiscal" Mode="In" Type="Int16" />
+      <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+      <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+      <Parameter Name="TafsiliId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SanadDetail" ReturnType="Collection(gsharing_DamliModel.SanadDetail_Result)">
+      <Parameter Name="Fiscal" Mode="In" Type="Int16" />
+      <Parameter Name="SanadId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="journalReport" ReturnType="Collection(gsharing_DamliModel.journalReport_Result)">
+      <Parameter Name="Fiscal" Mode="In" Type="Int16" />
+      <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+      <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="journalTotalAccountsReport_" ReturnType="Collection(gsharing_DamliModel.journalTotalAccountsReport__Result)">
+      <Parameter Name="Fiscal" Mode="In" Type="Int16" />
+      <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+      <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="GetTotalResultByTafsili">
+      <Parameter Name="Fiscal" Mode="In" Type="Int16" />
+      <Parameter Name="Tafsili" Mode="In" Type="Int32" />
+      <Parameter Name="TotalBed" Mode="InOut" Type="Decimal" />
+      <Parameter Name="TotalBes" Mode="InOut" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="GetTotalResultBySarfasl">
+      <Parameter Name="Fiscal" Mode="In" Type="Int16" />
+      <Parameter Name="Sarfasl" Mode="In" Type="Int16" />
+      <Parameter Name="TotalBed" Mode="InOut" Type="Decimal" />
+      <Parameter Name="TotalBes" Mode="InOut" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="GetOtherDaraei" ReturnType="Collection(gsharing_DamliModel.GetOtherDaraei_Result)" />
+    <FunctionImport Name="GetOtherBedhi" ReturnType="Collection(gsharing_DamliModel.GetOtherBedhi_Result)" />
+    <FunctionImport Name="sp_Backup_Database">
+      <Parameter Name="DBName" Mode="In" Type="String" />
+      <Parameter Name="Location" Mode="In" Type="String" />
+      <Parameter Name="BackupName" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_Backup_Database1">
+      <Parameter Name="DBName" Mode="In" Type="String" />
+      <Parameter Name="Location" Mode="In" Type="String" />
+      <Parameter Name="BackupName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="backupDatabase">
+      <Parameter Name="databaseName" Mode="In" Type="String" />
+      <Parameter Name="backupDirectory" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(gsharing_DamliModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="UpdateSarfasl">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+      <Parameter Name="Name" Mode="In" Type="String" />
+      <Parameter Name="Coding" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="Actions" EntityType="gsharing_DamliModel.Action" />
+    <EntitySet Name="BankAccounts" EntityType="gsharing_DamliModel.BankAccount" />
+    <EntitySet Name="Banks" EntityType="gsharing_DamliModel.Bank" />
+    <EntitySet Name="CashDesks" EntityType="gsharing_DamliModel.CashDesk" />
+    <EntitySet Name="ChequeBooks" EntityType="gsharing_DamliModel.ChequeBook" />
+    <EntitySet Name="Cheques" EntityType="gsharing_DamliModel.Cheque" />
+    <EntitySet Name="Cities" EntityType="gsharing_DamliModel.City" />
+    <EntitySet Name="CostCategories" EntityType="gsharing_DamliModel.CostCategory" />
+    <EntitySet Name="Costs" EntityType="gsharing_DamliModel.Cost" />
+    <EntitySet Name="CounterParties" EntityType="gsharing_DamliModel.CounterParty" />
+    <EntitySet Name="CustomerCategories" EntityType="gsharing_DamliModel.CustomerCategory" />
+    <EntitySet Name="Customers" EntityType="gsharing_DamliModel.Customer" />
+    <EntitySet Name="FactorItems" EntityType="gsharing_DamliModel.FactorItem" />
+    <EntitySet Name="FiscalPeriods" EntityType="gsharing_DamliModel.FiscalPeriod" />
+    <EntitySet Name="InventoryCheckingItems" EntityType="gsharing_DamliModel.InventoryCheckingItem" />
+    <EntitySet Name="InventoryCheckings" EntityType="gsharing_DamliModel.InventoryChecking" />
+    <EntitySet Name="InvoiceItems" EntityType="gsharing_DamliModel.InvoiceItem" />
+    <EntitySet Name="Invoices" EntityType="gsharing_DamliModel.Invoice" />
+    <EntitySet Name="JobTitles" EntityType="gsharing_DamliModel.JobTitle" />
+    <EntitySet Name="Offers" EntityType="gsharing_DamliModel.Offer" />
+    <EntitySet Name="OtherTafsilis" EntityType="gsharing_DamliModel.OtherTafsili" />
+    <EntitySet Name="Payments" EntityType="gsharing_DamliModel.Payment" />
+    <EntitySet Name="PayTypes" EntityType="gsharing_DamliModel.PayType" />
+    <EntitySet Name="Personnels" EntityType="gsharing_DamliModel.Personnel" />
+    <EntitySet Name="PriceTypes" EntityType="gsharing_DamliModel.PriceType" />
+    <EntitySet Name="ProductCategories" EntityType="gsharing_DamliModel.ProductCategory" />
+    <EntitySet Name="ProductImages" EntityType="gsharing_DamliModel.ProductImage" />
+    <EntitySet Name="ProductPriceLists" EntityType="gsharing_DamliModel.ProductPriceList" />
+    <EntitySet Name="Provinces" EntityType="gsharing_DamliModel.Province" />
+    <EntitySet Name="ReceiptItems" EntityType="gsharing_DamliModel.ReceiptItem" />
+    <EntitySet Name="Receipts" EntityType="gsharing_DamliModel.Receipt" />
+    <EntitySet Name="Regions" EntityType="gsharing_DamliModel.Region" />
+    <EntitySet Name="SanadItems" EntityType="gsharing_DamliModel.SanadItem" />
+    <EntitySet Name="Sanads" EntityType="gsharing_DamliModel.Sanad" />
+    <EntitySet Name="Sarfasls" EntityType="gsharing_DamliModel.Sarfasl" />
+    <EntitySet Name="Sections" EntityType="gsharing_DamliModel.Section" />
+    <EntitySet Name="Suppliers" EntityType="gsharing_DamliModel.Supplier" />
+    <EntitySet Name="Tafsilis" EntityType="gsharing_DamliModel.Tafsili" />
+    <EntitySet Name="Transactions" EntityType="gsharing_DamliModel.Transaction" />
+    <EntitySet Name="Units" EntityType="gsharing_DamliModel.Unit" />
+    <EntitySet Name="UserAccesses" EntityType="gsharing_DamliModel.UserAccess" />
+    <EntitySet Name="Users" EntityType="gsharing_DamliModel.User" />
+    <EntitySet Name="WareHouses" EntityType="gsharing_DamliModel.Warehouse" />
+    <EntitySet Name="BankAccountViews" EntityType="gsharing_DamliModel.BankAccountView" />
+    <AssociationSet Name="FK_Actions_Sections" Association="gsharing_DamliModel.FK_Actions_Sections">
+      <End Role="Section" EntitySet="Sections" />
+      <End Role="Action" EntitySet="Actions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserAccesses_Actions" Association="gsharing_DamliModel.FK_UserAccesses_Actions">
+      <End Role="Action" EntitySet="Actions" />
+      <End Role="UserAccess" EntitySet="UserAccesses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BankAccounts_Banks" Association="gsharing_DamliModel.FK_BankAccounts_Banks">
+      <End Role="Bank" EntitySet="Banks" />
+      <End Role="BankAccount" EntitySet="BankAccounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cheques_BankAccounts" Association="gsharing_DamliModel.FK_Cheques_BankAccounts">
+      <End Role="BankAccount" EntitySet="BankAccounts" />
+      <End Role="Cheque" EntitySet="Cheques" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tafsilis_BankAccounts" Association="gsharing_DamliModel.FK_Tafsilis_BankAccounts">
+      <End Role="BankAccount" EntitySet="BankAccounts" />
+      <End Role="Tafsili" EntitySet="Tafsilis" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transactions_BankAccounts2" Association="gsharing_DamliModel.FK_Transactions_BankAccounts2">
+      <End Role="BankAccount" EntitySet="BankAccounts" />
+      <End Role="Transaction" EntitySet="Transactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cheques_Banks" Association="gsharing_DamliModel.FK_Cheques_Banks">
+      <End Role="Bank" EntitySet="Banks" />
+      <End Role="Cheque" EntitySet="Cheques" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tafsilis_CashDesks" Association="gsharing_DamliModel.FK_Tafsilis_CashDesks">
+      <End Role="CashDesk" EntitySet="CashDesks" />
+      <End Role="Tafsili" EntitySet="Tafsilis" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transactions_CashDesks2" Association="gsharing_DamliModel.FK_Transactions_CashDesks2">
+      <End Role="CashDesk" EntitySet="CashDesks" />
+      <End Role="Transaction" EntitySet="Transactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SanadItems_Cheques" Association="gsharing_DamliModel.FK_SanadItems_Cheques">
+      <End Role="Cheque" EntitySet="Cheques" />
+      <End Role="SanadItem" EntitySet="SanadItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cities_Provinces" Association="gsharing_DamliModel.FK_Cities_Provinces">
+      <End Role="Province" EntitySet="Provinces" />
+      <End Role="City" EntitySet="Cities" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Personnels_Cities_BirthCity" Association="gsharing_DamliModel.FK_Personnels_Cities_BirthCity">
+      <End Role="City" EntitySet="Cities" />
+      <End Role="Personnel" EntitySet="Personnels" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Personnels_Cities_HomeCity" Association="gsharing_DamliModel.FK_Personnels_Cities_HomeCity">
+      <End Role="City" EntitySet="Cities" />
+      <End Role="Personnel" EntitySet="Personnels" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Regions_Cities" Association="gsharing_DamliModel.FK_Regions_Cities">
+      <End Role="City" EntitySet="Cities" />
+      <End Role="Region" EntitySet="Regions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Suppliers_Customers_Cities" Association="gsharing_DamliModel.FK_Suppliers_Customers_Cities">
+      <End Role="City" EntitySet="Cities" />
+      <End Role="Supplier" EntitySet="Suppliers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Costs_CostCategories" Association="gsharing_DamliModel.FK_Costs_CostCategories">
+      <End Role="CostCategory" EntitySet="CostCategories" />
+      <End Role="Cost" EntitySet="Costs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Receipt_CounterParty" Association="gsharing_DamliModel.FK_Receipt_CounterParty">
+      <End Role="CounterParty" EntitySet="CounterParties" />
+      <End Role="Receipt" EntitySet="Receipts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customers_CustomerCategories" Association="gsharing_DamliModel.FK_Customers_CustomerCategories">
+      <End Role="CustomerCategory" EntitySet="CustomerCategories" />
+      <End Role="Customer" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customers_Personnels" Association="gsharing_DamliModel.FK_Customers_Personnels">
+      <End Role="Personnel" EntitySet="Personnels" />
+      <End Role="Customer" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customers_Regions" Association="gsharing_DamliModel.FK_Customers_Regions">
+      <End Role="Region" EntitySet="Regions" />
+      <End Role="Customer" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tafsilis_Customers" Association="gsharing_DamliModel.FK_Tafsilis_Customers">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Tafsili" EntitySet="Tafsilis" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sanads_FiscalPeriods" Association="gsharing_DamliModel.FK_Sanads_FiscalPeriods">
+      <End Role="FiscalPeriod" EntitySet="FiscalPeriods" />
+      <End Role="Sanad" EntitySet="Sanads" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InventoryCheckingItems_InventoryCheckings" Association="gsharing_DamliModel.FK_InventoryCheckingItems_InventoryCheckings">
+      <End Role="InventoryChecking" EntitySet="InventoryCheckings" />
+      <End Role="InventoryCheckingItem" EntitySet="InventoryCheckingItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InventoryCheckings_Users" Association="gsharing_DamliModel.FK_InventoryCheckings_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="InventoryChecking" EntitySet="InventoryCheckings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InventoryCheckings_WareHouses" Association="gsharing_DamliModel.FK_InventoryCheckings_WareHouses">
+      <End Role="Warehouse" EntitySet="WareHouses" />
+      <End Role="InventoryChecking" EntitySet="InventoryCheckings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InvoiceItems_Invoices" Association="gsharing_DamliModel.FK_InvoiceItems_Invoices">
+      <End Role="Invoice" EntitySet="Invoices" />
+      <End Role="InvoiceItem" EntitySet="InvoiceItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Invoices_Personnels" Association="gsharing_DamliModel.FK_Invoices_Personnels">
+      <End Role="Personnel" EntitySet="Personnels" />
+      <End Role="Invoice" EntitySet="Invoices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Invoices_Users" Association="gsharing_DamliModel.FK_Invoices_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Invoice" EntitySet="Invoices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Invoices_WareHouses_OtherWareHouse" Association="gsharing_DamliModel.FK_Invoices_WareHouses_OtherWareHouse">
+      <End Role="Warehouse" EntitySet="WareHouses" />
+      <End Role="Invoice" EntitySet="Invoices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Invoices_WareHouses_ThisWareHouse" Association="gsharing_DamliModel.FK_Invoices_WareHouses_ThisWareHouse">
+      <End Role="Warehouse" EntitySet="WareHouses" />
+      <End Role="Invoice" EntitySet="Invoices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JobTitles_Sections" Association="gsharing_DamliModel.FK_JobTitles_Sections">
+      <End Role="Section" EntitySet="Sections" />
+      <End Role="JobTitle" EntitySet="JobTitles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Personnels_JobTitles" Association="gsharing_DamliModel.FK_Personnels_JobTitles">
+      <End Role="JobTitle" EntitySet="JobTitles" />
+      <End Role="Personnel" EntitySet="Personnels" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tafsilis_OtherTafsilis" Association="gsharing_DamliModel.FK_Tafsilis_OtherTafsilis">
+      <End Role="OtherTafsili" EntitySet="OtherTafsilis" />
+      <End Role="Tafsili" EntitySet="Tafsilis" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payments_PayTypes" Association="gsharing_DamliModel.FK_Payments_PayTypes">
+      <End Role="PayType" EntitySet="PayTypes" />
+      <End Role="Payment" EntitySet="Payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payments_Suppliers_Customers" Association="gsharing_DamliModel.FK_Payments_Suppliers_Customers">
+      <End Role="Supplier" EntitySet="Suppliers" />
+      <End Role="Payment" EntitySet="Payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payments_Users" Association="gsharing_DamliModel.FK_Payments_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Payment" EntitySet="Payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tafsilis_Personnels" Association="gsharing_DamliModel.FK_Tafsilis_Personnels">
+      <End Role="Personnel" EntitySet="Personnels" />
+      <End Role="Tafsili" EntitySet="Tafsilis" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Personnels" Association="gsharing_DamliModel.FK_Users_Personnels">
+      <End Role="Personnel" EntitySet="Personnels" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductPriceLists_PriceTypes" Association="gsharing_DamliModel.FK_ProductPriceLists_PriceTypes">
+      <End Role="PriceType" EntitySet="PriceTypes" />
+      <End Role="ProductPriceList" EntitySet="ProductPriceLists" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FishItems_Transactions" Association="gsharing_DamliModel.FK_FishItems_Transactions">
+      <End Role="Transaction" EntitySet="Transactions" />
+      <End Role="ReceiptItem" EntitySet="ReceiptItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReceiptItems_Receipt" Association="gsharing_DamliModel.FK_ReceiptItems_Receipt">
+      <End Role="Receipt" EntitySet="Receipts" />
+      <End Role="ReceiptItem" EntitySet="ReceiptItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Receipt_Users" Association="gsharing_DamliModel.FK_Receipt_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Receipt" EntitySet="Receipts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SanadItems_Sanads" Association="gsharing_DamliModel.FK_SanadItems_Sanads">
+      <End Role="Sanad" EntitySet="Sanads" />
+      <End Role="SanadItem" EntitySet="SanadItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SanadItems_Sarfasls" Association="gsharing_DamliModel.FK_SanadItems_Sarfasls">
+      <End Role="Sarfasl" EntitySet="Sarfasls" />
+      <End Role="SanadItem" EntitySet="SanadItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SanadItems_Tafsilis" Association="gsharing_DamliModel.FK_SanadItems_Tafsilis">
+      <End Role="Tafsili" EntitySet="Tafsilis" />
+      <End Role="SanadItem" EntitySet="SanadItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sarfasls_Sarfasls" Association="gsharing_DamliModel.FK_Sarfasls_Sarfasls">
+      <End Role="Sarfasl" EntitySet="Sarfasls" />
+      <End Role="Sarfasl1" EntitySet="Sarfasls" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tafsilis_Sarfasls" Association="gsharing_DamliModel.FK_Tafsilis_Sarfasls">
+      <End Role="Sarfasl" EntitySet="Sarfasls" />
+      <End Role="Tafsili" EntitySet="Tafsilis" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tafsilis_Suppliers" Association="gsharing_DamliModel.FK_Tafsilis_Suppliers">
+      <End Role="Supplier" EntitySet="Suppliers" />
+      <End Role="Tafsili" EntitySet="Tafsilis" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserAccesses_Users" Association="gsharing_DamliModel.FK_UserAccesses_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserAccess" EntitySet="UserAccesses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WareHouses_Users" Association="gsharing_DamliModel.FK_WareHouses_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Warehouse" EntitySet="WareHouses" />
+    </AssociationSet>
+    <FunctionImport Name="sp_Backup_Database2">
+      <Parameter Name="DBName" Mode="In" Type="String" />
+      <Parameter Name="Location" Mode="In" Type="String" />
+      <Parameter Name="BackupName" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="OfferItems" EntityType="gsharing_DamliModel.OfferItem" />
+    <AssociationSet Name="FK_OfferItems_Offers" Association="gsharing_DamliModel.FK_OfferItems_Offers">
+      <End Role="Offer" EntitySet="Offers" />
+      <End Role="OfferItem" EntitySet="OfferItems" />
+    </AssociationSet>
+    <FunctionImport Name="CustomerlReport" ReturnType="Collection(gsharing_DamliModel.CustomerlReport_Result)">
+      <Parameter Name="Fiscal" Mode="In" Type="Int16" />
+      <Parameter Name="CustomerId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="PersonnelReport" ReturnType="Collection(gsharing_DamliModel.PersonnelReport_Result)">
+      <Parameter Name="Fiscal" Mode="In" Type="Int16" />
+      <Parameter Name="PersonnelId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SupplierReport" ReturnType="Collection(gsharing_DamliModel.SupplierReport_Result)">
+      <Parameter Name="Fiscal" Mode="In" Type="Int16" />
+      <Parameter Name="SupplierId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="MarketerRegions" EntityType="gsharing_DamliModel.MarketerRegion" />
+    <AssociationSet Name="FK_MarketerRegions_Personnels" Association="gsharing_DamliModel.FK_MarketerRegions_Personnels">
+      <End Role="Personnel" EntitySet="Personnels" />
+      <End Role="MarketerRegion" EntitySet="MarketerRegions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MarketerRegions_Regions" Association="gsharing_DamliModel.FK_MarketerRegions_Regions">
+      <End Role="Region" EntitySet="Regions" />
+      <End Role="MarketerRegion" EntitySet="MarketerRegions" />
+    </AssociationSet>
+    <FunctionImport Name="sp_products_with_discount">
+      <Parameter Name="customerCategory" Mode="In" Type="Int16" />
+    </FunctionImport>
+    <EntitySet Name="View_Tafsili" EntityType="gsharing_DamliModel.View_Tafsili" />
+    <FunctionImport Name="sp_products_with_discount_foreach">
+      <Parameter Name="customerId" Mode="In" Type="Int32" />
+      <Parameter Name="lastId" Mode="In" Type="Int16" />
+      <Parameter Name="count" Mode="In" Type="Int32" />
+      <Parameter Name="productId" Mode="In" Type="Int16" />
+      <Parameter Name="inputProductCategoryId" Mode="In" Type="Int16" />
+    </FunctionImport>
+    <EntitySet Name="Factors" EntityType="gsharing_DamliModel.Factor" />
+    <AssociationSet Name="FK_Factors_Customers" Association="gsharing_DamliModel.FK_Factors_Customers">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Factor" EntitySet="Factors" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FactorItems_Factors" Association="gsharing_DamliModel.FK_FactorItems_Factors">
+      <End Role="Factor" EntitySet="Factors" />
+      <End Role="FactorItem" EntitySet="FactorItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Factors_Factors" Association="gsharing_DamliModel.FK_Factors_Factors">
+      <End Role="Factor" EntitySet="Factors" />
+      <End Role="Factor1" EntitySet="Factors" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Factors_FiscalPeriods" Association="gsharing_DamliModel.FK_Factors_FiscalPeriods">
+      <End Role="FiscalPeriod" EntitySet="FiscalPeriods" />
+      <End Role="Factor" EntitySet="Factors" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Factors_Invoices" Association="gsharing_DamliModel.FK_Factors_Invoices">
+      <End Role="Invoice" EntitySet="Invoices" />
+      <End Role="Factor" EntitySet="Factors" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Factors_Personnels" Association="gsharing_DamliModel.FK_Factors_Personnels">
+      <End Role="Personnel" EntitySet="Personnels" />
+      <End Role="Factor" EntitySet="Factors" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Factors_Sanads" Association="gsharing_DamliModel.FK_Factors_Sanads">
+      <End Role="Sanad" EntitySet="Sanads" />
+      <End Role="Factor" EntitySet="Factors" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Factors_Suppliers" Association="gsharing_DamliModel.FK_Factors_Suppliers">
+      <End Role="Supplier" EntitySet="Suppliers" />
+      <End Role="Factor" EntitySet="Factors" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Factors_Users" Association="gsharing_DamliModel.FK_Factors_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Factor" EntitySet="Factors" />
+    </AssociationSet>
+    <EntitySet Name="OrderItems" EntityType="gsharing_DamliModel.OrderItem" />
+    <EntitySet Name="Orders" EntityType="gsharing_DamliModel.Order" />
+    <AssociationSet Name="FK_Orders_Customers" Association="gsharing_DamliModel.FK_Orders_Customers">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Factors" Association="gsharing_DamliModel.FK_Orders_Factors">
+      <End Role="Factor" EntitySet="Factors" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderItems_Orders" Association="gsharing_DamliModel.FK_OrderItems_Orders">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="OrderItem" EntitySet="OrderItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Personnels" Association="gsharing_DamliModel.FK_Orders_Personnels">
+      <End Role="Personnel" EntitySet="Personnels" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <EntitySet Name="Products" EntityType="gsharing_DamliModel.Product" />
+    <AssociationSet Name="FK_FactorItems_Products" Association="gsharing_DamliModel.FK_FactorItems_Products">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="FactorItem" EntitySet="FactorItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InventoryCheckingItems_Products" Association="gsharing_DamliModel.FK_InventoryCheckingItems_Products">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="InventoryCheckingItem" EntitySet="InventoryCheckingItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InvoiceItems_Products" Association="gsharing_DamliModel.FK_InvoiceItems_Products">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="InvoiceItem" EntitySet="InvoiceItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OfferItems_GiftProducts" Association="gsharing_DamliModel.FK_OfferItems_GiftProducts">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="OfferItem" EntitySet="OfferItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OfferItems_Products" Association="gsharing_DamliModel.FK_OfferItems_Products">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="OfferItem" EntitySet="OfferItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderItems_Products" Association="gsharing_DamliModel.FK_OrderItems_Products">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="OrderItem" EntitySet="OrderItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Products_Categories" Association="gsharing_DamliModel.FK_Products_Categories">
+      <End Role="ProductCategory" EntitySet="ProductCategories" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductImages_Products" Association="gsharing_DamliModel.FK_ProductImages_Products">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="ProductImage" EntitySet="ProductImages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductPriceLists_Products" Association="gsharing_DamliModel.FK_ProductPriceLists_Products">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="ProductPriceList" EntitySet="ProductPriceLists" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Products_Units" Association="gsharing_DamliModel.FK_Products_Units">
+      <End Role="Unit" EntitySet="Units" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Products_Units1" Association="gsharing_DamliModel.FK_Products_Units1">
+      <End Role="Unit" EntitySet="Units" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Products_WareHouses" Association="gsharing_DamliModel.FK_Products_WareHouses">
+      <End Role="Warehouse" EntitySet="WareHouses" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tafsilis_Products" Association="gsharing_DamliModel.FK_Tafsilis_Products">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Tafsili" EntitySet="Tafsilis" />
+    </AssociationSet>
+    <FunctionImport Name="sp_products_with_discount_foreach1">
+      <Parameter Name="customerId" Mode="In" Type="Int32" />
+      <Parameter Name="lastId" Mode="In" Type="Int16" />
+      <Parameter Name="count" Mode="In" Type="Int32" />
+      <Parameter Name="productId" Mode="In" Type="Int16" />
+      <Parameter Name="inputProductCategoryId" Mode="In" Type="Int16" />
+    </FunctionImport>
+    <FunctionImport Name="sp_products_with_discount_foreach2">
+      <Parameter Name="customerId" Mode="In" Type="Int32" />
+      <Parameter Name="lastId" Mode="In" Type="Int16" />
+      <Parameter Name="count" Mode="In" Type="Int32" />
+      <Parameter Name="productId" Mode="In" Type="Int16" />
+      <Parameter Name="inputProductCategoryId" Mode="In" Type="Int16" />
+    </FunctionImport>
+    <FunctionImport Name="sp_products_with_discount_foreach3" ReturnType="Collection(gsharing_DamliModel.sp_products_with_discount_foreach3_Result)">
+      <Parameter Name="customerId" Mode="In" Type="Int32" />
+      <Parameter Name="lastId" Mode="In" Type="Int16" />
+      <Parameter Name="count" Mode="In" Type="Int32" />
+      <Parameter Name="productId" Mode="In" Type="Int16" />
+      <Parameter Name="inputProductCategoryId" Mode="In" Type="Int16" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="GetPendingCheques_Result">
+    <Property Type="Int32" Name="ChequeId" Nullable="true" />
+    <Property Type="Decimal" Name="Amount" Nullable="true" Precision="19" />
+    <Property Type="DateTime" Name="DueDate" Nullable="true" Precision="23" />
+    <Property Type="Byte" Name="StatusId" Nullable="true" />
+    <Property Type="String" Name="CounterParyName" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="GetTafsiliForLedgerReport_Result">
+    <Property Type="String" Name="TafsiliName" Nullable="false" MaxLength="471" />
+    <Property Type="String" Name="HesabCode" Nullable="false" MaxLength="54" />
+    <Property Type="Byte" Name="PersonTypeId" Nullable="true" />
+    <Property Type="Int32" Name="Id" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="LedgerReportByKol_Result">
+    <Property Type="Int32" Name="SanadId" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+    <Property Type="Decimal" Name="Bedeh" Nullable="false" Precision="19" />
+    <Property Type="Decimal" Name="Bestan" Nullable="false" Precision="19" />
+    <Property Type="Int16" Name="SarfaslId" Nullable="false" />
+    <Property Type="Int32" Name="TafsiliId" Nullable="true" />
+    <Property Type="String" Name="Coding" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />
+    <Property Type="DateTime" Name="ConfirmDate" Nullable="false" Precision="23" />
+    <Property Type="Byte" Name="PersonTypeId" Nullable="true" />
+    <Property Type="String" Name="TafsiliName" Nullable="false" MaxLength="470" />
+    <Property Type="String" Name="HesabCode" Nullable="false" MaxLength="54" />
+  </ComplexType>
+  <ComplexType Name="LedgerReportBySarfasl_Result">
+    <Property Type="Int32" Name="SanadId" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+    <Property Type="Decimal" Name="Bedeh" Nullable="false" Precision="19" />
+    <Property Type="Decimal" Name="Bestan" Nullable="false" Precision="19" />
+    <Property Type="Int16" Name="SarfaslId" Nullable="false" />
+    <Property Type="Int32" Name="TafsiliId" Nullable="true" />
+    <Property Type="String" Name="Coding" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />
+    <Property Type="DateTime" Name="ConfirmDate" Nullable="false" Precision="23" />
+    <Property Type="Byte" Name="PersonTypeId" Nullable="true" />
+    <Property Type="String" Name="TafsiliName" Nullable="false" MaxLength="470" />
+    <Property Type="String" Name="HesabCode" Nullable="false" MaxLength="54" />
+  </ComplexType>
+  <ComplexType Name="LedgerReportByTafsili_Result">
+    <Property Type="Int32" Name="SanadId" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+    <Property Type="Decimal" Name="Bedeh" Nullable="false" Precision="19" />
+    <Property Type="Decimal" Name="Bestan" Nullable="false" Precision="19" />
+    <Property Type="Int16" Name="SarfaslId" Nullable="false" />
+    <Property Type="Int32" Name="TafsiliId" Nullable="true" />
+    <Property Type="String" Name="Coding" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />
+    <Property Type="DateTime" Name="ConfirmDate" Nullable="false" Precision="23" />
+    <Property Type="Byte" Name="PersonTypeId" Nullable="true" />
+    <Property Type="String" Name="TafsiliName" Nullable="false" MaxLength="470" />
+    <Property Type="String" Name="HesabCode" Nullable="false" MaxLength="54" />
+  </ComplexType>
+  <ComplexType Name="GetLedgerReport_Result">
+    <Property Type="Decimal" Name="Bedeh" Nullable="false" Precision="19" />
+    <Property Type="Decimal" Name="Bestan" Nullable="false" Precision="19" />
+    <Property Type="DateTime" Name="ConfirmDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="TafsiliName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="HesabCode" Nullable="false" MaxLength="54" />
+    <Property Type="Byte" Name="PersonTypeId" Nullable="true" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="Coding" Nullable="false" MaxLength="10" />
+    <Property Type="Int32" Name="SandId" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SanadDetail_Result">
+    <Property Type="Int32" Name="SandId" Nullable="false" />
+    <Property Type="DateTime" Name="ConfirmDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="Description" Nullable="false" MaxLength="300" />
+    <Property Type="String" Name="ItemDes" Nullable="true" MaxLength="500" />
+    <Property Type="Decimal" Name="Bedeh" Nullable="false" Precision="19" />
+    <Property Type="Decimal" Name="Bestan" Nullable="false" Precision="19" />
+    <Property Type="String" Name="Coding" Nullable="false" MaxLength="10" />
+    <Property Type="Byte" Name="PersonTypeId" Nullable="true" />
+    <Property Type="String" Name="TafsiliName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="HesabCode" Nullable="false" MaxLength="54" />
+  </ComplexType>
+  <ComplexType Name="journalReport_Result">
+    <Property Type="Decimal" Name="Bedeh" Nullable="false" Precision="19" />
+    <Property Type="Decimal" Name="Bestan" Nullable="false" Precision="19" />
+    <Property Type="DateTime" Name="ConfirmDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="TafsiliName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="HesabCode" Nullable="false" MaxLength="54" />
+    <Property Type="Byte" Name="PersonTypeId" Nullable="true" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="Coding" Nullable="false" MaxLength="10" />
+    <Property Type="Int32" Name="SandId" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="journalTotalAccountsReport__Result">
+    <Property Type="Decimal" Name="Bedeh" Nullable="false" Precision="19" />
+    <Property Type="Decimal" Name="Bestan" Nullable="false" Precision="19" />
+    <Property Type="DateTime" Name="ConfirmDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />
+    <Property Type="Int32" Name="SandId" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="GetOtherDaraei_Result">
+    <Property Type="Int16" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />
+    <Property Type="Byte" Name="Code" Nullable="false" />
+    <Property Type="String" Name="Coding" Nullable="false" MaxLength="10" />
+  </ComplexType>
+  <ComplexType Name="GetOtherBedhi_Result">
+    <Property Type="Int16" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />
+    <Property Type="Byte" Name="Code" Nullable="false" />
+    <Property Type="String" Name="Coding" Nullable="false" MaxLength="10" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="Action">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SectionId" Type="Int16" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Section" Relationship="gsharing_DamliModel.FK_Actions_Sections" FromRole="Action" ToRole="Section" />
+    <NavigationProperty Name="UserAccesses" Relationship="gsharing_DamliModel.FK_UserAccesses_Actions" FromRole="Action" ToRole="UserAccess" />
+  </EntityType>
+  <EntityType Name="BankAccount">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BankId" Type="Int16" Nullable="false" />
+    <Property Name="Iban" Type="String" MaxLength="24" FixedLength="true" Unicode="false" />
+    <Property Name="AccountNum" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Owner" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="BranchName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="BranchCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="HasPos" Type="Boolean" Nullable="false" />
+    <Property Name="IsAvailable" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Bank" Relationship="gsharing_DamliModel.FK_BankAccounts_Banks" FromRole="BankAccount" ToRole="Bank" />
+    <NavigationProperty Name="Cheques" Relationship="gsharing_DamliModel.FK_Cheques_BankAccounts" FromRole="BankAccount" ToRole="Cheque" />
+    <NavigationProperty Name="Tafsilis" Relationship="gsharing_DamliModel.FK_Tafsilis_BankAccounts" FromRole="BankAccount" ToRole="Tafsili" />
+    <NavigationProperty Name="Transactions" Relationship="gsharing_DamliModel.FK_Transactions_BankAccounts2" FromRole="BankAccount" ToRole="Transaction" />
+  </EntityType>
+  <EntityType Name="Bank">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BankAccounts" Relationship="gsharing_DamliModel.FK_BankAccounts_Banks" FromRole="Bank" ToRole="BankAccount" />
+    <NavigationProperty Name="Cheques" Relationship="gsharing_DamliModel.FK_Cheques_Banks" FromRole="Bank" ToRole="Cheque" />
+  </EntityType>
+  <EntityType Name="CashDesk">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsAvailable" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Tafsilis" Relationship="gsharing_DamliModel.FK_Tafsilis_CashDesks" FromRole="CashDesk" ToRole="Tafsili" />
+    <NavigationProperty Name="Transactions" Relationship="gsharing_DamliModel.FK_Transactions_CashDesks2" FromRole="CashDesk" ToRole="Transaction" />
+  </EntityType>
+  <EntityType Name="ChequeBook">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BankAccountId" Type="Int16" Nullable="false" />
+    <Property Name="LeavesCount" Type="Byte" Nullable="false" />
+    <Property Name="RemainingLeavesCount" Type="Byte" Nullable="false" />
+    <Property Name="FirstLeaf" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="LastLeaf" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Cheque">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ChequeNum" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DueDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="BankAccountId" Type="Int16" />
+    <Property Name="BankId" Type="Int16" />
+    <Property Name="BranchName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="OwnerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="StatusId" Type="Byte" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BankAccount" Relationship="gsharing_DamliModel.FK_Cheques_BankAccounts" FromRole="Cheque" ToRole="BankAccount" />
+    <NavigationProperty Name="Bank" Relationship="gsharing_DamliModel.FK_Cheques_Banks" FromRole="Cheque" ToRole="Bank" />
+    <NavigationProperty Name="SanadItems" Relationship="gsharing_DamliModel.FK_SanadItems_Cheques" FromRole="Cheque" ToRole="SanadItem" />
+  </EntityType>
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ProvinceId" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="Province" Relationship="gsharing_DamliModel.FK_Cities_Provinces" FromRole="City" ToRole="Province" />
+    <NavigationProperty Name="Personnels" Relationship="gsharing_DamliModel.FK_Personnels_Cities_BirthCity" FromRole="City" ToRole="Personnel" />
+    <NavigationProperty Name="Personnels1" Relationship="gsharing_DamliModel.FK_Personnels_Cities_HomeCity" FromRole="City" ToRole="Personnel" />
+    <NavigationProperty Name="Regions" Relationship="gsharing_DamliModel.FK_Regions_Cities" FromRole="City" ToRole="Region" />
+    <NavigationProperty Name="Suppliers" Relationship="gsharing_DamliModel.FK_Suppliers_Customers_Cities" FromRole="City" ToRole="Supplier" />
+  </EntityType>
+  <EntityType Name="CostCategory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Costs" Relationship="gsharing_DamliModel.FK_Costs_CostCategories" FromRole="CostCategory" ToRole="Cost" />
+  </EntityType>
+  <EntityType Name="Cost">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CostCategoryId" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="CostCategory" Relationship="gsharing_DamliModel.FK_Costs_CostCategories" FromRole="Cost" ToRole="CostCategory" />
+  </EntityType>
+  <EntityType Name="CounterParty">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TypeId" Type="Byte" Nullable="false" />
+    <Property Name="ItemId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Receipts" Relationship="gsharing_DamliModel.FK_Receipt_CounterParty" FromRole="CounterParty" ToRole="Receipt" />
+  </EntityType>
+  <EntityType Name="CustomerCategory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Customers" Relationship="gsharing_DamliModel.FK_Customers_CustomerCategories" FromRole="CustomerCategory" ToRole="Customer" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BusinessName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="OwnerName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CodeMelli" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="Mobile1" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Mobile2" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RegionId" Type="Int16" Nullable="false" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Longitude" Type="Double" />
+    <Property Name="Latitude" Type="Double" />
+    <Property Name="CustomerCategoryId" Type="Int16" />
+    <Property Name="MarketerId" Type="Int32" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="SaltCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ImageName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="CustomerCategory" Relationship="gsharing_DamliModel.FK_Customers_CustomerCategories" FromRole="Customer" ToRole="CustomerCategory" />
+    <NavigationProperty Name="Personnel" Relationship="gsharing_DamliModel.FK_Customers_Personnels" FromRole="Customer" ToRole="Personnel" />
+    <NavigationProperty Name="Region" Relationship="gsharing_DamliModel.FK_Customers_Regions" FromRole="Customer" ToRole="Region" />
+    <NavigationProperty Name="Tafsilis" Relationship="gsharing_DamliModel.FK_Tafsilis_Customers" FromRole="Customer" ToRole="Tafsili" />
+    <NavigationProperty Name="Factors" Relationship="gsharing_DamliModel.FK_Factors_Customers" FromRole="Customer" ToRole="Factor" />
+    <NavigationProperty Name="Orders" Relationship="gsharing_DamliModel.FK_Orders_Customers" FromRole="Customer" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="FactorItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FactorId" Type="Int32" Nullable="false" />
+    <Property Name="PeriodId" Type="Int16" Nullable="false" />
+    <Property Name="ProductId" Type="Int16" Nullable="false" />
+    <Property Name="MainUnitCount" Type="Double" />
+    <Property Name="SubUnitCount" Type="Double" />
+    <Property Name="UnitsRate" Type="Double" />
+    <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Discount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Tax" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="MarketerCommission" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="TotalPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="FinalPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Factor" Relationship="gsharing_DamliModel.FK_FactorItems_Factors" FromRole="FactorItem" ToRole="Factor" />
+    <NavigationProperty Name="Product" Relationship="gsharing_DamliModel.FK_FactorItems_Products" FromRole="FactorItem" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="FiscalPeriod">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int16" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Vat" Type="Byte" Nullable="false" />
+    <Property Name="IsClosed" Type="Boolean" Nullable="false" />
+    <Property Name="ClosedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Sanads" Relationship="gsharing_DamliModel.FK_Sanads_FiscalPeriods" FromRole="FiscalPeriod" ToRole="Sanad" />
+    <NavigationProperty Name="Factors" Relationship="gsharing_DamliModel.FK_Factors_FiscalPeriods" FromRole="FiscalPeriod" ToRole="Factor" />
+  </EntityType>
+  <EntityType Name="InventoryCheckingItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="InventoryCheckingId" Type="Int16" Nullable="false" />
+    <Property Name="ProductId" Type="Int16" Nullable="false" />
+    <Property Name="RealMainUnitCount" Type="Double" Nullable="false" />
+    <Property Name="SystemMainUnitCount" Type="Double" Nullable="false" />
+    <Property Name="Difference" Type="Double" Nullable="false" />
+    <Property Name="IsCorrected" Type="Boolean" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="InventoryChecking" Relationship="gsharing_DamliModel.FK_InventoryCheckingItems_InventoryCheckings" FromRole="InventoryCheckingItem" ToRole="InventoryChecking" />
+    <NavigationProperty Name="Product" Relationship="gsharing_DamliModel.FK_InventoryCheckingItems_Products" FromRole="InventoryCheckingItem" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="InventoryChecking">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="WarehouseId" Type="Int16" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedByUserId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="InventoryCheckingItems" Relationship="gsharing_DamliModel.FK_InventoryCheckingItems_InventoryCheckings" FromRole="InventoryChecking" ToRole="InventoryCheckingItem" />
+    <NavigationProperty Name="User" Relationship="gsharing_DamliModel.FK_InventoryCheckings_Users" FromRole="InventoryChecking" ToRole="User" />
+    <NavigationProperty Name="Warehouse" Relationship="gsharing_DamliModel.FK_InventoryCheckings_WareHouses" FromRole="InventoryChecking" ToRole="Warehouse" />
+  </EntityType>
+  <EntityType Name="InvoiceItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="InvoiceId" Type="Int32" Nullable="false" />
+    <Property Name="ProductId" Type="Int16" Nullable="false" />
+    <Property Name="MainUnitCount" Type="Double" Nullable="false" />
+    <Property Name="SubUnitCount" Type="Double" Nullable="false" />
+    <Property Name="UnitsRate" Type="Double" />
+    <NavigationProperty Name="Invoice" Relationship="gsharing_DamliModel.FK_InvoiceItems_Invoices" FromRole="InvoiceItem" ToRole="Invoice" />
+    <NavigationProperty Name="Product" Relationship="gsharing_DamliModel.FK_InvoiceItems_Products" FromRole="InvoiceItem" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Invoice">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IsReceive" Type="Boolean" Nullable="false" />
+    <Property Name="ThisWareHouseId" Type="Int16" Nullable="false" />
+    <Property Name="OtherWareHouseId" Type="Int16" />
+    <Property Name="PersonnelId" Type="Int32" />
+    <Property Name="FactorNum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatorUserId" Type="Int32" Nullable="false" />
+    <Property Name="IsCompleted" Type="Boolean" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="InvoiceItems" Relationship="gsharing_DamliModel.FK_InvoiceItems_Invoices" FromRole="Invoice" ToRole="InvoiceItem" />
+    <NavigationProperty Name="Personnel" Relationship="gsharing_DamliModel.FK_Invoices_Personnels" FromRole="Invoice" ToRole="Personnel" />
+    <NavigationProperty Name="User" Relationship="gsharing_DamliModel.FK_Invoices_Users" FromRole="Invoice" ToRole="User" />
+    <NavigationProperty Name="Warehouse" Relationship="gsharing_DamliModel.FK_Invoices_WareHouses_OtherWareHouse" FromRole="Invoice" ToRole="Warehouse" />
+    <NavigationProperty Name="Warehouse1" Relationship="gsharing_DamliModel.FK_Invoices_WareHouses_ThisWareHouse" FromRole="Invoice" ToRole="Warehouse" />
+    <NavigationProperty Name="Factors" Relationship="gsharing_DamliModel.FK_Factors_Invoices" FromRole="Invoice" ToRole="Factor" />
+  </EntityType>
+  <EntityType Name="JobTitle">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SectionId" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="Section" Relationship="gsharing_DamliModel.FK_JobTitles_Sections" FromRole="JobTitle" ToRole="Section" />
+    <NavigationProperty Name="Personnels" Relationship="gsharing_DamliModel.FK_Personnels_JobTitles" FromRole="JobTitle" ToRole="Personnel" />
+  </EntityType>
+  <EntityType Name="Offer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ExpDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ImageName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ForCustomerCategories" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="OfferItems" Relationship="gsharing_DamliModel.FK_OfferItems_Offers" FromRole="Offer" ToRole="OfferItem" />
+    <Property Name="ShowInSlider" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OtherTafsili">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Tafsilis" Relationship="gsharing_DamliModel.FK_Tafsilis_OtherTafsilis" FromRole="OtherTafsili" ToRole="Tafsili" />
+  </EntityType>
+  <EntityType Name="Payment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PayTypeId" Type="Int16" Nullable="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="CustomerId" Type="Int16" Nullable="false" />
+    <Property Name="SubmitDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="SettleDate" Type="DateTime" Precision="3" />
+    <Property Name="IssueTracking" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="IsDeposit" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="PayType" Relationship="gsharing_DamliModel.FK_Payments_PayTypes" FromRole="Payment" ToRole="PayType" />
+    <NavigationProperty Name="Supplier" Relationship="gsharing_DamliModel.FK_Payments_Suppliers_Customers" FromRole="Payment" ToRole="Supplier" />
+    <NavigationProperty Name="User" Relationship="gsharing_DamliModel.FK_Payments_Users" FromRole="Payment" ToRole="User" />
+  </EntityType>
+  <EntityType Name="PayType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Payments" Relationship="gsharing_DamliModel.FK_Payments_PayTypes" FromRole="PayType" ToRole="Payment" />
+  </EntityType>
+  <EntityType Name="Personnel">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PersonnelCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FatherName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CodeMelli" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="IsMale" Type="Boolean" Nullable="false" />
+    <Property Name="IsMarried" Type="Boolean" Nullable="false" />
+    <Property Name="Mobile1" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Mobile2" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="RelatedPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="BirthCityId" Type="Int16" Nullable="false" />
+    <Property Name="HomeCityId" Type="Int16" Nullable="false" />
+    <Property Name="HomeAddress" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ImageName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="HireDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="FireDate" Type="DateTime" Precision="0" />
+    <Property Name="AcademicDegree" Type="Byte" Nullable="false" />
+    <Property Name="FieldOfStudy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="JobTitleId" Type="Int16" Nullable="false" />
+    <Property Name="IsGettingSalary" Type="Boolean" Nullable="false" />
+    <Property Name="BankName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="BankCardNum" Type="String" MaxLength="16" FixedLength="true" Unicode="false" />
+    <Property Name="Iban" Type="String" MaxLength="26" FixedLength="true" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="City" Relationship="gsharing_DamliModel.FK_Personnels_Cities_BirthCity" FromRole="Personnel" ToRole="City" />
+    <NavigationProperty Name="City1" Relationship="gsharing_DamliModel.FK_Personnels_Cities_HomeCity" FromRole="Personnel" ToRole="City" />
+    <NavigationProperty Name="Customers" Relationship="gsharing_DamliModel.FK_Customers_Personnels" FromRole="Personnel" ToRole="Customer" />
+    <NavigationProperty Name="Invoices" Relationship="gsharing_DamliModel.FK_Invoices_Personnels" FromRole="Personnel" ToRole="Invoice" />
+    <NavigationProperty Name="JobTitle" Relationship="gsharing_DamliModel.FK_Personnels_JobTitles" FromRole="Personnel" ToRole="JobTitle" />
+    <NavigationProperty Name="Tafsilis" Relationship="gsharing_DamliModel.FK_Tafsilis_Personnels" FromRole="Personnel" ToRole="Tafsili" />
+    <NavigationProperty Name="User" Relationship="gsharing_DamliModel.FK_Users_Personnels" FromRole="Personnel" ToRole="User" />
+    <NavigationProperty Name="MarketerRegions" Relationship="gsharing_DamliModel.FK_MarketerRegions_Personnels" FromRole="Personnel" ToRole="MarketerRegion" />
+    <NavigationProperty Name="Factors" Relationship="gsharing_DamliModel.FK_Factors_Personnels" FromRole="Personnel" ToRole="Factor" />
+    <NavigationProperty Name="Orders" Relationship="gsharing_DamliModel.FK_Orders_Personnels" FromRole="Personnel" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="PriceType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ProductPriceLists" Relationship="gsharing_DamliModel.FK_ProductPriceLists_PriceTypes" FromRole="PriceType" ToRole="ProductPriceList" />
+  </EntityType>
+  <EntityType Name="ProductCategory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Products" Relationship="gsharing_DamliModel.FK_Products_Categories" FromRole="ProductCategory" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="ProductImage">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductId" Type="Int16" Nullable="false" />
+    <Property Name="ImageName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Product" Relationship="gsharing_DamliModel.FK_ProductImages_Products" FromRole="ProductImage" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="ProductPriceList">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PriceTypeId" Type="Int16" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="ProductId" Type="Int16" Nullable="false" />
+    <Property Name="IsVisible" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="PriceType" Relationship="gsharing_DamliModel.FK_ProductPriceLists_PriceTypes" FromRole="ProductPriceList" ToRole="PriceType" />
+    <NavigationProperty Name="Product" Relationship="gsharing_DamliModel.FK_ProductPriceLists_Products" FromRole="ProductPriceList" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Province">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Cities" Relationship="gsharing_DamliModel.FK_Cities_Provinces" FromRole="Province" ToRole="City" />
+  </EntityType>
+  <EntityType Name="ReceiptItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ReceiptId" Type="Int32" Nullable="false" />
+    <Property Name="TransactionId" Type="Int32" />
+    <Property Name="ChequeId" Type="Int32" />
+    <NavigationProperty Name="Transaction" Relationship="gsharing_DamliModel.FK_FishItems_Transactions" FromRole="ReceiptItem" ToRole="Transaction" />
+    <NavigationProperty Name="Receipt" Relationship="gsharing_DamliModel.FK_ReceiptItems_Receipt" FromRole="ReceiptItem" ToRole="Receipt" />
+  </EntityType>
+  <EntityType Name="Receipt">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IsReceive" Type="Boolean" Nullable="false" />
+    <Property Name="CounterPartyId" Type="Int32" Nullable="false" />
+    <Property Name="CreatedByUserId" Type="Int32" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="CounterParty" Relationship="gsharing_DamliModel.FK_Receipt_CounterParty" FromRole="Receipt" ToRole="CounterParty" />
+    <NavigationProperty Name="ReceiptItems" Relationship="gsharing_DamliModel.FK_ReceiptItems_Receipt" FromRole="Receipt" ToRole="ReceiptItem" />
+    <NavigationProperty Name="User" Relationship="gsharing_DamliModel.FK_Receipt_Users" FromRole="Receipt" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Region">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CityId" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="City" Relationship="gsharing_DamliModel.FK_Regions_Cities" FromRole="Region" ToRole="City" />
+    <NavigationProperty Name="Customers" Relationship="gsharing_DamliModel.FK_Customers_Regions" FromRole="Region" ToRole="Customer" />
+    <NavigationProperty Name="MarketerRegions" Relationship="gsharing_DamliModel.FK_MarketerRegions_Regions" FromRole="Region" ToRole="MarketerRegion" />
+  </EntityType>
+  <EntityType Name="SanadItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SandId" Type="Int32" Nullable="false" />
+    <Property Name="PeriodId" Type="Int16" Nullable="false" />
+    <Property Name="ChequeId" Type="Int32" />
+    <Property Name="IssueTrackingNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SarfaslId" Type="Int16" Nullable="false" />
+    <Property Name="TafsiliId" Type="Int32" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Bedeh" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Bestan" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="ConfirmDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Cheque" Relationship="gsharing_DamliModel.FK_SanadItems_Cheques" FromRole="SanadItem" ToRole="Cheque" />
+    <NavigationProperty Name="Sanad" Relationship="gsharing_DamliModel.FK_SanadItems_Sanads" FromRole="SanadItem" ToRole="Sanad" />
+    <NavigationProperty Name="Sarfasl" Relationship="gsharing_DamliModel.FK_SanadItems_Sarfasls" FromRole="SanadItem" ToRole="Sarfasl" />
+    <NavigationProperty Name="Tafsili" Relationship="gsharing_DamliModel.FK_SanadItems_Tafsilis" FromRole="SanadItem" ToRole="Tafsili" />
+  </EntityType>
+  <EntityType Name="Sanad">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="PeriodId" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="PeriodId" Type="Int16" Nullable="false" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="IsConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="IsAutomatic" Type="Boolean" Nullable="false" />
+    <Property Name="SanadTypeId" Type="Byte" Nullable="false" />
+    <Property Name="CreatedByUserId" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ConfirmDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="TotalAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <NavigationProperty Name="FiscalPeriod" Relationship="gsharing_DamliModel.FK_Sanads_FiscalPeriods" FromRole="Sanad" ToRole="FiscalPeriod" />
+    <NavigationProperty Name="SanadItems" Relationship="gsharing_DamliModel.FK_SanadItems_Sanads" FromRole="Sanad" ToRole="SanadItem" />
+    <NavigationProperty Name="Factors" Relationship="gsharing_DamliModel.FK_Factors_Sanads" FromRole="Sanad" ToRole="Factor" />
+  </EntityType>
+  <EntityType Name="Sarfasl">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ParentId" Type="Int16" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Code" Type="Byte" Nullable="false" />
+    <Property Name="Coding" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="IsMoeen" Type="Boolean" Nullable="false" />
+    <Property Name="IsConstant" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="SanadItems" Relationship="gsharing_DamliModel.FK_SanadItems_Sarfasls" FromRole="Sarfasl" ToRole="SanadItem" />
+    <NavigationProperty Name="Sarfasls1" Relationship="gsharing_DamliModel.FK_Sarfasls_Sarfasls" FromRole="Sarfasl" ToRole="Sarfasl1" />
+    <NavigationProperty Name="Sarfasl1" Relationship="gsharing_DamliModel.FK_Sarfasls_Sarfasls" FromRole="Sarfasl1" ToRole="Sarfasl" />
+    <NavigationProperty Name="Tafsilis" Relationship="gsharing_DamliModel.FK_Tafsilis_Sarfasls" FromRole="Sarfasl" ToRole="Tafsili" />
+  </EntityType>
+  <EntityType Name="Section">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Actions" Relationship="gsharing_DamliModel.FK_Actions_Sections" FromRole="Section" ToRole="Action" />
+    <NavigationProperty Name="JobTitles" Relationship="gsharing_DamliModel.FK_JobTitles_Sections" FromRole="Section" ToRole="JobTitle" />
+  </EntityType>
+  <EntityType Name="Supplier">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
+    <Property Name="Mobile" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="CityId" Type="Int16" Nullable="false" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="City" Relationship="gsharing_DamliModel.FK_Suppliers_Customers_Cities" FromRole="Supplier" ToRole="City" />
+    <NavigationProperty Name="Payments" Relationship="gsharing_DamliModel.FK_Payments_Suppliers_Customers" FromRole="Supplier" ToRole="Payment" />
+    <NavigationProperty Name="Tafsilis" Relationship="gsharing_DamliModel.FK_Tafsilis_Suppliers" FromRole="Supplier" ToRole="Tafsili" />
+    <NavigationProperty Name="Factors" Relationship="gsharing_DamliModel.FK_Factors_Suppliers" FromRole="Supplier" ToRole="Factor" />
+  </EntityType>
+  <EntityType Name="Tafsili">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerId" Type="Int32" />
+    <Property Name="PersonnelId" Type="Int32" />
+    <Property Name="SupplierId" Type="Int16" />
+    <Property Name="PersonTypeId" Type="Byte" />
+    <Property Name="ProductId" Type="Int16" />
+    <Property Name="BankAccId" Type="Int16" />
+    <Property Name="CashDeskId" Type="Int16" />
+    <Property Name="OtherTafsiliId" Type="Int16" />
+    <Property Name="SarfaslId" Type="Int16" />
+    <Property Name="MoeenName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="TafsiliName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Coding" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="BankAccount" Relationship="gsharing_DamliModel.FK_Tafsilis_BankAccounts" FromRole="Tafsili" ToRole="BankAccount" />
+    <NavigationProperty Name="CashDesk" Relationship="gsharing_DamliModel.FK_Tafsilis_CashDesks" FromRole="Tafsili" ToRole="CashDesk" />
+    <NavigationProperty Name="Customer" Relationship="gsharing_DamliModel.FK_Tafsilis_Customers" FromRole="Tafsili" ToRole="Customer" />
+    <NavigationProperty Name="OtherTafsili" Relationship="gsharing_DamliModel.FK_Tafsilis_OtherTafsilis" FromRole="Tafsili" ToRole="OtherTafsili" />
+    <NavigationProperty Name="Personnel" Relationship="gsharing_DamliModel.FK_Tafsilis_Personnels" FromRole="Tafsili" ToRole="Personnel" />
+    <NavigationProperty Name="SanadItems" Relationship="gsharing_DamliModel.FK_SanadItems_Tafsilis" FromRole="Tafsili" ToRole="SanadItem" />
+    <NavigationProperty Name="Sarfasl" Relationship="gsharing_DamliModel.FK_Tafsilis_Sarfasls" FromRole="Tafsili" ToRole="Sarfasl" />
+    <NavigationProperty Name="Supplier" Relationship="gsharing_DamliModel.FK_Tafsilis_Suppliers" FromRole="Tafsili" ToRole="Supplier" />
+    <NavigationProperty Name="Product" Relationship="gsharing_DamliModel.FK_Tafsilis_Products" FromRole="Tafsili" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Transaction">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Commission" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="CashDeskId" Type="Int16" />
+    <Property Name="BankAccountId" Type="Int16" />
+    <Property Name="IssueTracking" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="TransactionType" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="BankAccount" Relationship="gsharing_DamliModel.FK_Transactions_BankAccounts2" FromRole="Transaction" ToRole="BankAccount" />
+    <NavigationProperty Name="CashDesk" Relationship="gsharing_DamliModel.FK_Transactions_CashDesks2" FromRole="Transaction" ToRole="CashDesk" />
+    <NavigationProperty Name="ReceiptItems" Relationship="gsharing_DamliModel.FK_FishItems_Transactions" FromRole="Transaction" ToRole="ReceiptItem" />
+  </EntityType>
+  <EntityType Name="Unit">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsMain" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Products" Relationship="gsharing_DamliModel.FK_Products_Units" FromRole="Unit" ToRole="Product" />
+    <NavigationProperty Name="Products1" Relationship="gsharing_DamliModel.FK_Products_Units1" FromRole="Unit" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="UserAccess">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="ActionId" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="Action" Relationship="gsharing_DamliModel.FK_UserAccesses_Actions" FromRole="UserAccess" ToRole="Action" />
+    <NavigationProperty Name="User" Relationship="gsharing_DamliModel.FK_UserAccesses_Users" FromRole="UserAccess" ToRole="User" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="PersonnelId" />
+    </Key>
+    <Property Name="PersonnelId" Type="Int32" Nullable="false" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="SaltCode" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="LastLogin" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Samoosh" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="InventoryCheckings" Relationship="gsharing_DamliModel.FK_InventoryCheckings_Users" FromRole="User" ToRole="InventoryChecking" />
+    <NavigationProperty Name="Invoices" Relationship="gsharing_DamliModel.FK_Invoices_Users" FromRole="User" ToRole="Invoice" />
+    <NavigationProperty Name="Payments" Relationship="gsharing_DamliModel.FK_Payments_Users" FromRole="User" ToRole="Payment" />
+    <NavigationProperty Name="Personnel" Relationship="gsharing_DamliModel.FK_Users_Personnels" FromRole="User" ToRole="Personnel" />
+    <NavigationProperty Name="Receipts" Relationship="gsharing_DamliModel.FK_Receipt_Users" FromRole="User" ToRole="Receipt" />
+    <NavigationProperty Name="UserAccesses" Relationship="gsharing_DamliModel.FK_UserAccesses_Users" FromRole="User" ToRole="UserAccess" />
+    <NavigationProperty Name="WareHouses" Relationship="gsharing_DamliModel.FK_WareHouses_Users" FromRole="User" ToRole="Warehouse" />
+    <NavigationProperty Name="Factors" Relationship="gsharing_DamliModel.FK_Factors_Users" FromRole="User" ToRole="Factor" />
+  </EntityType>
+  <EntityType Name="Warehouse">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="KeeperId" Type="Int32" Nullable="false" />
+    <Property Name="Tell" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="InventoryCheckings" Relationship="gsharing_DamliModel.FK_InventoryCheckings_WareHouses" FromRole="Warehouse" ToRole="InventoryChecking" />
+    <NavigationProperty Name="Invoices" Relationship="gsharing_DamliModel.FK_Invoices_WareHouses_OtherWareHouse" FromRole="Warehouse" ToRole="Invoice" />
+    <NavigationProperty Name="Invoices1" Relationship="gsharing_DamliModel.FK_Invoices_WareHouses_ThisWareHouse" FromRole="Warehouse" ToRole="Invoice" />
+    <NavigationProperty Name="User" Relationship="gsharing_DamliModel.FK_WareHouses_Users" FromRole="Warehouse" ToRole="User" />
+    <NavigationProperty Name="Products" Relationship="gsharing_DamliModel.FK_Products_WareHouses" FromRole="Warehouse" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="BankAccountView">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="BankAccountId" />
+      <PropertyRef Name="BankId" />
+      <PropertyRef Name="AccountNum" />
+      <PropertyRef Name="HasPos" />
+      <PropertyRef Name="IsAvailable" />
+    </Key>
+    <Property Name="Id" Type="Int16" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="BankAccountId" Type="Int16" Nullable="false" />
+    <Property Name="BankId" Type="Int16" Nullable="false" />
+    <Property Name="AccountNum" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Iban" Type="String" MaxLength="24" FixedLength="true" Unicode="false" />
+    <Property Name="Owner" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="BranchName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="BranchCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="HasPos" Type="Boolean" Nullable="false" />
+    <Property Name="IsAvailable" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Actions_Sections">
+    <End Type="gsharing_DamliModel.Section" Role="Section" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.Action" Role="Action" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Section">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Action">
+        <PropertyRef Name="SectionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserAccesses_Actions">
+    <End Type="gsharing_DamliModel.Action" Role="Action" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.UserAccess" Role="UserAccess" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Action">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserAccess">
+        <PropertyRef Name="ActionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BankAccounts_Banks">
+    <End Type="gsharing_DamliModel.Bank" Role="Bank" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.BankAccount" Role="BankAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bank">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BankAccount">
+        <PropertyRef Name="BankId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cheques_BankAccounts">
+    <End Type="gsharing_DamliModel.BankAccount" Role="BankAccount" Multiplicity="0..1" />
+    <End Type="gsharing_DamliModel.Cheque" Role="Cheque" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BankAccount">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cheque">
+        <PropertyRef Name="BankAccountId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tafsilis_BankAccounts">
+    <End Type="gsharing_DamliModel.BankAccount" Role="BankAccount" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="gsharing_DamliModel.Tafsili" Role="Tafsili" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BankAccount">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tafsili">
+        <PropertyRef Name="BankAccId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transactions_BankAccounts2">
+    <End Type="gsharing_DamliModel.BankAccount" Role="BankAccount" Multiplicity="0..1" />
+    <End Type="gsharing_DamliModel.Transaction" Role="Transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BankAccount">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Transaction">
+        <PropertyRef Name="BankAccountId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cheques_Banks">
+    <End Type="gsharing_DamliModel.Bank" Role="Bank" Multiplicity="0..1" />
+    <End Type="gsharing_DamliModel.Cheque" Role="Cheque" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bank">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cheque">
+        <PropertyRef Name="BankId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tafsilis_CashDesks">
+    <End Type="gsharing_DamliModel.CashDesk" Role="CashDesk" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="gsharing_DamliModel.Tafsili" Role="Tafsili" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CashDesk">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tafsili">
+        <PropertyRef Name="CashDeskId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transactions_CashDesks2">
+    <End Type="gsharing_DamliModel.CashDesk" Role="CashDesk" Multiplicity="0..1" />
+    <End Type="gsharing_DamliModel.Transaction" Role="Transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CashDesk">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Transaction">
+        <PropertyRef Name="CashDeskId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SanadItems_Cheques">
+    <End Type="gsharing_DamliModel.Cheque" Role="Cheque" Multiplicity="0..1" />
+    <End Type="gsharing_DamliModel.SanadItem" Role="SanadItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cheque">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SanadItem">
+        <PropertyRef Name="ChequeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cities_Provinces">
+    <End Type="gsharing_DamliModel.Province" Role="Province" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.City" Role="City" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Province">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="City">
+        <PropertyRef Name="ProvinceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Personnels_Cities_BirthCity">
+    <End Type="gsharing_DamliModel.City" Role="City" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.Personnel" Role="Personnel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Personnel">
+        <PropertyRef Name="BirthCityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Personnels_Cities_HomeCity">
+    <End Type="gsharing_DamliModel.City" Role="City" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.Personnel" Role="Personnel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Personnel">
+        <PropertyRef Name="HomeCityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Regions_Cities">
+    <End Type="gsharing_DamliModel.City" Role="City" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.Region" Role="Region" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Region">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Suppliers_Customers_Cities">
+    <End Type="gsharing_DamliModel.City" Role="City" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.Supplier" Role="Supplier" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Supplier">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Costs_CostCategories">
+    <End Type="gsharing_DamliModel.CostCategory" Role="CostCategory" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.Cost" Role="Cost" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CostCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cost">
+        <PropertyRef Name="CostCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Receipt_CounterParty">
+    <End Type="gsharing_DamliModel.CounterParty" Role="CounterParty" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.Receipt" Role="Receipt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CounterParty">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Receipt">
+        <PropertyRef Name="CounterPartyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customers_CustomerCategories">
+    <End Type="gsharing_DamliModel.CustomerCategory" Role="CustomerCategory" Multiplicity="0..1" />
+    <End Type="gsharing_DamliModel.Customer" Role="Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CustomerCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="CustomerCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customers_Personnels">
+    <End Type="gsharing_DamliModel.Personnel" Role="Personnel" Multiplicity="0..1" />
+    <End Type="gsharing_DamliModel.Customer" Role="Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personnel">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="MarketerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customers_Regions">
+    <End Type="gsharing_DamliModel.Region" Role="Region" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.Customer" Role="Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Region">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="RegionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tafsilis_Customers">
+    <End Type="gsharing_DamliModel.Customer" Role="Customer" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="gsharing_DamliModel.Tafsili" Role="Tafsili" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tafsili">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sanads_FiscalPeriods">
+    <End Type="gsharing_DamliModel.FiscalPeriod" Role="FiscalPeriod" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.Sanad" Role="Sanad" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FiscalPeriod">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sanad">
+        <PropertyRef Name="PeriodId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InventoryCheckingItems_InventoryCheckings">
+    <End Type="gsharing_DamliModel.InventoryChecking" Role="InventoryChecking" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="gsharing_DamliModel.InventoryCheckingItem" Role="InventoryCheckingItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InventoryChecking">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InventoryCheckingItem">
+        <PropertyRef Name="InventoryCheckingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InventoryCheckings_Users">
+    <End Type="gsharing_DamliModel.User" Role="User" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.InventoryChecking" Role="InventoryChecking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="PersonnelId" />
+      </Principal>
+      <Dependent Role="InventoryChecking">
+        <PropertyRef Name="CreatedByUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InventoryCheckings_WareHouses">
+    <End Type="gsharing_DamliModel.Warehouse" Role="Warehouse" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.InventoryChecking" Role="InventoryChecking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Warehouse">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InventoryChecking">
+        <PropertyRef Name="WarehouseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InvoiceItems_Invoices">
+    <End Type="gsharing_DamliModel.Invoice" Role="Invoice" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="gsharing_DamliModel.InvoiceItem" Role="InvoiceItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Invoice">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InvoiceItem">
+        <PropertyRef Name="InvoiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Invoices_Personnels">
+    <End Type="gsharing_DamliModel.Personnel" Role="Personnel" Multiplicity="0..1" />
+    <End Type="gsharing_DamliModel.Invoice" Role="Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personnel">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Invoice">
+        <PropertyRef Name="PersonnelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Invoices_Users">
+    <End Type="gsharing_DamliModel.User" Role="User" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.Invoice" Role="Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="PersonnelId" />
+      </Principal>
+      <Dependent Role="Invoice">
+        <PropertyRef Name="CreatorUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Invoices_WareHouses_OtherWareHouse">
+    <End Type="gsharing_DamliModel.Warehouse" Role="Warehouse" Multiplicity="0..1" />
+    <End Type="gsharing_DamliModel.Invoice" Role="Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Warehouse">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Invoice">
+        <PropertyRef Name="OtherWareHouseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Invoices_WareHouses_ThisWareHouse">
+    <End Type="gsharing_DamliModel.Warehouse" Role="Warehouse" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.Invoice" Role="Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Warehouse">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Invoice">
+        <PropertyRef Name="ThisWareHouseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JobTitles_Sections">
+    <End Type="gsharing_DamliModel.Section" Role="Section" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.JobTitle" Role="JobTitle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Section">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobTitle">
+        <PropertyRef Name="SectionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Personnels_JobTitles">
+    <End Type="gsharing_DamliModel.JobTitle" Role="JobTitle" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.Personnel" Role="Personnel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobTitle">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Personnel">
+        <PropertyRef Name="JobTitleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tafsilis_OtherTafsilis">
+    <End Type="gsharing_DamliModel.OtherTafsili" Role="OtherTafsili" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="gsharing_DamliModel.Tafsili" Role="Tafsili" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OtherTafsili">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tafsili">
+        <PropertyRef Name="OtherTafsiliId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payments_PayTypes">
+    <End Type="gsharing_DamliModel.PayType" Role="PayType" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.Payment" Role="Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PayType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Payment">
+        <PropertyRef Name="PayTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payments_Suppliers_Customers">
+    <End Type="gsharing_DamliModel.Supplier" Role="Supplier" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.Payment" Role="Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supplier">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Payment">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payments_Users">
+    <End Type="gsharing_DamliModel.User" Role="User" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.Payment" Role="Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="PersonnelId" />
+      </Principal>
+      <Dependent Role="Payment">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tafsilis_Personnels">
+    <End Type="gsharing_DamliModel.Personnel" Role="Personnel" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="gsharing_DamliModel.Tafsili" Role="Tafsili" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personnel">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tafsili">
+        <PropertyRef Name="PersonnelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Personnels">
+    <End Type="gsharing_DamliModel.Personnel" Role="Personnel" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.User" Role="User" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Personnel">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="PersonnelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductPriceLists_PriceTypes">
+    <End Type="gsharing_DamliModel.PriceType" Role="PriceType" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.ProductPriceList" Role="ProductPriceList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PriceType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductPriceList">
+        <PropertyRef Name="PriceTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FishItems_Transactions">
+    <End Type="gsharing_DamliModel.Transaction" Role="Transaction" Multiplicity="0..1" />
+    <End Type="gsharing_DamliModel.ReceiptItem" Role="ReceiptItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaction">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ReceiptItem">
+        <PropertyRef Name="TransactionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReceiptItems_Receipt">
+    <End Type="gsharing_DamliModel.Receipt" Role="Receipt" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.ReceiptItem" Role="ReceiptItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Receipt">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ReceiptItem">
+        <PropertyRef Name="ReceiptId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Receipt_Users">
+    <End Type="gsharing_DamliModel.User" Role="User" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.Receipt" Role="Receipt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="PersonnelId" />
+      </Principal>
+      <Dependent Role="Receipt">
+        <PropertyRef Name="CreatedByUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SanadItems_Sanads">
+    <End Type="gsharing_DamliModel.Sanad" Role="Sanad" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="gsharing_DamliModel.SanadItem" Role="SanadItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sanad">
+        <PropertyRef Name="Id" />
+        <PropertyRef Name="PeriodId" />
+      </Principal>
+      <Dependent Role="SanadItem">
+        <PropertyRef Name="SandId" />
+        <PropertyRef Name="PeriodId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SanadItems_Sarfasls">
+    <End Type="gsharing_DamliModel.Sarfasl" Role="Sarfasl" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.SanadItem" Role="SanadItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sarfasl">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SanadItem">
+        <PropertyRef Name="SarfaslId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SanadItems_Tafsilis">
+    <End Type="gsharing_DamliModel.Tafsili" Role="Tafsili" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="gsharing_DamliModel.SanadItem" Role="SanadItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tafsili">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SanadItem">
+        <PropertyRef Name="TafsiliId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sarfasls_Sarfasls">
+    <End Type="gsharing_DamliModel.Sarfasl" Role="Sarfasl" Multiplicity="0..1" />
+    <End Type="gsharing_DamliModel.Sarfasl" Role="Sarfasl1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sarfasl">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sarfasl1">
+        <PropertyRef Name="ParentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tafsilis_Sarfasls">
+    <End Type="gsharing_DamliModel.Sarfasl" Role="Sarfasl" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="gsharing_DamliModel.Tafsili" Role="Tafsili" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sarfasl">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tafsili">
+        <PropertyRef Name="SarfaslId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tafsilis_Suppliers">
+    <End Type="gsharing_DamliModel.Supplier" Role="Supplier" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="gsharing_DamliModel.Tafsili" Role="Tafsili" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supplier">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tafsili">
+        <PropertyRef Name="SupplierId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserAccesses_Users">
+    <End Type="gsharing_DamliModel.User" Role="User" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.UserAccess" Role="UserAccess" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="PersonnelId" />
+      </Principal>
+      <Dependent Role="UserAccess">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WareHouses_Users">
+    <End Type="gsharing_DamliModel.User" Role="User" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.Warehouse" Role="Warehouse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="PersonnelId" />
+      </Principal>
+      <Dependent Role="Warehouse">
+        <PropertyRef Name="KeeperId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="OfferItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OfferId" Type="Int16" Nullable="false" />
+    <Property Name="ProductId" Type="Int16" />
+    <Property Name="OfferTypeId" Type="Byte" Nullable="false" />
+    <Property Name="DiscountAmount" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="DiscountPercent" Type="Byte" />
+    <Property Name="MinProductCount" Type="Double" />
+    <Property Name="GiftProductId" Type="Int16" />
+    <Property Name="GiftProductCount" Type="Double" />
+    <NavigationProperty Name="Offer" Relationship="gsharing_DamliModel.FK_OfferItems_Offers" FromRole="OfferItem" ToRole="Offer" />
+    <NavigationProperty Name="Product" Relationship="gsharing_DamliModel.FK_OfferItems_GiftProducts" FromRole="OfferItem" ToRole="Product" />
+    <NavigationProperty Name="Product1" Relationship="gsharing_DamliModel.FK_OfferItems_Products" FromRole="OfferItem" ToRole="Product" />
+  </EntityType>
+  <Association Name="FK_OfferItems_Offers">
+    <End Type="gsharing_DamliModel.Offer" Role="Offer" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="gsharing_DamliModel.OfferItem" Role="OfferItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Offer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OfferItem">
+        <PropertyRef Name="OfferId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="CustomerlReport_Result">
+    <Property Type="Decimal" Name="Bedeh" Nullable="false" Precision="19" />
+    <Property Type="Decimal" Name="Bestan" Nullable="false" Precision="19" />
+    <Property Type="DateTime" Name="ConfirmDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="TafsiliName" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="CustomerId" Nullable="true" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="Coding" Nullable="false" MaxLength="10" />
+    <Property Type="Int32" Name="SandId" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="PersonnelReport_Result">
+    <Property Type="Decimal" Name="Bedeh" Nullable="false" Precision="19" />
+    <Property Type="Decimal" Name="Bestan" Nullable="false" Precision="19" />
+    <Property Type="DateTime" Name="ConfirmDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="TafsiliName" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="PersonnelId" Nullable="true" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="Coding" Nullable="false" MaxLength="10" />
+    <Property Type="Int32" Name="SandId" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SupplierReport_Result">
+    <Property Type="Decimal" Name="Bedeh" Nullable="false" Precision="19" />
+    <Property Type="Decimal" Name="Bestan" Nullable="false" Precision="19" />
+    <Property Type="DateTime" Name="ConfirmDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="TafsiliName" Nullable="true" MaxLength="100" />
+    <Property Type="Int16" Name="SupplierId" Nullable="true" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="Coding" Nullable="false" MaxLength="10" />
+    <Property Type="Int32" Name="SandId" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="MarketerRegion">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MarketerId" Type="Int32" Nullable="false" />
+    <Property Name="RegionId" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="Personnel" Relationship="gsharing_DamliModel.FK_MarketerRegions_Personnels" FromRole="MarketerRegion" ToRole="Personnel" />
+    <NavigationProperty Name="Region" Relationship="gsharing_DamliModel.FK_MarketerRegions_Regions" FromRole="MarketerRegion" ToRole="Region" />
+  </EntityType>
+  <Association Name="FK_MarketerRegions_Personnels">
+    <End Type="gsharing_DamliModel.Personnel" Role="Personnel" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.MarketerRegion" Role="MarketerRegion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personnel">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MarketerRegion">
+        <PropertyRef Name="MarketerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MarketerRegions_Regions">
+    <End Type="gsharing_DamliModel.Region" Role="Region" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.MarketerRegion" Role="MarketerRegion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Region">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MarketerRegion">
+        <PropertyRef Name="RegionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="View_Tafsili">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="CustomerId" Type="Int32" />
+    <Property Name="PersonnelId" Type="Int32" />
+    <Property Name="SupplierId" Type="Int16" />
+    <Property Name="PersonTypeId" Type="Byte" />
+    <Property Name="ProductId" Type="Int16" />
+    <Property Name="BankAccId" Type="Int16" />
+    <Property Name="CashDeskId" Type="Int16" />
+    <Property Name="OtherTafsiliId" Type="Int16" />
+    <Property Name="SarfaslId" Type="Int16" />
+    <Property Name="OwnerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SupplierName" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+    <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="BankName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AccountNum" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="OtName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CashDeskName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Factor">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="PeriodId" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="PeriodId" Type="Int16" Nullable="false" />
+    <Property Name="SanadId" Type="Int32" />
+    <Property Name="SanadPeriodId" Type="Int16" />
+    <Property Name="ReturnForFactorId" Type="Int32" />
+    <Property Name="ReturnedPeriodId" Type="Int16" />
+    <Property Name="PaperFactorCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SupplierId" Type="Int16" />
+    <Property Name="CustomerId" Type="Int32" />
+    <Property Name="TotalPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="DiscountOnFactor" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="TotalDiscount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Additions" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Deductions" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="TotalTax" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="FinalPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="CreatorUserId" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MarketerId" Type="Int32" />
+    <Property Name="MarketerTotalCommission" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="InvoiceId" Type="Int32" />
+    <Property Name="IsBuy" Type="Boolean" Nullable="false" />
+    <Property Name="FactorTypeId" Type="Byte" Nullable="false" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="IsPreFactor" Type="Boolean" Nullable="false" />
+    <Property Name="IsConfirmed" Type="Boolean" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Customer" Relationship="gsharing_DamliModel.FK_Factors_Customers" FromRole="Factor" ToRole="Customer" />
+    <NavigationProperty Name="FactorItems" Relationship="gsharing_DamliModel.FK_FactorItems_Factors" FromRole="Factor" ToRole="FactorItem" />
+    <NavigationProperty Name="Factors1" Relationship="gsharing_DamliModel.FK_Factors_Factors" FromRole="Factor" ToRole="Factor1" />
+    <NavigationProperty Name="Factor1" Relationship="gsharing_DamliModel.FK_Factors_Factors" FromRole="Factor1" ToRole="Factor" />
+    <NavigationProperty Name="FiscalPeriod" Relationship="gsharing_DamliModel.FK_Factors_FiscalPeriods" FromRole="Factor" ToRole="FiscalPeriod" />
+    <NavigationProperty Name="Invoice" Relationship="gsharing_DamliModel.FK_Factors_Invoices" FromRole="Factor" ToRole="Invoice" />
+    <NavigationProperty Name="Personnel" Relationship="gsharing_DamliModel.FK_Factors_Personnels" FromRole="Factor" ToRole="Personnel" />
+    <NavigationProperty Name="Sanad" Relationship="gsharing_DamliModel.FK_Factors_Sanads" FromRole="Factor" ToRole="Sanad" />
+    <NavigationProperty Name="Supplier" Relationship="gsharing_DamliModel.FK_Factors_Suppliers" FromRole="Factor" ToRole="Supplier" />
+    <NavigationProperty Name="User" Relationship="gsharing_DamliModel.FK_Factors_Users" FromRole="Factor" ToRole="User" />
+    <NavigationProperty Name="Orders" Relationship="gsharing_DamliModel.FK_Orders_Factors" FromRole="Factor" ToRole="Order" />
+  </EntityType>
+  <Association Name="FK_Factors_Customers">
+    <End Type="gsharing_DamliModel.Customer" Role="Customer" Multiplicity="0..1" />
+    <End Type="gsharing_DamliModel.Factor" Role="Factor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Factor">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FactorItems_Factors">
+    <End Type="gsharing_DamliModel.Factor" Role="Factor" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="gsharing_DamliModel.FactorItem" Role="FactorItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Factor">
+        <PropertyRef Name="Id" />
+        <PropertyRef Name="PeriodId" />
+      </Principal>
+      <Dependent Role="FactorItem">
+        <PropertyRef Name="FactorId" />
+        <PropertyRef Name="PeriodId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Factors_Factors">
+    <End Type="gsharing_DamliModel.Factor" Role="Factor" Multiplicity="0..1" />
+    <End Type="gsharing_DamliModel.Factor" Role="Factor1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Factor">
+        <PropertyRef Name="Id" />
+        <PropertyRef Name="PeriodId" />
+      </Principal>
+      <Dependent Role="Factor1">
+        <PropertyRef Name="ReturnForFactorId" />
+        <PropertyRef Name="ReturnedPeriodId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Factors_FiscalPeriods">
+    <End Type="gsharing_DamliModel.FiscalPeriod" Role="FiscalPeriod" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.Factor" Role="Factor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FiscalPeriod">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Factor">
+        <PropertyRef Name="PeriodId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Factors_Invoices">
+    <End Type="gsharing_DamliModel.Invoice" Role="Invoice" Multiplicity="0..1" />
+    <End Type="gsharing_DamliModel.Factor" Role="Factor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Invoice">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Factor">
+        <PropertyRef Name="InvoiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Factors_Personnels">
+    <End Type="gsharing_DamliModel.Personnel" Role="Personnel" Multiplicity="0..1" />
+    <End Type="gsharing_DamliModel.Factor" Role="Factor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personnel">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Factor">
+        <PropertyRef Name="MarketerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Factors_Sanads">
+    <End Type="gsharing_DamliModel.Sanad" Role="Sanad" Multiplicity="0..1" />
+    <End Type="gsharing_DamliModel.Factor" Role="Factor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sanad">
+        <PropertyRef Name="Id" />
+        <PropertyRef Name="PeriodId" />
+      </Principal>
+      <Dependent Role="Factor">
+        <PropertyRef Name="SanadId" />
+        <PropertyRef Name="SanadPeriodId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Factors_Suppliers">
+    <End Type="gsharing_DamliModel.Supplier" Role="Supplier" Multiplicity="0..1" />
+    <End Type="gsharing_DamliModel.Factor" Role="Factor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supplier">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Factor">
+        <PropertyRef Name="SupplierId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Factors_Users">
+    <End Type="gsharing_DamliModel.User" Role="User" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.Factor" Role="Factor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="PersonnelId" />
+      </Principal>
+      <Dependent Role="Factor">
+        <PropertyRef Name="CreatorUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="OrderItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderId" Type="Int32" Nullable="false" />
+    <Property Name="ProductId" Type="Int16" Nullable="false" />
+    <Property Name="MainUnitCount" Type="Double" Nullable="false" />
+    <Property Name="SubUnitCount" Type="Double" />
+    <Property Name="UnitRate" Type="Double" />
+    <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="UnitDiscount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Order" Relationship="gsharing_DamliModel.FK_OrderItems_Orders" FromRole="OrderItem" ToRole="Order" />
+    <NavigationProperty Name="Product" Relationship="gsharing_DamliModel.FK_OrderItems_Products" FromRole="OrderItem" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerId" Type="Int32" Nullable="false" />
+    <Property Name="MarketerId" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsVerified" Type="Boolean" Nullable="false" />
+    <Property Name="FactorId" Type="Int32" />
+    <Property Name="PeriodId" Type="Int16" />
+    <Property Name="TotalPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Customer" Relationship="gsharing_DamliModel.FK_Orders_Customers" FromRole="Order" ToRole="Customer" />
+    <NavigationProperty Name="Factor" Relationship="gsharing_DamliModel.FK_Orders_Factors" FromRole="Order" ToRole="Factor" />
+    <NavigationProperty Name="OrderItems" Relationship="gsharing_DamliModel.FK_OrderItems_Orders" FromRole="Order" ToRole="OrderItem" />
+    <NavigationProperty Name="Personnel" Relationship="gsharing_DamliModel.FK_Orders_Personnels" FromRole="Order" ToRole="Personnel" />
+  </EntityType>
+  <Association Name="FK_Orders_Customers">
+    <End Type="gsharing_DamliModel.Customer" Role="Customer" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Factors">
+    <End Type="gsharing_DamliModel.Factor" Role="Factor" Multiplicity="0..1" />
+    <End Type="gsharing_DamliModel.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Factor">
+        <PropertyRef Name="Id" />
+        <PropertyRef Name="PeriodId" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="FactorId" />
+        <PropertyRef Name="PeriodId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderItems_Orders">
+    <End Type="gsharing_DamliModel.Order" Role="Order" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="gsharing_DamliModel.OrderItem" Role="OrderItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderItem">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Personnels">
+    <End Type="gsharing_DamliModel.Personnel" Role="Personnel" Multiplicity="0..1" />
+    <End Type="gsharing_DamliModel.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personnel">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="MarketerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MainUnitId" Type="Int16" Nullable="false" />
+    <Property Name="SubUnitId" Type="Int16" />
+    <Property Name="UnitRate" Type="Int32" />
+    <Property Name="WarehouseId" Type="Int16" Nullable="false" />
+    <Property Name="ProductCategoryId" Type="Int16" Nullable="false" />
+    <Property Name="Inventory" Type="Double" Nullable="false" />
+    <Property Name="PendingsCount" Type="Double" Nullable="false" />
+    <Property Name="OrderPoint" Type="Double" />
+    <Property Name="ImageName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CatalogFileName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="IsAvailable" Type="Boolean" Nullable="false" />
+    <Property Name="IsSellable" Type="Boolean" Nullable="false" />
+    <Property Name="MarketerCommission" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="ProductionStatus" Type="Byte" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="FactorItems" Relationship="gsharing_DamliModel.FK_FactorItems_Products" FromRole="Product" ToRole="FactorItem" />
+    <NavigationProperty Name="InventoryCheckingItems" Relationship="gsharing_DamliModel.FK_InventoryCheckingItems_Products" FromRole="Product" ToRole="InventoryCheckingItem" />
+    <NavigationProperty Name="InvoiceItems" Relationship="gsharing_DamliModel.FK_InvoiceItems_Products" FromRole="Product" ToRole="InvoiceItem" />
+    <NavigationProperty Name="OfferItems" Relationship="gsharing_DamliModel.FK_OfferItems_GiftProducts" FromRole="Product" ToRole="OfferItem" />
+    <NavigationProperty Name="OfferItems1" Relationship="gsharing_DamliModel.FK_OfferItems_Products" FromRole="Product" ToRole="OfferItem" />
+    <NavigationProperty Name="OrderItems" Relationship="gsharing_DamliModel.FK_OrderItems_Products" FromRole="Product" ToRole="OrderItem" />
+    <NavigationProperty Name="ProductCategory" Relationship="gsharing_DamliModel.FK_Products_Categories" FromRole="Product" ToRole="ProductCategory" />
+    <NavigationProperty Name="ProductImages" Relationship="gsharing_DamliModel.FK_ProductImages_Products" FromRole="Product" ToRole="ProductImage" />
+    <NavigationProperty Name="ProductPriceLists" Relationship="gsharing_DamliModel.FK_ProductPriceLists_Products" FromRole="Product" ToRole="ProductPriceList" />
+    <NavigationProperty Name="Unit" Relationship="gsharing_DamliModel.FK_Products_Units" FromRole="Product" ToRole="Unit" />
+    <NavigationProperty Name="Unit1" Relationship="gsharing_DamliModel.FK_Products_Units1" FromRole="Product" ToRole="Unit" />
+    <NavigationProperty Name="Warehouse" Relationship="gsharing_DamliModel.FK_Products_WareHouses" FromRole="Product" ToRole="Warehouse" />
+    <NavigationProperty Name="Tafsilis" Relationship="gsharing_DamliModel.FK_Tafsilis_Products" FromRole="Product" ToRole="Tafsili" />
+  </EntityType>
+  <Association Name="FK_FactorItems_Products">
+    <End Type="gsharing_DamliModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.FactorItem" Role="FactorItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FactorItem">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InventoryCheckingItems_Products">
+    <End Type="gsharing_DamliModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.InventoryCheckingItem" Role="InventoryCheckingItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InventoryCheckingItem">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InvoiceItems_Products">
+    <End Type="gsharing_DamliModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.InvoiceItem" Role="InvoiceItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InvoiceItem">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OfferItems_GiftProducts">
+    <End Type="gsharing_DamliModel.Product" Role="Product" Multiplicity="0..1" />
+    <End Type="gsharing_DamliModel.OfferItem" Role="OfferItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OfferItem">
+        <PropertyRef Name="GiftProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OfferItems_Products">
+    <End Type="gsharing_DamliModel.Product" Role="Product" Multiplicity="0..1" />
+    <End Type="gsharing_DamliModel.OfferItem" Role="OfferItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OfferItem">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderItems_Products">
+    <End Type="gsharing_DamliModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.OrderItem" Role="OrderItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderItem">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Products_Categories">
+    <End Type="gsharing_DamliModel.ProductCategory" Role="ProductCategory" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.Product" Role="Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="ProductCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductImages_Products">
+    <End Type="gsharing_DamliModel.Product" Role="Product" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="gsharing_DamliModel.ProductImage" Role="ProductImage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductImage">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductPriceLists_Products">
+    <End Type="gsharing_DamliModel.Product" Role="Product" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="gsharing_DamliModel.ProductPriceList" Role="ProductPriceList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductPriceList">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Products_Units">
+    <End Type="gsharing_DamliModel.Unit" Role="Unit" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.Product" Role="Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="MainUnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Products_Units1">
+    <End Type="gsharing_DamliModel.Unit" Role="Unit" Multiplicity="0..1" />
+    <End Type="gsharing_DamliModel.Product" Role="Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="SubUnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Products_WareHouses">
+    <End Type="gsharing_DamliModel.Warehouse" Role="Warehouse" Multiplicity="1" />
+    <End Type="gsharing_DamliModel.Product" Role="Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Warehouse">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="WarehouseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tafsilis_Products">
+    <End Type="gsharing_DamliModel.Product" Role="Product" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="gsharing_DamliModel.Tafsili" Role="Tafsili" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tafsili">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="sp_products_with_discount_foreach3_Result">
+    <Property Type="Int16" Name="Id" Nullable="true" />
+    <Property Type="String" Name="ProductCode" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+    <Property Type="Int16" Name="MainUnitId" Nullable="true" />
+    <Property Type="Int16" Name="ProductCategoryId" Nullable="true" />
+    <Property Type="Byte" Name="ProductionStatus" Nullable="true" />
+    <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="MainUnitName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ProductCategoryName" Nullable="true" MaxLength="100" />
+    <Property Type="Decimal" Name="CustomerPrice" Nullable="true" Precision="19" />
+    <Property Type="String" Name="Image" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="CatalogFileName" Nullable="true" MaxLength="500" />
+    <Property Type="Byte" Name="OfferTypeId" Nullable="true" />
+    <Property Type="Decimal" Name="DiscountAmount" Nullable="true" Precision="19" />
+    <Property Type="Byte" Name="DiscountPercent" Nullable="true" />
+    <Property Type="Decimal" Name="PriceWithDiscount" Nullable="true" Precision="19" />
+    <Property Type="Double" Name="MinProductCount" Nullable="true" />
+    <Property Type="Int16" Name="GiftProductId" Nullable="true" />
+    <Property Type="String" Name="GiftProductName" Nullable="true" MaxLength="50" />
+    <Property Type="Double" Name="GiftProductCount" Nullable="true" />
+  </ComplexType>
+</Schema>

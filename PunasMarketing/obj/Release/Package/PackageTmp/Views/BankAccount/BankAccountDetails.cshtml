@@ -1,0 +1,95 @@
+﻿@model PunasMarketing.Models.DomainModel.BankAccount
+@{
+    ViewBag.Title = "اطلاعات حساب بانکی";
+}
+
+
+<div class="layout-content-body">
+    <div class="row gutter-xs">
+        <div class="col-xs-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>اطلاعات حساب بانکی</strong>
+                </div>
+                <div class="card-body">
+                    
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.Id, htmlAttributes: new {@class = "col-md-2"})
+                        <div class="col-md-9">
+                            <p>@Model.Id</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.Iban, htmlAttributes: new {@class = "col-md-2"})
+                        <div class="col-md-9">
+                            <p>@(Model.Iban ?? "-")</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.AccountNum, htmlAttributes: new {@class = "col-md-2"})
+                        <div class="col-md-9">
+                            <p>@Model.AccountNum</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.Bank.Name, htmlAttributes: new {@class = "col-md-2"})
+                        <div class="col-md-9">
+                            <p>@Model.Bank.Name</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.Owner, htmlAttributes: new {@class = "col-md-2"})
+                        <div class="col-md-9">
+                            <p>@Model.Owner</p>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.BranchName, htmlAttributes: new {@class = "col-md-2"})
+                        <div class="col-md-9">
+                            <p>@Model.BranchName</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.BranchCode, htmlAttributes: new {@class = "col-md-2"})
+                        <div class="col-md-9">
+                            <p>@Model.BranchCode</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.Label("وضعیت", htmlAttributes: new {@class = "col-md-2"})
+                        <div class="col-md-9">
+                            <p>@(Model.IsAvailable ? "فعال" : "غیرفعال")</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.Label("متصل به دستگاه کارتخوان", htmlAttributes: new {@class = "col-md-2"})
+                        <div class="col-md-9">
+                            <p>@(Model.HasPos ? "بله" : "خیر")</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-xs-12 col-md-12">
+                    <div class="margin-top">
+                        <div class="col-xs-12 col-md-12">
+                            <a href="@Url.Action("BankAccounts", "BankAccount")" class="btn btn-default">برگشت</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>

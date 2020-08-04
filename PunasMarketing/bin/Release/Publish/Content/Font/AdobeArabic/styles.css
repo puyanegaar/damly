@@ -1,0 +1,9 @@
+
+@font-face {
+	font-family: 'AdobeArabic-Italic';
+	src: url('AdobeArabic-Italic.eot?') format('eot'), 
+	     url('AdobeArabic-Italic.otf')  format('opentype'),
+	     url('AdobeArabic-Italic.woff') format('woff'), 
+	     url('AdobeArabic-Italic.ttf')  format('truetype'),
+	     url('AdobeArabic-Italic.svg#AdobeArabic-Italic') format('svg');
+}

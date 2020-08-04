@@ -1,0 +1,886 @@
+﻿@model PunasMarketing.ViewModels.Transaction.PaymentViewModel
+@{
+    ViewBag.Title = "ویرایش پرداخت وجه / چک";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="layout-content-body">
+    <legend>
+        ویرایش پرداخت وجه / چک
+    </legend>
+    @using (Ajax.BeginForm("UpdatePayment", "Transaction", new AjaxOptions() { HttpMethod = "Post", OnSuccess = "Paymentsuccess" }, new { id = "ReceiveForm" }))
+    {
+        @Html.HiddenFor(m => m.pay.TotalAmount)
+        @Html.HiddenFor(m => m.deletedItem)
+        @Html.HiddenFor(m => m.deteledCheque)
+        @Html.HiddenFor(m => m.deteledPayCheque)
+        @Html.HiddenFor(m => m.PayChequeIds)
+        @Html.HiddenFor(m => m.pay.Persons)
+        @Html.HiddenFor(m => m.pay.SanadId)
+        if (Model.pay.PersonType != 0 && !string.IsNullOrEmpty(Model.pay.Persons))
+        {
+            @Html.HiddenFor(m => m.pay.PersonType)
+            <div class="col-xs-12 col-md-12">
+                <div class="col-xs-6 col-md-6">
+                    <div class="md-form-group md-label-static">
+
+                        @Html.LabelFor(model => model.pay.PersonType, new { @class = "form-label" })
+                        @if (Model.pay.PersonType == 1)
+                        {
+
+                            <input class="form-control" value="پرسنل" readonly />
+                        }
+                        else if (Model.pay.PersonType == 2)
+                        {
+
+                            <input class="form-control" value="مشتری" readonly />
+                        }
+                        else
+                        {
+                            <input class="form-control" value="تامین کننده" readonly />
+                        }
+                    </div>
+                </div>
+                <div class="col-xs-6 col-md-6">
+                    <div class="md-form-group md-label-static">
+                        @Html.LabelFor(model => model.pay.Persons, new { @class = "form-label" })
+                        <input class="form-control" value="@Model.pay.Persons.Split('/')[1]" readonly />
+                        <input type="hidden" id="pay_Persons" name="pay.Persons" value="@Model.pay.Persons.Split('/')[0]" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-12" style="">
+                <div class="col-xs-12 col-md-12" style="" id="Balance">
+                    @if (Model.Taraz > 0)
+                    {
+                        <div class="col-xs-12 col-md-12" style="background-color:#dff0d8;border-color:#dff0d8;color:black;min-height:50px;height:auto">
+                            <div class="col-xs-9 col-md-9">
+                                <label class="md-form-control" style="border:none">مانده (تراز) @Model.pay.Persons.Split('/')[1] :</label>
+                            </div>
+                            <div class="col-xs-3 col-md-3">
+                                <label class="md-form-control" style="border:none;float:left">@Model.Taraz.ToPrice() <span style="margin-right:5px">ریال</span> <span style="margin-right:10px">(بستانکار)</span></label>
+                            </div>
+
+                            <div class="col-xs-9 col-md-9">
+                                <label class="md-form-control" style="border:none">مبلغ تراکنش</label>
+                            </div>
+                            <div class="col-xs-3 col-md-3">
+                                <label class="md-form-control" style="border:none;float:left"><span style="margin-right:5px" id="TAmount">@Model.pay.TotalAmount.ToPrice()</span><span style="margin-right:5px">ریال</span></label>
+                            </div>
+                        </div>
+                    }
+                    else if (Model.Taraz < 0)
+                    {
+                        <div class="col-xs-12 col-md-12" style="background-color:#f2dede;border-color:#dff0d8;color:black;min-height:50px;height:auto;">
+                            <div class="col-xs-9 col-md-9">
+                                <label class="md-form-control" style="border:none">مانده (تراز) @Model.pay.Persons.Split('/')[1] :</label>
+                            </div>
+                            <div class="col-xs-3 col-md-3">
+                                @{ var MTaraz = Model.Taraz * -1;}
+                                <label class="md-form-control" style="border:none;float:left">@MTaraz.ToPrice() <span style="margin-right:5px">ریال</span> <span style="margin-right:10px">(بدهکار)</span></label>
+                            </div>
+
+                            <div class="col-xs-9 col-md-9">
+                                <label class="md-form-control" style="border:none">مبلغ تراکنش</label>
+                            </div>
+                            <div class="col-xs-3 col-md-3">
+                                <label class="md-form-control" style="border:none;float:left"><span style="margin-right:5px" id="TAmount">@Model.pay.TotalAmount.ToPrice()</span><span style="margin-right:5px">ریال</span></label>
+                            </div>
+                        </div>
+                    }
+                    else if (Model.Taraz == 0)
+                    {
+                        <div class="col-xs-12 col-md-12" style="background-color:#d9edf7;border-color:#dff0d8;color:black;min-height:50px;height:auto">
+                            <div class="col-xs-9 col-md-9">
+                                <label class="md-form-control" style="border:none">مانده (تراز) @Model.pay.Persons.Split('/')[1]  :</label>
+                            </div>
+                            <div class="col-xs-3 col-md-3">
+                                <label class="md-form-control" style="border:none;float:left">@Model.Taraz.ToPrice() <span style="margin-right:5px">ریال</span> <span style="margin-right:10px">(-)</span></label>
+                            </div>
+
+                            <div class="col-xs-9 col-md-9">
+                                <label class="md-form-control" style="border:none">مبلغ تراکنش</label>
+                            </div>
+                            <div class="col-xs-3 col-md-3">
+                                <label class="md-form-control" style="border:none;float:left"><span style="margin-right:5px" id="TAmount">@Model.pay.TotalAmount.ToPrice()</span><span style="margin-right:5px">ریال</span></label>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+        else
+        {
+
+            <div class="col-xs-12 col-md-12">
+                <div class="col-xs-6 col-md-6">
+                    <div class="md-form-group md-label-static">
+                        @Html.LabelFor(model => model.pay.sarfasl, new { @class = "form-label" })
+                        <input class="form-control" value="@Model.pay.sarfaslText.Split('/')[1]" readonly />
+                        <input type="hidden" id="pay_sarfasl" name="pay.sarfasl" value="@Model.pay.sarfaslText.Split('/')[0]" />
+                    </div>
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model.pay.TafsiliText))
+                {
+
+                    <div class="col-xs-6 col-md-6">
+                        <div class="md-form-group md-label-static">
+                            @Html.LabelFor(model => model.pay.Tafsili, new { @class = "form-label" })
+                            <input class="form-control" value="@Model.pay.TafsiliText.Split('/')[1]" readonly />
+                            <input type="hidden" id="pay_Tafsili" name="pay.Tafsili" value="@Model.pay.TafsiliText.Split('/')[0]" />
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-xs-6 col-md-6">
+                        <div class="md-form-group md-label-static">
+                            @Html.LabelFor(model => model.pay.Tafsili, new { @class = "form-label" })
+                            <input class="form-control" value="" readonly />
+                            <input type="hidden" id="pay_sarfasl" name="pay.sarfasl" value="" />
+                        </div>
+                    </div>
+                }
+
+            </div>
+        }
+
+
+        <div class="col-xs-12 col-md-12">
+            <div class="col-xs-12 col-md-12">
+                @Html.LabelFor(model => model.pay.Description, new { @class = "form-label" })
+                @Html.TextBoxFor(model => model.pay.Description, new { @class = "form-control" })
+                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.pay.Description)</span>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-12">
+            <div class="margin-top" style="float:left">
+                <div class="col-xs-12 col-md-12">
+                    <input id="CashAdd" class="btn btn-info" type="submit" value="افزودن پرداخت نقدی" />
+                    <input id="BankJarAdd" class="btn btn-warning" type="submit" value="افزودن فیش بانکی" />
+                    <input id="ChequeAdd" class="btn btn-danger" type="submit" value="افزودن چک" />
+                    <input id="PayCheque" class="btn btn-primary" type="submit" value="خرج چک" />
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-12" style="border-bottom:1px solid #ddd ; margin-top:10px"></div>
+        <div id="CashPart">
+            @if (Model.EditCash != null)
+            {
+                for (int i = 0; i < Model.EditCash.Count(); i++)
+                {
+                    <div class="col-xs-12 col-md-12">
+                        <div class="card" style="border-color:#029acf !important; margin-top:10px" EditRow="@i">
+                            <div class="card-header">
+                                <div class="card-actions">
+                                    <a style="cursor:pointer;text-decoration:none" class="icon icon-remove iconColor RemoveCashPart" title="Remove"></a>
+                                </div>
+                                <strong>نقدی</strong>
+                            </div>
+                            @Html.HiddenFor(m => m.EditCash[i].id)
+                            @Html.HiddenFor(m => m.EditCash[i].SecondId)
+                            <div class="card-body">
+                                <div class="col-xs-6 col-md-6">
+                                    <div class="md-form-group md-label-static">
+                                        @Html.TextBoxFor(model => model.EditCash[i].Amount, new { @class = "md-form-control Cashprice", spellcheck = "false" })
+                                        @Html.LabelFor(model => model.EditCash[i].Amount, new { @class = "md-control-label" })
+                                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.EditCash[i].Amount)</span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-6">
+                                    <div class="md-form-group md-label-static">
+                                        @Html.DropDownListFor(model => model.EditCash[i].CashDeskId, new SelectList(Model.CashDesks, "Id", "Name", Model.EditCash[i].CashDeskId), "انتخاب کنید", new { @class = "md-form-control ChashDesk" })
+                                        @Html.LabelFor(model => model.EditCash[i].CashDeskId, new { @class = "md-control-label" })
+                                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.EditCash[i].CashDeskId)</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div id="CardPart">
+            @if (Model.EditCard != null)
+            {
+                for (int i = 0; i < Model.EditCard.Count(); i++)
+                {
+                    <div class="col-xs-12 col-md-12">
+                        <div class="card" style="border-color: #9b479f !important; margin-top:10px" EditRow="@i">
+                            <div class="card-header">
+                                <div class="card-actions">
+                                    <a style="cursor:pointer;text-decoration:none" class="icon icon-remove iconColor RemoveCardPart" title="Remove"></a>
+                                </div>
+                                <strong>فیش بانکی</strong>
+                            </div>
+                            @Html.HiddenFor(m => m.EditCard[i].id)
+                            @Html.HiddenFor(m => m.EditCard[i].SecondId)
+                            <div class="card-body" id="CardPart">
+                                <div class="col-xs-3 col-md-3">
+                                    <div class="md-form-group md-label-static">
+                                        @Html.TextBoxFor(model => model.EditCard[i].Amount, new { @class = "md-form-control Cardprice", spellcheck = "false" })
+                                        @Html.LabelFor(model => model.EditCard[i].Amount, new { @class = "md-control-label" })
+                                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.EditCard[i].Amount)</span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3 col-md-3">
+                                    <div class="md-form-group md-label-static">
+                                        @Html.DropDownListFor(model => model.EditCard[i].BankAccountId, new SelectList(Model.BankAccount, "BankAccountId", "Name", Model.EditCard[i].BankAccountId), "انتخاب کنید", new { @class = "md-form-control CardBankAccount" })
+                                        @Html.LabelFor(mpdel => mpdel.EditCard[i].BankAccountId, new { @class = "md-control-label" })
+                                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.EditCard[i].BankAccountId)</span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3 col-md-3">
+                                    <div class="md-form-group md-label-static">
+                                        @Html.TextBoxFor(model => model.EditCard[i].CardAccountNumber, new { @class = "md-form-control", spellcheck = "false" })
+                                        <label class="md-control-label">به نام</label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3 col-md-3">
+                                    <div class="md-form-group md-label-static">
+                                        @Html.TextBoxFor(model => model.EditCard[i].IssueTracking, new { @class = "md-form-control", spellcheck = "false" })
+                                        @Html.LabelFor(model => model.EditCard[i].IssueTracking, new { @class = "md-control-label" })
+                                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.EditCard[i].IssueTracking)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div id="ChequePart">
+            @if (Model.Editcheques != null)
+            {
+                for (int i = 0; i < Model.Editcheques.Count(); i++)
+                {
+                    <div class="col-xs-12 col-md-12">
+                        <div class="card" style="border-color: #d9831f !important; margin-top:10px" EditRow="@i">
+                            <div class="card-header">
+                                <div class="card-actions">
+                                    <a style="cursor:pointer;text-decoration:none" class="icon icon-remove iconColor RemoveChequePart" title="Remove"></a>
+                                </div>
+                                <strong>چک</strong>
+                            </div>
+                            @Html.HiddenFor(m => m.Editcheques[i].ChequeSanadId)
+                            @Html.HiddenFor(m => m.Editcheques[i].ChequeSanadSecondId)
+                            @Html.HiddenFor(m => m.Editcheques[i].Id)
+                            <div class="card-body">
+                                <div class="col-xs-4 col-md-4">
+                                    <div class="md-form-group md-label-static">
+                                        @Html.TextBoxFor(model => model.Editcheques[i].ChequeNum, new { @class = "md-form-control", spellcheck = "false" })
+                                        @Html.LabelFor(mpdel => mpdel.Editcheques[i].ChequeNum, new { @class = "md-control-label" })
+                                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Editcheques[i].ChequeNum)</span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 col-md-4">
+                                    <div class="md-form-group md-label-static">
+                                        @Html.TextBoxFor(model => model.Editcheques[i].Price, new { @class = "md-form-control Chequeprice", spellcheck = "false" })
+                                        @Html.LabelFor(mpdel => mpdel.Editcheques[i].Price, new { @class = "md-control-label" })
+                                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Editcheques[i].Price)</span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 col-md-4">
+                                    <div class="md-form-group md-label-static">
+                                        @Html.TextBoxFor(model => model.Editcheques[i].DudateText, new { @class = "md-form-control DatePicker", spellcheck = "false", @readonly = "readonly" })
+                                        @Html.LabelFor(mpdel => mpdel.Editcheques[i].DudateText, new { @class = "md-control-label" })
+                                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Editcheques[i].DudateText)</span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-6">
+                                    <div class="md-form-group md-label-static">
+                                        @Html.DropDownListFor(model => model.Editcheques[i].BankAccountId, new SelectList(Model.ChequeBankAccount, "BankAccountId", "HesabCompeletName", Model.Editcheques[i].BankAccountId), "انتخاب کنید", new { @class = "md-form-control" })
+                                        @Html.LabelFor(mpdel => mpdel.Editcheques[i].BankAccountId, new { @class = "md-control-label" })
+                                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Editcheques[i].BankAccountId)</span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-6">
+                                    <div class="md-form-group md-label-static">
+                                        @Html.TextBoxFor(model => model.Editcheques[i].Description, new { @class = "md-form-control", spellcheck = "false" })
+                                        @Html.LabelFor(mpdel => mpdel.Editcheques[i].Description, new { @class = "md-control-label" })
+                                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Editcheques[i].Description)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            }
+
+        </div>
+        <div id="PayChequePart">
+            @if (Model.EditPaycheques != null)
+            {
+                for (int i = 0; i < Model.EditPaycheques.Count(); i++)
+                {
+                    <div class="col-xs-12 col-md-12">
+                        <div class="card" style="border-color: #d9230f !important; margin-top:10px" ChequeId="@Model.EditPaycheques[i].Id" Amount="@Model.EditPaycheques[i].Amount" EditRow="@i">
+                            <div class="card-header">
+                                <div class="card-actions">
+                                    <a style="cursor:pointer;text-decoration:none" class="icon icon-remove iconColor RemovePayChequePart" title="Remove"></a>
+                                </div>
+                                <strong>خرج چک</strong>
+                            </div>
+                            @Html.HiddenFor(m => m.EditPaycheques[i].ChequeSanadId)
+                            @Html.HiddenFor(m => m.EditPaycheques[i].ChequeSanadSecondId)
+                            @Html.HiddenFor(m => m.EditPaycheques[i].Id)
+                            @Html.HiddenFor(m => m.EditPaycheques[i].ChequeNum)
+                            @Html.HiddenFor(m => m.EditPaycheques[i].Price)
+                            @Html.HiddenFor(m => m.EditPaycheques[i].DudateText)
+                            <div class="card-body">
+                                <div class="col-xs-3 col-md-3">
+                                    <div class="md-form-group md-label-static">
+                                        <label class="md-form-control">
+                                            @Model.EditPaycheques[i].ChequeNum
+                                        </label>
+                                        <label class="md-control-label">
+                                            شماره چک
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3 col-md-3">
+                                    <div class="md-form-group md-label-static">
+
+                                        <label class="md-form-control">
+                                            @Model.EditPaycheques[i].Price
+                                        </label>
+                                        <label class="md-control-label">
+                                            مبلغ
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3 col-md-3">
+                                    <div class="md-form-group md-label-static">
+                                        <label class="md-form-control">
+                                            @Model.EditPaycheques[i].DudateText
+                                        </label>
+                                        <label class="md-control-label">
+                                            تاریخ سررسید
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-3 col-md-3">
+                                    <div class="md-form-group md-label-static">
+                                        <label class="md-form-control">
+                                            @Model.EditPaycheques[i].Bank.Name
+                                        </label>
+                                        <label class="md-control-label">
+                                            بانک
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-8 col-md-8">
+                                    <div class="md-form-group md-label-static">
+                                        <label class="md-form-control">
+                                            @Model.EditPaycheques[i].Description
+                                        </label>
+                                        <label class="md-control-label">
+                                            توضیحات
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+        <div class="col-xs-12 col-md-12" style="border-bottom:1px solid #ddd ; margin-top:10px"></div>
+        <div class="col-xs-12 col-md-12">
+            <div class="margin-top">
+                <div class="col-xs-12 col-md-12">
+                    <a href="@Url.Action("Payments", "Transaction")" class="btn btn-default">بازگشت به فهرست</a>
+                    <input id="EditReceive" class="btn btn-success" type="submit" value="ثبت اطلاعات" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@section Modal{
+    <div id="modalAvailableCheque" tabindex="-1" role="dialog" class="modal fade">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-success">
+                    <h4 class="modal-title">لیست چک ها</h4>
+                </div>
+                <div class="modal-body" id="AvailableChequeList">
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section toastr{
+    @Html.Raw(TempData["saveMassage"])
+}
+@section styles{
+    <link href="~/Scripts/PersianDateTimePicker/jquery-ui-datetimepicker.min.css" rel="stylesheet" />
+}
+@section scripts{
+    <script src="~/Scripts/PersianDateTimePicker/jquery-ui-datetimepicker.min.js"></script>
+    <script>
+        var cashCount = -1;
+        var CardCount = -1;
+        var ChequeCount = -1;
+        var Delete = [];
+        var DeleteCheque = [];
+        var DeletePayCheque = [];
+        var PayCheque = [];
+
+        $(document).on("keyup", ".Cashprice", function () {
+            // skip for arrow keys
+            if (event.which >= 37 && event.which <= 40) return;
+
+            // format number
+            $(this).val(function (index, value) {
+                return value
+                    .replace(/\D/g, "")
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    ;
+            });
+        });
+
+        //CardPart
+        $(document).on("change", ".CardBankAccount", function () {
+
+            var EditRow = $(this).closest('.card').attr('EditRow');
+            if (typeof EditRow !== typeof undefined && EditRow !== false) {
+                var value = $("#EditCard_" + EditRow + "__BankAccountId").find(":selected").val();
+                $.ajax({
+                    url: "/Transaction/GetAccountInfo",
+                    data: { BookId: value },
+                    type: "Post",
+                    dataType: "Json",
+                    success: function (result) {
+                        $("#EditCard_" + EditRow + "__CardAccountNumber").val(result.Html + "/" + result.Option);
+                    },
+                    error: function () {
+                        alert("خطا!");
+                    }
+                });
+            }
+            else {
+                var Row = $(this).closest('.card').attr("Row");
+                var value = $("#Card_" + Row + "__BankAccountId").find(":selected").val();
+
+                $.ajax({
+                    url: "/Transaction/GetAccountInfo",
+                    data: { BookId: value },
+                    type: "Post",
+                    dataType: "Json",
+                    success: function (result) {
+
+                        $("#Card_" + Row + "__CardAccountNumber").val(result.Html + "/" + result.Option);
+                    },
+                    error: function () {
+                        alert("خطا!");
+                    }
+                });
+            }
+        });
+        $(document).on("keyup", ".Cardprice", function () {
+            // skip for arrow keys
+            if (event.which >= 37 && event.which <= 40) return;
+
+            // format number
+            $(this).val(function (index, value) {
+                return value
+                    .replace(/\D/g, "")
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    ;
+            });
+        });
+
+        $(document).on("click", "#CashAdd", function (e) {
+            e.preventDefault();
+            cashCount = cashCount + 1;
+            $.ajax({
+                url: "/Transaction/GenerateForm",
+                data: { Row: cashCount, Formtype: 1 },
+                type: "Post",
+                dataType: "Json",
+                success: function (result) {
+                    $("#CashPart").append(result.Html);
+                    var form = $("#ReceiveForm")
+                        .removeData("validator") /* added by the raw jquery.validate plugin */
+                        .removeData("unobtrusiveValidation");  /* added by the jquery unobtrusive plugin*/
+                    $.validator.unobtrusive.parse(form);
+                    $(form).data('unobtrusiveValidation');
+                },
+                error: function () {
+                    alert("خطا!");
+                }
+            });
+
+        });
+        $(document).on("click", "#BankJarAdd", function (e) {
+            e.preventDefault();
+            CardCount = CardCount + 1;
+            $.ajax({
+                url: "/Transaction/GenerateForm",
+                data: { Row: CardCount, Formtype: 2 },
+                type: "Post",
+                dataType: "Json",
+                success: function (result) {
+                    $("#CardPart").append(result.Html);
+                    var form = $("#ReceiveForm")
+                        .removeData("validator") /* added by the raw jquery.validate plugin */
+                        .removeData("unobtrusiveValidation");  /* added by the jquery unobtrusive plugin*/
+                    $.validator.unobtrusive.parse(form);
+                    $(form).data('unobtrusiveValidation');
+                },
+                error: function () {
+                    alert("خطا!");
+                }
+            });
+
+        });
+        $(document).on("click", "#ChequeAdd", function (e) {
+            e.preventDefault();
+            ChequeCount = ChequeCount + 1;
+            $.ajax({
+                url: "/Transaction/GenerateForm",
+                data: { Row: ChequeCount, Formtype: 4 },
+                type: "Post",
+                dataType: "Json",
+                success: function (result) {
+                    $("#ChequePart").append(result.Html);
+                    var form = $("#PayForm")
+                        .removeData("validator") /* added by the raw jquery.validate plugin */
+                        .removeData("unobtrusiveValidation");  /* added by the jquery unobtrusive plugin*/
+                    $.validator.unobtrusive.parse(form);
+                    $(form).data('unobtrusiveValidation');
+                    $(".DatePicker").datepicker({
+                        beforeShow: function (input, inst) {
+                            var cal = inst.dpDiv;
+                            var left = $(this).offset().left;
+                            setTimeout(function () {
+                                cal.css({
+                                    'left': left
+                                });
+                            }, 10);
+                        }
+                    });
+                },
+                error: function () {
+                    alert("خطا!");
+                }
+            });
+
+        });
+        $(document).on("click", "#PayCheque", function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: "/Transaction/GetAvailableCheque",
+                data: {},
+                type: "Post",
+                dataType: "Json",
+                success: function (result) {
+
+                    $("#AvailableChequeList").html(result.Html);
+                    var dataTable = $("#AvailableChequeItems").dataTable({
+                        "bInfo": false,
+                        "bLengthChange": false,
+                        "bSort": false,
+                        "language": {
+                            "paginate": {
+                                "previous": "قبلی",
+                                "next": "بعدی"
+                            }
+                        },
+                        "iDisplayLength": 6
+                    });
+                    $("#Chequesearchbox").keyup(function () {
+                        dataTable.fnFilter(this.value);
+                    });
+                    $("#modalAvailableCheque").modal({ backdrop: true });
+                },
+                error: function () {
+                    alert("خطا!");
+                }
+            });
+        });
+        $(document).on("click", "#AvailableChequeItems tr td a#SelectAvailableCheque", function () {
+            var Row = $(this).closest('tr');
+            var ChequeId = $(this).attr("value");
+
+            if (jQuery.inArray(ChequeId, PayCheque) !== -1) {
+
+                Toast("چک با این شماره به لیست اضافه شده,info");
+            }
+            else {
+                $.ajax({
+                    url: "/Transaction/GenerateForm",
+                    data: { Row: ChequeId, Formtype: 5, ptaype: false },
+                    type: "Post",
+                    dataType: "Json",
+                    success: function (result) {
+                        $("#PayChequePart").append(result.Html);
+                        var Amoutn = Row.find('td:eq(2)').text().trim().replace(/,/g, '');
+                        var TotalAmount = $("#pay_TotalAmount").val();
+                        TotalAmount = +TotalAmount + +Amoutn;
+                        $("#pay_TotalAmount").val(TotalAmount);
+                        PayCheque.push(ChequeId);
+                        $("#PayChequeIds").val(PayCheque);
+                        $("#modalAvailableCheque").modal('hide');
+                    },
+                    error: function () {
+                        alert("خطا!");
+                    }
+                });
+
+            }
+
+
+
+
+        });
+
+        $(document).on("click", ".RemoveCashPart", function () {
+
+            var EditRow = $(this).closest('.card').attr('EditRow');
+            if (typeof EditRow !== typeof undefined && EditRow !== false) {
+                $(this).closest('.card').hide();
+                var EditCashId = $("#EditCash_" + EditRow + "__id").val();
+                var EditCashSecondId = $("#EditCash_" + EditRow + "__SecondId").val();
+                var TotalAmount = $("#pay_TotalAmount").val();
+                var Amount = $("#EditCash_" + EditRow + "__Amount").val().replace(/,/g, '');
+                var re = +TotalAmount - +Amount;
+                $("#pay_TotalAmount").val(re);
+                Delete.push(EditCashId);
+                Delete.push(EditCashSecondId);
+                $("#deletedItem").val(Delete);
+                var T = re.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                $("#TAmount").text(T);
+            }
+            else {
+                var Row = $(this).closest('.card').attr('Row');
+                if (cashCount == Row) {
+                    cashCount = cashCount - 1;
+                    var Amount = $("#cash_" + Row + "__Amount").val().replace(/,/g, '');
+                    var TotalAmount = $("#pay_TotalAmount").val();
+                    TotalAmount = +TotalAmount - +Amount;
+                    $("#pay_TotalAmount").val(TotalAmount);
+                    var T = TotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    $("#TAmount").text(T);
+                    $(this).closest('.card').remove();
+                }
+
+            }
+
+
+        });
+        $(document).on("click", ".RemoveCardPart", function () {
+
+            var EditRow = $(this).closest('.card').attr('EditRow');
+            if (typeof EditRow !== typeof undefined && EditRow !== false) {
+                $(this).closest('.card').hide();
+                var EditCardId = $("#EditCard_" + EditRow + "__id").val();
+                var EditCardSecondId = $("#EditCard_" + EditRow + "__SecondId").val();
+                var TotalAmount = $("#pay_TotalAmount").val();
+                var Amount = $("#EditCard_" + EditRow + "__Amount").val().replace(/,/g, '');
+                var re = +TotalAmount - +Amount;
+                $("#pay_TotalAmount").val(re);
+                Delete.push(EditCardId);
+                Delete.push(EditCardSecondId);
+                $("#deletedItem").val(Delete);
+                var T = re.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                $("#TAmount").text(T);
+            }
+            else {
+                var Row = $(this).closest('.card').attr('Row');
+                if (CardCount == Row) {
+                    CardCount = CardCount - 1;
+                    var Amount = $("#Card_" + Row + "__Amount").val().replace(/,/g, '');
+                    var TotalAmount = $("#pay_TotalAmount").val();
+                    TotalAmount = +TotalAmount - +Amount;
+                    $("#pay_TotalAmount").val(TotalAmount);
+                    var T = TotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    $("#TAmount").text(T);
+                    $(this).closest('.card').remove();
+                }
+            }
+
+
+
+
+        });
+        $(document).on("click", ".RemoveChequePart", function () {
+            var EditRow = $(this).closest('.card').attr('EditRow');
+            if (typeof EditRow !== typeof undefined && EditRow !== false) {
+                $(this).closest('.card').hide();
+                var EditChequeId = $("#Editcheques_" + EditRow + "__ChequeSanadId").val();
+
+                var EditChequeSecondId = $("#Editcheques_" + EditRow + "__ChequeSanadSecondId").val();
+                var ChequeId = $("#Editcheques_" + EditRow + "__Id").val();
+
+                var TotalAmount = $("#pay_TotalAmount").val();
+                var Amount = $("#Editcheques_" + EditRow + "__Price").val().replace(/,/g, '');
+                var re = +TotalAmount - +Amount;
+                $("#pay_TotalAmount").val(re);
+                Delete.push(EditChequeId);
+                Delete.push(EditChequeSecondId);
+                DeleteCheque.push(ChequeId);
+                $("#deletedItem").val(Delete);
+                $("#deteledCheque").val(DeleteCheque);
+                var T = re.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                $("#TAmount").text(T);
+
+            }
+            else {
+
+                var Row = $(this).closest('.card').attr('Row');
+                if (ChequeCount == Row) {
+
+                    ChequeCount = ChequeCount - 1;
+                    var Amount = $("#cheques_" + Row + "__Price").val().replace(/,/g, '');
+                    var TotalAmount = $("#pay_TotalAmount").val();
+                    TotalAmount = +TotalAmount - +Amount;
+                    $("#pay_TotalAmount").val(TotalAmount);
+                    var T = TotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    $("#TAmount").text(T);
+                    $(this).closest('.card').remove();
+                }
+            }
+
+        });
+        $(document).on("click", ".RemovePayChequePart", function () {
+            var EditRow = $(this).closest('.card').attr('EditRow');
+
+            if (typeof EditRow !== typeof undefined && EditRow !== false) {
+                var EditPaySanadChequeId = $("#EditPaycheques_" + EditRow + "__ChequeSanadId").val();
+
+                var EditPaySanadChequeSecondId = $("#EditPaycheques_" + EditRow + "__ChequeSanadSecondId").val();
+
+                var PayChequeId = $(this).closest('.card').attr('ChequeId');
+
+                var Amount = $(this).closest('.card').attr('Amount');
+                var TotalAmount = $("#pay_TotalAmount").val();
+                TotalAmount = +TotalAmount - +Amount;
+                $("#pay_TotalAmount").val(TotalAmount);
+                Delete.push(EditPaySanadChequeId);
+                Delete.push(EditPaySanadChequeSecondId);
+                DeletePayCheque.push(PayChequeId);
+                $("#deletedItem").val(Delete);
+                $("#deteledPayCheque").val(DeletePayCheque);
+                var T = TotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                $("#TAmount").text(T);
+                $(this).closest('.card').hide();
+
+            }
+            else {
+                var ChequeId = $(this).closest('.card').attr('ChequeId');
+                var Amount = $(this).closest('.card').attr('Amount');
+                var TotalAmount = $("#pay_TotalAmount").val();
+                TotalAmount = +TotalAmount - +Amount;
+                $("#pay_TotalAmount").val(TotalAmount);
+                PayCheque = jQuery.grep(PayCheque, function (value) {
+                    return value != ChequeId;
+                });
+                $("#PayChequeIds").val(PayCheque);
+                var T = TotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                $("#TAmount").text(T);
+                $(this).closest('.card').remove()
+            }
+
+        });
+
+        $(document).on("keyup", ".Chequeprice", function () {
+            // skip for arrow keys
+            if (event.which >= 37 && event.which <= 40) return;
+
+            // format number
+            $(this).val(function (index, value) {
+                return value
+                    .replace(/\D/g, "")
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    ;
+            });
+
+        });
+
+        $(document).on("focusout", ".Chequeprice", function () {
+            var TotalAmount = $("#pay_TotalAmount").val();
+            var cashAmout = $(this).val().replace(/,/g, '');
+            TotalAmount = +TotalAmount + +cashAmout;
+            $("#pay_TotalAmount").val(TotalAmount);
+            var T = TotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            $("#TAmount").text(T);
+
+        });
+        $(document).on("focusin", ".Chequeprice", function () {
+            var TotalAmount = $("#pay_TotalAmount").val();
+            var cashAmout = $(this).val().replace(/,/g, '');
+            TotalAmount = +TotalAmount - +cashAmout;
+            $("#pay_TotalAmount").val(TotalAmount);
+            var T = TotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            $("#TAmount").text(T);
+
+        });
+
+        $(document).on("focusin", ".Cashprice", function () {
+            var TotalAmount = $("#pay_TotalAmount").val();
+            var cashAmout = $(this).val().replace(/,/g, '');
+            TotalAmount = +TotalAmount - +cashAmout;
+            $("#pay_TotalAmount").val(TotalAmount);
+            var T = TotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            $("#TAmount").text(T);
+
+
+        });
+        $(document).on("focusout", ".Cashprice", function () {
+            var TotalAmount = $("#pay_TotalAmount").val();
+            var cashAmout = $(this).val().replace(/,/g, '');
+            TotalAmount = +TotalAmount + +cashAmout;
+            $("#pay_TotalAmount").val(TotalAmount);
+            var T = TotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            $("#TAmount").text(T);
+
+        });
+
+        $(document).on("focusout", ".Cardprice", function () {
+            var TotalAmount = $("#pay_TotalAmount").val();
+            var cashAmout = $(this).val().replace(/,/g, '');
+            TotalAmount = +TotalAmount + +cashAmout;
+            $("#pay_TotalAmount").val(TotalAmount);
+            var T = TotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            $("#TAmount").text(T);
+        });
+        $(document).on("focusin", ".Cardprice", function () {
+            var TotalAmount = $("#pay_TotalAmount").val();
+            var cashAmout = $(this).val().replace(/,/g, '');
+            TotalAmount = +TotalAmount - +cashAmout;
+            $("#pay_TotalAmount").val(TotalAmount);
+            var T = TotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            $("#TAmount").text(T);
+        });
+
+        //GetBalance
+
+        $(".DatePicker").datepicker({
+            beforeShow: function (input, inst) {
+                var cal = inst.dpDiv;
+                var left = $(this).offset().left;
+                setTimeout(function () {
+                    cal.css({
+                        'left': left
+                    });
+                }, 10);
+            }
+        });
+
+        function Paymentsuccess(data) {
+            if (data.RedirectUrl) {
+                window.location.href = data.RedirectUrl;
+            }
+        }
+    </script>
+
+}
+

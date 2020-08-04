@@ -1,0 +1,5 @@
+﻿@model PunasMarketing.ViewModels.Invoice.InvoiceViewModel
+
+@Html.DropDownListFor(model => model.InvoiceModel.PersonnelId, new SelectList(Model.Personnels, "Id", "FullName"), "انتخاب کنید", new { @class = "md-form-control" })
+<span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.InvoiceModel.PersonnelId)</span>
+

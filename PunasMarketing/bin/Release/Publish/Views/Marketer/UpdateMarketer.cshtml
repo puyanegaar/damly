@@ -1,0 +1,425 @@
+﻿@model PunasMarketing.ViewModels.Marketer.MarketerViewModel
+@{
+    ViewBag.Title = "ویرایش بازاریاب";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="layout-content-body">
+    <legend>
+        <h2>ویرایش بازاریاب</h2>
+    </legend>
+    @using (Html.BeginForm("UpdateMarketer", "Marketer", FormMethod.Post, new { enctype = "multipart/form-data", id = "UploadFrom" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Marketer.Id)
+        @Html.ValidationSummary(true)
+        <div class="col-xs-12 col-md-12">
+            <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19); border-radius:5px;">
+                <div class="card-header">
+                    <div class="card-actions">
+                        <button type="button" class="card-action card-toggler" title="Collapse"></button>
+                    </div>
+                    <strong>اطلاعات شخصی</strong>
+                </div>
+
+                <div class="card-body">
+                    <div class="col-xs-8 col-md-8">
+                        <div class="col-xs-6 col-md-6">
+                            <div class="md-form-group md-label-static">
+                                @Html.TextBoxFor(model => model.Marketer.FirstName, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                                @Html.LabelFor(model => model.Marketer.FirstName, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Marketer.FirstName)</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-6">
+                            <div class="md-form-group md-label-static">
+                                @Html.TextBoxFor(model => model.Marketer.LastName, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                                @Html.LabelFor(model => model.Marketer.LastName, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Marketer.LastName)</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-6">
+                            <div class="md-form-group md-label-static">
+                                @Html.TextBoxFor(model => model.Marketer.FatherName, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                                @Html.LabelFor(model => model.Marketer.FatherName, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Marketer.FatherName)</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-6">
+                            <div class="md-form-group md-label-static">
+                                @Html.TextBoxFor(model => model.Marketer.CodeMelli, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                                @Html.LabelFor(model => model.Marketer.CodeMelli, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Marketer.CodeMelli)</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-6">
+                            <div class="md-form-group md-label-static">
+                                <select id="personnel_IsMale" name="personnel.IsMale" class="md-form-control">
+                                    <option>انتخاب کنید</option>
+                                    <option value="true" @(Model.Marketer.IsMale ? "selected" : "")>مرد</option>
+                                    <option value="false" @((Model.Marketer.IsMale == false) ? "selected" : "")>زن</option>
+                                </select>
+                                @Html.LabelFor(model => model.Marketer.IsMale, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Marketer.IsMale)</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-6">
+                            <div class="md-form-group md-label-static">
+                                <select id="personnel_IsMarried" name="personnel.IsMarried" class="md-form-control">
+                                    <option>انتخاب کنید</option>
+                                    <option value="true" @(Model.Marketer.IsMarried ? "selected" : "")>متاهل</option>
+                                    <option value="false" @((Model.Marketer.IsMarried == false) ? "selected" : "")>مجرد</option>
+                                </select>
+                                @Html.LabelFor(model => model.Marketer.IsMarried, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Marketer.IsMarried)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-4 col-md-4">
+                        <div class="col-xs-12 col-md-12" style="">
+                            <input id="ImageFile" name="ImageFile" type="file" style="display:none" required="" />
+
+                            @if (Model.Marketer.ImageName != null)
+                            {
+                                <img id="Image" src="~/Content/Upload/Image/Marketers/@Model.Marketer.ImageName" style="width:150px;height:200px; display:block ;margin:auto;cursor:pointer" />
+                            }
+                            else
+                            {
+                                <img id="Image" src="~/Content/Upload/Image/Personnels/sampleImage.png" style="width:150px;height:200px; display:block ;margin:auto;cursor:pointer" />
+                            }
+                        </div>
+                        <div class="col-xs-12 col-md-12" style="margin-top:15px">
+                            <input id="ImageSelect" class="btn btn-info" type="submit" value="انتخاب عکس" style="display:block ;margin:auto" />
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-12">
+                        <div class="col-xs-4 col-md-4">
+                            <div class="md-form-group md-label-static">
+                                @Html.DropDownListFor(model => model.Marketer.BirthStateId, new SelectList(Model.Provinces, "Id", "Name", Model.Marketer.BirthStateId), "انتخاب کنید", new { @class = "md-form-control" })
+                                @Html.LabelFor(model => model.Marketer.BirthStateId, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Marketer.BirthStateId)</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-4 col-md-4">
+                            <div class="md-form-group md-label-floating" id="DrpBirthCities">
+                                @Html.DropDownListFor(model => model.Marketer.BirthCityId, new SelectList(Model.Cities, "Id", "Name", Model.Marketer.BirthCityId), "شهر", new { @class = "md-form-control" })
+                                @Html.LabelFor(model => model.Marketer.BirthCityId, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Marketer.BirthCityId)</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-4 col-md-4">
+                            <div class="md-form-group md-label-static">
+                                <input id="birthDate" class="md-form-control" type="text" spellcheck="false" readonly="readonly" data-val-date="قالب تاریخ صحیح نیست" value="@Model.StrBirthDate.ToMiladiDate().ToPersianDateTime().ToStringDate()" name="StrBirthDate" />
+                                @Html.LabelFor(model => model.StrBirthDate, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.StrBirthDate)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-xs-12 col-md-12">
+            <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19); border-radius:5px;">
+                <div class="card-header">
+                    <div class="card-actions">
+                        <button type="button" class="card-action card-toggler" title="Collapse"></button>
+                    </div>
+                    <strong>اطلاعات تماس</strong>
+                </div>
+
+                <div class="card-body">
+                    <div class="col-xs-4 col-md-4">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.Marketer.Mobile1, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                            @Html.LabelFor(model => model.Marketer.Mobile1, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Marketer.Mobile1)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-md-4">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.Marketer.Mobile2, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                            @Html.LabelFor(model => model.Marketer.Mobile2, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Marketer.Mobile2)</span>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-4 col-md-4">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.Marketer.Phone, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                            @Html.LabelFor(model => model.Marketer.Phone, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Marketer.Phone)</span>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-md-6">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.Marketer.RelatedPhone, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                            @Html.LabelFor(model => model.Marketer.RelatedPhone, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Marketer.RelatedPhone)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.Marketer.Email, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                            @Html.LabelFor(model => model.Marketer.Email, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Marketer.Email)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6">
+                        <div class="md-form-group md-label-static">
+                            @Html.DropDownListFor(model => model.Marketer.HomeStateId, new SelectList(Model.Provinces, "Id", "Name", Model.Marketer.HomeStateId), "انتخاب کنید", new { @class = "md-form-control" })
+                            @Html.LabelFor(model => model.Marketer.HomeStateId, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Marketer.HomeStateId)</span>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-md-6">
+                        <div class="md-form-group md-label-floating" id="DrpHomeCities">
+                            @Html.DropDownListFor(model => model.Marketer.HomeCityId, new SelectList(Model.Cities, "Id", "Name", Model.Marketer.HomeCityId), "شهر", new { @class = "md-form-control" })
+                            @Html.LabelFor(model => model.Marketer.HomeCityId, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Marketer.HomeCityId)</span>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-12">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.Marketer.HomeAddress, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                            @Html.LabelFor(model => model.Marketer.HomeAddress, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Marketer.FirstName)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-12">
+            <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19); border-radius:5px;">
+                <div class="card-header">
+                    <div class="card-actions">
+                        <button type="button" class="card-action card-toggler" title="Collapse"></button>
+                    </div>
+                    <strong>اطلاعات شغلی</strong>
+                </div>
+
+                <div class="card-body">
+                    <div class="col-xs-4 col-md-4">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.Marketer.PersonnelCode, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                            @Html.LabelFor(model => model.Marketer.PersonnelCode, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Marketer.PersonnelCode)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-md-4">
+                        <div class="md-form-group md-label-static">
+                            <input id="hireDate" class="md-form-control" type="text" spellcheck="false" readonly="readonly" data-val-date="قالب تاریخ صحیح نیست" value="@Model.StrHireDate.ToMiladiDate().ToPersianDateTime().ToStringDate()" name="StrHireDate" />
+                            @Html.LabelFor(model => model.StrHireDate, new {@class = "md-control-label"})
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.StrHireDate)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-md-4">
+                        <div class="col-xs-10 col-md-10">
+                            <div class="md-form-group md-label-static">
+                                <input id="fireDate" class="md-form-control" type="text" spellcheck="false" readonly="readonly" data-val-date="قالب تاریخ صحیح نیست" value="@(string.IsNullOrWhiteSpace(Model.StrFireDate) ? "" : Model.StrFireDate.ToMiladiDate().ToPersianDateTime().ToStringDate())" name="StrFireDate" />
+                                @Html.LabelFor(model => model.StrFireDate, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.StrFireDate)</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-2 col-md-2">
+                            <a id="btnClear" href="#">پاک کردن</a>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6">
+                        <div class="md-form-group md-label-static">
+                            @Html.DropDownListFor(model => model.Marketer.AcademicDegree, new SelectList(Model.Academics, "Id", "Name"), "انتخاب کنید", new { @class = "md-form-control" })
+                            @Html.LabelFor(model => model.Marketer.AcademicDegree, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Marketer.AcademicDegree)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.Marketer.FieldOfStudy, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                            @Html.LabelFor(model => model.Marketer.FieldOfStudy, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Marketer.FieldOfStudy)</span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-xs-12 col-md-12">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextAreaFor(model => model.Marketer.Description, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                            @Html.LabelFor(model => model.Marketer.Description, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Marketer.Description)</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-12">
+            <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19); border-radius:5px;">
+                <div class="card-header">
+                    <div class="card-actions">
+                        <button type="button" class="card-action card-toggler" title="Collapse"></button>
+                    </div>
+                    <strong>اطلاعات مالی</strong>
+                </div>
+
+                <div class="card-body">
+                    <div class="col-xs-6 col-md-6">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.Marketer.BankCardNum, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                            @Html.LabelFor(model => model.Marketer.BankCardNum, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Marketer.BankCardNum)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.Marketer.BankName, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                            @Html.LabelFor(model => model.Marketer.BankName, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Marketer.BankName)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-12">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.Marketer.Iban, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                            @Html.LabelFor(model => model.Marketer.Iban, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Marketer.Iban)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-12">
+            <div class="margin-top">
+                <div class="col-xs-12 col-md-12">
+                    <input class="btn btn-success" type="submit" value="ثبت اطلاعات" />
+                    <a href="@Url.Action("Marketers","Marketer")" class="btn btn-default">برگشت</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section toastr {
+    @Html.Raw(TempData["SaveMessage"])
+}
+@section styles{
+    <link href="~/Scripts/PersianDateTimePicker/jquery-ui-datetimepicker.min.css" rel="stylesheet" />
+}
+@section scripts{
+    <script src="~/Scripts/PersianDateTimePicker/jquery-ui-datetimepicker.min.js"></script>
+    <script>
+
+        $("#birthDate").datepicker({
+            beforeShow: function (input, inst) {
+                var cal = inst.dpDiv;
+                var left = $(this).offset().left;
+                setTimeout(function () {
+                    cal.css({
+                        'left': left
+                    });
+                }, 10);
+            },
+            changeYear: true,
+            yearRange: '1350:1420',
+            changeMonth: true
+        });
+
+        $("#hireDate").datepicker({
+            beforeShow: function (input, inst) {
+                var cal = inst.dpDiv;
+                var left = $(this).offset().left;
+                setTimeout(function () {
+                    cal.css({
+                        'left': left
+                    });
+                }, 10);
+            },
+            changeYear: true,
+            yearRange: '1350:1420',
+            changeMonth: true
+        });
+
+        $("#fireDate").datepicker({
+            beforeShow: function (input, inst) {
+                var cal = inst.dpDiv;
+                var left = $(this).offset().left;
+                setTimeout(function () {
+                    cal.css({
+                        'left': left
+                    });
+                }, 10);
+            },
+            changeYear: true,
+            yearRange: '1350:1420',
+            changeMonth: true
+        });
+
+        $(document).on("change",
+            "#Marketer_BirthStateId",
+            function () {
+                $.ajax({
+                    url: "/Marketer/GetBirthCities",
+                    data: { id: $("#Marketer_BirthStateId").find(":selected").val() },
+                    type: "Post",
+                    dataType: "Json",
+                    success: function (result) {
+                        $("#DrpBirthCities").html(result.Html);
+                        if (result.Success) {
+                        }
+                    },
+                    error: function () {
+                        alert("خطا!");
+                    }
+                });
+            });
+
+        $(document).on("change",
+            "#Marketer_HomeStateId",
+            function () {
+                $.ajax({
+                    url: "/Marketer/GetHomeCities",
+                    data: { id: $("#Marketer_HomeStateId").find(":selected").val() },
+                    type: "Post",
+                    dataType: "Json",
+                    success: function (result) {
+                        $("#DrpHomeCities").html(result.Html);
+                        if (result.Success) {
+                        }
+                    },
+                    error: function () {
+                        alert("خطا!");
+                    }
+                });
+            });
+
+        $(document).on("change",
+            "#Marketer_SectionId",
+            function () {
+                $.ajax({
+                    url: "/Marketer/GetJobTilte",
+                    data: { id: $("#Marketer_SectionId").find(":selected").val() },
+                    type: "Post",
+                    dataType: "Json",
+                    success: function (result) {
+                        $("#DrpJobTitleId").html(result.Html);
+                        if (result.Success) {
+                        }
+                    },
+                    error: function () {
+                        alert("خطا!");
+                    }
+                });
+            });
+
+        SelectImage();
+    </script>
+}

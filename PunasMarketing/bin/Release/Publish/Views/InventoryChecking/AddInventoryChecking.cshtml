@@ -1,0 +1,418 @@
+﻿@model PunasMarketing.ViewModels.InventoryChecking.InventoryCheckingViewModel
+@{
+    ViewBag.Title = "ثبت انبارگردانی";
+}
+
+<div class="layout-content-body">
+    @using (Html.BeginForm("AddInventoryChecking", "InventoryChecking", FormMethod.Post, new { id = "myForm", autocomplete = "off" }))
+    {
+        <div id="divInfo">
+            <legend>
+                <h2>ثبت انبارگردانی</h2>
+            </legend>
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <div class="col-xs-12 col-md-12">
+                <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19); border-radius: 5px;">
+                    <div class="card-header">
+                        <strong>اطلاعات انبارگردانی</strong>
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="col-xs-6 col-md-6">
+                            <div class="md-form-group md-label-static">
+                                @Html.DropDownListFor(model => model.InventoryChecking.WarehouseId, new SelectList(Model.Warehouses, "Id", "Name"), "-", new { @class = "md-form-control", id = "drpWarehouse" })
+                                @Html.LabelFor(model => model.InventoryChecking.WarehouseId, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.InventoryChecking.WarehouseId)</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-6 col-md-6">
+                            <div class="md-form-group md-label-static">
+                                <input class="md-form-control" type="text" spellcheck="false" readonly="readonly" id="createdDate" value="@Model.StrCreatedDate.ToMiladiDate().ToPersianDateTime().ToStringDate()" name="StrCreatedDate" />
+                                @Html.LabelFor(model => model.StrCreatedDate, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.StrCreatedDate)</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-12">
+                            <div class="md-form-group md-label-static">
+                                @Html.TextBoxFor(model => model.InventoryChecking.Description, new { @class = "md-form-control", type = "text", spellcheck = "false", id = "txtInventoryCheckingDescription" })
+                                @Html.LabelFor(model => model.InventoryChecking.Description, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.InventoryChecking.Description)</span>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19); border-radius: 5px;">
+                    <div class="card-header">
+                        <strong>افزودن کالای شمارش شده به لیست</strong>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="col-xs-12 col-md-12">
+                            <div id="productDiv">
+                                <div class="col-xs-4 col-md-4">
+                                    <div id="dropDownProductDiv" class="md-form-group md-label-static">
+                                        <select id="drpProduct" class="md-form-control">
+                                            <option>ابتدا انبار را انتخاب کنید</option>
+                                        </select>
+                                        <label class="md-control-label" for="drpProduct">کالا</label>
+                                        <span id="productReqMessage" class="has-error md-help-block valError" style="visibility: visible">کالا را انتخاب کنید</span>
+                                        <span id="productExistsMessage" class="has-error md-help-block valError" style="visibility: visible">این کالا قبلا در لیست کالاهای شمارش شده، افزوده شده است</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-2 col-md-2">
+                                <div class="md-form-group md-label-static">
+                                    <input id="txtMainUnit" class="md-form-control" type="text" spellcheck="false" readonly="readonly" />
+                                    <label class="md-control-label" for="txtMainUnit">واحد اندازه گیری اصلی</label>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-2 col-md-2">
+                                <div class="md-form-group md-label-static">
+                                    <input id="txtRealCount" class="md-form-control txtMinusNum" type="number" spellcheck="false" />
+                                    <label class="md-control-label" for="txtRealCount">موجودی واقعی</label>
+                                    <span id="lblRealCountError" class="has-error md-help-block valError">موجودی واقعی را وارد کنید</span>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-2 col-md-2">
+                                <div class="md-form-group md-label-static">
+                                    <input id="txtSystemCount" class="md-form-control txtMinusNum" type="text" spellcheck="false" readonly="readonly" />
+                                    <label class="md-control-label" for="txtSystemCount">موجودی سیستم</label>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-2 col-md-2">
+                                <div class="md-form-group md-label-static">
+                                    <input id="txtDifference" class="md-form-control txtMinusNum" type="text" spellcheck="false" readonly="readonly" />
+                                    <label class="md-control-label" for="txtDifference">اختلاف موجودی</label>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-11 col-md-11">
+                                <div class="md-form-group md-label-static" style="margin-left: 20px">
+                                    <input id="txtDescription" class="md-form-control" type="text" spellcheck="false" />
+                                    <label class="md-control-label" for="txtDescription">شرح</label>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-1 col-md-1">
+                                <div class="margin-top">
+                                    <input id="btnAddItem" class="btn btn-outline-success" type="button" value="افزودن به لیست" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19); border-radius: 5px;">
+                    <div class="card-header">
+                        <strong>لیست کالاهای شمارش شده</strong>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="col-xs-12 col-md-12">
+                            <div id="offeritemlist">
+                                <table id="tblItems" class="table table-bordered table-hover " cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr class="columnSize">
+                                            <th width="60px">
+                                                ردیف
+                                            </th>
+                                            <th width="200px">
+                                                نام کالا
+                                            </th>
+                                            <th width="100px">
+                                                واحد اندازه گیری
+                                            </th>
+                                            <th width="100px">
+                                                موجودی واقعی
+                                            </th>
+                                            <th width="100px">
+                                                موجودی سیستم
+                                            </th>
+                                            <th width="100px">
+                                                اختلاف موجودی
+                                            </th>
+                                            <th>
+                                                شرح
+                                            </th>
+                                            <th width="60px">
+                                                حذف
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbodyItems">
+                                        <tr></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-12">
+                        <div class="margin-top">
+                            <div class="col-xs-12 col-md-12">
+                                <input id="btnSubmit" class="btn btn-success" type="button" value="ثبت نهایی" />
+                                <a href="@Url.Action("InventoryCheckings","InventoryChecking")" class="btn btn-default">بازگشت</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+@section styles{
+    <link href="~/Scripts/PersianDateTimePicker/jquery-ui-datetimepicker.min.css" rel="stylesheet" />
+    
+    <style>
+        .txtMinusNum {
+            direction: ltr;
+            text-align: right;
+        }
+    </style>
+}
+
+@section toastr {
+    <script src="~/Scripts/jquery-1.8.2.js"></script>
+    <script src="~/Scripts/toastr.js"></script>
+
+    @Html.Raw(TempData["SaveMessage"])
+}
+
+@section scripts{
+    <script src="~/Scripts/PersianDateTimePicker/jquery-ui-datetimepicker.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+
+            var index = 0;
+            var drpProduct = $('#drpProduct');
+            var drpWarehouse = $('#drpWarehouse');
+            var txtRealCount = $('#txtRealCount');
+            var txtMainUnit = $('#txtMainUnit');
+            var lblRealCountError = $('#lblRealCountError');
+            var txtSystemCount = $('#txtSystemCount');
+            var txtDifference = $('#txtDifference');
+            var txtDescription = $('#txtDescription');
+            var productReqMessage = $('#productReqMessage');
+            var productExistsMessage = $('#productExistsMessage');
+            var inventoryCheckingItems = [];
+
+            productReqMessage.hide();
+            productExistsMessage.hide();
+            lblRealCountError.hide();
+
+            $("#createdDate").datepicker({
+                beforeShow: function(input, inst) {
+                    var cal = inst.dpDiv;
+                    var left = $(this).offset().left;
+                    setTimeout(function() {
+                            cal.css({
+                                'left': left
+                            });
+                        },
+                        10);
+                },
+                changeYear: true,
+                yearRange: '1350:1420',
+                changeMonth: true
+            });
+
+            $(document).on("change",
+                "#drpWarehouse",
+                function() {
+                    if (inventoryCheckingItems.length > 0) {
+                        swal({
+                                title: "با تغییر انبار، کلیه آیتم های افزوده شده به لیست کالاهای شمارش شده، حذف خواهند شد. آیا ادامه می دهید؟",
+                                icon: "warning",
+                                buttons: true,
+                                dangerMode: true,
+                                buttons: ['انصراف', 'تأیید']
+                            })
+                            .then((isAccepted) => {
+                                if (isAccepted) {
+                                    inventoryCheckingItems = [];
+                                    index = 0;
+                                    $('#tbodyItems').html('<tr></tr>');
+                                }
+                            });
+                    }
+
+                    $.ajax({
+                        url: "/InventoryChecking/GetProducts",
+                        data: { id: drpWarehouse.find(":selected").val() },
+                        type: "POST",
+                        dataType: "Json",
+                        success: function(result) {
+                            drpProduct.html(result.Html);
+                        },
+                        error: function() {
+                        }
+                    });
+                });
+
+            $(document).on("change",
+                "#drpProduct",
+                function() {
+                    productExistsMessage.hide();
+
+                    var selectedOption = $("#drpProduct option:selected");
+
+                    if (selectedOption.index() !== 0) {
+                        productReqMessage.hide();
+
+                        var systemInventory = selectedOption.attr('data-inventory');
+                        txtSystemCount.val(systemInventory);
+                        var mainUnitName = selectedOption.attr('data-main-unit');
+                        txtMainUnit.val(mainUnitName);
+                    } else {
+                        txtSystemCount.val('0');
+                    }
+                });
+
+            txtRealCount.on('keyup',
+                function() {
+                    var realCount = $(this).val();
+                    var systemCount = txtSystemCount.val();
+                    txtDifference.val(realCount - systemCount);
+                });
+
+            $('#btnAddItem').click(function() {
+                var selectedIndex = $("#drpProduct option:selected").index();
+                if (selectedIndex === 0) {
+                    productReqMessage.show();
+
+                    return false;
+                }
+
+                var productId = $("#drpProduct option:selected").val();
+
+                for (var i = 0; i < inventoryCheckingItems.length; i++) {
+                    if (inventoryCheckingItems[i].ProductId == productId) {
+                        productExistsMessage.show();
+
+                        return false;
+                    }
+                }
+
+                if (txtRealCount.val().trim() == "") {
+                    lblRealCountError.show();
+
+                    return false;
+                } else {
+                    lblRealCountError.hide();
+                }
+
+                index++;
+                var item = {
+                    'index': index,
+                    'ProductName': drpProduct.find(":selected").text(),
+                    'ProductId': drpProduct.find(":selected").val(),
+                    'MainUnit': txtMainUnit.val(),
+                    'RealMainUnitCount': txtRealCount.val(),
+                    'SystemMainUnitCount': txtSystemCount.val(),
+                    'Difference': txtDifference.val(),
+                    'Description': txtDescription.val()
+                };
+
+                var btnDeleteId = "btnDelete" + index;
+                inventoryCheckingItems.push(item);
+
+                $('#tblItems tr:last').after('<tr class="columnSize"><td>' +
+                    index +
+                    '</td><td>' +
+                    item.ProductName +
+                    '</td><td>' +
+                    item.MainUnit +
+                    '</td><td class="txtMinusNum">' +
+                    item.RealMainUnitCount +
+                    '</td><td class="txtMinusNum">' +
+                    item.SystemMainUnitCount +
+                    '</td><td class="txtMinusNum">' +
+                    item.Difference +
+                    '</td><td>' +
+                    item.Description +
+                    '</td><td><a id="' +
+                    btnDeleteId +
+                    '" data-id=' +
+                    index +
+                    ' class="icon icon-remove iconColor"></a></td></tr>');
+
+                $('#' + btnDeleteId).on('click',
+                    function() {
+                        swal({
+                                title: "آیا می خواهید این آیتم را از جدول حذف کنید؟",
+                                icon: "warning",
+                                buttons: true,
+                                dangerMode: true,
+                                buttons: ['انصراف', 'تأیید']
+                            })
+                            .then((isAccepted) => {
+                                if (isAccepted) {
+                                    $(this).closest('tr').remove();
+                                    var id = $(this).attr('data-id');
+                                    var theItem = inventoryCheckingItems.find(x => x.index == id);
+                                    inventoryCheckingItems.splice(inventoryCheckingItems.indexOf(theItem), 1);
+                                }
+                            });
+                    });
+
+                $('div#dropDownProductDiv select').val('0');
+                txtRealCount.val('');
+                txtSystemCount.val('');
+                txtDifference.val('');
+                txtDescription.val('');
+            });
+
+            $('#btnSubmit').click(function() {
+                if ($('#myForm').valid()) {
+                    if (inventoryCheckingItems.length <= 0) {
+                        Toast("لیست کالاهای شمارش شده خالی است!,info");
+                        return false;
+                    }
+
+                    $.ajax({
+                        url: "/InventoryChecking/AddInventoryCheckingAjax",
+                        data: {
+                            InventoryChecking: {
+                                WarehouseId: $('#drpWarehouse option:selected').val(),
+                                Description: $('#txtInventoryCheckingDescription').val()
+                                //CreatedDate: $('#createdDate').val()
+                            },
+                            InventoryCheckingItems: inventoryCheckingItems,
+                            StrCreatedDate: $('#createdDate').val()
+                        },
+                        type: "POST",
+                        dataType: "Json",
+                        success: function(result) {
+                            if (result.Success) {
+                                var url = '@Url.Action("InventoryCheckings", "InventoryChecking")';
+                                window.location.href = url;
+                            } else {
+                                Toast("خطا در ثبت اطلاعات,info");
+                            }
+                        },
+                        error: function() {
+                        }
+                    });
+                }
+            });
+        });
+
+    </script>
+}

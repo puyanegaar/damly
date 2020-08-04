@@ -1,0 +1,100 @@
+﻿@model PunasMarketing.ViewModels.Cheque.AddReceiveChequeViewModel
+@{
+    ViewBag.Title = "افزودن چک دریافتی";
+}
+
+<div class="layout-content-body">
+    @using (Html.BeginForm("AddRecieveCheque", "Cheque", FormMethod.Post))
+    {
+        <div id="divInfo">
+            <legend>
+                <h2>افزودن چک دریافتی جدید</h2>
+            </legend>
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <div class="col-xs-6 col-md-6">
+                <div class="md-form-group md-label-floating">
+                    @Html.TextBoxFor(model => model.AddReceiveChequeMetaData.ChequeNum, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                    @Html.LabelFor(model => model.AddReceiveChequeMetaData.ChequeNum, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.AddReceiveChequeMetaData.ChequeNum)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-md-6">
+                <div class="md-form-group md-label-floating">
+                    @Html.DropDownListFor(model => model.AddReceiveChequeMetaData.BankId, new SelectList(Model.Banks, "Id", "Name"), "نام بانک", new { @class = "md-form-control" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.AddReceiveChequeMetaData.BankId)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-md-6">
+                <div class="md-form-group md-label-floating">
+                    @Html.TextBoxFor(model => model.AddReceiveChequeMetaData.Amount, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                    @Html.LabelFor(model => model.AddReceiveChequeMetaData.Amount, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.AddReceiveChequeMetaData.Amount)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-md-6">
+                <div class="md-form-group md-label-floating">
+                    @Html.TextBoxFor(model => model.AddReceiveChequeMetaData.DueDate, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                    @Html.LabelFor(model => model.AddReceiveChequeMetaData.DueDate, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.AddReceiveChequeMetaData.DueDate)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-md-6">
+                <div class="md-form-group md-label-floating">
+                    @Html.TextBoxFor(model => model.AddReceiveChequeMetaData.IssueDate, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                    @Html.LabelFor(model => model.AddReceiveChequeMetaData.IssueDate, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.AddReceiveChequeMetaData.IssueDate)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-md-6">
+                <div class="md-form-group md-label-floating">
+                    @Html.TextBoxFor(model => model.AddReceiveChequeMetaData.OwnerName, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                    @Html.LabelFor(model => model.AddReceiveChequeMetaData.OwnerName, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.AddReceiveChequeMetaData.OwnerName)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-md-6">
+                <div class="md-form-group md-label-floating">
+                    @Html.DropDownListFor(model => model.AddReceiveChequeMetaData.RecieveFromSupCusId, new SelectList(Model.Suppliers, "Id", "Name"), "دریافتی از تأمین کننده/مشتری", new { @class = "md-form-control" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.AddReceiveChequeMetaData.RecieveFromSupCusId)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-md-12">
+                <div class="md-form-group md-label-floating">
+                    @Html.TextBoxFor(model => model.AddReceiveChequeMetaData.Description, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                    @Html.LabelFor(model => model.AddReceiveChequeMetaData.Description, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.AddReceiveChequeMetaData.Description)</span>
+                </div>
+            </div>
+
+
+            <div class="col-xs-12 col-md-12">
+                <div class="margin-top">
+                    <div class="col-xs-12 col-md-12">
+                        <input class="btn btn-success" type="submit" value="ثبت اطلاعات" />
+                        <a href="@Url.Action("RecieveCheques","Cheque")" class="btn btn-default">بازگشت</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    }
+</div>
+
+@section toastr {
+    @Html.Raw(TempData["UploadMessage"])
+    @Html.Raw(TempData["deleteMessage"])
+    @Html.Raw(TempData["SaveMessage"])
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

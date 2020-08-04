@@ -1,0 +1,28 @@
+﻿@model PunasMarketing.ViewModels.Cheque.PayForSupplierViewModel
+
+<div class="modal-header bg-success">
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true" style="color: white">×</span>
+        <span class="sr-only">Close</span>
+    </button>
+    <h4 class="modal-title">خرج کردن به تأمین کننده</h4>
+</div>
+
+@using (Html.BeginForm("PayForSupplierModal", "Cheque", FormMethod.Post, new { style = "padding: 10px" }))
+{
+    @Html.HiddenFor(model => model.ChequeId)
+
+    <h5>تأمین کننده را انتخاب کنید:</h5>
+    <div class="md-form-group md-label-static">
+        @Html.DropDownListFor(model =>
+            model.SupplierId,
+            new SelectList(Model.Suppliers, "Id", "Name"),
+            "انتخاب تأمین کننده",
+            new { @class = "md-form-control" })
+        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.SupplierId)</span>
+    </div>
+
+    <input class="btn btn-success btn-block btn-next" type="submit" value="تأیید" />
+}
+
+@Scripts.Render("~/bundles/jqueryval")

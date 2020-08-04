@@ -1,0 +1,40 @@
+﻿@model PunasMarketing.ViewModels.Reports.LedgerReportViewModel
+<div class="md-form-group md-label-static">
+    <input class="md-form-control" type="text" id="SearchTafsili" spellcheck="false" required="" aria-required="true">
+    <label class="md-control-label">جستجو</label>
+</div>
+<table id="TafsiliResultTable" class="table table-striped table-bordered  dataTable" cellspacing="0" style="width:100%">
+    <thead>
+        <tr class="columnSize">
+            <th style="width:30%;text-align:center">
+                کد
+            </th>
+            <th style="width:70%;text-align:center">
+                نام حساب
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.GetTForL)
+        {
+            <tr class="columnSize" style="cursor:pointer" value="@item.Id">
+
+                <td style="width:30%;text-align:center;font-size:10px">
+                    @if (item.PersonTypeId.HasValue)
+                    {
+                        <text>@(item.PersonTypeId.ToString() + item.TafisiliCode.ToString().HesabFormatation())</text>
+                    }
+                    else
+
+                    {
+                        <text> @item.TafisiliCode.ToString().HesabFormatation()</text>
+                    }
+                </td>
+                <td style="width:70%;text-align:center;font-size:10px">
+                    @Model.SarfaslName / @item.TafsiliName
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

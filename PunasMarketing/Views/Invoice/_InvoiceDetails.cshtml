@@ -1,0 +1,104 @@
+﻿@model PunasMarketing.ViewModels.Invoice.InvoiceDetailsViewModel
+@{
+    int count = 0;
+    string residHavale = (Model.Invoice.IsReceive ? "رسید" : "حواله");
+    string invoiceType = string.Empty;
+
+    if (Model.Invoice.OtherWareHouseId != null)
+    {
+        invoiceType = "انبار به انبار";
+    }
+    else if (Model.Invoice.PersonnelId != null)
+    {
+        if (Model.Invoice.IsReceive)
+        {
+            invoiceType = "تولید به انبار";
+        }
+        else
+        {
+            invoiceType = "انبار به تولید";
+        }
+    }
+    else if (Model.Invoice.FactorNum != null)
+    {
+        invoiceType = "خارج به انبار";
+    }
+
+
+}
+
+<div class="modal-header bg-youtube">
+    <h4 class="modal-title">@residHavale شماره <span>@Model.Invoice.Id</span></h4>
+</div>
+
+<div class="card-body">
+    <div class="col-xs-12 col-md-12">
+        <div>
+            <div class="col-xs-6 col-md-6">
+                <label class="control-label">نوع سند: @residHavale</label>
+            </div>
+
+            <div class="col-xs-6 col-md-6">
+                <label class="control-label">تاریخ: @Model.Invoice.CreatedDateTime.ToPersianDateTime()</label>
+            </div>
+
+            <div class="col-xs-6 col-md-6">
+                <label class="control-label">نوع @residHavale: @invoiceType</label>
+            </div>
+
+            <div class="col-xs-12 col-md-12">
+                <label class="control-label">شرح: @Model.Invoice.Description</label>
+            </div>
+        </div>
+
+
+        <div id="offeritemlist" style="margin-top: 80px;">
+            <table id="tblItems" class="table table-bordered table-hover " cellspacing="0">
+                <thead>
+                <tr class="columnSize">
+                    <th>
+                        ردیف
+                    </th>
+                    <th>
+                        نام کالا
+                    </th>
+                    <th>
+                        مقدار
+                    </th>
+                    <th>
+                        واحد اندازه گیری
+                    </th>
+                </tr>
+                </thead>
+                <tbody id="tbodyItems">
+                <tr></tr>
+                @foreach (var item in Model.InvoiceItems)
+                {
+                    <tr>
+                        <td>
+                            @(++count)
+                        </td>
+                        <td>
+                            @item.Product.Name
+                        </td>
+                        <td>
+                            @item.MainUnitCount
+                        </td>
+                        <td>
+                            @item.Product.Unit.Name
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div class="col-xs-12 col-md-12" style="margin-top: 20px">
+        <div class="col-xs-12 col-md-12" style="float: right">
+            <a href="@Url.Action("Invoice", "Print", new {id = Model.Invoice.Id})" class='btn btn-info'>چاپ</a>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/jqueryval")

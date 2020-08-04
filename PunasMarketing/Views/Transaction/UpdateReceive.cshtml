@@ -1,0 +1,301 @@
+﻿@model PunasMarketing.ViewModels.Transaction.PaymentViewModel
+@{
+    ViewBag.Title = "ویرایش دریافت وجه / چک";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="layout-content-body">
+    <legend>
+        ویرایش دریافت وجه / چک
+    </legend>
+    @using (Ajax.BeginForm("UpdateReceive", "Transaction", new AjaxOptions() { HttpMethod = "Post", OnSuccess = "Receivesuccess",OnBegin= "start", OnComplete= "Complete" }, new { id = "ReceiveForm" }))
+    {
+        @Html.HiddenFor(m => m.pay.TotalAmount)
+        @Html.HiddenFor(m => m.deletedItem)
+        @Html.HiddenFor(m => m.deteledCheque)
+        @Html.HiddenFor(m => m.pay.PersonType)
+        @Html.HiddenFor(m => m.pay.Persons)
+        @Html.HiddenFor(m => m.pay.SanadId)
+        <div class="col-xs-12 col-md-12">
+            <div class="col-xs-6 col-md-6">
+                <div class="md-form-group md-label-static">
+
+                    @Html.LabelFor(model => model.pay.PersonType, new { @class = "form-label" })
+                    @if (Model.pay.PersonType == 1)
+                    {
+
+                        <input class="form-control" value="پرسنل" readonly />
+                    }
+                    else if (Model.pay.PersonType == 2)
+                    {
+
+                        <input class="form-control" value="مشتری" readonly />
+                    }
+                    else
+                    {
+                        <input class="form-control" value="تامین کننده" readonly />
+                    }
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-6">
+                <div class="md-form-group md-label-static">
+                    @Html.LabelFor(model => model.pay.Persons, new { @class = "form-label" })
+                    <input class="form-control" value="@Model.pay.Persons.Split('/')[1]" readonly />
+                    <input type="hidden" id="pay_Persons" name="pay.Persons" value="@Model.pay.Persons.Split('/')[0]" />
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-12" style="">
+            <div class="col-xs-12 col-md-12" id="Blance">
+                @if (Model.Taraz > 0)
+                {
+                    <div class="col-xs-12 col-md-12" style="background-color:#dff0d8;border-color:#dff0d8;color:black;min-height:50px;height:auto">
+                        <div class="col-xs-9 col-md-9">
+                            <label class="md-form-control" style="border:none">مانده (تراز) @Model.pay.Persons.Split('/')[1] :</label>
+                        </div>
+                        <div class="col-xs-3 col-md-3">
+                            <label class="md-form-control" style="border:none;float:left">@Model.Taraz.ToPrice() <span style="margin-right:5px">ریال</span> <span style="margin-right:10px">(بستانکار)</span></label>
+                        </div>
+
+                        <div class="col-xs-9 col-md-9">
+                            <label class="md-form-control" style="border:none">مبلغ تراکنش</label>
+                        </div>
+                        <div class="col-xs-3 col-md-3">
+                            <label class="md-form-control" style="border:none;float:left"><span style="margin-right:5px" id="TAmount">@Model.pay.TotalAmount.ToPrice()</span><span style="margin-right:5px">ریال</span></label>
+                        </div>
+                    </div>
+                }
+                else if (Model.Taraz < 0)
+                {
+                    <div class="col-xs-12 col-md-12" style="background-color:#f2dede;border-color:#dff0d8;color:black;min-height:50px;height:auto;">
+                        <div class="col-xs-9 col-md-9">
+                            <label class="md-form-control" style="border:none">مانده (تراز) @Model.pay.Persons.Split('/')[1] :</label>
+                        </div>
+                        <div class="col-xs-3 col-md-3">
+                            @{ var b = Model.Taraz * -1;}
+                            <label class="md-form-control" style="border:none;float:left">@b.ToPrice() <span style="margin-right:5px">ریال</span> <span style="margin-right:10px">(بدهکار)</span></label>
+                        </div>
+
+                        <div class="col-xs-9 col-md-9">
+                            <label class="md-form-control" style="border:none">مبلغ تراکنش</label>
+                        </div>
+                        <div class="col-xs-3 col-md-3">
+                            <label class="md-form-control" style="border:none;float:left"><span style="margin-right:5px" id="TAmount">@Model.pay.TotalAmount.ToPrice()</span><span style="margin-right:5px">ریال</span></label>
+                        </div>
+                    </div>
+                }
+                else if (Model.Taraz == 0)
+                {
+                    <div class="col-xs-12 col-md-12" style="background-color:#d9edf7;border-color:#dff0d8;color:black;min-height:50px;height:auto">
+                        <div class="col-xs-9 col-md-9">
+                            <label class="md-form-control" style="border:none">مانده (تراز) @Model.pay.Persons.Split('/')[1] :</label>
+                        </div>
+                        <div class="col-xs-3 col-md-3">
+                            <label class="md-form-control" style="border:none;float:left">@Model.Taraz.ToPrice() <span style="margin-right:5px">ریال</span> <span style="margin-right:10px">(-)</span></label>
+                        </div>
+
+                        <div class="col-xs-9 col-md-9">
+                            <label class="md-form-control" style="border:none">مبلغ تراکنش</label>
+                        </div>
+                        <div class="col-xs-3 col-md-3">
+                            <label class="md-form-control" style="border:none;float:left"><span style="margin-right:5px" id="TAmount">@Model.pay.TotalAmount.ToPrice()</span><span style="margin-right:5px">ریال</span></label>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-12">
+            <div class="col-xs-12 col-md-12">
+                @Html.LabelFor(model => model.pay.Description, new { @class = "form-label" })
+                @Html.TextBoxFor(model => model.pay.Description, new { @class = "form-control" })
+                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.pay.Description)</span>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-12" @*style="margin-top:20px"*@>
+            <div class="margin-top" style="float:left">
+                <div class="col-xs-12 col-md-12">
+                    <input id="CashAdd" class="btn btn-info" type="submit" value="افزودن دریافت نقدی" />
+                    <input id="BankJarAdd" class="btn btn-warning" type="submit" value="افزودن فیش بانکی" />
+                    <input id="ChequeAdd" class="btn btn-danger" type="submit" value="افزودن چک" />
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-12" style="border-bottom:1px solid #ddd ; margin-top:10px"></div>
+        <div id="CashPart">
+            @if (Model.EditCash != null)
+            {
+                for (int i = 0; i < Model.EditCash.Count(); i++)
+                {
+                    <div class="col-xs-12 col-md-12">
+                        <div class="card" style="border-color:#029acf !important; margin-top:10px" EditRow="@i">
+                            <div class="card-header">
+                                <div class="card-actions">
+                                    <a style="cursor:pointer;text-decoration:none" class="icon icon-remove iconColor RemoveCashPart" title="Remove"></a>
+                                </div>
+                                <strong>نقدی</strong>
+                            </div>
+                            @Html.HiddenFor(m => m.EditCash[i].id)
+                            @Html.HiddenFor(m => m.EditCash[i].SecondId)
+                            <div class="card-body">
+                                <div class="col-xs-6 col-md-6">
+                                    <div class="md-form-group md-label-static">
+                                        @Html.TextBoxFor(model => model.EditCash[i].Amount, new { @class = "md-form-control Cashprice", spellcheck = "false" })
+                                        @Html.LabelFor(model => model.EditCash[i].Amount, new { @class = "md-control-label" })
+                                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.EditCash[i].Amount)</span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-6">
+                                    <div class="md-form-group md-label-static">
+                                        @Html.DropDownListFor(model => model.EditCash[i].CashDeskId, new SelectList(Model.CashDesks, "Id", "Name", Model.EditCash[i].CashDeskId), "انتخاب کنید", new { @class = "md-form-control ChashDesk" })
+                                        @Html.LabelFor(model => model.EditCash[i].CashDeskId, new { @class = "md-control-label" })
+                                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.EditCash[i].CashDeskId)</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+        <div id="CardPart">
+            @if (Model.EditCard != null)
+            {
+                for (int i = 0; i < Model.EditCard.Count(); i++)
+                {
+                    <div class="col-xs-12 col-md-12">
+                        <div class="card" style="border-color: #9b479f !important; margin-top:10px" EditRow="@i">
+                            <div class="card-header">
+                                <div class="card-actions">
+                                    <a style="cursor:pointer;text-decoration:none" class="icon icon-remove iconColor RemoveCardPart" title="Remove"></a>
+                                </div>
+                                <strong>فیش بانکی</strong>
+                            </div>
+                            @Html.HiddenFor(m => m.EditCard[i].id)
+                            @Html.HiddenFor(m => m.EditCard[i].SecondId)
+                            <div class="card-body" id="CardPart">
+                                <div class="col-xs-3 col-md-3">
+                                    <div class="md-form-group md-label-static">
+                                        @Html.TextBoxFor(model => model.EditCard[i].Amount, new { @class = "md-form-control Cardprice", spellcheck = "false" })
+                                        @Html.LabelFor(model => model.EditCard[i].Amount, new { @class = "md-control-label" })
+                                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.EditCard[i].Amount)</span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3 col-md-3">
+                                    <div class="md-form-group md-label-static">
+                                        @Html.DropDownListFor(model => model.EditCard[i].BankAccountId, new SelectList(Model.BankAccount, "BankAccountId", "Name", Model.EditCard[i].BankAccountId), "انتخاب کنید", new { @class = "md-form-control CardBankAccount" })
+                                        @Html.LabelFor(mpdel => mpdel.EditCard[i].BankAccountId, new { @class = "md-control-label" })
+                                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.EditCard[i].BankAccountId)</span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3 col-md-3">
+                                    <div class="md-form-group md-label-static">
+                                        @Html.TextBoxFor(model => model.EditCard[i].CardAccountNumber, new { @class = "md-form-control", spellcheck = "false" })
+                                        <label class="md-control-label">به نام</label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3 col-md-3">
+                                    <div class="md-form-group md-label-static">
+                                        @Html.TextBoxFor(model => model.EditCard[i].IssueTracking, new { @class = "md-form-control", spellcheck = "false" })
+                                        @Html.LabelFor(model => model.EditCard[i].IssueTracking, new { @class = "md-control-label" })
+                                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.EditCard[i].IssueTracking)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+        <div id="ChequePart">
+            @if (Model.Editcheques != null)
+            {
+                for (int i = 0; i < Model.Editcheques.Count(); i++)
+                {
+                    <div class="col-xs-12 col-md-12">
+                        <div class="card" style="border-color: #d9831f !important; margin-top:10px" EditRow="@i">
+                            <div class="card-header">
+                                <div class="card-actions">
+                                    <a style="cursor:pointer;text-decoration:none" class="icon icon-remove iconColor RemoveChequePart" title="Remove"></a>
+                                </div>
+                                <strong>چک</strong>
+                            </div>
+                            @Html.HiddenFor(m => m.Editcheques[i].ChequeSanadId)
+                            @Html.HiddenFor(m => m.Editcheques[i].ChequeSanadSecondId)
+                            @Html.HiddenFor(m => m.Editcheques[i].Id)
+                            <div class="card-body" id="ChequePart">
+                                <div class="col-xs-3 col-md-3">
+                                    <div class="md-form-group md-label-static">
+                                        @Html.TextBoxFor(model => model.Editcheques[i].ChequeNum, new { @class = "md-form-control", spellcheck = "false" })
+                                        @Html.LabelFor(mpdel => mpdel.Editcheques[i].ChequeNum, new { @class = "md-control-label" })
+                                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Editcheques[i].ChequeNum)</span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3 col-md-3">
+                                    <div class="md-form-group md-label-static">
+                                        @Html.TextBoxFor(model => model.Editcheques[i].Price, new { @class = "md-form-control Chequeprice", spellcheck = "false" })
+                                        @Html.LabelFor(mpdel => mpdel.Editcheques[i].Price, new { @class = "md-control-label" })
+                                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Editcheques[i].Price)</span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3 col-md-3">
+                                    <div class="md-form-group md-label-static">
+                                        @Html.TextBoxFor(model => model.Editcheques[i].DudateText, new { @class = "md-form-control DatePicker", spellcheck = "false", @readonly = "readonly" })
+                                        @Html.LabelFor(mpdel => mpdel.Editcheques[i].DudateText, new { @class = "md-control-label" })
+                                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Editcheques[i].DudateText)</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-3 col-md-3">
+                                    <div class="md-form-group md-label-static">
+                                        @Html.DropDownListFor(model => model.Editcheques[i].BankId, new SelectList(Model.ChequeBank, "Id", "Name", Model.Editcheques[i].BankId), "انتخاب کنید", new { @class = "md-form-control" })
+                                        @Html.LabelFor(mpdel => mpdel.Editcheques[i].BankId, new { @class = "md-control-label" })
+                                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Editcheques[i].BankId)</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-8 col-md-8">
+                                    <div class="md-form-group md-label-static">
+                                        @Html.TextBoxFor(model => model.Editcheques[i].Description, new { @class = "md-form-control", spellcheck = "false" })
+                                        @Html.LabelFor(mpdel => mpdel.Editcheques[i].Description, new { @class = "md-control-label" })
+                                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Editcheques[i].Description)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+        <div class="col-xs-12 col-md-12" style="border-bottom:1px solid #ddd ; margin-top:10px"></div>
+        <div class="col-xs-12 col-md-12">
+            <div class="margin-top">
+                <div class="col-xs-12 col-md-12">
+                    <a href="@Url.Action("Receives", "Transaction")" class="btn btn-default">بازگشت به فهرست</a>
+                    <input id="EditReceive" class="btn btn-success" type="submit" value="ثبت اطلاعات" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@section toastr{
+    @Html.Raw(TempData["saveMassage"])
+
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/Transactionsjs")
+    <script>
+        function Receivesuccess(data) {
+            if (data.RedirectUrl) {
+                window.location.href = data.RedirectUrl;
+            }
+        }
+        updateReceive();
+    </script>
+   
+
+}

@@ -1,0 +1,185 @@
+﻿@using Newtonsoft.Json;
+@model IEnumerable<PunasMarketing.Models.DomainModel.Factor>
+@{
+    /**/
+
+    ViewBag.Title = "لیست فاکتورهای خرید";
+    //var Model = ViewBag.Model;
+
+
+    int index = 1;
+}
+
+<div class="layout-content-body">
+    <div class="row gutter-xs">
+        <div class="col-xs-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>لیست فاکتورهای خرید</strong>
+                </div>
+
+                <div class="card-body">
+                    @AntiForgery.GetHtml()
+                    <div class="md-form-group md-label-floating col-md-6">
+                        <input class="md-form-control" type="text" name="name" id="searchbox" spellcheck="false" required="" aria-required="true">
+                        <label class="md-control-label">جستجو</label>
+                    </div>
+                    <div class="md-form-group md-label-floating col-md-6">
+                        <div class="margin-top">
+                            <div class="col-xs-12 col-md-12">
+                                <a href="@Url.Action("AddBuyFactor")" class="btn btn-success">ایجاد فاکتور خرید</a>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="help-block">امکان ویرایش فاکتور وجود ندارد. به منظور ویرایش، ابتدا باید فاکتور مورد نظر را ابطال کرده و سپس فاکتور جدید ثبت کرد.</span>
+                    <span class="help-block">برای هر فاکتور، تنها یک فاکتور برگشتی می توان ثبت کرد. فاکتور برگشتی تنها برای فاکتورهایی که برایشان رسید صادر شده، قابل ثبت است.</span>
+                    <table id="demo-datatables-1" class="table table-striped table-nowrap dataTable" cellspacing="0" width="100%">
+                        <thead>
+                            <tr class="columnSize">
+                                <th>
+                                    ردیف
+                                </th>
+                                <th>
+                                    شماره فاکتور
+                                </th>
+                                <th>
+                                    فاکتور برگشتی
+                                </th>
+                                <th>
+                                    رسید
+                                </th>
+                                <th>
+                                    نام تامین کننده
+                                </th>
+                                <th>
+                                    انبار
+                                </th>
+                                <th>
+                                    مبلغ فاکتور
+                                </th>
+                                <th>
+                                    تاریخ صدور
+                                </th>
+                                <th>
+                                    عملیات
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                                            {
+                                <tr class="columnSize @((item.IsDeleted?"deleted":""))">
+                                    <td>@index</td>
+                                    <td>
+                                        <a onclick="ShowFactorDetails(@item.Id , @item.PeriodId)" style="cursor: pointer">@item.Id</a>
+                                    </td>
+                                    <td>
+                                        @{
+                                            var returnFactor = item.Factors1.FirstOrDefault();
+                                            if (returnFactor != null)
+                                            {
+                                                <a title="نمایش فاکتور برگشتی" onclick="ShowFactorDetails(@returnFactor.Id , @returnFactor.PeriodId)" style="cursor: pointer">@returnFactor.Id</a>
+                                            }
+                                            else
+                                            {
+                                                @("-")
+                                            }
+                                        }
+                                    </td>
+                                    <td>
+                                        @{
+                                            var invoice = item.Invoice;
+                                            if (invoice != null)
+                                            {
+                                                <a title="نمایش رسید" onclick="ShowInvoiceDetails(@invoice.Id)">@invoice.Id</a>
+                                            }
+                                            else
+                                            {
+                                                @("-")
+                                            }
+                                        }
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("SupplierManagement",  "Supplier", new {id = item.SupplierId})">
+                                            @Html.DisplayFor(modelItem => item.Supplier.Name)
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @item.WareHouse
+                                    </td>
+                                    <td>
+                                        @item.FinalPrice.ToString("#,0")
+                                    </td>
+                                    <td>
+                                        @item.CreatedDate.ToStringShamsiDate()
+                                    </td>
+
+                                    <td>
+                                        <a title="نمایش جزئیات فاکتور" onclick="ShowFactorDetails(@item.Id ,@item.PeriodId)" class="icon icon-eye iconColor"></a>
+
+                                        @if (!item.IsDeleted)
+                                        {
+                                            <a title="ابطال فاکتور" id="Delete" value="@item.Id?periodId=@item.PeriodId" class="icon icon-remove iconColor"></a>
+                                            if (!item.Factors1.Any() && item.InvoiceId.HasValue)
+                                            {
+                                                <a title="صدور فاکتور مرجوعی" href="@Url.Action("AddBuyBackFactor","Factor" , new{id = item.Id , periodId = item.PeriodId})" class="icon icon-undo iconColor"></a>
+                                            }
+                                        }
+                                    </td>
+                                </tr>
+                                index++;
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="ShowFactorModal" tabindex="-1" role="dialog" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">نمایش فاکتور</h4>
+            </div>
+            <div class="modal-body" id="ShowFactorModalBody">
+
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
+<div id="invoiceModal" tabindex="-1" role="dialog" class="modal fade in" style="display: none;">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div id="invoiceModalBody" class="modal-body" style="padding: 0">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section toastr {
+    @Html.Raw(TempData["SaveMessage"])
+}
+
+
+@section scripts {
+    @Scripts.Render("~/bundles/datatable")
+    @Scripts.Render("~/bundles/Factorjs")
+    @Scripts.Render("~/bundles/invoiceJs")
+    <script>
+        Delete('Factor', 'DeleteFactor');
+
+    </script>
+}
+
+
+

@@ -1,0 +1,689 @@
+C:\Projects\Damli\PunasMarketing\bin\PunasMarketing.dll.config
+C:\Projects\Damli\PunasMarketing\bin\PunasMarketing.dll
+C:\Projects\Damli\PunasMarketing\bin\PunasMarketing.pdb
+C:\Projects\Damli\PunasMarketing\bin\roslyn\csc.exe
+C:\Projects\Damli\PunasMarketing\bin\roslyn\csc.exe.config
+C:\Projects\Damli\PunasMarketing\bin\roslyn\csc.rsp
+C:\Projects\Damli\PunasMarketing\bin\roslyn\csi.exe
+C:\Projects\Damli\PunasMarketing\bin\roslyn\csi.exe.config
+C:\Projects\Damli\PunasMarketing\bin\roslyn\csi.rsp
+C:\Projects\Damli\PunasMarketing\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Projects\Damli\PunasMarketing\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Projects\Damli\PunasMarketing\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Projects\Damli\PunasMarketing\bin\roslyn\Microsoft.Win32.Primitives.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\System.AppContext.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\System.Collections.Immutable.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\System.Console.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\System.Globalization.Calendars.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\System.IO.Compression.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\System.IO.Compression.ZipFile.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\System.IO.FileSystem.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\System.Net.Http.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\System.Net.Sockets.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\System.Reflection.Metadata.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\System.Threading.Tasks.Extensions.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\System.ValueTuple.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\System.Xml.XPath.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Projects\Damli\PunasMarketing\bin\roslyn\vbc.exe
+C:\Projects\Damli\PunasMarketing\bin\roslyn\vbc.exe.config
+C:\Projects\Damli\PunasMarketing\bin\roslyn\vbc.rsp
+C:\Projects\Damli\PunasMarketing\bin\roslyn\VBCSCompiler.exe
+C:\Projects\Damli\PunasMarketing\bin\roslyn\VBCSCompiler.exe.config
+C:\Projects\Damli\PunasMarketing\bin\Antlr3.Runtime.dll
+C:\Projects\Damli\PunasMarketing\bin\Audit.EntityFramework.dll
+C:\Projects\Damli\PunasMarketing\bin\Audit.NET.dll
+C:\Projects\Damli\PunasMarketing\bin\AutoMapper.dll
+C:\Projects\Damli\PunasMarketing\bin\CaptchaMvc.dll
+C:\Projects\Damli\PunasMarketing\bin\EntityFramework.dll
+C:\Projects\Damli\PunasMarketing\bin\EntityFramework.SqlServer.dll
+C:\Projects\Damli\PunasMarketing\bin\Ionic.Zip.Reduced.dll
+C:\Projects\Damli\PunasMarketing\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Projects\Damli\PunasMarketing\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Projects\Damli\PunasMarketing\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Projects\Damli\PunasMarketing\bin\Microsoft.Owin.Cors.dll
+C:\Projects\Damli\PunasMarketing\bin\Microsoft.Owin.dll
+C:\Projects\Damli\PunasMarketing\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Projects\Damli\PunasMarketing\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Projects\Damli\PunasMarketing\bin\Microsoft.Owin.Security.dll
+C:\Projects\Damli\PunasMarketing\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Projects\Damli\PunasMarketing\bin\Microsoft.Practices.ServiceLocation.dll
+C:\Projects\Damli\PunasMarketing\bin\Microsoft.Web.Infrastructure.dll
+C:\Projects\Damli\PunasMarketing\bin\MvcPager.dll
+C:\Projects\Damli\PunasMarketing\bin\Newtonsoft.Json.dll
+C:\Projects\Damli\PunasMarketing\bin\Owin.dll
+C:\Projects\Damli\PunasMarketing\bin\StructureMap.dll
+C:\Projects\Damli\PunasMarketing\bin\StructureMap.Net4.dll
+C:\Projects\Damli\PunasMarketing\bin\StructureMap.Web.dll
+C:\Projects\Damli\PunasMarketing\bin\Swashbuckle.Core.dll
+C:\Projects\Damli\PunasMarketing\bin\System.Net.Http.Formatting.dll
+C:\Projects\Damli\PunasMarketing\bin\System.ValueTuple.dll
+C:\Projects\Damli\PunasMarketing\bin\System.Web.Cors.dll
+C:\Projects\Damli\PunasMarketing\bin\System.Web.Helpers.dll
+C:\Projects\Damli\PunasMarketing\bin\System.Web.Http.dll
+C:\Projects\Damli\PunasMarketing\bin\System.Web.Http.Owin.dll
+C:\Projects\Damli\PunasMarketing\bin\System.Web.Http.WebHost.dll
+C:\Projects\Damli\PunasMarketing\bin\System.Web.Mvc.dll
+C:\Projects\Damli\PunasMarketing\bin\System.Web.Optimization.dll
+C:\Projects\Damli\PunasMarketing\bin\System.Web.Razor.dll
+C:\Projects\Damli\PunasMarketing\bin\System.Web.WebPages.Deployment.dll
+C:\Projects\Damli\PunasMarketing\bin\System.Web.WebPages.dll
+C:\Projects\Damli\PunasMarketing\bin\System.Web.WebPages.Razor.dll
+C:\Projects\Damli\PunasMarketing\bin\WebActivatorEx.dll
+C:\Projects\Damli\PunasMarketing\bin\WebGrease.dll
+C:\Projects\Damli\PunasMarketing\bin\Audit.EntityFramework.xml
+C:\Projects\Damli\PunasMarketing\bin\Audit.NET.xml
+C:\Projects\Damli\PunasMarketing\bin\AutoMapper.pdb
+C:\Projects\Damli\PunasMarketing\bin\AutoMapper.xml
+C:\Projects\Damli\PunasMarketing\bin\CaptchaMvc.pdb
+C:\Projects\Damli\PunasMarketing\bin\CaptchaMvc.xml
+C:\Projects\Damli\PunasMarketing\bin\EntityFramework.xml
+C:\Projects\Damli\PunasMarketing\bin\EntityFramework.SqlServer.xml
+C:\Projects\Damli\PunasMarketing\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Projects\Damli\PunasMarketing\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Projects\Damli\PunasMarketing\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Projects\Damli\PunasMarketing\bin\Microsoft.Owin.xml
+C:\Projects\Damli\PunasMarketing\bin\Microsoft.Owin.Cors.xml
+C:\Projects\Damli\PunasMarketing\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Projects\Damli\PunasMarketing\bin\Microsoft.Owin.Security.xml
+C:\Projects\Damli\PunasMarketing\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Projects\Damli\PunasMarketing\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Projects\Damli\PunasMarketing\bin\Microsoft.Practices.ServiceLocation.pdb
+C:\Projects\Damli\PunasMarketing\bin\Microsoft.Practices.ServiceLocation.xml
+C:\Projects\Damli\PunasMarketing\bin\Newtonsoft.Json.xml
+C:\Projects\Damli\PunasMarketing\bin\StructureMap.pdb
+C:\Projects\Damli\PunasMarketing\bin\StructureMap.xml
+C:\Projects\Damli\PunasMarketing\bin\StructureMap.Net4.pdb
+C:\Projects\Damli\PunasMarketing\bin\StructureMap.Web.pdb
+C:\Projects\Damli\PunasMarketing\bin\StructureMap.Web.xml
+C:\Projects\Damli\PunasMarketing\bin\System.Net.Http.Formatting.xml
+C:\Projects\Damli\PunasMarketing\bin\System.ValueTuple.xml
+C:\Projects\Damli\PunasMarketing\bin\System.Web.Helpers.xml
+C:\Projects\Damli\PunasMarketing\bin\System.Web.Http.xml
+C:\Projects\Damli\PunasMarketing\bin\System.Web.Http.Owin.xml
+C:\Projects\Damli\PunasMarketing\bin\System.Web.Http.WebHost.xml
+C:\Projects\Damli\PunasMarketing\bin\System.Web.Mvc.xml
+C:\Projects\Damli\PunasMarketing\bin\System.Web.Razor.xml
+C:\Projects\Damli\PunasMarketing\bin\System.Web.WebPages.xml
+C:\Projects\Damli\PunasMarketing\bin\System.Web.WebPages.Deployment.xml
+C:\Projects\Damli\PunasMarketing\bin\System.Web.WebPages.Razor.xml
+C:\Projects\Damli\PunasMarketing\bin\System.Web.Optimization.xml
+C:\Projects\Damli\PunasMarketing\bin\Antlr3.Runtime.pdb
+C:\Projects\Damli\PunasMarketing\obj\Debug\PunasMarketing.csproj.CopyComplete
+C:\Projects\Damli\PunasMarketing\obj\Debug\PunasMarketing.dll
+C:\Projects\Damli\PunasMarketing\obj\Debug\PunasMarketing.pdb
+C:\Projects\Damli\PunasMarketing\bin\Stimulsoft.Base.dll
+C:\Projects\Damli\PunasMarketing\bin\Stimulsoft.Report.dll
+C:\Projects\Damli\PunasMarketing\bin\Stimulsoft.Report.Mvc.dll
+C:\Projects\Damli\PunasMarketing\obj\Debug\PunasMarketing.csprojAssemblyReference.cache
+F:\Punastb\Damli\PunasMarketing\bin\PunasMarketing.dll.config
+F:\Punastb\Damli\PunasMarketing\bin\PunasMarketing.dll
+F:\Punastb\Damli\PunasMarketing\bin\PunasMarketing.pdb
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\csc.exe
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\csc.exe.config
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\csc.rsp
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\csi.exe
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\csi.exe.config
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\csi.rsp
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\Microsoft.CodeAnalysis.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\Microsoft.CSharp.Core.targets
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\Microsoft.Managed.Core.targets
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\Microsoft.VisualBasic.Core.targets
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\Microsoft.Win32.Primitives.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\System.AppContext.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\System.Collections.Immutable.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\System.Console.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\System.Diagnostics.StackTrace.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\System.Globalization.Calendars.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\System.IO.Compression.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\System.IO.Compression.ZipFile.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\System.IO.FileSystem.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\System.IO.FileSystem.Primitives.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\System.Net.Http.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\System.Net.Sockets.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\System.Reflection.Metadata.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\System.Security.Cryptography.Encoding.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\System.Security.Cryptography.Primitives.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\System.Text.Encoding.CodePages.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\System.Threading.Tasks.Extensions.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\System.ValueTuple.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\System.Xml.ReaderWriter.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\System.Xml.XmlDocument.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\System.Xml.XPath.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\System.Xml.XPath.XDocument.dll
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\vbc.exe
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\vbc.exe.config
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\vbc.rsp
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\VBCSCompiler.exe
+F:\Punastb\Damli\PunasMarketing\bin\roslyn\VBCSCompiler.exe.config
+F:\Punastb\Damli\PunasMarketing\bin\Antlr3.Runtime.dll
+F:\Punastb\Damli\PunasMarketing\bin\Audit.EntityFramework.dll
+F:\Punastb\Damli\PunasMarketing\bin\Audit.NET.dll
+F:\Punastb\Damli\PunasMarketing\bin\AutoMapper.dll
+F:\Punastb\Damli\PunasMarketing\bin\CaptchaMvc.dll
+F:\Punastb\Damli\PunasMarketing\bin\EntityFramework.dll
+F:\Punastb\Damli\PunasMarketing\bin\EntityFramework.SqlServer.dll
+F:\Punastb\Damli\PunasMarketing\bin\Ionic.Zip.Reduced.dll
+F:\Punastb\Damli\PunasMarketing\bin\Microsoft.AspNet.Identity.Core.dll
+F:\Punastb\Damli\PunasMarketing\bin\Microsoft.AspNet.Identity.Owin.dll
+F:\Punastb\Damli\PunasMarketing\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+F:\Punastb\Damli\PunasMarketing\bin\Microsoft.Owin.Cors.dll
+F:\Punastb\Damli\PunasMarketing\bin\Microsoft.Owin.dll
+F:\Punastb\Damli\PunasMarketing\bin\Microsoft.Owin.Host.SystemWeb.dll
+F:\Punastb\Damli\PunasMarketing\bin\Microsoft.Owin.Security.Cookies.dll
+F:\Punastb\Damli\PunasMarketing\bin\Microsoft.Owin.Security.dll
+F:\Punastb\Damli\PunasMarketing\bin\Microsoft.Owin.Security.OAuth.dll
+F:\Punastb\Damli\PunasMarketing\bin\Microsoft.Practices.ServiceLocation.dll
+F:\Punastb\Damli\PunasMarketing\bin\Microsoft.Web.Infrastructure.dll
+F:\Punastb\Damli\PunasMarketing\bin\MvcPager.dll
+F:\Punastb\Damli\PunasMarketing\bin\Newtonsoft.Json.dll
+F:\Punastb\Damli\PunasMarketing\bin\Owin.dll
+F:\Punastb\Damli\PunasMarketing\bin\Stimulsoft.Base.dll
+F:\Punastb\Damli\PunasMarketing\bin\Stimulsoft.Report.dll
+F:\Punastb\Damli\PunasMarketing\bin\Stimulsoft.Report.Mvc.dll
+F:\Punastb\Damli\PunasMarketing\bin\StructureMap.dll
+F:\Punastb\Damli\PunasMarketing\bin\StructureMap.Net4.dll
+F:\Punastb\Damli\PunasMarketing\bin\StructureMap.Web.dll
+F:\Punastb\Damli\PunasMarketing\bin\Swashbuckle.Core.dll
+F:\Punastb\Damli\PunasMarketing\bin\System.Net.Http.Formatting.dll
+F:\Punastb\Damli\PunasMarketing\bin\System.ValueTuple.dll
+F:\Punastb\Damli\PunasMarketing\bin\System.Web.Cors.dll
+F:\Punastb\Damli\PunasMarketing\bin\System.Web.Helpers.dll
+F:\Punastb\Damli\PunasMarketing\bin\System.Web.Http.dll
+F:\Punastb\Damli\PunasMarketing\bin\System.Web.Http.Owin.dll
+F:\Punastb\Damli\PunasMarketing\bin\System.Web.Http.WebHost.dll
+F:\Punastb\Damli\PunasMarketing\bin\System.Web.Mvc.dll
+F:\Punastb\Damli\PunasMarketing\bin\System.Web.Optimization.dll
+F:\Punastb\Damli\PunasMarketing\bin\System.Web.Razor.dll
+F:\Punastb\Damli\PunasMarketing\bin\System.Web.WebPages.Deployment.dll
+F:\Punastb\Damli\PunasMarketing\bin\System.Web.WebPages.dll
+F:\Punastb\Damli\PunasMarketing\bin\System.Web.WebPages.Razor.dll
+F:\Punastb\Damli\PunasMarketing\bin\WebActivatorEx.dll
+F:\Punastb\Damli\PunasMarketing\bin\WebGrease.dll
+F:\Punastb\Damli\PunasMarketing\bin\Audit.EntityFramework.xml
+F:\Punastb\Damli\PunasMarketing\bin\Audit.NET.xml
+F:\Punastb\Damli\PunasMarketing\bin\AutoMapper.pdb
+F:\Punastb\Damli\PunasMarketing\bin\AutoMapper.xml
+F:\Punastb\Damli\PunasMarketing\bin\CaptchaMvc.pdb
+F:\Punastb\Damli\PunasMarketing\bin\CaptchaMvc.xml
+F:\Punastb\Damli\PunasMarketing\bin\EntityFramework.xml
+F:\Punastb\Damli\PunasMarketing\bin\EntityFramework.SqlServer.xml
+F:\Punastb\Damli\PunasMarketing\bin\Microsoft.AspNet.Identity.Core.xml
+F:\Punastb\Damli\PunasMarketing\bin\Microsoft.AspNet.Identity.Owin.xml
+F:\Punastb\Damli\PunasMarketing\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+F:\Punastb\Damli\PunasMarketing\bin\Microsoft.Owin.xml
+F:\Punastb\Damli\PunasMarketing\bin\Microsoft.Owin.Cors.xml
+F:\Punastb\Damli\PunasMarketing\bin\Microsoft.Owin.Host.SystemWeb.xml
+F:\Punastb\Damli\PunasMarketing\bin\Microsoft.Owin.Security.xml
+F:\Punastb\Damli\PunasMarketing\bin\Microsoft.Owin.Security.Cookies.xml
+F:\Punastb\Damli\PunasMarketing\bin\Microsoft.Owin.Security.OAuth.xml
+F:\Punastb\Damli\PunasMarketing\bin\Microsoft.Practices.ServiceLocation.pdb
+F:\Punastb\Damli\PunasMarketing\bin\Microsoft.Practices.ServiceLocation.xml
+F:\Punastb\Damli\PunasMarketing\bin\Newtonsoft.Json.xml
+F:\Punastb\Damli\PunasMarketing\bin\StructureMap.pdb
+F:\Punastb\Damli\PunasMarketing\bin\StructureMap.xml
+F:\Punastb\Damli\PunasMarketing\bin\StructureMap.Net4.pdb
+F:\Punastb\Damli\PunasMarketing\bin\StructureMap.Web.pdb
+F:\Punastb\Damli\PunasMarketing\bin\StructureMap.Web.xml
+F:\Punastb\Damli\PunasMarketing\bin\System.Net.Http.Formatting.xml
+F:\Punastb\Damli\PunasMarketing\bin\System.ValueTuple.xml
+F:\Punastb\Damli\PunasMarketing\bin\System.Web.Helpers.xml
+F:\Punastb\Damli\PunasMarketing\bin\System.Web.Http.xml
+F:\Punastb\Damli\PunasMarketing\bin\System.Web.Http.Owin.xml
+F:\Punastb\Damli\PunasMarketing\bin\System.Web.Http.WebHost.xml
+F:\Punastb\Damli\PunasMarketing\bin\System.Web.Mvc.xml
+F:\Punastb\Damli\PunasMarketing\bin\System.Web.Razor.xml
+F:\Punastb\Damli\PunasMarketing\bin\System.Web.WebPages.xml
+F:\Punastb\Damli\PunasMarketing\bin\System.Web.WebPages.Deployment.xml
+F:\Punastb\Damli\PunasMarketing\bin\System.Web.WebPages.Razor.xml
+F:\Punastb\Damli\PunasMarketing\bin\System.Web.Optimization.xml
+F:\Punastb\Damli\PunasMarketing\bin\Antlr3.Runtime.pdb
+F:\Punastb\Damli\PunasMarketing\obj\Debug\PunasMarketing.csprojResolveAssemblyReference.cache
+F:\Punastb\Damli\PunasMarketing\obj\Debug\PunasMarketing.csproj.CoreCompileInputs.cache
+F:\Punastb\Damli\PunasMarketing\obj\Debug\PunasMarketing.csproj.CopyComplete
+F:\Punastb\Damli\PunasMarketing\obj\Debug\PunasMarketing.dll
+F:\Punastb\Damli\PunasMarketing\obj\Debug\PunasMarketing.pdb
+G:\damly\damly\PunasMarketing\obj\Debug\PunasMarketing.dll
+G:\damly\damly\PunasMarketing\obj\Debug\PunasMarketing.pdb
+G:\damly\damly\PunasMarketing\bin\PunasMarketing.dll.config
+G:\damly\damly\PunasMarketing\bin\PunasMarketing.dll
+G:\damly\damly\PunasMarketing\bin\PunasMarketing.pdb
+G:\damly\damly\PunasMarketing\bin\roslyn\csc.exe
+G:\damly\damly\PunasMarketing\bin\roslyn\csc.exe.config
+G:\damly\damly\PunasMarketing\bin\roslyn\csc.rsp
+G:\damly\damly\PunasMarketing\bin\roslyn\csi.exe
+G:\damly\damly\PunasMarketing\bin\roslyn\csi.exe.config
+G:\damly\damly\PunasMarketing\bin\roslyn\csi.rsp
+G:\damly\damly\PunasMarketing\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\Microsoft.CodeAnalysis.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\Microsoft.CSharp.Core.targets
+G:\damly\damly\PunasMarketing\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\Microsoft.Managed.Core.targets
+G:\damly\damly\PunasMarketing\bin\roslyn\Microsoft.VisualBasic.Core.targets
+G:\damly\damly\PunasMarketing\bin\roslyn\Microsoft.Win32.Primitives.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\System.AppContext.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\System.Collections.Immutable.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\System.Console.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\System.Diagnostics.StackTrace.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\System.Globalization.Calendars.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\System.IO.Compression.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\System.IO.Compression.ZipFile.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\System.IO.FileSystem.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\System.IO.FileSystem.Primitives.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\System.Net.Http.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\System.Net.Sockets.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\System.Reflection.Metadata.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\System.Security.Cryptography.Encoding.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\System.Security.Cryptography.Primitives.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\System.Text.Encoding.CodePages.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\System.Threading.Tasks.Extensions.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\System.ValueTuple.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\System.Xml.ReaderWriter.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\System.Xml.XmlDocument.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\System.Xml.XPath.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\System.Xml.XPath.XDocument.dll
+G:\damly\damly\PunasMarketing\bin\roslyn\vbc.exe
+G:\damly\damly\PunasMarketing\bin\roslyn\vbc.exe.config
+G:\damly\damly\PunasMarketing\bin\roslyn\vbc.rsp
+G:\damly\damly\PunasMarketing\bin\roslyn\VBCSCompiler.exe
+G:\damly\damly\PunasMarketing\bin\roslyn\VBCSCompiler.exe.config
+G:\damly\damly\PunasMarketing\bin\Audit.EntityFramework.dll
+G:\damly\damly\PunasMarketing\bin\Audit.NET.dll
+G:\damly\damly\PunasMarketing\bin\AutoMapper.dll
+G:\damly\damly\PunasMarketing\bin\CaptchaMvc.dll
+G:\damly\damly\PunasMarketing\bin\EntityFramework.dll
+G:\damly\damly\PunasMarketing\bin\EntityFramework.SqlServer.dll
+G:\damly\damly\PunasMarketing\bin\Ionic.Zip.Reduced.dll
+G:\damly\damly\PunasMarketing\bin\Microsoft.AspNet.Identity.Core.dll
+G:\damly\damly\PunasMarketing\bin\Microsoft.AspNet.Identity.Owin.dll
+G:\damly\damly\PunasMarketing\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+G:\damly\damly\PunasMarketing\bin\Microsoft.Owin.Cors.dll
+G:\damly\damly\PunasMarketing\bin\Microsoft.Owin.dll
+G:\damly\damly\PunasMarketing\bin\Microsoft.Owin.Host.SystemWeb.dll
+G:\damly\damly\PunasMarketing\bin\Microsoft.Owin.Security.Cookies.dll
+G:\damly\damly\PunasMarketing\bin\Microsoft.Owin.Security.dll
+G:\damly\damly\PunasMarketing\bin\Microsoft.Owin.Security.OAuth.dll
+G:\damly\damly\PunasMarketing\bin\Microsoft.Practices.ServiceLocation.dll
+G:\damly\damly\PunasMarketing\bin\Microsoft.Web.Infrastructure.dll
+G:\damly\damly\PunasMarketing\bin\MvcPager.dll
+G:\damly\damly\PunasMarketing\bin\Newtonsoft.Json.dll
+G:\damly\damly\PunasMarketing\bin\Owin.dll
+G:\damly\damly\PunasMarketing\bin\Stimulsoft.Base.dll
+G:\damly\damly\PunasMarketing\bin\Stimulsoft.Report.dll
+G:\damly\damly\PunasMarketing\bin\Stimulsoft.Report.Mvc.dll
+G:\damly\damly\PunasMarketing\bin\StructureMap.dll
+G:\damly\damly\PunasMarketing\bin\StructureMap.Net4.dll
+G:\damly\damly\PunasMarketing\bin\StructureMap.Web.dll
+G:\damly\damly\PunasMarketing\bin\Swashbuckle.Core.dll
+G:\damly\damly\PunasMarketing\bin\System.Net.Http.Formatting.dll
+G:\damly\damly\PunasMarketing\bin\System.ValueTuple.dll
+G:\damly\damly\PunasMarketing\bin\System.Web.Cors.dll
+G:\damly\damly\PunasMarketing\bin\System.Web.Helpers.dll
+G:\damly\damly\PunasMarketing\bin\System.Web.Http.dll
+G:\damly\damly\PunasMarketing\bin\System.Web.Http.Owin.dll
+G:\damly\damly\PunasMarketing\bin\System.Web.Http.WebHost.dll
+G:\damly\damly\PunasMarketing\bin\System.Web.Mvc.dll
+G:\damly\damly\PunasMarketing\bin\System.Web.Optimization.dll
+G:\damly\damly\PunasMarketing\bin\System.Web.Razor.dll
+G:\damly\damly\PunasMarketing\bin\System.Web.WebPages.Deployment.dll
+G:\damly\damly\PunasMarketing\bin\System.Web.WebPages.dll
+G:\damly\damly\PunasMarketing\bin\System.Web.WebPages.Razor.dll
+G:\damly\damly\PunasMarketing\bin\WebActivatorEx.dll
+G:\damly\damly\PunasMarketing\bin\WebGrease.dll
+G:\damly\damly\PunasMarketing\bin\Antlr3.Runtime.pdb
+G:\damly\damly\PunasMarketing\bin\Audit.EntityFramework.xml
+G:\damly\damly\PunasMarketing\bin\Audit.NET.xml
+G:\damly\damly\PunasMarketing\bin\AutoMapper.pdb
+G:\damly\damly\PunasMarketing\bin\AutoMapper.xml
+G:\damly\damly\PunasMarketing\bin\CaptchaMvc.pdb
+G:\damly\damly\PunasMarketing\bin\CaptchaMvc.xml
+G:\damly\damly\PunasMarketing\bin\EntityFramework.xml
+G:\damly\damly\PunasMarketing\bin\EntityFramework.SqlServer.xml
+G:\damly\damly\PunasMarketing\bin\Microsoft.AspNet.Identity.Core.xml
+G:\damly\damly\PunasMarketing\bin\Microsoft.AspNet.Identity.Owin.xml
+G:\damly\damly\PunasMarketing\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+G:\damly\damly\PunasMarketing\bin\Microsoft.Owin.xml
+G:\damly\damly\PunasMarketing\bin\Microsoft.Owin.Cors.xml
+G:\damly\damly\PunasMarketing\bin\Microsoft.Owin.Host.SystemWeb.xml
+G:\damly\damly\PunasMarketing\bin\Microsoft.Owin.Security.xml
+G:\damly\damly\PunasMarketing\bin\Microsoft.Owin.Security.Cookies.xml
+G:\damly\damly\PunasMarketing\bin\Microsoft.Owin.Security.OAuth.xml
+G:\damly\damly\PunasMarketing\bin\Microsoft.Practices.ServiceLocation.pdb
+G:\damly\damly\PunasMarketing\bin\Microsoft.Practices.ServiceLocation.xml
+G:\damly\damly\PunasMarketing\bin\Newtonsoft.Json.xml
+G:\damly\damly\PunasMarketing\bin\StructureMap.pdb
+G:\damly\damly\PunasMarketing\bin\StructureMap.xml
+G:\damly\damly\PunasMarketing\bin\StructureMap.Net4.pdb
+G:\damly\damly\PunasMarketing\bin\StructureMap.Web.pdb
+G:\damly\damly\PunasMarketing\bin\StructureMap.Web.xml
+G:\damly\damly\PunasMarketing\bin\System.Net.Http.Formatting.xml
+G:\damly\damly\PunasMarketing\bin\System.ValueTuple.xml
+G:\damly\damly\PunasMarketing\bin\System.Web.Helpers.xml
+G:\damly\damly\PunasMarketing\bin\System.Web.Http.xml
+G:\damly\damly\PunasMarketing\bin\System.Web.Http.Owin.xml
+G:\damly\damly\PunasMarketing\bin\System.Web.Http.WebHost.xml
+G:\damly\damly\PunasMarketing\bin\System.Web.Mvc.xml
+G:\damly\damly\PunasMarketing\bin\System.Web.Razor.xml
+G:\damly\damly\PunasMarketing\bin\System.Web.WebPages.xml
+G:\damly\damly\PunasMarketing\bin\System.Web.WebPages.Deployment.xml
+G:\damly\damly\PunasMarketing\bin\System.Web.WebPages.Razor.xml
+G:\damly\damly\PunasMarketing\bin\System.Web.Optimization.xml
+G:\damly\damly\PunasMarketing\obj\Debug\PunasMarketing.csprojAssemblyReference.cache
+G:\damly\damly\PunasMarketing\obj\Debug\PunasMarketing.csproj.CoreCompileInputs.cache
+G:\damly\damly\PunasMarketing\obj\Debug\PunasMarketing.csproj.CopyComplete
+E:\my project\damly\damly\PunasMarketing\bin\PunasMarketing.dll.config
+E:\my project\damly\damly\PunasMarketing\bin\PunasMarketing.dll
+E:\my project\damly\damly\PunasMarketing\bin\PunasMarketing.pdb
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\csc.exe
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\csc.exe.config
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\csc.rsp
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\csi.exe
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\csi.exe.config
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\csi.rsp
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\Microsoft.Managed.Core.targets
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\Microsoft.Win32.Primitives.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\System.AppContext.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\System.Collections.Immutable.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\System.Console.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\System.Diagnostics.StackTrace.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\System.Globalization.Calendars.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\System.IO.Compression.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\System.IO.Compression.ZipFile.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\System.IO.FileSystem.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\System.IO.FileSystem.Primitives.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\System.Net.Http.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\System.Net.Sockets.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\System.Reflection.Metadata.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\System.Security.Cryptography.Encoding.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\System.Security.Cryptography.Primitives.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\System.Text.Encoding.CodePages.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\System.Threading.Tasks.Extensions.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\System.ValueTuple.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\System.Xml.ReaderWriter.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\System.Xml.XmlDocument.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\System.Xml.XPath.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\System.Xml.XPath.XDocument.dll
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\vbc.exe
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\vbc.exe.config
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\vbc.rsp
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\VBCSCompiler.exe
+E:\my project\damly\damly\PunasMarketing\bin\roslyn\VBCSCompiler.exe.config
+E:\my project\damly\damly\PunasMarketing\bin\Audit.EntityFramework.dll
+E:\my project\damly\damly\PunasMarketing\bin\Audit.NET.dll
+E:\my project\damly\damly\PunasMarketing\bin\AutoMapper.dll
+E:\my project\damly\damly\PunasMarketing\bin\CaptchaMvc.dll
+E:\my project\damly\damly\PunasMarketing\bin\EntityFramework.dll
+E:\my project\damly\damly\PunasMarketing\bin\EntityFramework.SqlServer.dll
+E:\my project\damly\damly\PunasMarketing\bin\Ionic.Zip.Reduced.dll
+E:\my project\damly\damly\PunasMarketing\bin\Microsoft.AspNet.Identity.Core.dll
+E:\my project\damly\damly\PunasMarketing\bin\Microsoft.AspNet.Identity.Owin.dll
+E:\my project\damly\damly\PunasMarketing\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\my project\damly\damly\PunasMarketing\bin\Microsoft.Owin.Cors.dll
+E:\my project\damly\damly\PunasMarketing\bin\Microsoft.Owin.dll
+E:\my project\damly\damly\PunasMarketing\bin\Microsoft.Owin.Host.SystemWeb.dll
+E:\my project\damly\damly\PunasMarketing\bin\Microsoft.Owin.Security.Cookies.dll
+E:\my project\damly\damly\PunasMarketing\bin\Microsoft.Owin.Security.dll
+E:\my project\damly\damly\PunasMarketing\bin\Microsoft.Owin.Security.OAuth.dll
+E:\my project\damly\damly\PunasMarketing\bin\Microsoft.Practices.ServiceLocation.dll
+E:\my project\damly\damly\PunasMarketing\bin\Microsoft.Web.Infrastructure.dll
+E:\my project\damly\damly\PunasMarketing\bin\MvcPager.dll
+E:\my project\damly\damly\PunasMarketing\bin\Newtonsoft.Json.dll
+E:\my project\damly\damly\PunasMarketing\bin\Owin.dll
+E:\my project\damly\damly\PunasMarketing\bin\Stimulsoft.Base.dll
+E:\my project\damly\damly\PunasMarketing\bin\Stimulsoft.Report.dll
+E:\my project\damly\damly\PunasMarketing\bin\Stimulsoft.Report.Mvc.dll
+E:\my project\damly\damly\PunasMarketing\bin\StructureMap.dll
+E:\my project\damly\damly\PunasMarketing\bin\StructureMap.Net4.dll
+E:\my project\damly\damly\PunasMarketing\bin\StructureMap.Web.dll
+E:\my project\damly\damly\PunasMarketing\bin\Swashbuckle.Core.dll
+E:\my project\damly\damly\PunasMarketing\bin\System.Net.Http.Formatting.dll
+E:\my project\damly\damly\PunasMarketing\bin\System.ValueTuple.dll
+E:\my project\damly\damly\PunasMarketing\bin\System.Web.Cors.dll
+E:\my project\damly\damly\PunasMarketing\bin\System.Web.Helpers.dll
+E:\my project\damly\damly\PunasMarketing\bin\System.Web.Http.dll
+E:\my project\damly\damly\PunasMarketing\bin\System.Web.Http.Owin.dll
+E:\my project\damly\damly\PunasMarketing\bin\System.Web.Http.WebHost.dll
+E:\my project\damly\damly\PunasMarketing\bin\System.Web.Mvc.dll
+E:\my project\damly\damly\PunasMarketing\bin\System.Web.Optimization.dll
+E:\my project\damly\damly\PunasMarketing\bin\System.Web.Razor.dll
+E:\my project\damly\damly\PunasMarketing\bin\System.Web.WebPages.Deployment.dll
+E:\my project\damly\damly\PunasMarketing\bin\System.Web.WebPages.dll
+E:\my project\damly\damly\PunasMarketing\bin\System.Web.WebPages.Razor.dll
+E:\my project\damly\damly\PunasMarketing\bin\WebActivatorEx.dll
+E:\my project\damly\damly\PunasMarketing\bin\WebGrease.dll
+E:\my project\damly\damly\PunasMarketing\bin\Antlr3.Runtime.pdb
+E:\my project\damly\damly\PunasMarketing\bin\Audit.EntityFramework.xml
+E:\my project\damly\damly\PunasMarketing\bin\Audit.NET.xml
+E:\my project\damly\damly\PunasMarketing\bin\AutoMapper.pdb
+E:\my project\damly\damly\PunasMarketing\bin\AutoMapper.xml
+E:\my project\damly\damly\PunasMarketing\bin\CaptchaMvc.pdb
+E:\my project\damly\damly\PunasMarketing\bin\CaptchaMvc.xml
+E:\my project\damly\damly\PunasMarketing\bin\EntityFramework.xml
+E:\my project\damly\damly\PunasMarketing\bin\EntityFramework.SqlServer.xml
+E:\my project\damly\damly\PunasMarketing\bin\Microsoft.AspNet.Identity.Core.xml
+E:\my project\damly\damly\PunasMarketing\bin\Microsoft.AspNet.Identity.Owin.xml
+E:\my project\damly\damly\PunasMarketing\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\my project\damly\damly\PunasMarketing\bin\Microsoft.Owin.xml
+E:\my project\damly\damly\PunasMarketing\bin\Microsoft.Owin.Cors.xml
+E:\my project\damly\damly\PunasMarketing\bin\Microsoft.Owin.Host.SystemWeb.xml
+E:\my project\damly\damly\PunasMarketing\bin\Microsoft.Owin.Security.xml
+E:\my project\damly\damly\PunasMarketing\bin\Microsoft.Owin.Security.Cookies.xml
+E:\my project\damly\damly\PunasMarketing\bin\Microsoft.Owin.Security.OAuth.xml
+E:\my project\damly\damly\PunasMarketing\bin\Microsoft.Practices.ServiceLocation.pdb
+E:\my project\damly\damly\PunasMarketing\bin\Microsoft.Practices.ServiceLocation.xml
+E:\my project\damly\damly\PunasMarketing\bin\Newtonsoft.Json.xml
+E:\my project\damly\damly\PunasMarketing\bin\StructureMap.pdb
+E:\my project\damly\damly\PunasMarketing\bin\StructureMap.xml
+E:\my project\damly\damly\PunasMarketing\bin\StructureMap.Net4.pdb
+E:\my project\damly\damly\PunasMarketing\bin\StructureMap.Web.pdb
+E:\my project\damly\damly\PunasMarketing\bin\StructureMap.Web.xml
+E:\my project\damly\damly\PunasMarketing\bin\System.Net.Http.Formatting.xml
+E:\my project\damly\damly\PunasMarketing\bin\System.ValueTuple.xml
+E:\my project\damly\damly\PunasMarketing\bin\System.Web.Helpers.xml
+E:\my project\damly\damly\PunasMarketing\bin\System.Web.Http.xml
+E:\my project\damly\damly\PunasMarketing\bin\System.Web.Http.Owin.xml
+E:\my project\damly\damly\PunasMarketing\bin\System.Web.Http.WebHost.xml
+E:\my project\damly\damly\PunasMarketing\bin\System.Web.Mvc.xml
+E:\my project\damly\damly\PunasMarketing\bin\System.Web.Razor.xml
+E:\my project\damly\damly\PunasMarketing\bin\System.Web.WebPages.xml
+E:\my project\damly\damly\PunasMarketing\bin\System.Web.WebPages.Deployment.xml
+E:\my project\damly\damly\PunasMarketing\bin\System.Web.WebPages.Razor.xml
+E:\my project\damly\damly\PunasMarketing\bin\System.Web.Optimization.xml
+E:\my project\damly\damly\PunasMarketing\obj\Debug\PunasMarketing.csprojAssemblyReference.cache
+E:\my project\damly\damly\PunasMarketing\obj\Debug\PunasMarketing.csproj.CoreCompileInputs.cache
+E:\my project\damly\damly\PunasMarketing\obj\Debug\PunasMarketing.csproj.CopyComplete
+E:\my project\damly\damly\PunasMarketing\obj\Debug\PunasMarketing.dll
+E:\my project\damly\damly\PunasMarketing\obj\Debug\PunasMarketing.pdb
+D:\Navid\Projects\Damly\PunasMarketing\obj\Debug\PunasMarketing.csprojAssemblyReference.cache
+D:\Navid\Projects\Damly\PunasMarketing\bin\PunasMarketing.dll.config
+D:\Navid\Projects\Damly\PunasMarketing\bin\PunasMarketing.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\PunasMarketing.pdb
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\csc.exe
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\csc.exe.config
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\csc.rsp
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\csi.exe
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\csi.exe.config
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\csi.rsp
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\Microsoft.Managed.Core.targets
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\Microsoft.Win32.Primitives.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\System.AppContext.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\System.Collections.Immutable.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\System.Console.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\System.Globalization.Calendars.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\System.IO.Compression.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\System.IO.Compression.ZipFile.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\System.IO.FileSystem.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\System.Net.Http.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\System.Net.Sockets.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\System.Reflection.Metadata.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\System.Threading.Tasks.Extensions.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\System.ValueTuple.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\System.Xml.XmlDocument.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\System.Xml.XPath.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\vbc.exe
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\vbc.exe.config
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\vbc.rsp
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\VBCSCompiler.exe
+D:\Navid\Projects\Damly\PunasMarketing\bin\roslyn\VBCSCompiler.exe.config
+D:\Navid\Projects\Damly\PunasMarketing\bin\Audit.EntityFramework.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\Audit.NET.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\AutoMapper.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\CaptchaMvc.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\EntityFramework.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\EntityFramework.SqlServer.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\Ionic.Zip.Reduced.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\Microsoft.AspNet.Identity.Core.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\Microsoft.AspNet.Identity.Owin.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\Microsoft.Owin.Cors.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\Microsoft.Owin.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\Microsoft.Owin.Security.Cookies.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\Microsoft.Owin.Security.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\Microsoft.Owin.Security.OAuth.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\Microsoft.Practices.ServiceLocation.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\Microsoft.Web.Infrastructure.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\MvcPager.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\Newtonsoft.Json.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\Owin.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\Stimulsoft.Base.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\Stimulsoft.Report.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\Stimulsoft.Report.Mvc.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\StructureMap.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\StructureMap.Net4.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\StructureMap.Web.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\Swashbuckle.Core.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\System.Net.Http.Formatting.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\System.ValueTuple.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\System.Web.Cors.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\System.Web.Helpers.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\System.Web.Http.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\System.Web.Http.Owin.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\System.Web.Http.WebHost.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\System.Web.Mvc.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\System.Web.Optimization.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\System.Web.Razor.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\System.Web.WebPages.Deployment.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\System.Web.WebPages.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\System.Web.WebPages.Razor.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\WebActivatorEx.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\WebGrease.dll
+D:\Navid\Projects\Damly\PunasMarketing\bin\Audit.EntityFramework.xml
+D:\Navid\Projects\Damly\PunasMarketing\bin\Audit.NET.xml
+D:\Navid\Projects\Damly\PunasMarketing\bin\AutoMapper.pdb
+D:\Navid\Projects\Damly\PunasMarketing\bin\AutoMapper.xml
+D:\Navid\Projects\Damly\PunasMarketing\bin\CaptchaMvc.pdb
+D:\Navid\Projects\Damly\PunasMarketing\bin\CaptchaMvc.xml
+D:\Navid\Projects\Damly\PunasMarketing\bin\EntityFramework.xml
+D:\Navid\Projects\Damly\PunasMarketing\bin\EntityFramework.SqlServer.xml
+D:\Navid\Projects\Damly\PunasMarketing\bin\Microsoft.AspNet.Identity.Core.xml
+D:\Navid\Projects\Damly\PunasMarketing\bin\Microsoft.AspNet.Identity.Owin.xml
+D:\Navid\Projects\Damly\PunasMarketing\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Navid\Projects\Damly\PunasMarketing\bin\Microsoft.Owin.xml
+D:\Navid\Projects\Damly\PunasMarketing\bin\Microsoft.Owin.Cors.xml
+D:\Navid\Projects\Damly\PunasMarketing\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\Navid\Projects\Damly\PunasMarketing\bin\Microsoft.Owin.Security.xml
+D:\Navid\Projects\Damly\PunasMarketing\bin\Microsoft.Owin.Security.Cookies.xml
+D:\Navid\Projects\Damly\PunasMarketing\bin\Microsoft.Owin.Security.OAuth.xml
+D:\Navid\Projects\Damly\PunasMarketing\bin\Microsoft.Practices.ServiceLocation.pdb
+D:\Navid\Projects\Damly\PunasMarketing\bin\Microsoft.Practices.ServiceLocation.xml
+D:\Navid\Projects\Damly\PunasMarketing\bin\Newtonsoft.Json.xml
+D:\Navid\Projects\Damly\PunasMarketing\bin\StructureMap.pdb
+D:\Navid\Projects\Damly\PunasMarketing\bin\StructureMap.xml
+D:\Navid\Projects\Damly\PunasMarketing\bin\StructureMap.Net4.pdb
+D:\Navid\Projects\Damly\PunasMarketing\bin\StructureMap.Web.pdb
+D:\Navid\Projects\Damly\PunasMarketing\bin\StructureMap.Web.xml
+D:\Navid\Projects\Damly\PunasMarketing\bin\System.Net.Http.Formatting.xml
+D:\Navid\Projects\Damly\PunasMarketing\bin\System.ValueTuple.xml
+D:\Navid\Projects\Damly\PunasMarketing\bin\System.Web.Helpers.xml
+D:\Navid\Projects\Damly\PunasMarketing\bin\System.Web.Http.xml
+D:\Navid\Projects\Damly\PunasMarketing\bin\System.Web.Http.Owin.xml
+D:\Navid\Projects\Damly\PunasMarketing\bin\System.Web.Http.WebHost.xml
+D:\Navid\Projects\Damly\PunasMarketing\bin\System.Web.Mvc.xml
+D:\Navid\Projects\Damly\PunasMarketing\bin\System.Web.Razor.xml
+D:\Navid\Projects\Damly\PunasMarketing\bin\System.Web.WebPages.xml
+D:\Navid\Projects\Damly\PunasMarketing\bin\System.Web.WebPages.Deployment.xml
+D:\Navid\Projects\Damly\PunasMarketing\bin\System.Web.WebPages.Razor.xml
+D:\Navid\Projects\Damly\PunasMarketing\bin\System.Web.Optimization.xml
+D:\Navid\Projects\Damly\PunasMarketing\obj\Debug\PunasMarketing.csproj.CopyComplete
+D:\Navid\Projects\Damly\PunasMarketing\obj\Debug\PunasMarketing.dll
+D:\Navid\Projects\Damly\PunasMarketing\obj\Debug\PunasMarketing.pdb

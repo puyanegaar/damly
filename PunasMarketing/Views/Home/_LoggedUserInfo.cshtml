@@ -1,0 +1,27 @@
+﻿@model PunasMarketing.ViewModels.Home.LoggedUserInfo
+<li class="dropdown hidden-xs">
+    <button class="navbar-account-btn" data-toggle="dropdown" aria-haspopup="true">
+        @Model.UserName
+        @if (!string.IsNullOrEmpty(Model.Image))
+        {
+            <img class="rounded" width="36" height="36" src="~/Content/Upload/Image/Personnels/@Model.Image" alt="Profile">
+        }
+        else
+        {
+            <img class="rounded" width="36" height="36" src="~/Content/Upload/Image/Personnels/sampleImage.png" alt="Profile">
+        }
+
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-right">
+        <li><a href="/Account/Logout">خروج</a></li>
+    </ul>
+</li>
+
+<li class="visible-xs-block">
+    <a href="/Admin/Logout">
+        <span class="icon icon-power-off icon-lg icon-fw"></span>
+        خروج
+    </a>
+</li>
+

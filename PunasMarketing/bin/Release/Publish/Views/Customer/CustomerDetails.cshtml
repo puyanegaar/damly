@@ -1,0 +1,83 @@
+﻿@model PunasMarketing.Models.DomainModel.Customer
+@{
+    ViewBag.Title = "اطلاعات مشتری";
+}
+
+
+<div class="layout-content-body">
+
+    <div id="divInfo">
+        <legend>
+            <h2>اطلاعات مشتری</h2>
+        </legend>
+        <div class="card-body">
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.BusinessName, htmlAttributes: new {@class = "col-md-2 col-form-label"})
+                <div class="col-md-9">
+                    <p>@Model.BusinessName</p>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label">استان</label>
+                <div class="col-md-9">
+                    <p>@Model.Region.City.Province.Name</p>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label">شهر</label>
+                <div class="col-md-9">
+                    @Html.Raw(Model.Region.City.Name)
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.Phone, htmlAttributes: new {@class = "col-md-2 col-form-label"})
+                <div class="col-md-9">
+                    <p>@Model.Phone</p>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.Mobile1, htmlAttributes: new {@class = "col-md-2 col-form-label"})
+                <div class="col-md-9">
+                    <p>@Model.Mobile1</p>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.Address, htmlAttributes: new {@class = "col-md-2 col-form-label"})
+                <div class="col-md-9">
+                    <p>@Model.Address</p>
+                </div>
+            </div>
+
+           
+        </div>
+
+        <div class="col-xs-12 col-md-12">
+            <div class="margin-top">
+                <div class="col-xs-12 col-md-12">
+                    <a href="@Url.Action("Customers", "Customer")" class="btn btn-default">برگشت</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+@section Styles
+{
+    <style>
+        .col-form-label {
+            padding-top: 0;
+            font-weight: bold !important
+        }
+    </style>
+}
+

@@ -1,0 +1,790 @@
+﻿@model PunasMarketing.ViewModels.Personnel.PersonnelMngtViewModel
+@{
+    ViewBag.Title = Model.personnel.JobTitleId == 0 ? "مدیریت بازاریاب" : "مدیریت پرسنل";
+    string imagesFolder = Model.personnel.JobTitleId == 0 ? "Marketers" : "Personnels";
+}
+<div class="col-md-12" style="margin-top: 20px">
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.personnel.Id, new { id = "personnelId" })
+
+    <div class="panel m-b-lg">
+        <ul class="nav nav-tabs nav-justified">
+            <li class="active"><a href="#home-11" data-toggle="tab" aria-expanded="true">مشخصات پرسنل</a></li>
+            <li class=""><a href="#profile-11" data-toggle="tab" aria-expanded="false">حساب کاربری</a></li>
+            @if (Model.personnel.JobTitleId == 0)
+            {
+                <li class=""><a href="#regions-tab" data-toggle="tab" aria-expanded="false">اختصاص مناطق شهری</a></li>
+            }
+            else
+            {
+                <li class=""><a href="#profile-12" data-toggle="tab" aria-expanded="false">تعیین دسترسی</a></li>
+            }
+            <li class=""><a href="#profile-13" data-toggle="tab" aria-expanded="false">سوابق مالی</a></li>
+        </ul>
+        <div class="tab-content">
+            <input id="UserId" type="hidden" value="@Model.personnel.Id" />
+
+            <div class="tab-pane fade active in" id="home-11">
+                <div class="col-xs-12 col-md-12">
+                    <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19); border-radius: 5px;">
+                        <div class="card-header">
+                            <strong>اطلاعات شخصی</strong>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="col-xs-8 col-md-8">
+                                <div class="col-xs-12 col-md-12">
+                                    <div class="md-form-group md-label-static">
+                                        <label class="md-form-control">
+                                            @(Model.personnel.Id)
+                                        </label>
+                                        <label class="md-control-label">
+                                            @Html.LabelFor(model => model.personnel.Id, new { @class = "md-control-label" })
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-6">
+                                    <div class="md-form-group md-label-static">
+                                        <label class="md-form-control">
+                                            @(string.IsNullOrWhiteSpace(Model.personnel.FirstName) ? "-" : Model.personnel.FirstName)
+                                        </label>
+                                        <label class="md-control-label">
+                                            @Html.LabelFor(model => model.personnel.FirstName, new { @class = "md-control-label" })
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-6">
+                                    <div class="md-form-group md-label-static">
+                                        <label class="md-form-control">
+                                            @(string.IsNullOrWhiteSpace(Model.personnel.LastName) ? "-" : Model.personnel.LastName)
+                                        </label>
+                                        <label class="md-control-label">
+                                            @Html.LabelFor(model => model.personnel.LastName, new { @class = "md-control-label" })
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-6">
+                                    <div class="md-form-group md-label-static">
+                                        <label class="md-form-control">
+                                            @(string.IsNullOrWhiteSpace(Model.personnel.FatherName) ? "-" : Model.personnel.FatherName)
+                                        </label>
+                                        <label class="md-control-label">
+                                            @Html.LabelFor(model => model.personnel.FatherName, new { @class = "md-control-label" })
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-6">
+                                    <div class="md-form-group md-label-static">
+                                        <label class="md-form-control">
+                                            @(string.IsNullOrWhiteSpace(Model.personnel.CodeMelli) ? "-" : Model.personnel.CodeMelli)
+                                        </label>
+                                        <label class="md-control-label">
+                                            @Html.LabelFor(model => model.personnel.CodeMelli, new { @class = "md-control-label" })
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-6">
+                                    @if (Model.personnel.IsMale)
+                                    {
+                                        <div class="md-form-group md-label-static">
+                                            <label class="md-form-control">
+                                                مرد
+                                            </label>
+                                            <label class="md-control-label">
+                                                @Html.LabelFor(model => model.personnel.IsMale, new { @class = "md-control-label" })
+                                            </label>
+                                        </div>
+                                    }
+                                    else
+
+                                    {
+                                        <div class="md-form-group md-label-static">
+                                            <label class="md-form-control">
+                                                زن
+                                            </label>
+                                            <label class="md-control-label">
+                                                @Html.LabelFor(model => model.personnel.IsMale, new { @class = "md-control-label" })
+                                            </label>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="col-xs-6 col-md-6">
+                                    @if (Model.personnel.IsMarried)
+                                    {
+                                        <div class="md-form-group md-label-static">
+                                            <label class="md-form-control">
+                                                متاهل
+                                            </label>
+                                            <label class="md-control-label">
+                                                @Html.LabelFor(model => model.personnel.IsMarried, new { @class = "md-control-label" })
+                                            </label>
+                                        </div>
+                                    }
+                                    else
+
+                                    {
+                                        <div class="md-form-group md-label-static">
+                                            <label class="md-form-control">
+                                                مرد
+                                            </label>
+                                            <label class="md-control-label">
+                                                @Html.LabelFor(model => model.personnel.IsMarried, new { @class = "md-control-label" })
+                                            </label>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="col-xs-4 col-md-4">
+                                @if (!string.IsNullOrEmpty(Model.personnel.ImageName))
+                                {
+                                    <div class="col-xs-12 col-md-12" style="">
+                                        <input id="ImageFile" name="ImageFile" type="file" style="display: none" required="" />
+                                        <img id="Image" src="~/Content/Upload/Image/@imagesFolder/@Model.personnel.ImageName" style="width: 150px; height: 200px; display: block; margin: auto; cursor: pointer" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-xs-12 col-md-12" style="">
+                                        <input id="ImageFile" name="ImageFile" type="file" style="display: none" required="" />
+                                        <img id="Image" src="~/Content/Upload/Image/@imagesFolder/sampleImage.png" style="width: 150px; height: 200px; display: block; margin: auto; cursor: pointer" />
+                                    </div>
+                                }
+                            </div>
+
+                            <div class="col-xs-12 col-md-12">
+                                <div class="col-xs-4 col-md-4">
+                                    <div class="md-form-group md-label-static">
+                                        <label class="md-form-control">
+                                            @(string.IsNullOrWhiteSpace(Model.personnel.City.Province.Name) ? "-" : Model.personnel.City.Province.Name)
+                                        </label>
+                                        <label class="md-control-label">
+                                            @Html.LabelFor(model => model.personnel.BirthStateId, new { @class = "md-control-label" })
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 col-md-4">
+                                    <div class="md-form-group md-label-static">
+                                        <label class="md-form-control">
+                                            @(string.IsNullOrWhiteSpace(Model.personnel.City.Name) ? "-" : Model.personnel.City.Name)
+                                        </label>
+                                        <label class="md-control-label">
+                                            @Html.LabelFor(model => model.personnel.BirthCityId, new { @class = "md-control-label" })
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 col-md-4">
+                                    <div class="md-form-group md-label-static">
+                                        <label class="md-form-control">
+                                            @Model.personnel.BirthDate.ToPersianDateTime().ToString("yyyy/MM/dd")
+                                        </label>
+                                        <label class="md-control-label">
+                                            @Html.LabelFor(model => model.personnel.BirthDate, new { @class = "md-control-label" })
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-md-12">
+                    <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19); border-radius: 5px;">
+                        <div class="card-header">
+                            <strong>اطلاعات تماس</strong>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="col-xs-4 col-md-4">
+                                <div class="md-form-group md-label-static">
+                                    <label class="md-form-control">
+                                        @(string.IsNullOrWhiteSpace(Model.personnel.Mobile1) ? "-" : Model.personnel.Mobile1)
+                                    </label>
+                                    <label class="md-control-label">
+                                        @Html.LabelFor(model => model.personnel.Mobile1, new { @class = "md-control-label" })
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-md-4">
+                                <div class="md-form-group md-label-static">
+                                    <label class="md-form-control">
+                                        @(string.IsNullOrWhiteSpace(Model.personnel.Mobile2) ? "-" : Model.personnel.Mobile2)
+                                    </label>
+                                    <label class="md-control-label">
+                                        @Html.LabelFor(model => model.personnel.Mobile2, new { @class = "md-control-label" })
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-4 col-md-4">
+                                <div class="md-form-group md-label-static">
+                                    <label class="md-form-control">
+                                        @(string.IsNullOrWhiteSpace(Model.personnel.Phone) ? "-" : Model.personnel.Phone)
+                                    </label>
+                                    <label class="md-control-label">
+                                        @Html.LabelFor(model => model.personnel.Phone, new { @class = "md-control-label" })
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6 col-md-6">
+                                <div class="md-form-group md-label-static">
+                                    <label class="md-form-control">
+                                        @(string.IsNullOrWhiteSpace(Model.personnel.RelatedPhone) ? "-" : Model.personnel.RelatedPhone)
+                                    </label>
+                                    <label class="md-control-label">
+                                        @Html.LabelFor(model => model.personnel.RelatedPhone, new { @class = "md-control-label" })
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-6">
+                                <div class="md-form-group md-label-static">
+                                    <label class="md-form-control">
+                                        @(string.IsNullOrWhiteSpace(Model.personnel.Email) ? "-" : Model.personnel.Email)
+                                    </label>
+                                    <label class="md-control-label">
+                                        @Html.LabelFor(model => model.personnel.Email, new { @class = "md-control-label" })
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-6">
+                                <div class="md-form-group md-label-static">
+                                    <div class="md-form-group md-label-static">
+                                        <label class="md-form-control">
+                                            @(string.IsNullOrWhiteSpace(Model.personnel.City1.Province.Name) ? "-" : Model.personnel.City1.Province.Name)
+                                        </label>
+                                        <label class="md-control-label">
+                                            @Html.LabelFor(model => model.personnel.HomeStateId, new { @class = "md-control-label" })
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-6">
+                                <div class="md-form-group md-label-static">
+                                    <label class="md-form-control">
+                                        @(string.IsNullOrWhiteSpace(Model.personnel.City1.Name) ? "-" : Model.personnel.City1.Name)
+                                    </label>
+                                    <label class="md-control-label">
+                                        @Html.LabelFor(model => model.personnel.HomeCityId, new { @class = "md-control-label" })
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-12">
+                                <div class="md-form-group md-label-static">
+                                    <label class="md-form-control">
+                                        @(string.IsNullOrWhiteSpace(Model.personnel.HomeAddress) ? "-" : Model.personnel.HomeAddress)
+                                    </label>
+                                    <label class="md-control-label">
+                                        @Html.LabelFor(model => model.personnel.HomeAddress, new { @class = "md-control-label" })
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-md-12">
+                    <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19); border-radius: 5px;">
+                        <div class="card-header">
+                            <strong>اطلاعات شغلی</strong>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="col-xs-6 col-md-6">
+                                <div class="md-form-group md-label-static">
+                                    <label class="md-form-control">
+                                        @(string.IsNullOrWhiteSpace(Model.personnel.PersonnelCode) ? "-" : Model.personnel.PersonnelCode)
+                                    </label>
+                                    <label class="md-control-label">
+                                        @Html.LabelFor(model => model.personnel.PersonnelCode, new { @class = "md-control-label" })
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-6">
+                                <div class="md-form-group md-label-static">
+                                    <label class="md-form-control">
+                                        @Model.personnel.HireDate.ToPersianDateTime().ToString("yyyy/MM/dd")
+                                    </label>
+                                    <label class="md-control-label">
+                                        @Html.LabelFor(model => model.personnel.HireDate, new { @class = "md-control-label" })
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-6">
+                                <div class="md-form-group md-label-static">
+                                    <label class="md-form-control">
+                                        @(Model.personnel.FireDate.HasValue ? Model.personnel.FireDate.Value.ToPersianDateTime().ToString("yyyy/MM/dd") : "-")
+                                    </label>
+                                    <label class="md-control-label">
+                                        @Html.LabelFor(model => model.personnel.FireDate, new { @class = "md-control-label" })
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-6">
+                                <div class="md-form-group md-label-static">
+                                    <label class="md-form-control">
+                                        @(Model.AcademicDegrees.FirstOrDefault(i => i.Id == Model.personnel.AcademicDegree).Name)
+                                    </label>
+                                    <label class="md-control-label">
+                                        @Html.LabelFor(model => model.personnel.AcademicDegree, new { @class = "md-control-label" })
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-6">
+                                <div class="md-form-group md-label-static">
+                                    <label class="md-form-control">
+                                        @(string.IsNullOrWhiteSpace(Model.personnel.FieldOfStudy) ? "-" : Model.personnel.FieldOfStudy)
+                                    </label>
+                                    <label class="md-control-label">
+                                        @Html.LabelFor(model => model.personnel.FieldOfStudy, new { @class = "md-control-label" })
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-6">
+                                <div class="md-form-group md-label-static">
+                                    <label class="md-form-control">
+                                        @(string.IsNullOrWhiteSpace(Model.personnel.JobTitle.Section.Name) ? "-" : Model.personnel.JobTitle.Section.Name)
+                                    </label>
+                                    <label class="md-control-label">
+                                        @Html.LabelFor(model => model.personnel.SectionId, new { @class = "md-control-label" })
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-6">
+                                <div class="md-form-group md-label-static">
+                                    <label class="md-form-control">
+                                        @(string.IsNullOrWhiteSpace(Model.personnel.JobTitle.Name) ? "-" : Model.personnel.JobTitle.Name)
+                                    </label>
+                                    <label class="md-control-label">
+                                        @Html.LabelFor(model => model.personnel.JobTitleId, new { @class = "md-control-label" })
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-6">
+                                <div class="md-form-group md-label-static">
+                                    <label class="md-form-control">
+                                        @(Model.personnel.IsGettingSalary ? "بله" : "خیر")
+                                    </label>
+                                    <label class="md-control-label">
+                                        @Html.LabelFor(model => model.personnel.IsGettingSalary, new { @class = "md-control-label" })
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-6">
+                                <div class="md-form-group md-label-static">
+                                    <label class="md-form-control">
+                                        @(Model.personnel.User != null ? "بله" : "خیر")
+                                    </label>
+                                    <label class="md-control-label">
+                                        آیا پرسنل یورز سیستمی خواهد بود؟
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-12">
+                                <div class="md-form-group md-label-static">
+                                    <label class="md-form-control">
+                                        @(string.IsNullOrWhiteSpace(Model.personnel.Description) ? "-" : Model.personnel.Description)
+                                    </label>
+                                    <label class="md-control-label">
+                                        @Html.LabelFor(model => model.personnel.Description, new { @class = "md-control-label" })
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-md-12">
+                    <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19); border-radius: 5px;">
+                        <div class="card-header">
+                            <strong>اطلاعات مالی</strong>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="col-xs-6 col-md-6">
+                                <div class="md-form-group md-label-static">
+                                    <label class="md-form-control">
+                                        @if (!string.IsNullOrEmpty(Model.personnel.BankCardNum))
+                                        {
+                                            <text>@Model.personnel.BankCardNum</text>
+                                        }
+                                        else
+                                        {
+                                            <text>&nbsp;</text>
+                                        }
+                                    </label>
+                                    <label class="md-control-label">
+                                        @Html.LabelFor(model => model.personnel.BankCardNum, new { @class = "md-control-label" })
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-6">
+                                <div class="md-form-group md-label-static">
+                                    <label class="md-form-control">
+                                        @if (!string.IsNullOrEmpty(Model.personnel.BankName))
+                                        {
+                                            <text>@Model.personnel.BankName</text>
+                                        }
+                                        else
+                                        {
+                                            <text>&nbsp;</text>
+                                        }
+                                    </label>
+                                    <label class="md-control-label">
+                                        @Html.LabelFor(model => model.personnel.BankName, new { @class = "md-control-label" })
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-12">
+                                <div class="md-form-group md-label-static">
+                                    <label class="md-form-control">
+                                        @if (!string.IsNullOrEmpty(Model.personnel.Iban))
+                                        {
+                                            <text>@Model.personnel.Iban</text>
+                                        }
+                                        else
+                                        {
+                                            <text>&nbsp;</text>
+                                        }
+                                    </label>
+                                    <label class="md-control-label">
+                                        @Html.LabelFor(model => model.personnel.Iban, new { @class = "md-control-label" })
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-md-12">
+                    <div class="margin-top">
+                        <div class="col-xs-12 col-md-12">
+                            @if (Model.personnel.JobTitleId == 0)
+                            {
+                                <a href="@Url.Action("Marketers", "Marketer")" class="btn btn-default">فهرست بازاریابان</a>
+                                <a href="@Url.Action("UpdateMarketer", "Marketer", new {id = Model.personnel.Id})" class="btn btn-success">ویرایش</a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("Personnels", "Personnel")" class="btn btn-default">فهرست کارکنان</a>
+                                <a href="@Url.Action("UpdatePersonnel", "Personnel", new {id = Model.personnel.Id})" class="btn btn-success">ویرایش</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="profile-11">
+                @if (Model.User != null)
+                {
+                    <div class="col-xs-6 col-md-6">
+                        <div class="md-form-group md-label-static">
+                            <label class="md-form-control">
+                                @(string.IsNullOrWhiteSpace(Model.User.Username) ? "-" : Model.User.Username)
+                            </label>
+                            <label class="md-control-label">
+                                @Html.LabelFor(model => model.User.Username, new { @class = "md-control-label" })
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6">
+                        <div class="md-form-group md-label-static">
+                            <label class="md-form-control">
+                                @(Model.User.LastLogin.ToPersianDateTime())
+                            </label>
+                            <label class="md-control-label">
+                                @Html.LabelFor(model => model.User.LastLogin, new { @class = "md-control-label" })
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6">
+                        <div class="md-form-group md-label-static">
+                            <label id="lblActivateDisable" class="md-form-control">
+                                @(Model.User.IsActive ? "فعال" : "غیرفعال")
+                            </label>
+                            <label class="md-control-label">
+                                @Html.LabelFor(model => model.User.IsActive, new { @class = "md-control-label" })
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6">
+                        <div class="col-xs-6 col-md-6">
+                            <div id="divActivateDisable" class="md-form-group md-label-static" style="float: left">
+                                @{
+                                    if (Model.User.PersonnelId != 1)
+                                    {
+                                        if (Model.User.IsActive)
+                                        {
+                                            <input id='btnDisable' class='btn btn-outline-primary' type='button' value='غیرفعالسازی حساب کاربری' />
+                                        }
+                                        else
+                                        {
+                                            <input id='btnActivate' class='btn btn-outline-success' type='button' value='فعالسازی حساب کاربری' />
+                                        }
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-6">
+                            <div class="md-form-group md-label-static">
+                                <input id="btnChangePassword" class="btn btn-outline-warning" type="button" value="اختصاص کلمه عبور جدید" />
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <label style="font-size: 20px;">
+                        این شخص کاربر سیستم نیست!
+                    </label>
+                }
+            </div>
+
+            @if (Model.personnel.JobTitleId == 0)
+            {
+                <div class="tab-pane fade" id="regions-tab">
+                    <div class="col-xs-12 col-md-12">
+                        <div class="col-xs-6 col-md-6">
+                            <div class="md-form-group md-label-static">
+                                @Html.DropDownListFor(model => model.ProvinceId, new SelectList(Model.Provinces, "Id", "Name", Model.ProvinceId), "-", new { @class = "md-form-control" })
+                                @Html.LabelFor(model => model.ProvinceId, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.ProvinceId)</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-6 col-md-6">
+                            <div class="md-form-group md-label-static" id="DrpCities">
+                                @Html.DropDownListFor(model => model.CityId, new SelectList(Model.Cities, "Id", "Name", Model.CityId), "ابتدا استان را انتخاب کنید", new { @class = "md-form-control" })
+                                @Html.LabelFor(model => model.CityId, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.CityId)</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-12">
+                            <div class="form-group">
+                                <label for="demo-select2-2">@Html.LabelFor(model => model.Regions)</label>
+                                <select id="demo-select2-2" name="cat" class="form-control" multiple="multiple">
+                                    @if (Model.Regions != null)
+                                    {
+                                        foreach (var item in Model.Regions)
+                                        {
+                                            <option value="@item.Id" @(Model.MarketerRegions.Exists(i => i.RegionId == item.Id) ? "selected" : "")>@item.Name</option>
+                                        }
+                                    }
+                                </select>
+                                <span class="help-block">ابتدا بایستی استان و شهر مورد نظر انتخاب شوند.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-12">
+                        <div class="margin-top">
+                            <div class="col-xs-12 col-md-12">
+                                <input id="btnAssignRegions" class="btn btn-success" type="submit" value="ثبت مناطق" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="tab-pane fade" id="profile-12">
+                    <div class="col-xs-6 col-md-6">
+                        <div class="md-form-group md-label-static">
+                            @Html.DropDownListFor(model => model.SectionId, new SelectList(Model.sections, "Id", "Name"), "انتخاب کنید", new { @class = "md-form-control" })
+                            <label class="md-control-label">واحد</label>
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.personnel.AcademicDegree)</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-12" id="ActionGroup">
+                        @Html.Partial("_ActionGroup", Model)
+                    </div>
+                    <div class="col-xs-12 col-md-12">
+                        <div class="margin-top">
+                            <div class="col-xs-12 col-md-12">
+                                <input id="AddAccess" class="btn btn-success" type="submit" value="ثبت دسترسی" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="tab-pane fade" id="profile-13">
+                <div id="divJournalList" class="col-xs-12 col-md-12" style="margin-top:10px">
+                    @{ int Row = 0;}
+                    <div class="col-xs-8 col-md-8">
+                        <div class="md-form-group md-label-static">
+                            <input class="md-form-control" type="text" name="name" id="SearchJurnalReport" spellcheck="false" aria-required="true">
+                            <label class="md-control-label">جستجو</label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-12">
+                        <table id="JournalList" class="table table-striped table-bordered  dataTable" cellspacing="0" style="width:100%">
+                            <thead>
+                                <tr class="columnSize">
+                                    <th style="width:1%;text-align:center">
+                                        #
+                                    </th>
+                                    <th style="width:2%;text-align:center">
+                                        تاریخ
+                                    </th>
+
+                                    <th style="width:10%;text-align:center">
+                                        کد حساب
+                                    </th>
+                                    <th style="width:25%;text-align:center">
+                                        نام حساب
+                                    </th>
+                                    <th style="width:40%;text-align:center">
+                                        شرح
+                                    </th>
+
+                                    <th style="width:10%;text-align:center">
+                                        بدهکار
+                                    </th>
+
+                                    <th style="width:10%;text-align:center">
+                                        بستانکار
+                                    </th>
+                                    <th style="width:2%;text-align:center">اسناد</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.FinancialReport)
+                                {
+
+                                    <tr class="columnSize">
+                                        <td style="width:1%;text-align:center">
+                                            @(++Row)
+                                        </td>
+                                        <td style="width:2%;text-align:center">
+                                            @item.ConfirmDate.ToPersianDateTime().ToString("yyyy/MM/dd")
+                                        </td>
+
+                                        <td style="width:10%;text-align:center">
+                                            <text>@item.Coding@(1.ToString())@Model.personnel.Id.ToString().HesabFormatation()</text>
+                                        </td>
+                                        <td style="width:25%;text-align:center">
+                                            @if (!string.IsNullOrEmpty(item.TafsiliName))
+                                            {
+                                                @(item.Name + "/" + item.TafsiliName)
+                                            }
+                                            else
+                                            {
+                                                @(item.Name)
+                                            }
+
+                                        </td>
+                                        <td style="width:40%;text-align:center">
+                                            @item.Description
+                                        </td>
+
+
+                                        <td style="width:10%;text-align:center">
+                                            @item.Bedeh.ToPrice()
+                                        </td>
+
+                                        <td style="width:10%;text-align:center">
+                                            @item.Bestan.ToPrice()
+                                        </td>
+                                        <td style="width:2%;text-align:center">
+                                            <a id="SanadDetail" value="@item.SandId" style="cursor:pointer;text-decoration:none" class="icon icon-folder-open iconColor"></a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                @{
+                    decimal totalBedeh = Model.FinancialReport.Sum(i => i.Bedeh);
+                    decimal totalBestan = Model.FinancialReport.Sum(i => i.Bestan);
+                    decimal mandeh = totalBestan - totalBedeh;
+                    string mandehDescription = string.Empty;
+                    string backgroundColor = string.Empty;
+
+                    if (mandeh > 0)
+                    {
+                        mandehDescription = "بستانکار";
+                        backgroundColor = "#dff0d8";
+                    }
+                    else if (mandeh < 0)
+                    {
+                        mandehDescription = "بدهکار";
+                        backgroundColor = "#f2dede";
+                    }
+                    else
+                    {
+                        mandehDescription = "-";
+                        backgroundColor = "";
+                    }
+                }
+
+                <div class="col-xs-12 col-md-12" style="margin-top:20px">
+                    <div class="col-xs-6 col-md-6" style="float:left">
+                        <div class="col-xs-4 col-md-4">
+                            <label class="md-label-static" style="font-size:16px"> جمع (ریال):</label>
+                        </div>
+                        <div class="col-xs-4 col-md-4" style="text-align:left">
+                            <label class="md-label-static" style="font-size:14px;margin-right:10px" id="TotalBedeh">@totalBedeh.ToPrice()</label>
+                        </div>
+                        <div class="col-xs-4 col-md-4" style="text-align:left">
+                            <label class="md-label-static" style="font-size:14px" id="TotalBestan">@totalBestan.ToPrice()</label>
+                        </div>
+                        <div class="col-xs-12 col-md-12" style="border-bottom:1px solid #ddd;margin-top:10px"></div>
+                        <div class="col-xs-12 col-md-12" style="border-bottom:1px solid #ddd ; margin-top:10px"></div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-md-12" style="margin-top:20px">
+                    <div class="col-xs-6 col-md-6" style="float: left; background-color: @backgroundColor">
+                        <div class="col-xs-4 col-md-4">
+                            <label class="md-label-static" style="font-size:16px">مانده:</label>
+                        </div>
+                        <div class="col-xs-4 col-md-4" style="text-align: left; direction: ltr">
+                            <label class="md-label-static" style="font-size:20px;margin-right:10px">@Math.Abs(mandeh).ToPrice()</label>
+                        </div>
+                        <div class="col-xs-4 col-md-4" style="text-align:left">
+                            <label class="md-label-static" style="font-size:20px">@mandehDescription</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal" tabindex="-1" role="dialog" class="modal fade in" style="display: none;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div id="modalBody" class="modal-body" style="padding: 0">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalSanadDetail" tabindex="-1" role="dialog" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h4 class="modal-title">سند حسابداری شماره <span id="SanadNum"></span></h4>
+            </div>
+            <div class="modal-body" id="SanadDetailList">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section toastr {
+    @Html.Raw(TempData["SaveMessage"])
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/personnelsJs")
+    <script>
+        personnelManagement();
+    </script>
+}

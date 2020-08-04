@@ -1,0 +1,89 @@
+﻿@model PunasMarketing.ViewModels.Factor.InvoiceForFactorViewModel
+@{
+    int count = 0;
+    string residHavale = (Model.Invoice.IsReceive ? "رسید" : "حواله");
+}
+
+<div class="modal-header bg-youtube">
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true" style="color: white">×</span>
+        <span class="sr-only">Close</span>
+    </button>
+    <h4 class="modal-title">
+        صدور @residHavale برای فاکتور شماره @Model.FactorId
+    </h4>
+</div>
+
+@using (Html.BeginForm("InvoiceModal", "Factor", new { id = Model.FactorId, isBuy = Model.Invoice.IsReceive }, FormMethod.Post, new { style = "padding: 10px" }))
+{
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+
+    <div class="col-xs-12 col-md-12">
+        <div class="col-xs-6 col-md-6">
+            <div class="md-form-group md-label-static">
+                <label class="md-control-label">شناسه انبار: @Model.WarehouseId</label>
+            </div>
+        </div>
+
+        <div class="col-xs-6 col-md-6">
+            <div class="md-form-group md-label-static">
+                <label class="md-control-label">نام انبار: @Model.WarehouseName</label>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-12">
+            <div class="md-form-group md-label-static">
+                @Html.TextBoxFor(model => model.Invoice.Description, new { @class = "md-form-control" })
+                @Html.LabelFor(model => model.Invoice.Description, new { @class = "md-control-label" })
+            </div>
+        </div>
+
+        <div id="offeritemlist">
+            <table id="tblItems" class="table table-bordered table-hover " cellspacing="0">
+                <thead>
+                    <tr class="columnSize">
+                        <th>
+                            ردیف
+                        </th>
+                        <th>
+                            نام کالا
+                        </th>
+                        <th>
+                            مقدار
+                        </th>
+                        <th>
+                            واحد اندازه گیری
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="tbodyItems">
+                    <tr></tr>
+                    @foreach (var item in Model.InvoiceItems)
+                    {
+                        <tr>
+                            <td>
+                                @(++count)
+                            </td>
+                            <td>
+                                @item.Product.Name
+                            </td>
+                            <td>
+                                @item.MainUnitCount
+                            </td>
+                            <td>
+                                @item.Product.Unit.Name
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div style="margin: 25px;">
+        <input id="btnSubmit" class="btn btn-success" type="submit" value="تأیید و صدور @residHavale فاکتور" />
+        <input class="btn btn-outline-danger" type="button" value="لغو" data-dismiss="modal" />
+    </div>
+
+}

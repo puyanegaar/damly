@@ -1,0 +1,97 @@
+﻿@model IEnumerable<PunasMarketing.Models.DomainModel.OfferItem>
+@{
+    Layout = null;
+
+}
+
+@if (Model.Any())
+{
+
+    <table id="offerItemsListInUpdateMode" class="table table-bordered table-hover " cellspacing="0" width="100%">
+        <thead>
+            <tr class="columnSize">
+                <th>
+                    محصول
+                </th>
+                <th>
+                    نوع تخفیف
+                </th>
+                <th>
+                    میزان تخفیف (تعداد کالای هدیه)
+                </th>
+                <th>
+                    کالای هدیه
+                </th>
+                <th>
+                    حداقل تعداد کالا
+                </th>
+                <th>عملیات</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="columnSize" id="item_@item.Id">
+                    <td>
+                        @item.Product1.Name
+                    </td>
+                    <td>
+                        @{
+                            if (item.DiscountAmount != null)
+                            {
+                                <span>ریالی</span>
+                            }
+                            else if (item.DiscountPercent != null)
+                            {
+                                <span>درصدی</span>
+                            }
+                            else
+                            {
+                                <span>کالایی</span>
+                            }
+                        }
+                    </td>
+
+                    <td>
+                        @{
+                            if (item.DiscountAmount != null)
+                            {
+                                @item.DiscountAmount
+                            }
+                            else if (item.DiscountPercent != null)
+                            {
+                                @item.DiscountPercent
+                            }
+                            else
+                            {
+                                @item.GiftProductCount
+                            }
+                        }
+                    </td>
+                    <td>
+                        @if (item.Product != null)
+                        {
+                            @item.Product.Name
+                        }
+                    </td>
+                    <td>
+                     @if (item.MinProductCount != null)
+                     {
+                         @item.MinProductCount
+                     }
+                    </td>
+                    <td>
+
+                        <a id="Delete" value="@item.Id" class="icon icon-remove iconColor"></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+else
+{
+    <span>کالایی موجود نیست</span>
+}
+

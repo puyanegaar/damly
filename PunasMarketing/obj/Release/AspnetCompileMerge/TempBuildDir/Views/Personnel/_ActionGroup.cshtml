@@ -1,0 +1,33 @@
+﻿@model PunasMarketing.ViewModels.Personnel.PersonnelMngtViewModel
+<input id="SectionGroup" type="hidden" value="@Model.SectionId" />
+@foreach (var item in Model.Actions)
+{
+    if (Model.ActionsId.Contains(item.Id))
+    {
+        
+        <div class="col-xs-4 col-md-4 h5">
+            <label class="custom-control custom-control-primary custom-checkbox">
+                <input type="checkbox"
+                       class="custom-control-input"
+                       name="selectdValues"
+                       Identity="AccessItem"
+                       value="@item.Id" checked /> <span style="margin:20px">@item.Name</span>
+                    <span class="custom-control-indicator"></span>
+                </label>
+            </div>
+        }
+        else
+        {
+            <div class="col-xs-4 col-md-4 h5">
+                <label class="custom-control custom-control-primary custom-checkbox">
+                    <input type="checkbox"
+                           class="custom-control-input"
+                           name="selectdValues"
+                           Identity="AccessItem"
+                           value="@item.Id" /> <span style="margin:20px">@item.Name</span>
+                        <span class="custom-control-indicator"></span>
+                    </label>
+                </div>
+            }
+
+        }

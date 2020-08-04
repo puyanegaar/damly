@@ -1,0 +1,155 @@
+﻿@model IQueryable<PunasMarketing.Models.DomainModel.Factor>
+@{
+    ViewBag.Title = "لیست فاکتورهای خرید";
+    int index = 1;
+}
+
+<div class="layout-content-body">
+    <div class="row gutter-xs">
+        <div class="col-xs-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>لیست فاکتورهای خرید</strong>
+                </div>
+
+                <div class="card-body">
+                    @AntiForgery.GetHtml()
+                    <div class="md-form-group md-label-floating col-md-6">
+                        <input class="md-form-control" type="text" name="name" id="searchbox" spellcheck="false" required="" aria-required="true">
+                        <label class="md-control-label">جستجو</label>
+                    </div>
+                    <div class="md-form-group md-label-floating col-md-6">
+                        <div class="margin-top">
+                            <div class="col-xs-6 col-md-6">
+                                <a href="/Factor/AddBuyFactor" class="btn btn-success">ایجاد فاکتور خرید</a>
+                            </div>
+                        </div>
+                    </div>
+                    <table id="demo-datatables-1" class="table table-striped table-nowrap dataTable" cellspacing="0" width="100%">
+                        <thead>
+                            <tr class="columnSize">
+                                <th>ردیف</th>
+                                <th>شماره فاکتور</th>
+                                <th>
+                                    شماره فاکتور دستی
+                                </th>
+                                <th>
+                                    نام تامین کننده
+                                </th>
+                                <th>
+                                    مبلغ فاکتور
+                                </th>
+                                <th>
+                                    کاربر صادر کننده
+                                </th>
+                                <th>
+                                    تاریخ صدور
+                                </th>
+                                <th>عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="columnSize @((item.IsDeleted?"deleted":""))">
+                                    <td>@index</td>
+                                    <td>@item.Id</td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PaperFactorCode)
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("SupplierDetails",  "Supplier", new {id = item.SupplierId})">
+                                            @Html.DisplayFor(modelItem => item.Supplier.Name)
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @item.FinalPrice.ToString("#,0")
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("PersonnelManagement",  "Personnel", new {id = item.CreatorUserId})">
+                                            @Html.DisplayFor(modelItem => item.Personnel.FullName)
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @item.CreatedDate.ToPersianDateTime().ToStringShamsiDate()
+                                    </td>
+
+                                    <td>
+
+                                        <a onclick="ShowFactor(@item.Id , @item.PeriodId)" class="icon icon-eye iconColor"></a>
+                                        @if (!item.IsDeleted)
+                                        {
+                                            <a id="Delete" value="@item.Id?periodId=@item.PeriodId" class="icon icon-remove iconColor"></a>
+                                        }
+
+                                </tr>
+                                index++;
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="ShowFactorModal" tabindex="-1" role="dialog" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">نمایش فاکتور</h4>
+            </div>
+            <div class="modal-body" id="ShowFactorModalBody">
+
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
+@section toastr {
+    @Html.Raw(TempData["SaveMessage"])
+}
+
+@section scripts {
+    <script>
+
+        function ShowFactor(factorId, periodId) {
+            $.ajax({
+                url: "/Factor/ShowFactorDetails",
+                type: "Get",
+                data: { id: factorId, periodId: periodId },
+                success: function (res) {
+                    $('#ShowFactorModal').modal();
+                    $('#ShowFactorModalBody').html(res);
+                }
+            });
+        }
+
+
+
+        $(document).ready(function () {
+            var dataTable = $('#demo-datatables-1').dataTable();
+            $("#searchbox").keyup(function () {
+                dataTable.fnFilter(this.value);
+            });
+        });
+        $(function () {
+            $("#demo-datatables-1").dataTable();
+        });
+        $(document).ready(function () {
+            $("#demo-datatables-1_info").parent().addClass('col-sm-12');
+        });
+
+        //Factor();
+        Delete('Factor', 'DeleteFactor');
+    </script>
+}
+
+
+

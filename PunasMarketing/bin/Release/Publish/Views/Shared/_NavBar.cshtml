@@ -1,0 +1,46 @@
+﻿@model PunasMarketing.ViewModels.Home.NavbarViewModel
+@{ 
+    short FiscalId = Fiscal.GetFiscalId();
+}
+<ul class="nav navbar-nav navbar-right">
+    <li class="dropdown">
+        <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true">
+            <span class="icon-with-child hidden-xs">
+                انتخاب سال مالی
+                <span class="icon icon-calendar-o icon-lg"></span>
+                <span class="badge badge-danger badge-above right"></span>
+            </span>
+            <span class="visible-xs-block">
+                <span class="icon icon-calendar-o icon-lg icon-fw"></span>
+                <span class="badge badge-danger pull-right"></span>
+                انتخاب سال مالی
+            </span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg">
+            <div class="dropdown-header">
+                <h5 class="dropdown-heading">انتخاب سال مالی</h5>
+            </div>
+            <div class="dropdown-body">
+                <div class="list-group list-group-divided custom-scrollbar">
+                    @foreach (var item in Model.Fiscal)
+                    {
+                        <a  class="list-group-item" href="~/FiscalPeriod/ChangeFiscalYear?FiscalId=@item.Id" @if (item.Id == FiscalId) {<text>style="background-color:#dddddd"</text>}>
+                            <div class="notification">
+
+                                <div class="notification-content">
+                                    <small class="notification-timestamp">@if (item.IsClosed) { <text> وضعیت: بسته شده</text>} else {<text> وضعیت: فعال </text> }</small>
+                                    <h5 class="notification-heading">@item.Name</h5>
+                                    <p class="notification-text">
+                                        <small class="truncate">@item.StartDate.ToPersianDateTime().ToString("yyyy/MM/dd") تا @item.EndDate.ToPersianDateTime().ToString("yyyy/MM/dd")</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </li>
+    @Html.Action("GetLogedUserInfo", "Home")
+</ul>

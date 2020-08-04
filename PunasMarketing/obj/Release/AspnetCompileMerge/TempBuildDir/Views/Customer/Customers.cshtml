@@ -1,0 +1,125 @@
+﻿@model PunasMarketing.ViewModels.Customer.CustomerViewModel
+@{
+    ViewBag.Title = "لیست مشتریان";
+    int counter = 0;
+}
+
+<div class="layout-content-body">
+    <div class="row gutter-xs">
+        <div class="col-xs-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>لیست مشتریان</strong>
+                </div>
+
+                <div class="card-body">
+                    @AntiForgery.GetHtml()
+                    <div class="md-form-group md-label-floating col-md-6">
+                        <input class="md-form-control" type="text" name="name" id="searchbox" spellcheck="false" required="" aria-required="true">
+                        <label class="md-control-label">جستجو</label>
+                    </div>
+                    <div class="md-form-group md-label-floating col-md-6">
+                        <div class="margin-top">
+                            <div class="col-xs-6 col-md-6">
+                                <a href="/Customer/AddCustomer" class="btn btn-success">افزودن مشتری</a>
+                            </div>
+                        </div>
+                    </div>
+                    <table id="demo-datatables-1" class="table table-striped table-nowrap dataTable" cellspacing="0" width="100%">
+                        <thead>
+                            <tr class="columnSize">
+                                <th>
+                                    ردیف
+                                </th>
+                                <th>
+                                    شناسه
+                                </th>
+                                <th>
+                                    عنوان کسب و کار
+                                </th>
+                                <th>
+                                    مالک کسب و کار
+                                </th>
+                                <th>
+                                    شهر
+                                </th>
+                                <th>
+                                    دسته بندی مشتری
+                                </th>
+                                <th>
+                                    موبایل
+                                </th>
+
+                                <th>عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Customers)
+                            {
+                                <tr class="columnSize">
+                                    <td>
+                                        @(++counter)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BusinessName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.OwnerName)
+                                    </td>
+                                    <td>
+                                        @{
+                                            var region = Model.Regions.FirstOrDefault(i => i.Id == item.RegionId);
+                                            var city = Model.Cities.FirstOrDefault(i => region != null && i.Id == region.CityId);
+                                        }
+                                        @Html.DisplayFor(modelItem => city.Name)
+                                    </td>
+                                    <td>
+                                        @{
+                                            var customerCategory = Model.CustomerCategories.FirstOrDefault(i => i.Id == item.CustomerCategoryId);
+                                        }
+                                        @Html.DisplayFor(modelItem => customerCategory.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Mobile1)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink(" ", "UpdateCustomer", new { id = item.Id }, new { @class = "icon icon-pencil iconColor" })
+                                        @Html.ActionLink(" ", "CustomerManagement", new { id = item.Id }, new { @class = "icon icon-folder-open iconColor" })
+                                        <a id="Delete" value="@item.Id" class="icon icon-remove iconColor"></a>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="progress" class="addModal">
+    <div class="addCenter">
+        <img src="~/Content/loading.gif" />
+    </div>
+</div>
+<div id="infoModalAlertColored" tabindex="-1" role="dialog" class="modal fade">
+
+</div>
+<div id="successModalAlert" tabindex="-1" role="dialog" class="modal fade">
+
+</div>
+
+@section toastr {
+    @Html.Raw(TempData["SaveMessage"])
+}
+
+@section scripts {
+    <script>
+        Delete('Customer', 'DeleteCustomer');
+    </script>
+    
+    @Scripts.Render("~/bundles/datatable")
+}
+

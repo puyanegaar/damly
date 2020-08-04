@@ -1,0 +1,118 @@
+﻿@model PunasMarketing.ViewModels.Home.HomeViewModel
+
+@{
+    ViewBag.Title = "داشبورد";
+}
+
+@*<div class="">
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary">
+                چک های دریافتی در انتظار تعیین وضعیت
+            </div>
+
+            <div class="card-body">
+                <table id="demo-datatables-1" class="table table-striped table-nowrap dataTable" cellspacing="0" width="100%">
+                    <thead>
+                        <tr class="columnSize">
+                            <th>
+                                نام طرف حساب چک
+                            </th>
+                            <th>
+                                تاریخ سررسید
+                            </th>
+                            <th>
+                                مبلغ (ریال)
+                            </th>
+                            <th>
+                                وضعیت فعلی
+                            </th>
+                            <th>
+                                عملیات
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var cheque in Model.PendingReceiveCheques)
+                        {
+                            <tr class="columnSize">
+                                <td>
+                                    @Html.DisplayFor(modelItem => cheque.CounterPartyName)
+                                </td>
+                                <td>
+                                    @cheque.DueDate.ToStringShamsiDate()
+                                </td>
+                                <td>
+                                    @($"{cheque.Amount:n0}")
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => cheque.StatusName)
+                                <td>
+                                    @Html.ActionLink("تعیین وضعیت", "ChequeDetails", "Cheque", new { id = cheque.Id }, new { @class = "btn btn-primary" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary">
+                چک های پرداختی در انتظار تعیین وضعیت
+            </div>
+            <div class="card-body">
+                <table id="demo-datatables-1" class="table table-striped table-nowrap dataTable" cellspacing="0" width="100%">
+                    <thead>
+                        <tr class="columnSize">
+                            <th>
+                                نام طرف حساب چک
+                            </th>
+                            <th>
+                                تاریخ سررسید
+                            </th>
+                            <th>
+                                مبلغ (ریال)
+                            </th>
+                            <th>
+                                وضعیت فعلی
+                            </th>
+                            <th>
+                                عملیات
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var cheque in Model.PendingPayCheques)
+                        {
+                            <tr class="columnSize">
+                                <td>
+                                    @Html.DisplayFor(modelItem => cheque.CounterPartyName)
+                                </td>
+                                <td>
+                                    @cheque.DueDate.ToStringShamsiDate()
+                                </td>
+                                <td>
+                                    @($"{cheque.Amount:n0}")
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => cheque.StatusName)
+                                <td>
+                                <td>
+                                    @Html.ActionLink("تعیین وضعیت", "ChequeDetails", "Cheque", new { id = cheque.Id }, new { @class = "btn btn-primary" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+@section toastr {
+    @Html.Raw(TempData["IndexMessage"])
+}

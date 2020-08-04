@@ -1,0 +1,335 @@
+﻿@model PunasMarketing.ViewModels.Sanad.SanadViewModel
+@{
+    ViewBag.Title = "ثبت سند";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="layout-content-body">
+    <legend>
+        <h2>ثبت سند</h2>
+    </legend>
+
+    <div class="col-xs-12 col-md-12">
+        <div class="col-xs-9 col-md-9">
+            <div class="md-form-group md-label-static">
+                @Html.LabelFor(model => model.SanadDes, new { @class = "md-form-label" })
+                @Html.TextBoxFor(model => model.SanadDes, new { @class = "md-form-control" })
+                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.SanadDes)</span>
+            </div>
+        </div>
+        <div class="col-xs-3 col-md-3">
+            <div class="md-form-group md-label-static">
+                @Html.LabelFor(model => model.SanadDate, new { @class = "md-form-label" })
+                @Html.TextBoxFor(model => model.SanadDate, new { @class = "md-form-control", @readonly = "readonly" })
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-xs-12 col-md-12">
+        <table id="SanadItemTable" class="table table-striped table-bordered table-nowrap dataTable" cellspacing="0">
+            <thead>
+                <tr class="columnSize">
+                    <th style="width:3%;text-align:center">کد حساب</th>
+                    <th style="width:20%;text-align:center">حساب معین</th>
+                    <th style="width:20%;text-align:center">حساب تفصیلی</th>
+                    <th style="width:25%;text-align:center">شرح</th>
+                    <th style="width:15%;text-align:center">بدهکار(ریال)</th>
+                    <th style="width:15%;text-align:center">بستانکار(ریال)</th>
+                    <th style="width:2%;text-align:center">عملیات</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            <tbody>
+                <tr class="columnSize">
+                    <td style="width:5%;text-align:center">0</td>
+                    <td style="width:20%;text-align:center">
+                        @Html.DropDownList("Sarfasl", Model.SarFasl, "انتخاب کنید", new { @class = "form-control" })
+                    </td>
+                    <td style="width:20%;text-align:center" id="DrpTafsili">
+                        @Html.DropDownList("Tafsili", Enumerable.Empty<SelectListItem>(), "انتخاب کنید", new { @class = "form-control" })
+                    </td>
+                    <td style="width:25%;text-align:center">
+                        <input id="Description" class="form-control" type="text">
+                    </td>
+                    <td style="width:15%;text-align:center">
+
+                        <input id="BedAmount" class="form-control .amount" type="text" placeholder="0">
+
+                    </td>
+                    <td style="width:15%;text-align:center">
+
+                        <input id="BesAmount" class="form-control .amount" type="text" placeholder="0">
+
+                    </td>
+
+                    <td style="width:2%;text-align:center">
+                        <a id="AddItem" class="icon icon-plus-square iconColor" style="text-decoration:none; cursor:pointer"></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-xs-12 col-md-12" style="margin-top:20px">
+        <div class="col-xs-6 col-md-6" style="float:left">
+            <div class="col-xs-4 col-md-4">
+                <label class="md-label-static" style="font-size:16px"> جمع (ریال)</label>
+            </div>
+            <div class="col-xs-4 col-md-4">
+                <label class="md-label-static" style="font-size:16px" id="TotalBedeh"></label>
+            </div>
+            <div class="col-xs-4 col-md-4">
+                <label class="md-label-static" style="font-size:16px" id="TotalBestan"></label>
+            </div>
+            <div class="col-xs-12 col-md-12" style="border-bottom:1px solid #ddd;margin-top:10px"></div>
+            <div class="col-xs-12 col-md-12" style="border-bottom:1px solid #ddd ; margin-top:10px"></div>
+            <div class="col-xs-6 col-md-6" style="margin-top:10px">
+                <label class="md-label-static" style="font-size:16px"> اختلاف (ریال)</label>
+            </div>
+            <div class="col-xs-6 col-md-6" style="margin-top:10px;text-align:center">
+                <label class="md-label-static" style="font-size:16px" id="TotalDifference"></label>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-md-12" style="border-bottom:1px solid #ddd ; margin-top:10px"></div>
+    <div class="col-xs-12 col-md-12">
+        <div class="margin-top">
+            <div class="col-xs-12 col-md-12">
+                <a href="@Url.Action("Sanads", "Sanad")" class="btn btn-default">بازگشت</a>
+                <input id="AddSanad" class="btn btn-success" type="submit" value="ثبت سند" />
+            </div>
+        </div>
+    </div>
+</div>
+@section toastr{
+    @Html.Raw(TempData["saveMassage"])
+}
+@section styles{
+
+    <link href="~/Scripts/PersianDateTimePicker/jquery-ui-datetimepicker.min.css" rel="stylesheet" />
+}
+@section scripts{
+    <script src="~/Scripts/PersianDateTimePicker/jquery-ui-datetimepicker.min.js"></script>
+    <script>
+        var index = 0;
+        var SanadItem = [];
+        $(document).on("ready", function () {
+            $("#Sarfasl").select2();
+            $("#Tafsili").select2();
+
+        });
+        $(document).on("change", "#Sarfasl", function () {
+            var value = $("#Sarfasl").find(":selected").val();
+            if (value != 0) {
+                $.ajax({
+                    url: "/Sanad/GetTafsili",
+                    data: { SarfaslId: value },
+                    type: "Post",
+                    dataType: "Json",
+                    success: function (result) {
+
+                        $("#SanadItemTable tr td#DrpTafsili").html(result.Html);
+                        $("#Tafsili").select2();
+                    },
+                    error: function () {
+                        alert("خطا!");
+                    }
+                });
+            }
+
+        });
+
+        $(document).on("keyup", "#BedAmount", function () {
+            // skip for arrow keys
+            if (event.which >= 37 && event.which <= 40) return;
+
+            // format number
+            $(this).val(function (index, value) {
+                return value
+                    .replace(/\D/g, "")
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    ;
+            });
+
+        });
+
+        $(document).on("focusout", "#BedAmount", function () {
+            var value = $(this).val().replace(/,/g, '');
+            if (value != "" || value != 0) {
+                $("#BesAmount").attr("disabled", "disabled");
+            }
+            else {
+                $("#BesAmount").removeAttr("disabled");
+            }
+            //var cashAmout = $(this).val().replace(/,/g, '');
+            //TotalAmount = +TotalAmount + +cashAmout;
+            //$("#pay_TotalAmount").val(TotalAmount);
+            //var T = TotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            //$("#TAmount").text(T);
+        });
+        $(document).on("keyup", "#BesAmount", function () {
+            // skip for arrow keys
+            if (event.which >= 37 && event.which <= 40) return;
+
+            // format number
+            $(this).val(function (index, value) {
+                return value
+                    .replace(/\D/g, "")
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    ;
+            });
+
+        });
+
+        $(document).on("focusout", "#BesAmount", function () {
+            var value = $(this).val().replace(/,/g, '');
+            if (value != "" || value != 0) {
+                $("#BedAmount").attr("disabled", "disabled");
+            }
+            else {
+                $("#BedAmount").removeAttr("disabled");
+            }
+        });
+
+        $(document).on("click", "#SanadItemTable tr td a#AddItem", function () {
+
+            var Sarfasl = $("#Sarfasl").find(":selected").val();
+            var Tafsili = $("#Tafsili").find(":selected").val();
+            var Description = $("#Description").val();
+            var BedehAmount = $("#BedAmount").val();
+            var BestanAmount = $("#BesAmount").val();
+            if (Sarfasl == "") {
+                Toast("سرفصل را انتخاب کنید,info");
+            }
+            else if (Description == "") {
+                Toast("توضیح را وارد کنید,info");
+            }
+            else if (BedehAmount == "" && BestanAmount == "") {
+                Toast("مقدار بدهکار یا بستانکار را وارد کنید,info");
+            }
+            else {
+
+                index++;
+                var item = {
+                    'index': index,
+                    'ItemId': 0,
+                    'Sarfasl': Sarfasl,
+                    'Tafsili': Tafsili,
+                    'Description': Description,
+                    'BedehAmount': BedehAmount.replace(/,/g, ''),
+                    'BestanAmount': BestanAmount.replace(/,/g, '')
+                };
+
+                var SarfaslCode = $("#Sarfasl").find(":selected").text().split('-')[0];
+                var SarfaslText = $("#Sarfasl").find(":selected").text().split('-')[1];
+                var tafsiliText = "";
+                if (Tafsili != "")
+                    var tafsiliText = $("#Tafsili").find(":selected").text();
+                SanadItem.push(item);
+                $("#SanadItemTable").append('<tr class="columnSize"><td style="width:5%;text-align:center">' + SarfaslCode + '</td><td style="width:5%;text-align:center">' + SarfaslText + '</td> <td style="width:20%;text-align:center">' + tafsiliText + '</td> <td style="width:25%;text-align:center">' + Description + '</td><td style="width:15%;text-align:center">' + BedehAmount + '</td><td style="width:15%;text-align:center">' + BestanAmount + '</td><td style="text-align:center"><a id="deleteItem" style="cursor:pointer"  class="icon icon-trash-o iconColor" value="' + index + '"></a></td></tr>');
+
+                $("#Sarfasl").prop('selectedIndex', 1);
+                $("#Tafsili").prop('selectedIndex', 0);
+                $("#BedAmount").val("");
+                $("#BesAmount").val("");
+                $("#Description").val("");
+
+                $("#BedAmount").removeAttr("disabled");
+                $("#BesAmount").removeAttr("disabled");
+
+
+                BedehAmount = BedehAmount.replace(/,/g, '');
+                BestanAmount = BestanAmount.replace(/,/g, '');
+                var TotalBed = $("#TotalBedeh").text().replace(/,/g, '');
+                var TotalBes = $("#TotalBestan").text().replace(/,/g, '');
+                var TotalDiff = $("#TotalDifference").text().replace(/,/g, '');
+                TotalBed = +TotalBed + +BedehAmount;
+                TotalBes = +TotalBes + +BestanAmount;
+                TotalDiff = +TotalBed - +TotalBes;
+                TotalDiff = Math.abs(TotalDiff);
+                $("#TotalBedeh").text(TotalBed.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                $("#TotalBestan").text(TotalBes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                $("#TotalDifference").text(TotalDiff.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+            }
+        });
+
+        $(document).on("click", "#SanadItemTable tr td a#deleteItem", function () {
+
+            var BedehAmount = $(this).closest('tr').find('td:eq(4)').text().replace(/,/g, '');
+            var BestanAmount = $(this).closest('tr').find('td:eq(5)').text().replace(/,/g, '');
+            var TotalBed = $("#TotalBedeh").text().replace(/,/g, '');
+            var TotalBes = $("#TotalBestan").text().replace(/,/g, '');
+            var TotalDiff = $("#TotalDifference").text().replace(/,/g, '');
+            TotalBed = +TotalBed - +BedehAmount;
+            TotalBes = +TotalBes - +BestanAmount;
+            TotalDiff = +TotalBed - +TotalBes;
+            TotalDiff = Math.abs(TotalDiff);
+            $("#TotalBedeh").text(TotalBed.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+            $("#TotalBestan").text(TotalBes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+            $("#TotalDifference").text(TotalDiff.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+            var ItemId = $(this).attr("value");
+            var theItem = SanadItem.find(x => x.index == ItemId);
+            SanadItem.splice(SanadItem.indexOf(theItem), 1);
+            $(this).closest('tr').remove();
+
+
+
+
+
+
+
+        });
+        $(document).on("click", "#AddSanad", function () {
+            var SanadDes = $("#SanadDes").val();
+            var SanadDate = $("#SanadDate").val();
+            var TotalBed = $("#TotalBedeh").text().replace(/,/g, '');
+
+            var TotalBes = $("#TotalBestan").text().replace(/,/g, '');
+
+            if (SanadDes == "") {
+                Toast("شرح سند را وارد نمایید,info");
+            }
+            else if (SanadDate == "") {
+                Toast("تاریخ سند را وارد نمایید,info");
+            }
+            else if (SanadItem.length == 0) {
+                Toast("اطلاعاتی برای سند ثبت نشده است,info");
+            }
+            else if (+TotalBed != +TotalBes) {
+                Toast("سند تراز نیست. جمع بدهکار و بستانکار برابر نمی باشد,info");
+            }
+            else {
+                $.ajax({
+                    url: "/Sanad/AddSanad",
+                    data: { SanadItem: SanadItem, SanadDes: SanadDes, SanadDate: SanadDate },
+                    type: "Post",
+                    dataType: "Json",
+                    success: function (result) {
+                        if (result.Success) {
+                            window.location.href = result.Url;
+                        }
+                        else {
+                            Toast(result.Script)
+                        }
+                    },
+                    error: function () {
+                        alert("خطا!");
+                    }
+                });
+            }
+
+        });
+
+        $("#SanadDate").datepicker({
+            beforeShow: function (input, inst) {
+                var cal = inst.dpDiv;
+                var left = $(this).offset().left;
+                setTimeout(function () {
+                    cal.css({
+                        'left': left
+                    });
+                }, 10);
+            }
+        });
+    </script>
+}

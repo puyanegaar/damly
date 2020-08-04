@@ -1,0 +1,926 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="gsharing_DamliModelStoreContainer" CdmEntityContainer="gsharing_DamliEntities">
+    <FunctionImportMapping FunctionImportName="GetChequeCounterPartyName" FunctionName="gsharing_DamliModel.Store.GetChequeCounterPartyName" />
+    <FunctionImportMapping FunctionImportName="GetPendingCheques" FunctionName="gsharing_DamliModel.Store.GetPendingCheques">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="gsharing_DamliModel.GetPendingCheques_Result">
+          <ScalarProperty Name="ChequeId" ColumnName="ChequeId" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="CounterParyName" ColumnName="CounterParyName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetTafsiliForLedgerReport" FunctionName="gsharing_DamliModel.Store.GetTafsiliForLedgerReport">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="gsharing_DamliModel.GetTafsiliForLedgerReport_Result">
+          <ScalarProperty Name="TafsiliName" ColumnName="TafsiliName" />
+          <ScalarProperty Name="HesabCode" ColumnName="HesabCode" />
+          <ScalarProperty Name="PersonTypeId" ColumnName="PersonTypeId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="LedgerReportByKol" FunctionName="gsharing_DamliModel.Store.LedgerReportByKol">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="gsharing_DamliModel.LedgerReportByKol_Result">
+          <ScalarProperty Name="SanadId" ColumnName="SanadId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Bedeh" ColumnName="Bedeh" />
+          <ScalarProperty Name="Bestan" ColumnName="Bestan" />
+          <ScalarProperty Name="SarfaslId" ColumnName="SarfaslId" />
+          <ScalarProperty Name="TafsiliId" ColumnName="TafsiliId" />
+          <ScalarProperty Name="Coding" ColumnName="Coding" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ConfirmDate" ColumnName="ConfirmDate" />
+          <ScalarProperty Name="PersonTypeId" ColumnName="PersonTypeId" />
+          <ScalarProperty Name="TafsiliName" ColumnName="TafsiliName" />
+          <ScalarProperty Name="HesabCode" ColumnName="HesabCode" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="LedgerReportBySarfasl" FunctionName="gsharing_DamliModel.Store.LedgerReportBySarfasl">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="gsharing_DamliModel.LedgerReportBySarfasl_Result">
+          <ScalarProperty Name="SanadId" ColumnName="SanadId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Bedeh" ColumnName="Bedeh" />
+          <ScalarProperty Name="Bestan" ColumnName="Bestan" />
+          <ScalarProperty Name="SarfaslId" ColumnName="SarfaslId" />
+          <ScalarProperty Name="TafsiliId" ColumnName="TafsiliId" />
+          <ScalarProperty Name="Coding" ColumnName="Coding" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ConfirmDate" ColumnName="ConfirmDate" />
+          <ScalarProperty Name="PersonTypeId" ColumnName="PersonTypeId" />
+          <ScalarProperty Name="TafsiliName" ColumnName="TafsiliName" />
+          <ScalarProperty Name="HesabCode" ColumnName="HesabCode" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="LedgerReportByTafsili" FunctionName="gsharing_DamliModel.Store.LedgerReportByTafsili">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="gsharing_DamliModel.LedgerReportByTafsili_Result">
+          <ScalarProperty Name="SanadId" ColumnName="SanadId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Bedeh" ColumnName="Bedeh" />
+          <ScalarProperty Name="Bestan" ColumnName="Bestan" />
+          <ScalarProperty Name="SarfaslId" ColumnName="SarfaslId" />
+          <ScalarProperty Name="TafsiliId" ColumnName="TafsiliId" />
+          <ScalarProperty Name="Coding" ColumnName="Coding" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ConfirmDate" ColumnName="ConfirmDate" />
+          <ScalarProperty Name="PersonTypeId" ColumnName="PersonTypeId" />
+          <ScalarProperty Name="TafsiliName" ColumnName="TafsiliName" />
+          <ScalarProperty Name="HesabCode" ColumnName="HesabCode" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="UpdateBankAccountTafsili" FunctionName="gsharing_DamliModel.Store.UpdateBankAccountTafsili" />
+    <FunctionImportMapping FunctionImportName="UpdateCashDeskTafsili" FunctionName="gsharing_DamliModel.Store.UpdateCashDeskTafsili" />
+    <FunctionImportMapping FunctionImportName="UpdateCustomerTafsili" FunctionName="gsharing_DamliModel.Store.UpdateCustomerTafsili" />
+    <FunctionImportMapping FunctionImportName="UpdateOtherTafsiliTafsili" FunctionName="gsharing_DamliModel.Store.UpdateOtherTafsiliTafsili" />
+    <FunctionImportMapping FunctionImportName="UpdatePersonnelTafsili" FunctionName="gsharing_DamliModel.Store.UpdatePersonnelTafsili" />
+    <FunctionImportMapping FunctionImportName="UpdateProductTafsili" FunctionName="gsharing_DamliModel.Store.UpdateProductTafsili" />
+    <FunctionImportMapping FunctionImportName="UpdateSupplierTafsili" FunctionName="gsharing_DamliModel.Store.UpdateSupplierTafsili" />
+    <FunctionImportMapping FunctionImportName="GetMondehForLedger" FunctionName="gsharing_DamliModel.Store.GetMondehForLedger" />
+    <FunctionImportMapping FunctionImportName="GetLedgerReport" FunctionName="gsharing_DamliModel.Store.GetLedgerReport">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="gsharing_DamliModel.GetLedgerReport_Result">
+          <ScalarProperty Name="Bedeh" ColumnName="Bedeh" />
+          <ScalarProperty Name="Bestan" ColumnName="Bestan" />
+          <ScalarProperty Name="ConfirmDate" ColumnName="ConfirmDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="TafsiliName" ColumnName="TafsiliName" />
+          <ScalarProperty Name="HesabCode" ColumnName="HesabCode" />
+          <ScalarProperty Name="PersonTypeId" ColumnName="PersonTypeId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Coding" ColumnName="Coding" />
+          <ScalarProperty Name="SandId" ColumnName="SandId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SanadDetail" FunctionName="gsharing_DamliModel.Store.SanadDetail">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="gsharing_DamliModel.SanadDetail_Result">
+          <ScalarProperty Name="SandId" ColumnName="SandId" />
+          <ScalarProperty Name="ConfirmDate" ColumnName="ConfirmDate" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ItemDes" ColumnName="ItemDes" />
+          <ScalarProperty Name="Bedeh" ColumnName="Bedeh" />
+          <ScalarProperty Name="Bestan" ColumnName="Bestan" />
+          <ScalarProperty Name="Coding" ColumnName="Coding" />
+          <ScalarProperty Name="PersonTypeId" ColumnName="PersonTypeId" />
+          <ScalarProperty Name="TafsiliName" ColumnName="TafsiliName" />
+          <ScalarProperty Name="HesabCode" ColumnName="HesabCode" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="journalReport" FunctionName="gsharing_DamliModel.Store.journalReport">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="gsharing_DamliModel.journalReport_Result">
+          <ScalarProperty Name="Bedeh" ColumnName="Bedeh" />
+          <ScalarProperty Name="Bestan" ColumnName="Bestan" />
+          <ScalarProperty Name="ConfirmDate" ColumnName="ConfirmDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="TafsiliName" ColumnName="TafsiliName" />
+          <ScalarProperty Name="HesabCode" ColumnName="HesabCode" />
+          <ScalarProperty Name="PersonTypeId" ColumnName="PersonTypeId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Coding" ColumnName="Coding" />
+          <ScalarProperty Name="SandId" ColumnName="SandId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="journalTotalAccountsReport_" FunctionName="gsharing_DamliModel.Store.journalTotalAccountsReport_">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="gsharing_DamliModel.journalTotalAccountsReport__Result">
+          <ScalarProperty Name="Bedeh" ColumnName="Bedeh" />
+          <ScalarProperty Name="Bestan" ColumnName="Bestan" />
+          <ScalarProperty Name="ConfirmDate" ColumnName="ConfirmDate" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="SandId" ColumnName="SandId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetTotalResultByTafsili" FunctionName="gsharing_DamliModel.Store.GetTotalResultByTafsili" />
+    <FunctionImportMapping FunctionImportName="GetTotalResultBySarfasl" FunctionName="gsharing_DamliModel.Store.GetTotalResultBySarfasl" />
+    <FunctionImportMapping FunctionImportName="GetOtherDaraei" FunctionName="gsharing_DamliModel.Store.GetOtherDaraei">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="gsharing_DamliModel.GetOtherDaraei_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Coding" ColumnName="Coding" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetOtherBedhi" FunctionName="gsharing_DamliModel.Store.GetOtherBedhi">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="gsharing_DamliModel.GetOtherBedhi_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Coding" ColumnName="Coding" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="UpdateSarfasl" FunctionName="gsharing_DamliModel.Store.UpdateSarfasl" />
+    <EntitySetMapping Name="Actions">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.Action">
+        <MappingFragment StoreEntitySet="Actions">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="SectionId" ColumnName="SectionId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BankAccounts">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.BankAccount">
+        <MappingFragment StoreEntitySet="BankAccounts">
+          <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
+          <ScalarProperty Name="HasPos" ColumnName="HasPos" />
+          <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
+          <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="AccountNum" ColumnName="AccountNum" />
+          <ScalarProperty Name="Iban" ColumnName="Iban" />
+          <ScalarProperty Name="BankId" ColumnName="BankId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Banks">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.Bank">
+        <MappingFragment StoreEntitySet="Banks">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CashDesks">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.CashDesk">
+        <MappingFragment StoreEntitySet="CashDesks">
+          <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChequeBooks">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.ChequeBook">
+        <MappingFragment StoreEntitySet="ChequeBooks">
+          <ScalarProperty Name="LastLeaf" ColumnName="LastLeaf" />
+          <ScalarProperty Name="FirstLeaf" ColumnName="FirstLeaf" />
+          <ScalarProperty Name="RemainingLeavesCount" ColumnName="RemainingLeavesCount" />
+          <ScalarProperty Name="LeavesCount" ColumnName="LeavesCount" />
+          <ScalarProperty Name="BankAccountId" ColumnName="BankAccountId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cheques">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.Cheque">
+        <MappingFragment StoreEntitySet="Cheques">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+          <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+          <ScalarProperty Name="BankId" ColumnName="BankId" />
+          <ScalarProperty Name="BankAccountId" ColumnName="BankAccountId" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+          <ScalarProperty Name="ChequeNum" ColumnName="ChequeNum" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cities">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.City">
+        <MappingFragment StoreEntitySet="Cities">
+          <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CostCategories">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.CostCategory">
+        <MappingFragment StoreEntitySet="CostCategories">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Costs">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.Cost">
+        <MappingFragment StoreEntitySet="Costs">
+          <ScalarProperty Name="CostCategoryId" ColumnName="CostCategoryId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CounterParties">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.CounterParty">
+        <MappingFragment StoreEntitySet="CounterParties">
+          <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+          <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerCategories">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.CustomerCategory">
+        <MappingFragment StoreEntitySet="CustomerCategories">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.Customer">
+        <MappingFragment StoreEntitySet="Customers">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+          <ScalarProperty Name="SaltCode" ColumnName="SaltCode" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="MarketerId" ColumnName="MarketerId" />
+          <ScalarProperty Name="CustomerCategoryId" ColumnName="CustomerCategoryId" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Mobile2" ColumnName="Mobile2" />
+          <ScalarProperty Name="Mobile1" ColumnName="Mobile1" />
+          <ScalarProperty Name="CodeMelli" ColumnName="CodeMelli" />
+          <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+          <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FactorItems">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.FactorItem">
+        <MappingFragment StoreEntitySet="FactorItems">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="FinalPrice" ColumnName="FinalPrice" />
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+          <ScalarProperty Name="MarketerCommission" ColumnName="MarketerCommission" />
+          <ScalarProperty Name="Tax" ColumnName="Tax" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          <ScalarProperty Name="UnitsRate" ColumnName="UnitsRate" />
+          <ScalarProperty Name="SubUnitCount" ColumnName="SubUnitCount" />
+          <ScalarProperty Name="MainUnitCount" ColumnName="MainUnitCount" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="PeriodId" ColumnName="PeriodId" />
+          <ScalarProperty Name="FactorId" ColumnName="FactorId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FiscalPeriods">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.FiscalPeriod">
+        <MappingFragment StoreEntitySet="FiscalPeriods">
+          <ScalarProperty Name="ClosedDate" ColumnName="ClosedDate" />
+          <ScalarProperty Name="IsClosed" ColumnName="IsClosed" />
+          <ScalarProperty Name="Vat" ColumnName="Vat" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InventoryCheckingItems">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.InventoryCheckingItem">
+        <MappingFragment StoreEntitySet="InventoryCheckingItems">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="IsCorrected" ColumnName="IsCorrected" />
+          <ScalarProperty Name="Difference" ColumnName="Difference" />
+          <ScalarProperty Name="SystemMainUnitCount" ColumnName="SystemMainUnitCount" />
+          <ScalarProperty Name="RealMainUnitCount" ColumnName="RealMainUnitCount" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="InventoryCheckingId" ColumnName="InventoryCheckingId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InventoryCheckings">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.InventoryChecking">
+        <MappingFragment StoreEntitySet="InventoryCheckings">
+          <ScalarProperty Name="CreatedByUserId" ColumnName="CreatedByUserId" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InvoiceItems">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.InvoiceItem">
+        <MappingFragment StoreEntitySet="InvoiceItems">
+          <ScalarProperty Name="UnitsRate" ColumnName="UnitsRate" />
+          <ScalarProperty Name="SubUnitCount" ColumnName="SubUnitCount" />
+          <ScalarProperty Name="MainUnitCount" ColumnName="MainUnitCount" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Invoices">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.Invoice">
+        <MappingFragment StoreEntitySet="Invoices">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="IsCompleted" ColumnName="IsCompleted" />
+          <ScalarProperty Name="CreatorUserId" ColumnName="CreatorUserId" />
+          <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+          <ScalarProperty Name="FactorNum" ColumnName="FactorNum" />
+          <ScalarProperty Name="PersonnelId" ColumnName="PersonnelId" />
+          <ScalarProperty Name="OtherWareHouseId" ColumnName="OtherWareHouseId" />
+          <ScalarProperty Name="ThisWareHouseId" ColumnName="ThisWareHouseId" />
+          <ScalarProperty Name="IsReceive" ColumnName="IsReceive" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobTitles">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.JobTitle">
+        <MappingFragment StoreEntitySet="JobTitles">
+          <ScalarProperty Name="SectionId" ColumnName="SectionId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Offers">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.Offer">
+        <MappingFragment StoreEntitySet="Offers">
+          <ScalarProperty Name="ShowInSlider" ColumnName="ShowInSlider" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ForCustomerCategories" ColumnName="ForCustomerCategories" />
+          <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+          <ScalarProperty Name="ExpDate" ColumnName="ExpDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OtherTafsilis">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.OtherTafsili">
+        <MappingFragment StoreEntitySet="OtherTafsilis">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Payments">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.Payment">
+        <MappingFragment StoreEntitySet="Payments">
+          <ScalarProperty Name="IsDeposit" ColumnName="IsDeposit" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="IssueTracking" ColumnName="IssueTracking" />
+          <ScalarProperty Name="SettleDate" ColumnName="SettleDate" />
+          <ScalarProperty Name="SubmitDate" ColumnName="SubmitDate" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="PayTypeId" ColumnName="PayTypeId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PayTypes">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.PayType">
+        <MappingFragment StoreEntitySet="PayTypes">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Personnels">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.Personnel">
+        <MappingFragment StoreEntitySet="Personnels">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Iban" ColumnName="Iban" />
+          <ScalarProperty Name="BankCardNum" ColumnName="BankCardNum" />
+          <ScalarProperty Name="BankName" ColumnName="BankName" />
+          <ScalarProperty Name="IsGettingSalary" ColumnName="IsGettingSalary" />
+          <ScalarProperty Name="JobTitleId" ColumnName="JobTitleId" />
+          <ScalarProperty Name="FieldOfStudy" ColumnName="FieldOfStudy" />
+          <ScalarProperty Name="AcademicDegree" ColumnName="AcademicDegree" />
+          <ScalarProperty Name="FireDate" ColumnName="FireDate" />
+          <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+          <ScalarProperty Name="HomeAddress" ColumnName="HomeAddress" />
+          <ScalarProperty Name="HomeCityId" ColumnName="HomeCityId" />
+          <ScalarProperty Name="BirthCityId" ColumnName="BirthCityId" />
+          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+          <ScalarProperty Name="RelatedPhone" ColumnName="RelatedPhone" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Mobile2" ColumnName="Mobile2" />
+          <ScalarProperty Name="Mobile1" ColumnName="Mobile1" />
+          <ScalarProperty Name="IsMarried" ColumnName="IsMarried" />
+          <ScalarProperty Name="IsMale" ColumnName="IsMale" />
+          <ScalarProperty Name="CodeMelli" ColumnName="CodeMelli" />
+          <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="PersonnelCode" ColumnName="PersonnelCode" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PriceTypes">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.PriceType">
+        <MappingFragment StoreEntitySet="PriceTypes">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductCategories">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.ProductCategory">
+        <MappingFragment StoreEntitySet="ProductCategories">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductImages">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.ProductImage">
+        <MappingFragment StoreEntitySet="ProductImages">
+          <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductPriceLists">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.ProductPriceList">
+        <MappingFragment StoreEntitySet="ProductPriceLists">
+          <ScalarProperty Name="IsVisible" ColumnName="IsVisible" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="PriceTypeId" ColumnName="PriceTypeId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Provinces">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.Province">
+        <MappingFragment StoreEntitySet="Provinces">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ReceiptItems">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.ReceiptItem">
+        <MappingFragment StoreEntitySet="ReceiptItems">
+          <ScalarProperty Name="ChequeId" ColumnName="ChequeId" />
+          <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+          <ScalarProperty Name="ReceiptId" ColumnName="ReceiptId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Receipts">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.Receipt">
+        <MappingFragment StoreEntitySet="Receipts">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreatedByUserId" ColumnName="CreatedByUserId" />
+          <ScalarProperty Name="CounterPartyId" ColumnName="CounterPartyId" />
+          <ScalarProperty Name="IsReceive" ColumnName="IsReceive" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Regions">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.Region">
+        <MappingFragment StoreEntitySet="Regions">
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SanadItems">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.SanadItem">
+        <MappingFragment StoreEntitySet="SanadItems">
+          <ScalarProperty Name="ConfirmDate" ColumnName="ConfirmDate" />
+          <ScalarProperty Name="Bestan" ColumnName="Bestan" />
+          <ScalarProperty Name="Bedeh" ColumnName="Bedeh" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="TafsiliId" ColumnName="TafsiliId" />
+          <ScalarProperty Name="SarfaslId" ColumnName="SarfaslId" />
+          <ScalarProperty Name="IssueTrackingNum" ColumnName="IssueTrackingNum" />
+          <ScalarProperty Name="ChequeId" ColumnName="ChequeId" />
+          <ScalarProperty Name="PeriodId" ColumnName="PeriodId" />
+          <ScalarProperty Name="SandId" ColumnName="SandId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sanads">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.Sanad">
+        <MappingFragment StoreEntitySet="Sanads">
+          <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+          <ScalarProperty Name="ConfirmDate" ColumnName="ConfirmDate" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedByUserId" ColumnName="CreatedByUserId" />
+          <ScalarProperty Name="SanadTypeId" ColumnName="SanadTypeId" />
+          <ScalarProperty Name="IsAutomatic" ColumnName="IsAutomatic" />
+          <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="PeriodId" ColumnName="PeriodId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sarfasls">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.Sarfasl">
+        <MappingFragment StoreEntitySet="Sarfasls">
+          <ScalarProperty Name="IsConstant" ColumnName="IsConstant" />
+          <ScalarProperty Name="IsMoeen" ColumnName="IsMoeen" />
+          <ScalarProperty Name="Coding" ColumnName="Coding" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sections">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.Section">
+        <MappingFragment StoreEntitySet="Sections">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Suppliers">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.Supplier">
+        <MappingFragment StoreEntitySet="Suppliers">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tafsilis">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.Tafsili">
+        <MappingFragment StoreEntitySet="Tafsilis">
+          <ScalarProperty Name="Coding" ColumnName="Coding" />
+          <ScalarProperty Name="TafsiliName" ColumnName="TafsiliName" />
+          <ScalarProperty Name="MoeenName" ColumnName="MoeenName" />
+          <ScalarProperty Name="SarfaslId" ColumnName="SarfaslId" />
+          <ScalarProperty Name="OtherTafsiliId" ColumnName="OtherTafsiliId" />
+          <ScalarProperty Name="CashDeskId" ColumnName="CashDeskId" />
+          <ScalarProperty Name="BankAccId" ColumnName="BankAccId" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="PersonTypeId" ColumnName="PersonTypeId" />
+          <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+          <ScalarProperty Name="PersonnelId" ColumnName="PersonnelId" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transactions">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.Transaction">
+        <MappingFragment StoreEntitySet="Transactions">
+          <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="IssueTracking" ColumnName="IssueTracking" />
+          <ScalarProperty Name="BankAccountId" ColumnName="BankAccountId" />
+          <ScalarProperty Name="CashDeskId" ColumnName="CashDeskId" />
+          <ScalarProperty Name="Commission" ColumnName="Commission" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Units">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.Unit">
+        <MappingFragment StoreEntitySet="Units">
+          <ScalarProperty Name="IsMain" ColumnName="IsMain" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserAccesses">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.UserAccess">
+        <MappingFragment StoreEntitySet="UserAccesses">
+          <ScalarProperty Name="ActionId" ColumnName="ActionId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Samoosh" ColumnName="Samoosh" />
+          <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="SaltCode" ColumnName="SaltCode" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="PersonnelId" ColumnName="PersonnelId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WareHouses">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.Warehouse">
+        <MappingFragment StoreEntitySet="WareHouses">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Tell" ColumnName="Tell" />
+          <ScalarProperty Name="KeeperId" ColumnName="KeeperId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BankAccountViews">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.BankAccountView">
+        <MappingFragment StoreEntitySet="BankAccountView">
+          <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
+          <ScalarProperty Name="HasPos" ColumnName="HasPos" />
+          <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
+          <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="Iban" ColumnName="Iban" />
+          <ScalarProperty Name="AccountNum" ColumnName="AccountNum" />
+          <ScalarProperty Name="BankId" ColumnName="BankId" />
+          <ScalarProperty Name="BankAccountId" ColumnName="BankAccountId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_Backup_Database2" FunctionName="gsharing_DamliModel.Store.sp_Backup_Database" />
+    <EntitySetMapping Name="OfferItems">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.OfferItem">
+        <MappingFragment StoreEntitySet="OfferItems">
+          <ScalarProperty Name="GiftProductCount" ColumnName="GiftProductCount" />
+          <ScalarProperty Name="GiftProductId" ColumnName="GiftProductId" />
+          <ScalarProperty Name="MinProductCount" ColumnName="MinProductCount" />
+          <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
+          <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
+          <ScalarProperty Name="OfferTypeId" ColumnName="OfferTypeId" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="OfferId" ColumnName="OfferId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="CustomerlReport" FunctionName="gsharing_DamliModel.Store.CustomerlReport">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="gsharing_DamliModel.CustomerlReport_Result">
+          <ScalarProperty Name="Bedeh" ColumnName="Bedeh" />
+          <ScalarProperty Name="Bestan" ColumnName="Bestan" />
+          <ScalarProperty Name="ConfirmDate" ColumnName="ConfirmDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="TafsiliName" ColumnName="TafsiliName" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Coding" ColumnName="Coding" />
+          <ScalarProperty Name="SandId" ColumnName="SandId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="PersonnelReport" FunctionName="gsharing_DamliModel.Store.PersonnelReport">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="gsharing_DamliModel.PersonnelReport_Result">
+          <ScalarProperty Name="Bedeh" ColumnName="Bedeh" />
+          <ScalarProperty Name="Bestan" ColumnName="Bestan" />
+          <ScalarProperty Name="ConfirmDate" ColumnName="ConfirmDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="TafsiliName" ColumnName="TafsiliName" />
+          <ScalarProperty Name="PersonnelId" ColumnName="PersonnelId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Coding" ColumnName="Coding" />
+          <ScalarProperty Name="SandId" ColumnName="SandId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SupplierReport" FunctionName="gsharing_DamliModel.Store.SupplierReport">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="gsharing_DamliModel.SupplierReport_Result">
+          <ScalarProperty Name="Bedeh" ColumnName="Bedeh" />
+          <ScalarProperty Name="Bestan" ColumnName="Bestan" />
+          <ScalarProperty Name="ConfirmDate" ColumnName="ConfirmDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="TafsiliName" ColumnName="TafsiliName" />
+          <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Coding" ColumnName="Coding" />
+          <ScalarProperty Name="SandId" ColumnName="SandId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="MarketerRegions">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.MarketerRegion">
+        <MappingFragment StoreEntitySet="MarketerRegions">
+          <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+          <ScalarProperty Name="MarketerId" ColumnName="MarketerId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="View_Tafsili">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.View_Tafsili">
+        <MappingFragment StoreEntitySet="View_Tafsili">
+          <ScalarProperty Name="CashDeskName" ColumnName="CashDeskName" />
+          <ScalarProperty Name="OtName" ColumnName="OtName" />
+          <ScalarProperty Name="AccountNum" ColumnName="AccountNum" />
+          <ScalarProperty Name="BankName" ColumnName="BankName" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+          <ScalarProperty Name="SarfaslId" ColumnName="SarfaslId" />
+          <ScalarProperty Name="OtherTafsiliId" ColumnName="OtherTafsiliId" />
+          <ScalarProperty Name="CashDeskId" ColumnName="CashDeskId" />
+          <ScalarProperty Name="BankAccId" ColumnName="BankAccId" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="PersonTypeId" ColumnName="PersonTypeId" />
+          <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+          <ScalarProperty Name="PersonnelId" ColumnName="PersonnelId" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Factors">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.Factor">
+        <MappingFragment StoreEntitySet="Factors">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+          <ScalarProperty Name="IsPreFactor" ColumnName="IsPreFactor" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="FactorTypeId" ColumnName="FactorTypeId" />
+          <ScalarProperty Name="IsBuy" ColumnName="IsBuy" />
+          <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+          <ScalarProperty Name="MarketerTotalCommission" ColumnName="MarketerTotalCommission" />
+          <ScalarProperty Name="MarketerId" ColumnName="MarketerId" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatorUserId" ColumnName="CreatorUserId" />
+          <ScalarProperty Name="FinalPrice" ColumnName="FinalPrice" />
+          <ScalarProperty Name="TotalTax" ColumnName="TotalTax" />
+          <ScalarProperty Name="Deductions" ColumnName="Deductions" />
+          <ScalarProperty Name="Additions" ColumnName="Additions" />
+          <ScalarProperty Name="TotalDiscount" ColumnName="TotalDiscount" />
+          <ScalarProperty Name="DiscountOnFactor" ColumnName="DiscountOnFactor" />
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+          <ScalarProperty Name="PaperFactorCode" ColumnName="PaperFactorCode" />
+          <ScalarProperty Name="ReturnedPeriodId" ColumnName="ReturnedPeriodId" />
+          <ScalarProperty Name="ReturnForFactorId" ColumnName="ReturnForFactorId" />
+          <ScalarProperty Name="SanadPeriodId" ColumnName="SanadPeriodId" />
+          <ScalarProperty Name="SanadId" ColumnName="SanadId" />
+          <ScalarProperty Name="PeriodId" ColumnName="PeriodId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderItems">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.OrderItem">
+        <MappingFragment StoreEntitySet="OrderItems">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="UnitDiscount" ColumnName="UnitDiscount" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          <ScalarProperty Name="UnitRate" ColumnName="UnitRate" />
+          <ScalarProperty Name="SubUnitCount" ColumnName="SubUnitCount" />
+          <ScalarProperty Name="MainUnitCount" ColumnName="MainUnitCount" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.Order">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+          <ScalarProperty Name="PeriodId" ColumnName="PeriodId" />
+          <ScalarProperty Name="FactorId" ColumnName="FactorId" />
+          <ScalarProperty Name="IsVerified" ColumnName="IsVerified" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="MarketerId" ColumnName="MarketerId" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="gsharing_DamliModel.Product">
+        <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ProductionStatus" ColumnName="ProductionStatus" />
+          <ScalarProperty Name="MarketerCommission" ColumnName="MarketerCommission" />
+          <ScalarProperty Name="IsSellable" ColumnName="IsSellable" />
+          <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
+          <ScalarProperty Name="CatalogFileName" ColumnName="CatalogFileName" />
+          <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+          <ScalarProperty Name="OrderPoint" ColumnName="OrderPoint" />
+          <ScalarProperty Name="PendingsCount" ColumnName="PendingsCount" />
+          <ScalarProperty Name="Inventory" ColumnName="Inventory" />
+          <ScalarProperty Name="ProductCategoryId" ColumnName="ProductCategoryId" />
+          <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
+          <ScalarProperty Name="UnitRate" ColumnName="UnitRate" />
+          <ScalarProperty Name="SubUnitId" ColumnName="SubUnitId" />
+          <ScalarProperty Name="MainUnitId" ColumnName="MainUnitId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_products_with_discount_foreach3" FunctionName="gsharing_DamliModel.Store.sp_products_with_discount_foreach">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="gsharing_DamliModel.sp_products_with_discount_foreach3_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="MainUnitId" ColumnName="MainUnitId" />
+          <ScalarProperty Name="ProductCategoryId" ColumnName="ProductCategoryId" />
+          <ScalarProperty Name="ProductionStatus" ColumnName="ProductionStatus" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="MainUnitName" ColumnName="MainUnitName" />
+          <ScalarProperty Name="ProductCategoryName" ColumnName="ProductCategoryName" />
+          <ScalarProperty Name="CustomerPrice" ColumnName="CustomerPrice" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="CatalogFileName" ColumnName="CatalogFileName" />
+          <ScalarProperty Name="OfferTypeId" ColumnName="OfferTypeId" />
+          <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
+          <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
+          <ScalarProperty Name="PriceWithDiscount" ColumnName="PriceWithDiscount" />
+          <ScalarProperty Name="MinProductCount" ColumnName="MinProductCount" />
+          <ScalarProperty Name="GiftProductId" ColumnName="GiftProductId" />
+          <ScalarProperty Name="GiftProductName" ColumnName="GiftProductName" />
+          <ScalarProperty Name="GiftProductCount" ColumnName="GiftProductCount" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

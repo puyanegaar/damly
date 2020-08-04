@@ -1,0 +1,144 @@
+now we need to add a new item on top of
+
+this list we're gonna call that all
+
+genres so back in our movies component
+
+here in component did mount method this
+
+is where we're initializing the genres
+
+property of the state object we need to
+
+make a slight change here so we define a
+
+new constant genres we set it to a new
+
+array we spread the array that is
+
+returned from get genres function so we
+
+have all the existing genres and then we
+
+can put a new object at the beginning of
+
+this array here we set the name property
+
+to all genres and we don't need to set
+
+an ID because this is not a valid genre
+
+in the database this is just an item on
+
+top of this list okay so now we have an
+
+array of genres we pass that here as the
+
+value of the genres property or we can
+
+simplify the code because the key and
+
+value are the same we can get rid of the
+
+repetition and that is better with this
+
+we get all genres on the top let's
+
+select action we get only the action
+
+movies beautiful now let's go back to
+
+all genres our movies disappear here's
+
+the reason in a render method where we
+
+are filtering the list of movies we're
+
+checking to see if selected genre is
+
+true see if it's true see we're
+
+filtering the movies so we get each
+
+movie and we make sure that the ID of
+
+the genre of that movie equals the ID of
+
+the selected genre in this case our
+
+selected genre doesn't have an ID
+
+because we only set the name property
+
+right that's why we don't see any movies
+
+when we select all genres to fix this
+
+problem we need to change this condition
+
+to something like this select a genre
+
+dot underline ID so if selected genre
+
+and the idea of the selector genre are
+
+both true see then we'll apply a filter
+
+otherwise we get all the movies let's
+
+test out
+
+one more time so we go to action we get
+
+action movies we go to all genres we get
+
+all movies beautiful but there is a tiny
+
+issue here if I go to the second page
+
+and then go back to the action movies we
+
+don't see anything here even though on
+
+the top it says showing three movies
+
+here is the reason let's go back to all
+
+genres as you can see we're on the
+
+second page so when we select another
+
+genre we are looking at the second page
+
+of movies and that genre in this case we
+
+only have three movies or one page in
+
+any of these genres that's why we don't
+
+see any movies in this table to fix this
+
+issue whenever we change the filter we
+
+should reset the page to one so back in
+
+our movies component in handle genres
+
+select method this is where we're
+
+setting the selector genre we should
+
+also reset current page to one this will
+
+fix the spot let's test the application
+
+one more time so let's go to the second
+
+page select action we see all the action
+
+movies comedy all the comedy movies back
+
+to all genres we get all the movies
+
+beautiful
+

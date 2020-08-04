@@ -1,0 +1,288 @@
+1
+00:00:04,629 --> 00:00:09,189
+now we need to add a<font color="#CCCCCC"> new item</font><font color="#E5E5E5"> on top of</font>
+
+2
+00:00:07,479 --> 00:00:12,940
+this list<font color="#E5E5E5"> we're gonna call that all</font>
+
+3
+00:00:09,189 --> 00:00:16,629
+genres so back<font color="#E5E5E5"> in our movies component</font>
+
+4
+00:00:12,939 --> 00:00:18,910
+here in component<font color="#E5E5E5"> did mount method this</font>
+
+5
+00:00:16,629 --> 00:00:21,729
+<font color="#CCCCCC">is where we're initializing</font><font color="#E5E5E5"> the genres</font>
+
+6
+00:00:18,910 --> 00:00:24,879
+property of the state object<font color="#E5E5E5"> we need to</font>
+
+7
+00:00:21,730 --> 00:00:28,359
+make a slight<font color="#CCCCCC"> change here</font><font color="#E5E5E5"> so we define a</font>
+
+8
+00:00:24,879 --> 00:00:31,269
+new constant genres<font color="#E5E5E5"> we set</font><font color="#CCCCCC"> it to a new</font>
+
+9
+00:00:28,359 --> 00:00:35,320
+array we<font color="#E5E5E5"> spread the array that is</font>
+
+10
+00:00:31,269 --> 00:00:38,018
+<font color="#E5E5E5">returned from get genres function so we</font>
+
+11
+00:00:35,320 --> 00:00:41,558
+have all the existing genres and then we
+
+12
+00:00:38,018 --> 00:00:44,439
+can put a new object<font color="#CCCCCC"> at the beginning of</font>
+
+13
+00:00:41,558 --> 00:00:47,530
+this array here<font color="#E5E5E5"> we set the</font><font color="#CCCCCC"> name</font><font color="#E5E5E5"> property</font>
+
+14
+00:00:44,439 --> 00:00:50,349
+<font color="#E5E5E5">to all genres</font><font color="#CCCCCC"> and we don't need</font><font color="#E5E5E5"> to set</font>
+
+15
+00:00:47,530 --> 00:00:52,929
+an ID<font color="#E5E5E5"> because</font><font color="#CCCCCC"> this is not a valid genre</font>
+
+16
+00:00:50,350 --> 00:00:58,120
+in<font color="#CCCCCC"> the database</font><font color="#E5E5E5"> this</font><font color="#CCCCCC"> is just an item on</font>
+
+17
+00:00:52,929 --> 00:01:01,539
+top of this list<font color="#CCCCCC"> okay so now we have an</font>
+
+18
+00:00:58,119 --> 00:01:04,509
+array of<font color="#CCCCCC"> genres we</font><font color="#E5E5E5"> pass that here as the</font>
+
+19
+00:01:01,539 --> 00:01:06,460
+<font color="#CCCCCC">value of the genres property or we can</font>
+
+20
+00:01:04,510 --> 00:01:08,680
+simplify the code<font color="#E5E5E5"> because the key and</font>
+
+21
+00:01:06,459 --> 00:01:12,538
+<font color="#E5E5E5">value are the same we</font><font color="#CCCCCC"> can get rid of the</font>
+
+22
+00:01:08,680 --> 00:01:15,700
+repetition<font color="#E5E5E5"> and that is better with this</font>
+
+23
+00:01:12,539 --> 00:01:17,680
+we get all genres on the top let's
+
+24
+00:01:15,700 --> 00:01:19,868
+select action<font color="#CCCCCC"> we get only the action</font>
+
+25
+00:01:17,680 --> 00:01:24,189
+movies beautiful<font color="#E5E5E5"> now let's go back</font><font color="#CCCCCC"> to</font>
+
+26
+00:01:19,868 --> 00:01:26,978
+<font color="#CCCCCC">all genres our movies disappear</font><font color="#E5E5E5"> here's</font>
+
+27
+00:01:24,188 --> 00:01:29,648
+the reason in<font color="#E5E5E5"> a render method</font><font color="#CCCCCC"> where we</font>
+
+28
+00:01:26,978 --> 00:01:32,228
+<font color="#CCCCCC">are</font><font color="#E5E5E5"> filtering the list of movies we're</font>
+
+29
+00:01:29,649 --> 00:01:34,299
+checking to<font color="#E5E5E5"> see if selected genre is</font>
+
+30
+00:01:32,228 --> 00:01:36,640
+<font color="#E5E5E5">true see if it's true see we're</font>
+
+31
+00:01:34,299 --> 00:01:39,429
+filtering<font color="#E5E5E5"> the movies so we get each</font>
+
+32
+00:01:36,640 --> 00:01:42,460
+movie<font color="#E5E5E5"> and we make</font><font color="#CCCCCC"> sure that the ID of</font>
+
+33
+00:01:39,429 --> 00:01:45,009
+<font color="#CCCCCC">the genre of that movie equals</font><font color="#E5E5E5"> the ID of</font>
+
+34
+00:01:42,459 --> 00:01:46,928
+<font color="#E5E5E5">the selected genre in this case our</font>
+
+35
+00:01:45,009 --> 00:01:49,269
+selected genre<font color="#E5E5E5"> doesn't</font><font color="#CCCCCC"> have an ID</font>
+
+36
+00:01:46,929 --> 00:01:51,759
+<font color="#CCCCCC">because we only set the name property</font>
+
+37
+00:01:49,269 --> 00:01:54,879
+right that's why we don't<font color="#E5E5E5"> see any movies</font>
+
+38
+00:01:51,759 --> 00:01:57,429
+<font color="#E5E5E5">when we select all genres to fix this</font>
+
+39
+00:01:54,879 --> 00:02:01,858
+problem<font color="#E5E5E5"> we need</font><font color="#CCCCCC"> to change</font><font color="#E5E5E5"> this condition</font>
+
+40
+00:01:57,429 --> 00:02:06,099
+to something<font color="#CCCCCC"> like this select a genre</font>
+
+41
+00:02:01,858 --> 00:02:08,859
+dot<font color="#CCCCCC"> underline</font><font color="#E5E5E5"> ID so if selected genre</font>
+
+42
+00:02:06,099 --> 00:02:13,079
+<font color="#E5E5E5">and the idea of the selector genre are</font>
+
+43
+00:02:08,860 --> 00:02:17,080
+both<font color="#CCCCCC"> true see then we'll apply</font><font color="#E5E5E5"> a filter</font>
+
+44
+00:02:13,080 --> 00:02:17,690
+<font color="#E5E5E5">otherwise we get all the movies let's</font>
+
+45
+00:02:17,080 --> 00:02:21,740
+test<font color="#CCCCCC"> out</font>
+
+46
+00:02:17,689 --> 00:02:24,530
+one more<font color="#E5E5E5"> time so we go to action we get</font>
+
+47
+00:02:21,740 --> 00:02:27,290
+action movies<font color="#E5E5E5"> we go to all genres</font><font color="#CCCCCC"> we get</font>
+
+48
+00:02:24,530 --> 00:02:29,780
+all movies<font color="#E5E5E5"> beautiful but there is a tiny</font>
+
+49
+00:02:27,289 --> 00:02:33,979
+issue here if<font color="#E5E5E5"> I go to the second page</font>
+
+50
+00:02:29,780 --> 00:02:35,659
+<font color="#E5E5E5">and then go back to</font><font color="#CCCCCC"> the action movies</font><font color="#E5E5E5"> we</font>
+
+51
+00:02:33,979 --> 00:02:38,419
+don't<font color="#CCCCCC"> see anything here even though on</font>
+
+52
+00:02:35,659 --> 00:02:41,569
+<font color="#E5E5E5">the top it says showing three movies</font>
+
+53
+00:02:38,419 --> 00:02:44,239
+<font color="#E5E5E5">here is the reason let's go back to all</font>
+
+54
+00:02:41,569 --> 00:02:47,000
+genres<font color="#CCCCCC"> as you can see we're on the</font>
+
+55
+00:02:44,240 --> 00:02:49,610
+second<font color="#E5E5E5"> page so</font><font color="#CCCCCC"> when we select another</font>
+
+56
+00:02:47,000 --> 00:02:53,569
+genre<font color="#E5E5E5"> we are looking at the second page</font>
+
+57
+00:02:49,610 --> 00:02:56,300
+<font color="#CCCCCC">of movies and that</font><font color="#E5E5E5"> genre in this case we</font>
+
+58
+00:02:53,569 --> 00:02:59,000
+only<font color="#E5E5E5"> have three movies or one page</font><font color="#CCCCCC"> in</font>
+
+59
+00:02:56,300 --> 00:03:01,939
+any<font color="#E5E5E5"> of these genres</font><font color="#CCCCCC"> that's why we don't</font>
+
+60
+00:02:59,000 --> 00:03:05,240
+see<font color="#E5E5E5"> any movies in this table to fix this</font>
+
+61
+00:03:01,939 --> 00:03:08,659
+issue<font color="#E5E5E5"> whenever we change the filter we</font>
+
+62
+00:03:05,240 --> 00:03:11,780
+should reset the page<font color="#E5E5E5"> to</font><font color="#CCCCCC"> one so back in</font>
+
+63
+00:03:08,659 --> 00:03:14,150
+our movies component in handle<font color="#CCCCCC"> genres</font>
+
+64
+00:03:11,780 --> 00:03:16,340
+select method<font color="#E5E5E5"> this is where we're</font>
+
+65
+00:03:14,150 --> 00:03:21,560
+setting<font color="#E5E5E5"> the selector genre we should</font>
+
+66
+00:03:16,340 --> 00:03:24,170
+<font color="#E5E5E5">also reset current page to</font><font color="#CCCCCC"> one this</font><font color="#E5E5E5"> will</font>
+
+67
+00:03:21,560 --> 00:03:27,080
+fix the<font color="#CCCCCC"> spot</font><font color="#E5E5E5"> let's test the</font><font color="#CCCCCC"> application</font>
+
+68
+00:03:24,169 --> 00:03:30,859
+one more time so let's go to the second
+
+69
+00:03:27,080 --> 00:03:34,190
+page select action we see all the<font color="#E5E5E5"> action</font>
+
+70
+00:03:30,860 --> 00:03:36,350
+movies comedy all the comedy movies<font color="#E5E5E5"> back</font>
+
+71
+00:03:34,189 --> 00:03:39,069
+<font color="#E5E5E5">to all</font><font color="#CCCCCC"> genres</font><font color="#E5E5E5"> we get all the movies</font>
+
+72
+00:03:36,349 --> 00:03:39,069
+<font color="#E5E5E5">beautiful</font>
+

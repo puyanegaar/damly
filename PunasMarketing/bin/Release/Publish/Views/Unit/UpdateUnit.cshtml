@@ -1,0 +1,69 @@
+﻿@model PunasMarketing.Models.DomainModel.Unit
+
+@{
+    ViewBag.Title = "ویرایش واحد اندازه گیری";
+}
+
+
+<div class="layout-content-body">
+    @using (Html.BeginForm("UpdateUnit", "Unit", FormMethod.Post))
+    {
+        <div id="divInfo">
+            <legend>
+                <h2>ویرایش واحد اندازه گیری</h2>
+            </legend>
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="col-xs-12 col-md-12">
+                <div class="md-form-group md-label-floating">
+                    @Html.TextBoxFor(model => model.Name, new { @class = "md-form-control", type = "text", spellcheck = "false", required = "" })
+                    @Html.LabelFor(model => model.Name, new { @class = "md-control-label" })
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Name)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-md-12">
+                <div class="md-form-group md-label-floating">
+                    <label class="custom-control custom-control-primary custom-checkbox">
+                        <input class="custom-control-input" data-val="true" id="IsMain" name="IsMain" type="checkbox" value="true" @((Model.IsMain == true) ? "checked" : "")>
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-label">واحد اصلی است.</span>
+                    </label>
+                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.IsMain)</span>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-md-12">
+                <div class="margin-top">
+                    <div class="col-xs-12 col-md-12">
+                        <input class="btn btn-success" type="submit" value="ویرایش" />
+                        <a href="@Url.Action("Units","Unit")" class="btn btn-default">برگشت</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    }
+
+</div>
+
+@section toastr {
+    @Html.Raw(TempData["SaveMessage"])
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+
+
+
+
+
+
+

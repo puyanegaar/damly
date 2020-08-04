@@ -1,0 +1,5 @@
+﻿@model PunasMarketing.ViewModels.Warehouse.WarehouseViewModel
+
+@Html.DropDownListFor(model => model.Warehouse.KeeperId, new SelectList(Model.Personnels, "Id", "FullName"), "-", new { @class = "md-form-control" })
+@Html.Label("انباردار", new { @class = "md-control-label" })
+<span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Warehouse.KeeperId)</span>

@@ -1,0 +1,194 @@
+﻿@model PunasMarketing.ViewModels.FiscalYearOp.CloseFinanViewmodel
+@{
+    ViewBag.Title = "بستن دوره مالی";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="layout-content-body">
+    <legend>
+        بستن دوره مالی
+    </legend>
+    <div class="col-xs-12 col-md-12" style="margin-top:10px">
+        <input type="hidden" id="CurrentFiscalId" value="@Model.Fiscal.Id" />
+        <div class="col-xs-1 col-md-1">
+            <label class="control-label">از تاریخ</label>
+        </div>
+        <div class="col-xs-3 col-md-2">
+            <label class="control-label">@Model.Fiscal.StartDate.ToPersianDateTime().ToString("yyyy/MM/dd")</label>
+        </div>
+        <div class="col-xs-1 col-md-1">
+            <label class="control-label">تا تاریخ</label>
+        </div>
+        <div class="col-xs-3 col-md-2">
+            <label class="control-label">@Model.Fiscal.EndDate.ToPersianDateTime().ToString("yyyy/MM/dd")</label>
+        </div>
+        <div class="col-xs-1 col-md-2">
+            <label class="control-label">نام مالی دوره جاری</label>
+        </div>
+        <div class="col-xs-3 col-md-3">
+            <label class="control-label">@Model.Fiscal.Name</label>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-md-12" style="margin-top:50px">
+        <div class="col-xs-1 col-md-1">
+            <label class="control-label">از تاریخ</label>
+        </div>
+        <div class="col-xs-3 col-md-2">
+            <input id="StartDate" name="StartDate" class="md-form-control" type="text" value="@Model.StartDate" style="text-align:right" readonly="readonly" />
+        </div>
+        <div class="col-xs-1 col-md-1">
+            <label class="control-label">تا تاریخ</label>
+        </div>
+        <div class="col-xs-3 col-md-2">
+            <input id="EndDate" name="EndDate" class="md-form-control" type="text" style="text-align:right" readonly="readonly" />
+        </div>
+        <div class="col-xs-1 col-md-2">
+            <label class="control-label">نام مالی دوره جدید</label>
+        </div>
+        <div class="col-xs-3 col-md-3">
+            <input id="NewFiscalYear" name="NewFiscalYear" class="md-form-control" type="text" style="text-align:right" readonly="readonly" />
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-12" style="margin-top:50px">
+        <div class="col-xs-1 col-md-1">
+            <label class="control-label">مالیات</label>
+        </div>
+        <div class="col-xs-3 col-md-2">
+            <input id="Vat" name="Vat" class="md-form-control" type="number"  style="text-align:right" />
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-md-12" style="border-bottom:1px solid #ddd ; margin-top:20px"></div>
+
+    <div class="col-xs-12 col-md-12" style="margin-top:10px">
+        <div class="col-xs-12 col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>بستن حساب</strong>
+                </div>
+                <div class="card-body">
+                    <table id="CloseTable" class="table table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th class="text-center">عنوان حساب</th>
+                                <th class="text-center">وضعیت</th>
+                                <th class="text-center">عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center">1</td>
+                                <td class="text-center">صندوق ها</td>
+                                <td class="text-center">
+                                    <span id="status" class="label label-outline-danger">حساب باز است</span>
+                                </td>
+                                <td class="text-center">
+                                    <span id="CashDesk" value="1" status="0" class="label label-outline-danger" style="cursor:pointer;text-decoration:none">بستن حساب</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">2</td>
+                                <td class="text-center">بانک ها</td>
+                                <td class="text-center">
+                                    <span id="status" class="label label-outline-danger">حساب باز است</span>
+                                </td>
+                                <td class="text-center">
+                                    <span id="Banks" value="2" status="0" class="label label-outline-danger" style="cursor:pointer;text-decoration:none">بستن حساب</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">3</td>
+                                <td class="text-center">حساب اشخاص</td>
+                                <td class="text-center">
+                                    <span id="status" class="label label-outline-danger">حساب باز است</span>
+                                </td>
+                                <td class="text-center">
+                                    <span id="HesabAshkhas" value="3" status="0" class="label label-outline-danger" style="cursor:pointer;text-decoration:none">بستن حساب</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">4</td>
+                                <td class="text-center"> چک های دریافتی(اسناد دریافتنی)</td>
+                                <td class="text-center">
+                                    <span id="status" class="label label-outline-danger">حساب باز است</span>
+                                </td>
+                                <td class="text-center">
+                                    <span id="ADaryaftani" value="4" status="0" class="label label-outline-danger" style="cursor:pointer;text-decoration:none">بستن حساب</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">5</td>
+                                <td class="text-center">چک های در جریان وصول</td>
+                                <td class="text-center">
+                                    <span id="status" class="label label-outline-danger">حساب باز است</span>
+                                </td>
+                                <td class="text-center">
+                                    <span id="Cheuqe" value="5" status="0" class="label label-outline-danger" style="cursor:pointer;text-decoration:none">بستن حساب</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">6</td>
+                                <td class="text-center">حساب سرمایه اولیه</td>
+                                <td class="text-center">
+                                    <span id="status" class="label label-outline-danger">حساب باز است</span>
+                                </td>
+                                <td class="text-center">
+                                    <span id="Sarmayeh" value="6" status="0" class="label label-outline-danger" style="cursor:pointer;text-decoration:none">بستن حساب</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">7</td>
+                                <td class="text-center">سایر دارایی ها</td>
+                                <td class="text-center">
+                                    <span id="status" class="label label-outline-danger">حساب باز است</span>
+                                </td>
+                                <td class="text-center">
+                                    <span id="OtherDara" value="7" status="0" class="label label-outline-danger" style="cursor:pointer;text-decoration:none">بستن حساب</span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="text-center">8</td>
+                                <td class="text-center"> چک های پرداختی(اسناد پرداختنی)</td>
+                                <td class="text-center">
+                                    <span id="status" class="label label-outline-danger">حساب باز است</span>
+                                </td>
+                                <td class="text-center">
+                                    <span id="APardakhtani" value="8" status="0" class="label label-outline-danger" style="cursor:pointer;text-decoration:none">بستن حساب</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">9</td>
+                                <td class="text-center">سایر بدهی ها</td>
+                                <td class="text-center">
+                                    <span id="status" class="label label-outline-danger">حساب باز است</span>
+                                </td>
+                                <td class="text-center">
+                                    <span id="OtherBedehi" value="9" status="0" class="label label-outline-danger" style="cursor:pointer;text-decoration:none">بستن حساب</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-xs-12 col-md-12" style="border-bottom:1px solid #ddd ; margin-top:20px"></div>
+    <div class="col-xs-12 col-md-12 text-center">
+        <input id="CloseFinanceYear" disabled class="btn btn-success" type="submit" value="بستن دوره مالی و ایجاد دوره مالی جدید" style="margin-top:20px" />
+    </div>
+</div>
+@section toastr{
+    @Html.Raw(TempData["saveMassage"])
+}
+
+@section scripts{
+  
+    @Scripts.Render("~/bundles/CloseFiscaljs")
+}
+
+

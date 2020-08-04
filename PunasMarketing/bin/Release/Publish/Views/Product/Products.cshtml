@@ -1,0 +1,141 @@
+﻿@model PunasMarketing.ViewModels.Product.ProductListViewModel
+
+@{
+    ViewBag.Title = "کالاها";
+}
+
+<div class="layout-content-body">
+    <div class="row gutter-xs">
+        <div class="col-xs-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>لیست کالاها</strong>
+                </div>
+                <div class="card-body">
+                    @AntiForgery.GetHtml()
+                    <div class="md-form-group md-label-floating col-md-6">
+                        <input class="md-form-control" type="text" name="name" id="searchbox" spellcheck="false" required="" aria-required="true">
+                        <label class="md-control-label">جستجو</label>
+                    </div>
+                    <div class="md-form-group md-label-floating col-md-6">
+                        <div class="margin-top">
+                            <div class="col-xs-6 col-md-6">
+                                <a href="@Url.Action("AddProduct","Product")" class="btn btn-success">افزودن کالا</a>
+                            </div>
+                        </div>
+                    </div>
+                    <table id="demo-datatables-1" class="table table-striped table-nowrap dataTable" cellspacing="0" width="100%">
+                        <thead>
+                            <tr class="columnSize">
+                                <th>
+                                    ردیف
+                                </th>
+                                <th>
+                                    شناسه
+                                </th>
+                                <th>
+                                    کد کالا
+                                </th>
+                                <th>
+                                    نام
+                                </th>
+                                <th>
+                                    دسته بندی
+                                </th>
+                                <th>
+                                    موجودی
+                                </th>
+                                <th>
+                                    نقطه سفارش
+                                </th>
+                                <th>
+                                    وضعیت کالا
+                                </th>
+                                <th>
+                                    قابل فروش
+                                </th>
+                                <th>
+                                    عملیات
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @for (int index = 0; index < Model.Products.Count(); index++)
+                            {
+                                var item = Model.Products.ToList()[index];
+
+                                <tr class="columnSize">
+                                    <td>
+                                        @(index + 1)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ProductCode)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => Model.ProductCategories.FirstOrDefault(i => i.Id == item.ProductCategoryId).Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Inventory)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.OrderPoint)
+                                    </td>
+                                    <td>
+                                        @Model.ProductionStatuses.FirstOrDefault(i => i.Key == item.ProductionStatus).Value
+                                    </td>
+                                    <td>
+                                        @(item.IsSellable ? "است" : "نیست")
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink(" ", "ProductManagement", new { id = item.Id }, new { @class = "icon icon-folder-open iconColor" })
+                                        @Html.ActionLink(" ", "UpdateProduct", new { id = item.Id }, new { @class = "icon icon-pencil iconColor" })
+                                        <a id="Delete" value="@item.Id" class="icon icon-remove iconColor"></a>
+                                    </td>
+                                </tr>
+
+                            }
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section toastr {
+    @Html.Raw(TempData["SaveMessage"])
+}
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            var dataTable = $('#demo-datatables-1').dataTable();
+            $("#searchbox").keyup(function () {
+                dataTable.fnFilter(this.value);
+            });
+        });
+        $(function () {
+            $("#demo-datatables-1").dataTable();
+        });
+        $(document).ready(function () {
+            $("#demo-datatables-1_info").parent().addClass('col-sm-12');
+        });
+
+        //Product();
+        Delete('Product', 'DeleteProduct');
+    </script>
+}
+
+
+
+

@@ -1,0 +1,93 @@
+﻿@model PunasMarketing.ViewModels.Sarfasl.SarfaslViewModel
+
+<div class="modal-header bg-youtube">
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true" style="color: white">×</span>
+        <span class="sr-only">Close</span>
+    </button>
+    <h4 class="modal-title">افزودن سرفصل جدید</h4>
+</div>
+
+@using (Html.BeginForm("AddSarfaslModal", "Sarfasl", FormMethod.Post, new { style = "padding: 10px", autocomplete = "off" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="col-xs-12 col-md-12">
+        <div class="col-xs-6 col-md-6">
+            سطح:
+            <label class="custom-control custom-control-primary custom-radio">
+                <input id="rbnKol" class="custom-control-input" type="radio" name="sarfaslLevel" value="kol" checked="checked">
+                <span class="custom-control-indicator"></span>
+                <span class="custom-control-label">کل</span>
+            </label>
+            <label class="custom-control custom-control-primary custom-radio">
+                <input id="rbnMoeen" class="custom-control-input" type="radio" name="sarfaslLevel" value="moeen">
+                <span class="custom-control-indicator"></span>
+                <span class="custom-control-label">معین</span>
+            </label>
+        </div>
+
+        <div class="col-xs-6 col-md-6">
+            <span id="kolCodeWarning" class="text-warning">کد حساب کل را یک رقمی وارد کنید.</span>
+            <span id="moeenCodeWarning" class="text-warning">کد حساب معین را دو رقمی وارد کنید.</span>
+        </div>
+
+        <div class="col-xs-6 col-md-6">
+            <div class="md-form-group md-label-static">
+                @Html.DropDownListFor(model => model.GroupSarfaslId, new SelectList(Model.AllSarfasls.Where(i => i.ParentId == null), "Id", "CodingAndName"), "-", new { @class = "md-form-control", id = "drpGroupSarfasls" })
+                @Html.LabelFor(model => model.GroupSarfaslId, new { @class = "md-control-label" })
+                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.GroupSarfaslId)</span>
+            </div>
+        </div>
+
+        <div id="kolDiv">
+            <div class="col-xs-6 col-md-6">
+                <div class="md-form-group md-label-static">
+                    @Html.DropDownListFor(model => model.KolSarfaslId, Enumerable.Empty<SelectListItem>(), "-", new { @class = "md-form-control", id = "drpKolSarfasls" })
+                    @Html.LabelFor(model => model.KolSarfaslId, new { @class = "md-control-label" })
+                    <span id="kolErrorMessage" class="has-error md-help-block valError" style="visibility: visible">حساب کل را انتخاب کنید</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-6 col-md-6">
+            <div class="md-form-group md-label-static">
+                @Html.TextBoxFor(model => model.Sarfasl.Code, new { @class = "md-form-control", type = "text", spellcheck = "false", required = "", id = "txtCode", maxlength = "1", data_val_number = "فقط مقدار عددی وارد کنید" })
+                @Html.LabelFor(model => model.Sarfasl.Code, new { @class = "md-control-label" })
+                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Sarfasl.Code)</span>
+                <span class="has-error md-help-block valError" id="lblCodeDigitCountError">کد حساب معین را دو رقمی وارد کنید</span>
+                <span class="has-error md-help-block valError" id="lblCodeExistsError">کد حساب تکراری است</span>
+            </div>
+        </div>
+
+        <div class="col-xs-6 col-md-6">
+            <div class="md-form-group md-label-static">
+                @Html.TextBoxFor(model => model.Sarfasl.Coding, new { @class = "md-form-control", type = "text", spellcheck = "false", required = "", @readonly = "readonly", id = "txtCoding" })
+                @Html.LabelFor(model => model.Sarfasl.Coding, new { @class = "md-control-label" })
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-12">
+            <div class="md-form-group md-label-static">
+                @Html.TextBoxFor(model => model.Sarfasl.Name, new { @class = "md-form-control", type = "text", spellcheck = "false", required = "" })
+                @Html.LabelFor(model => model.Sarfasl.Name, new { @class = "md-control-label" })
+                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Sarfasl.Name)</span>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin: 25px">
+        <input id="btnSubmit" class="btn btn-success" type="submit" value="تأیید" />
+        <input class="btn btn-danger" type="button" value="لغو" data-dismiss="modal" />
+    </div>
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/sarfaslsJs")
+
+<script>
+    var sarfasls = @Html.Raw(Json.Encode(ViewBag.Sarfasls));
+
+    addSarfasl(sarfasls);
+</script>

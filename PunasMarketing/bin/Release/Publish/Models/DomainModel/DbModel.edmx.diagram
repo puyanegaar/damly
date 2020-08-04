@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8cfa017e7b634887804f93bdc2cf5f29" Name="Diagram1" ZoomLevel="65">
+        <EntityTypeShape EntityType="gsharing_DamliModel.Action" Width="1.5" PointX="3" PointY="22" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.BankAccount" Width="1.5" PointX="15" PointY="60.5" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.Bank" Width="1.5" PointX="12.75" PointY="61.375" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.CashDesk" Width="1.5" PointX="15" PointY="57.75" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.ChequeBook" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.Cheque" Width="1.5" PointX="20.25" PointY="31" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.City" Width="1.5" PointX="6" PointY="28.375" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.CostCategory" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.Cost" Width="1.5" PointX="3" PointY="0.875" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.CounterParty" Width="1.5" PointX="10.5" PointY="32.25" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.CustomerCategory" Width="1.5" PointX="8.25" PointY="18.5" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.Customer" Width="1.5" PointX="10.5" PointY="22.75" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.FactorItem" Width="1.5" PointX="19.5" PointY="36.125" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.Factor" Width="1.5" PointX="17.25" PointY="26.375" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.FiscalPeriod" Width="1.5" PointX="15" PointY="51" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.InventoryCheckingItem" Width="1.5" PointX="20.25" PointY="42.125" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.InventoryChecking" Width="1.5" PointX="15" PointY="39.375" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.InvoiceItem" Width="1.5" PointX="17.25" PointY="41.625" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.Invoice" Width="1.5" PointX="15" PointY="31.75" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.JobTitle" Width="1.5" PointX="3" PointY="24.75" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.Offer" Width="1.5" PointX="18" PointY="52.25" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.OrderItem" Width="1.5" PointX="24.75" PointY="36.75" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.Order" Width="1.5" PointX="19.5" PointY="26.375" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.OtherTafsili" Width="1.5" PointX="15" PointY="55.375" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.Payment" Width="1.5" PointX="12.75" PointY="35.5" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.PayType" Width="1.5" PointX="10.5" PointY="40.375" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.Personnel" Width="1.5" PointX="8.25" PointY="21.625" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.PriceType" Width="1.5" PointX="15" PointY="36.75" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.ProductCategory" Width="1.5" PointX="12.75" PointY="47.375" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.ProductImage" Width="1.5" PointX="17.25" PointY="45.625" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.ProductPriceList" Width="1.5" PointX="17.25" PointY="48.375" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.Product" Width="1.5" PointX="15" PointY="43.125" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.Province" Width="1.5" PointX="3.75" PointY="28.875" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.ReceiptItem" Width="1.5" PointX="15" PointY="28" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.Receipt" Width="1.5" PointX="12.75" PointY="31.75" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.Region" Width="1.5" PointX="8.25" PointY="30.875" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.SanadItem" Width="1.5" PointX="22.5" PointY="35.875" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.Sanad" Width="1.5" PointX="15" PointY="22.875" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.Sarfasl" Width="1.5" PointX="15" PointY="13.5" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.Section" Width="1.5" PointX="0.75" PointY="23.5" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.Supplier" Width="1.5" PointX="15" PointY="18.125" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.Tafsili" Width="1.5" PointX="17.25" PointY="35.125" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.Transaction" Width="1.5" PointX="12.75" PointY="27.5" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.Unit" Width="1.5" PointX="12.75" PointY="49.75" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.UserAccess" Width="1.5" PointX="5.25" PointY="22" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.User" Width="1.5" PointX="10.5" PointY="35.125" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.Warehouse" Width="1.5" PointX="12.75" PointY="43" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.BankAccountView" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.View_Tafsili" Width="1.5" PointX="0.75" PointY="6.75" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Actions_Sections" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_UserAccesses_Actions" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_BankAccounts_Banks" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Cheques_BankAccounts" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Tafsilis_BankAccounts" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Transactions_BankAccounts2" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Cheques_Banks" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Tafsilis_CashDesks" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Transactions_CashDesks2" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_SanadItems_Cheques" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Cities_Provinces" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Personnels_Cities_BirthCity" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Personnels_Cities_HomeCity" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Regions_Cities" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Suppliers_Customers_Cities" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Costs_CostCategories" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Receipt_CounterParty" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Customers_CustomerCategories" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Customers_Personnels" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Customers_Regions" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Factors_Customers" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Orders_Customers" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Tafsilis_Customers" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_FactorItems_Factors" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_FactorItems_Products" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Factors_Factors" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Factors_FiscalPeriods" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Factors_Invoices" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Factors_Personnels" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Factors_Sanads" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Factors_Suppliers" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Factors_Users" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Orders_Factors" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Sanads_FiscalPeriods" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_InventoryCheckingItems_InventoryCheckings" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_InventoryCheckingItems_Products" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_InventoryCheckings_Users" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_InventoryCheckings_WareHouses" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_InvoiceItems_Invoices" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_InvoiceItems_Products" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Invoices_Personnels" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Invoices_Users" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Invoices_WareHouses_OtherWareHouse" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Invoices_WareHouses_ThisWareHouse" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_JobTitles_Sections" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Personnels_JobTitles" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_OrderItems_Orders" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_OrderItems_Products" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Orders_Personnels" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Tafsilis_OtherTafsilis" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Payments_PayTypes" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Payments_Suppliers_Customers" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Payments_Users" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Tafsilis_Personnels" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Users_Personnels" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_ProductPriceLists_PriceTypes" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Products_Categories" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_ProductImages_Products" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_ProductPriceLists_Products" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Products_Units" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Products_Units1" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Products_WareHouses" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Tafsilis_Products" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_FishItems_Transactions" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_ReceiptItems_Receipt" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Receipt_Users" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_SanadItems_Sanads" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_SanadItems_Sarfasls" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_SanadItems_Tafsilis" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Sarfasls_Sarfasls" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Tafsilis_Sarfasls" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_Tafsilis_Suppliers" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_UserAccesses_Users" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_WareHouses_Users" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.OfferItem" Width="1.5" PointX="20.25" PointY="47.25" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_OfferItems_GiftProducts" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_OfferItems_Offers" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_OfferItems_Products" />
+        <EntityTypeShape EntityType="gsharing_DamliModel.MarketerRegion" Width="1.5" PointX="10.5" PointY="29.375" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_MarketerRegions_Personnels" />
+        <AssociationConnector Association="gsharing_DamliModel.FK_MarketerRegions_Regions" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

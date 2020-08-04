@@ -1,0 +1,157 @@
+﻿@model IQueryable<PunasMarketing.Models.DomainModel.Sanad>
+@{
+    ViewBag.Title = "رسیدهای پرداخت";
+    int counter = 0;
+}
+
+<div class="layout-content-body">
+    <div class="row gutter-xs">
+        <div class="col-xs-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>فهرست رسیدهای پرداخت</strong>
+                </div>
+                <div class="card-body">
+                    @AntiForgery.GetHtml()
+                    <div class="md-form-group md-label-floating col-md-6">
+                        <input class="md-form-control" type="text" name="name" id="searchbox" spellcheck="false" required="" aria-required="true">
+                        <label class="md-control-label">جستجو</label>
+                    </div>
+                    <div class="md-form-group md-label-floating col-md-6">
+                        <div class="margin-top">
+                            <div class="col-xs-6 col-md-6">
+                                <a href='@Url.Action("AddPayment", "Transaction")' class="btn btn-success">ثبت پرداخت وجه/چک</a>
+                            </div>
+                        </div>
+                    </div>
+                    <table id="sanadsList" class="table table-striped table-bordered  dataTable no-footer" cellspacing="0" style="width: 100%">
+                        <thead>
+                            <tr class="columnSize">
+                                <th style="width: 2%">
+                                    ردیف
+                                </th>
+                                <th style="width: 2%">
+                                    شماره سند
+                                </th>
+                                <th style="width: 10%">
+                                    تاریخ
+                                </th>
+                                <th style="width: 20%">
+                                    شرح
+                                </th>
+                                <th style="width: 8%">
+                                    مبلغ (ریال)
+                                </th>
+                                <th style="width: 2%">
+                                    اسناد
+                                </th>
+                                <th style="width: 2%">
+                                    عملیات
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="columnSize">
+                                    <td style="width: 2%">
+                                        @(++counter)
+                                    </td>
+                                    <td style="width: 2%">
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td style="width: 10%">
+                                        @(item.ConfirmDate.ToStringShamsiDate())
+                                    </td>
+                                    <td style="width: 20%">
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                    </td>
+                                    <td style="width: 8%">
+                                        @(item.TotalAmount.ToPrice())
+                                    </td>
+                                    <td style="width:2%; text-align:center">
+                                        <a id="SanadDetail" value="@item.Id" style="cursor:pointer;text-decoration:none" class="icon icon-folder-open iconColor"></a>
+                                    </td>
+                                    <td style="width: 2%; text-align: center">
+                                        @Html.ActionLink(" ", "UpdatePayment", new { PaymentId = item.Id }, new { @class = "icon icon-pencil iconColor" })
+                                        <a id="Delete" value="@item.Id" class="icon icon-remove iconColor"></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Modal{
+    <div id="modalSanadDetail" tabindex="-1" role="dialog" class="modal fade">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-success">
+                    <h4 class="modal-title">سند حسابداری شماره <span id="SanadNum"></span></h4>
+                </div>
+                <div class="modal-body" id="SanadDetailList">
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@section toastr {
+    @Html.Raw(TempData["SaveMessage"])
+}
+
+@section scripts {
+    <script>
+        var CurrentDetail = 0;
+
+        $(document).ready(function () {
+            var dataTable = $('#sanadsList').dataTable({
+                "bInfo": false,
+                "language": {
+                    "paginate": {
+                        "previous": "قبلی",
+                        "next": "بعدی"
+                    }
+                }
+            });
+
+            $("#searchbox").keyup(function () {
+                dataTable.fnFilter(this.value);
+            });
+        });
+
+        $(document).on("click", "#SanadDetail", function () {
+            var value = $(this).attr("value");
+            if (CurrentDetail == value) {
+                $("#modalSanadDetail").modal({ backdrop: true });
+            }
+            else {
+                $.ajax({
+                    url: "/Sanad/SanadDetail",
+                    data: { SanadId: value },
+                    type: "Post",
+                    dataType: "Json",
+                    success: function (result) {
+                        $("#SanadNum").text(value);
+                        $("#SanadDetailList").html(result.Html);
+                        $("#modalSanadDetail").modal({ backdrop: true });
+                        CurrentDetail = value;
+                    },
+                    error: function () {
+                        //alert("خطا!");
+                    }
+                });
+            }
+        });
+
+        //Sanad();
+        Delete('Sanad', 'DeleteSanad');
+    </script>
+}
+

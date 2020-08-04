@@ -1,0 +1,266 @@
+﻿@model PunasMarketing.ViewModels.Transaction.PaymentViewModel
+
+@if (Model.Formtype == 1)
+{
+    <div class="col-xs-12 col-md-12">
+        <div class="card" style="border-color: #029acf !important; margin-top:10px" Row="@Model.Row">
+            <div class="card-header" @*style=" background-color: #02beff;color: white; font-size: 14px;"*@>
+                <div class="card-actions">
+
+                    <a style="cursor:pointer;text-decoration:none" class="icon icon-remove iconColor RemoveCashPart" title="Remove"></a>
+                </div>
+                <strong>نقدی</strong>
+            </div>
+
+            <div class="card-body" number="@Model.Row">
+                <div class="col-xs-6 col-md-6">
+                    <div class="md-form-group md-label-static">
+                        @Html.TextBoxFor(model => model.cash[Model.Row].Amount, new { @class = "md-form-control Cashprice", spellcheck = "false" })
+                        @Html.LabelFor(model => model.cash[Model.Row].Amount, new { @class = "md-control-label" })
+                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.cash[Model.Row].Amount)</span>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-md-6">
+                    <div class="md-form-group md-label-static">
+                        @Html.DropDownListFor(model => model.cash[Model.Row].CashDeskId, new SelectList(Model.CashDesks, "Id", "Name"), "انتخاب کنید", new { @class = "md-form-control ChashDesk" })
+                        @Html.LabelFor(model => model.cash[Model.Row].CashDeskId, new { @class = "md-control-label" })
+                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.cash[Model.Row].CashDeskId)</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+else if (Model.Formtype == 2)
+{
+    <div class="col-xs-12 col-md-12">
+        <div class="card" style="border-color: #9b479f !important; margin-top:10px" Row="@Model.Row">
+            <div class="card-header">
+                <div class="card-actions">
+                    <a style="cursor:pointer;text-decoration:none" class="icon icon-remove iconColor RemoveCardPart" title="Remove"></a>
+                </div>
+                <strong>فیش بانکی</strong>
+            </div>
+
+            <div class="card-body" >
+                <div class="col-xs-3 col-md-3">
+                    <div class="md-form-group md-label-static">
+                        @Html.TextBoxFor(model => model.Card[Model.Row].Amount, new { @class = "md-form-control Cardprice", spellcheck = "false" })
+                        @Html.LabelFor(model => model.Card[Model.Row].Amount, new { @class = "md-control-label" })
+                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Card[Model.Row].Amount)</span>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-md-3">
+                    <div class="md-form-group md-label-static">
+                        @Html.DropDownListFor(model => model.Card[Model.Row].BankAccountId, new SelectList(Model.BankAccount, "BankAccountId", "Name"), "انتخاب کنید", new { @class = "md-form-control CardBankAccount" })
+                        @Html.LabelFor(mpdel => mpdel.Card[Model.Row].BankAccountId, new { @class = "md-control-label" })
+                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Card[Model.Row].BankAccountId)</span>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-md-3">
+                    <div class="md-form-group md-label-static">
+                        @Html.TextBoxFor(model => model.Card[Model.Row].CardAccountNumber, new { @class = "md-form-control", spellcheck = "false" })
+                        <label class="md-control-label">به نام</label>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-md-3">
+                    <div class="md-form-group md-label-static">
+                        @Html.TextBoxFor(model => model.Card[Model.Row].IssueTracking, new { @class = "md-form-control", spellcheck = "false" })
+                        @Html.LabelFor(model => model.Card[Model.Row].IssueTracking, new { @class = "md-control-label" })
+                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Card[Model.Row].IssueTracking)</span>
+                    </div>
+                </div>
+                @*@if (!Model.PaymentType)
+                {
+                    <div class="col-xs-3 col-md-3">
+                        <div class="md-form-group md-label-static">
+                            @Html.TextBoxFor(model => model.Card[Model.Row].Commission, new { @class = "md-form-control Cardprice", spellcheck = "false" })
+                            @Html.LabelFor(model => model.Card[Model.Row].Commission, new { @class = "md-control-label" })
+                            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Card[Model.Row].Commission)</span>
+                        </div>
+                    </div>
+                }*@
+            </div>
+        </div>
+    </div>
+}
+else if (Model.Formtype == 3)
+{
+    <div class="col-xs-12 col-md-12">
+        <div class="card" style="border-color: #d9831f !important; margin-top:10px" Row="@Model.Row">
+            <div class="card-header">
+                <div class="card-actions">
+                 
+                    <a style="cursor:pointer;text-decoration:none" class="icon icon-remove iconColor RemoveChequePart" title="Remove"></a>
+                </div>
+                <strong>چک</strong>
+            </div>
+
+            <div class="card-body" >
+                <div class="col-xs-3 col-md-3">
+                    <div class="md-form-group md-label-static">
+                        @Html.TextBoxFor(model => model.cheques[Model.Row].ChequeNum, new { @class = "md-form-control", spellcheck = "false" })
+                        @Html.LabelFor(mpdel => mpdel.cheques[Model.Row].ChequeNum, new { @class = "md-control-label" })
+                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.cheques[Model.Row].ChequeNum)</span>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-md-3">
+                    <div class="md-form-group md-label-static">
+                        @Html.TextBoxFor(model => model.cheques[Model.Row].Price, new { @class = "md-form-control Chequeprice", spellcheck = "false" })
+                        @Html.LabelFor(mpdel => mpdel.cheques[Model.Row].Price, new { @class = "md-control-label" })
+                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.cheques[Model.Row].Price)</span>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-md-3">
+                    <div class="md-form-group md-label-static">
+                        @Html.TextBoxFor(model => model.cheques[Model.Row].DudateText, new { @class = "md-form-control DatePicker", spellcheck = "false", @readonly = "readonly" })
+                        @Html.LabelFor(mpdel => mpdel.cheques[Model.Row].DudateText, new { @class = "md-control-label" })
+                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.cheques[Model.Row].DudateText)</span>
+                    </div>
+                </div>
+
+                <div class="col-xs-3 col-md-3">
+                    <div class="md-form-group md-label-static">
+                        @Html.DropDownListFor(model => model.cheques[Model.Row].BankId, new SelectList(Model.ChequeBank, "Id", "Name"), "انتخاب کنید", new { @class = "md-form-control" })
+                        @Html.LabelFor(mpdel => mpdel.cheques[Model.Row].BankId, new { @class = "md-control-label" })
+                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.cheques[Model.Row].BankId)</span>
+                    </div>
+                </div>
+
+                <div class="col-xs-8 col-md-8">
+                    <div class="md-form-group md-label-static">
+                        @Html.TextBoxFor(model => model.cheques[Model.Row].Description, new { @class = "md-form-control", spellcheck = "false" })
+                        @Html.LabelFor(mpdel => mpdel.cheques[Model.Row].Description, new { @class = "md-control-label" })
+                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.cheques[Model.Row].Description)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else if (Model.Formtype == 4)
+{
+    <div class="col-xs-12 col-md-12">
+        <div class="card" style="border-color: #d9831f !important; margin-top:10px" Row="@Model.Row">
+            <div class="card-header">
+                <div class="card-actions">
+                    <a style="cursor:pointer;text-decoration:none" class="icon icon-remove iconColor RemoveChequePart" title="Remove"></a>
+                </div>
+                <strong>چک</strong>
+            </div>
+
+            <div class="card-body">
+                <div class="col-xs-4 col-md-4">
+                    <div class="md-form-group md-label-static">
+                        @Html.TextBoxFor(model => model.cheques[Model.Row].ChequeNum, new { @class = "md-form-control", spellcheck = "false" })
+                        @Html.LabelFor(mpdel => mpdel.cheques[Model.Row].ChequeNum, new { @class = "md-control-label" })
+                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.cheques[Model.Row].ChequeNum)</span>
+                    </div>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                    <div class="md-form-group md-label-static">
+                        @Html.TextBoxFor(model => model.cheques[Model.Row].Price, new { @class = "md-form-control Chequeprice", spellcheck = "false" })
+                        @Html.LabelFor(mpdel => mpdel.cheques[Model.Row].Price, new { @class = "md-control-label" })
+                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.cheques[Model.Row].Price)</span>
+                    </div>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                    <div class="md-form-group md-label-static">
+                        @Html.TextBoxFor(model => model.cheques[Model.Row].DudateText, new { @class = "md-form-control DatePicker", spellcheck = "false", @readonly = "readonly" })
+                        @Html.LabelFor(mpdel => mpdel.cheques[Model.Row].DudateText, new { @class = "md-control-label" })
+                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.cheques[Model.Row].DudateText)</span>
+                    </div>
+                </div>
+
+                <div class="col-xs-6 col-md-6">
+                    <div class="md-form-group md-label-static">
+                        @Html.DropDownListFor(model => model.cheques[Model.Row].BankAccountId, new SelectList(Model.ChequeBankAccount, "BankAccountId", "HesabCompeletName"),"انتخاب کنید", new { @class = "md-form-control" })
+                        @Html.LabelFor(mpdel => mpdel.cheques[Model.Row].BankAccountId, new { @class = "md-control-label" })
+                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.cheques[Model.Row].BankAccountId)</span>
+                    </div>
+                </div>
+
+                <div class="col-xs-6 col-md-6">
+                    <div class="md-form-group md-label-static">
+                        @Html.TextBoxFor(model => model.cheques[Model.Row].Description, new { @class = "md-form-control", spellcheck = "false" })
+                        @Html.LabelFor(mpdel => mpdel.cheques[Model.Row].Description, new { @class = "md-control-label" })
+                        <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.cheques[Model.Row].Description)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else if (Model.Formtype == 5)
+{
+    <div class="col-xs-12 col-md-12">
+        <div class="card" style="border-color: #d9230f !important; margin-top:10px" ChequeId="@Model.Row" Amount="@Model.PayCheque.Amount">
+            <div class="card-header">
+                <div class="card-actions">
+                    
+                    <a style="cursor:pointer;text-decoration:none" class="icon icon-remove iconColor RemovePayChequePart" title="Remove"></a>
+                </div>
+                <strong>خرج چک</strong>
+            </div>
+
+            <div class="card-body">
+                <div class="col-xs-3 col-md-3">
+                    <div class="md-form-group md-label-static">
+                        <label class="md-form-control">
+                          @Model.PayCheque.ChequeNum
+                        </label>
+                        <label class="md-control-label">
+                            شماره چک
+                        </label>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-md-3">
+                    <div class="md-form-group md-label-static">
+
+                        <label class="md-form-control">
+                            @Model.PayCheque.Amount.ToPrice()
+                        </label>
+                        <label class="md-control-label">
+                            مبلغ
+                        </label>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-md-3">
+                    <div class="md-form-group md-label-static">
+                        <label class="md-form-control">
+                            @Model.PayCheque.DueDate.ToPersianDateTime().ToString("yyyy/MM/dd")
+                        </label>
+                        <label class="md-control-label">
+                            تاریخ سررسید
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-xs-3 col-md-3">
+                    <div class="md-form-group md-label-static">
+                        <label class="md-form-control">
+                           @Model.PayCheque.Bank.Name
+                        </label>
+                        <label class="md-control-label">
+                            بانک
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-xs-8 col-md-8">
+                    <div class="md-form-group md-label-static">
+                        <label class="md-form-control">
+                          @Model.PayCheque.Description
+                        </label>
+                        <label class="md-control-label">
+                            توضیحات
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

@@ -1,0 +1,129 @@
+﻿@model PunasMarketing.ViewModels.Personnel.PersonnelListViewModel
+@{
+    ViewBag.Title = "کارکنان";
+}
+
+<div class="layout-content-body">
+    <div class="row gutter-xs">
+        <div class="col-xs-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>کارکنان</strong>
+                </div>
+                <div class="card-body">
+                    @Html.AntiForgeryToken()
+                    <div class="md-form-group md-label-floating col-md-6">
+                        <input class="md-form-control" type="text" name="name" id="searchbox" spellcheck="false" required="" aria-required="true">
+                        <label class="md-control-label">جستجو</label>
+                    </div>
+                    <div class="md-form-group md-label-floating col-md-6">
+                        <div class="margin-top">
+                            <div class="col-xs-6 col-md-6">
+                                <a href="@Url.Action("AddPersonnel", "Personnel")" class="btn btn-success">افزودن پرسنل</a>
+                            </div>
+                        </div>
+                    </div>
+                    <table id="demo-datatables-1" class="table table-striped table-nowrap dataTable" cellspacing="0" width="100%">
+                        <thead>
+                            <tr class="columnSize">
+                                <th>
+                                    ردیف
+                                </th>
+                                <th>
+                                    شناسه
+                                </th>
+                                <th>
+                                    کد پرسنلی
+                                </th>
+                                <th>
+                                    نام
+                                </th>
+                                <th>
+                                    کد ملی
+                                </th>
+                                <th>
+                                    جنسیت
+                                </th>
+                                <th>
+                                    تاریخ تولد
+                                </th>
+                                <th>
+                                    عنوان شغلی
+                                </th>
+                                <th>
+                                    عملیات
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @for (int index = 0; index < Model.Personnels.Count(); index++)
+                            {
+                                var item = Model.Personnels.ToList()[index];
+
+                                <tr class="columnSize">
+                                    <td>
+                                        @(index + 1)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PersonnelCode)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FullName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CodeMelli)
+                                    </td>
+                                    <td>
+                                        @(item.IsMale ? "مرد" : "زن")
+                                    </td>
+                                    <td>
+                                        @item.BirthDate.ToStringShamsiDate() (@((DateTime.Now - item.BirthDate).Days / 365) سال)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => Model.JobTitles.FirstOrDefault(i => i.Id == item.JobTitleId).Name)
+                                    </td>
+
+                                    <td>
+                                        @Html.ActionLink(" ", "UpdatePersonnel", new { id = item.Id }, new { @class = "icon icon-pencil iconColor" })
+                                        @Html.ActionLink(" ", "PersonnelManagement", new { id = item.Id }, new { @class = "icon icon-folder-open iconColor" })
+                                        <a id="Delete" value="@item.Id" class="icon icon-remove iconColor"></a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section toastr {
+    @Html.Raw(TempData["SaveMessage"])
+}
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            var dataTable = $('#demo-datatables-1').dataTable();
+            $("#searchbox").keyup(function () {
+                dataTable.fnFilter(this.value);
+            });
+        });
+        $(function () {
+            $("#demo-datatables-1").dataTable();
+        });
+        $(document).ready(function () {
+            $("#demo-datatables-1_info").parent().addClass('col-sm-12');
+        });
+
+        //Personnel();
+        Delete('Personnel', 'DeletePersonnel');
+    </script>
+}

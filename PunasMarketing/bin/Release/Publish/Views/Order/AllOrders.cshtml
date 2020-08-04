@@ -1,0 +1,242 @@
+﻿@using PunasMarketing.ViewModels.Order
+@model PunasMarketing.ViewModels.Order.OrderListViewModel
+@{
+    string title = string.Empty;
+    switch (Model.OrdersPage)
+    {
+        case OrderPage.All:
+            title = "همه سفارش ها";
+            break;
+
+        case OrderPage.Verifying:
+            title = "سفارش های در انتظار تأیید";
+            break;
+
+        case OrderPage.Factoring:
+            title = "سفارش های در انتظار صدور فاکتور";
+            break;
+    }
+
+    ViewBag.Title = title;
+    int counter = 0;
+}
+
+<div class="layout-content-body">
+    <div class="row gutter-xs">
+        <div class="col-xs-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>@title</strong>
+                </div>
+                <div class="card-body">
+                    @AntiForgery.GetHtml()
+                    <div class="md-form-group md-label-floating col-md-6">
+                        <input class="md-form-control" type="text" name="name" id="searchbox" spellcheck="false" required="" aria-required="true">
+                        <label class="md-control-label">جستجو</label>
+                    </div>
+                    <div class="md-form-group md-label-floating col-md-6">
+                        <div class="margin-top">
+                            <div class="col-xs-6 col-md-6">
+
+                            </div>
+                        </div>
+                    </div>
+                    <table id="demo-datatables-1" class="table table-striped table-nowrap dataTable" cellspacing="0" width="100%">
+                        <thead>
+                            <tr class="columnSize">
+                                <th>
+                                    ردیف
+                                </th>
+                                <th>
+                                    شناسه
+                                </th>
+                                <th>
+                                    نام مشتری
+                                </th>
+                                <th>
+                                    بازاریاب ثبت کننده سفارش
+                                </th>
+                                <th>
+                                    شماره فاکتور
+                                </th>
+                                <th>
+                                    وضعیت
+                                </th>
+                                <th>
+                                    تاریخ ثبت
+                                </th>
+                                <th>
+                                    عملیات
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Orders)
+                            {
+                                <tr class="columnSize">
+                                    <td>
+                                        @(++counter)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>
+                                        @{
+                                            var customer = Model.Customers.FirstOrDefault(i => i.Id == item.CustomerId);
+                                            if (customer != null)
+                                            {
+                                                <a href="/Customer/CustomerDetails/@customer.Id">@customer.BusinessName</a>
+                                            }
+                                        }
+                                    </td>
+                                    <td style="color: @(item.MarketerId.HasValue ? "" : "lightgray")">
+                                        @{
+                                            if (item.MarketerId.HasValue)
+                                            {
+                                                var marketer = Model.Marketers.FirstOrDefault(i => i.Id == item.MarketerId);
+                                                if (marketer != null)
+                                                {
+                                                    <a href="/Marketer/MarketerManagement/@marketer.Id">@marketer.FullName</a>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <span>ثبت توسط مشتری</span>
+                                            }
+                                        }
+                                    </td>
+                                    <td style="color: @(item.FactorId.HasValue ? "" : "darkorange")">
+                                        @if (item.FactorId.HasValue)
+                                        {
+                                            <a onclick="ShowFactor(@item.FactorId, @item.PeriodId)" style="cursor: pointer">@item.FactorId</a>
+                                        }
+                                        else
+                                        {
+                                            <span>فاکتور نشده</span>
+                                        }
+                                    </td>
+                                    <td id="verifyStatus_@item.Id" style="color: @(item.IsVerified ? "green" : "darkorange")">
+                                        @(item.IsVerified ? "تأیید شده" : "تأیید نشده")
+                                    </td>
+                                    <td>
+                                        @(item.CreatedDate.ToPersianDateTime())
+                                    </td>
+                                    <td>
+                                        <a id="orderDetails" value="@item.Id" style="cursor:pointer; text-decoration:none" class="icon icon-folder-open iconColor"></a>
+                                        <a id="Delete" value="@item.Id" class="icon icon-remove iconColor"></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="orderModal" tabindex="-1" role="dialog" class="modal fade in" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h4 class="modal-title">سفارش شماره <span id="orderNum"></span></h4>
+            </div>
+            <div id="modalBody" class="modal-body" style="padding: 0">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="autoFactorModal" tabindex="-1" role="dialog" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">فاکتور فروش خودکار</h4>
+            </div>
+            <div id="autoFactorModalBody" class="modal-body">
+
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
+<div id="ShowFactorModal" tabindex="-1" role="dialog" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">نمایش فاکتور</h4>
+            </div>
+            <div class="modal-body" id="ShowFactorModalBody">
+
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
+@section toastr {
+    @Html.Raw(TempData["SaveMessage"])
+}
+
+@section scripts {
+    <script>
+        function ShowFactor(factorId, periodId) {
+            $.ajax({
+                url: "/Factor/ShowFactorDetails",
+                type: "Get",
+                data: { id: factorId, periodId: periodId },
+                success: function (res) {
+                    if (($("#orderModal").data('bs.modal') || {}).isShown) {
+                        $('#orderModal').modal('toggle'); // close current order modal
+                    }
+
+                    $('#ShowFactorModal').modal();
+                    $('#ShowFactorModalBody').html(res);
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            var dataTable = $('#demo-datatables-1').dataTable();
+            $("#searchbox").keyup(function () {
+                dataTable.fnFilter(this.value);
+            });
+        });
+
+        $(function () {
+            $("#demo-datatables-1").dataTable();
+        });
+
+        $(document).ready(function () {
+            $("#demo-datatables-1_info").parent().addClass('col-sm-12');
+        });
+
+        $(document).on("click",
+            "#orderDetails",
+            function () {
+                var value = $(this).attr("value");
+
+                $.get("/Order/OrderDetail/" + value,
+                    function (res) {
+                        $("#orderModal").modal();
+                        $("#orderNum").text(value);
+                        $("#modalBody").html(res);
+                    });
+            });
+
+        //Order();
+        
+        Delete('Order', 'DeleteOrder');
+    </script>
+}
+

@@ -1,0 +1,8 @@
+
+@font-face {
+	font-family: 'BMitra';
+	src: url('BMitra.eot?') format('eot'), 
+	     url('BMitra.woff') format('woff'), 
+	     url('BMitra.ttf')  format('truetype'),
+	     url('BMitra.svg#BMitra') format('svg');
+}

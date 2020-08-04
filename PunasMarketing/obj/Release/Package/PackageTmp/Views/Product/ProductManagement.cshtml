@@ -1,0 +1,329 @@
+﻿@using PunasMarketing.Models.DomainModel
+@model PunasMarketing.ViewModels.Product.ProductManagementViewModel
+@{
+    ViewBag.Title = "مدیریت محصول";
+    string Flag = "";
+    int counter = 0;
+    double remained = 0;
+}
+
+<div class="col-md-12" style="margin-top:20px">
+    <div class="panel m-b-lg">
+        <ul class="nav nav-tabs nav-justified">
+            <li class="active"><a href="#home-11" data-toggle="tab" aria-expanded="true">اطلاعات کلی محصول</a></li>
+            <li class=""><a href="#profile-12" data-toggle="tab" aria-expanded="false">تعیین قیمت</a></li>
+            <li class=""><a href="#profile-13" data-toggle="tab" aria-expanded="false">کاردکس کالا</a></li>
+        </ul>
+        <div class="tab-content">
+            <input id="ProductId" type="hidden" value="@Model.Product.Id" />
+            <div class="tab-pane fade active in" id="home-11">
+                <div class="col-sm-4 col-md-4" data-toggle="match-height" style="height: 500px;">
+                    <ul class="list-group list-group-divided">
+                        <li class="list-group-item">
+                            <span class="pull-right">@Model.Product.Id</span>
+                            شناسه
+                        </li>
+
+                        <li class="list-group-item">
+                            <span class="pull-right">@Model.Product.ProductCode</span>
+                            کد محصول
+                        </li>
+
+                        <li class="list-group-item">
+                            <span class="pull-right">@Model.Product.Name</span>
+                            نام محصول
+                        </li>
+
+                        <li class="list-group-item">
+                            <span class="pull-right">@Model.Product.ProductCategory.Name</span>
+                            دسته بندی
+                        </li>
+
+                        <li class="list-group-item">
+                            <span class="pull-right">@Model.Product.Unit.Name</span>
+                            واحد اصلی (واحد کوچکتر)
+                        </li>
+
+                        <li class="list-group-item">
+                            <span class="pull-right">@(Model.Product.Unit1?.Name ?? "")</span>
+                            واحد فرعی (واحد بزرگتر)
+                        </li>
+
+                        <li class="list-group-item">
+                            <span class="pull-right">@(Model.Product.UnitRate)</span>
+                            نسبت واحد فرعی به اصلی
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-4 col-md-4" data-toggle="match-height" style="height: 500px;">
+                    <ul class="list-group list-group-divided">
+                        <li class="list-group-item">
+                            <span class="pull-right" style="direction: ltr">@(Model.Product.Inventory.ToPrice())</span>
+                            موجودی
+                        </li>
+
+                        <li class="list-group-item">
+                            <span class="pull-right" style="direction: ltr">@Model.Product.PendingsCount</span>
+                            در انتظار حواله
+                        </li>
+
+                        <li class="list-group-item">
+                            @if (Model.Product.IsSellable)
+                            {
+                                <span class="pull-right">دارد</span>
+                            }
+                            else
+                            {
+                                <span class="pull-right">ندارد</span>
+                            }
+                            قابلیت فروش
+                        </li>
+
+                        <li class="list-group-item">
+                            <span class="pull-right">@(Model.ProductionStatuses.FirstOrDefault(i => i.Key == Model.Product.ProductionStatus).Value)</span>
+                            وضعیت تولید
+                        </li>
+
+                        <li class="list-group-item">
+                            <span class="pull-right">@(Model.Product.OrderPoint?.ToPrice())</span>
+                            نقطه سفارش
+                        </li>
+
+                        <li class="list-group-item">
+                            <span class="pull-right">@Model.Product.Warehouse.Name</span>
+                            انبار ذخیره شده
+                        </li>
+
+                        <li class="list-group-item">
+                            @if (Model.Product.IsAvailable)
+                            {
+                                <span class="pull-right">فعال</span>
+                            }
+                            else
+                            {
+                                <span class="pull-right">غیر فعال</span>
+                            }
+                            وضعیت دسترسی
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-4 col-md-4" data-toggle="match-height" style="height: 500px;">
+                    @{ 
+                        var image = Model.Product.ProductImages;
+                        if (image.Any())
+                        {
+                            <img src="~/Content/Upload/Image/Products/@image.First().ImageName" style="width: 200px; height: 200px; float: left" />
+                        }
+                        else
+                        {
+                            <img src="~/Content/Upload/Image/Products/NoImage.jpg" style="width: 200px; height: 200px; float: left" />
+                        }
+                    }
+
+                </div>
+
+                <div class="col-sm-12 col-md-12" data-toggle="match-height" style="height: 500px;">
+                    <ul class="list-group list-group-divided">
+                        <li class="list-group-item">
+                            توضیحات محصول
+                        </li>
+
+                        <li class="list-group-item">
+                            @Model.Product.Description
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="profile-12">
+                <div class="card-body">
+                    <div class="col-xs-8 col-md-8">
+                        <div class="md-form-group md-label-static">
+                            <label class="md-form-control">
+                                @(Model.Product.MarketerCommission.HasValue ? Model.Product.MarketerCommission.ToPrice() : "0")
+                            </label>
+                            <label class="md-control-label">
+                                @Html.LabelFor(model => model.Product.MarketerCommission, new { @class = "md-control-label" })
+                            </label>
+                            <span class="help-block">برای ویرایش سهم بازاریاب، می توانید از بخش «ویرایش» اقدام کنید.</span>
+                        </div>
+                    </div>
+
+                    <input id="mood" type="hidden" value="@Model.IsUpdate"/>
+
+                    @foreach (var item in Model.PriceTypeList)
+                    {
+                        int vis = -1;
+                        if (item.Isvisiable)
+                        {
+                            vis = 1;
+                        }
+                        else
+                        {
+                            vis = 0;
+                        }
+                        <div id="InputRow">
+                            <div class="col-xs-8 col-md-8">
+                                <div class="md-form-group md-label-static">
+                                    <input class="md-form-control" type="text" Identity="PropertyValue" IsVisible="@vis" mainvalue="@item.PriceValue" value="@item.PriceValue.ToPrice()" PropertyId="@item.PriceTypeId"/>
+                                    <label class="md-control-label">@item.PriceTypeTitle</label>
+                                </div>
+
+                            </div>
+                            <div class="col-xs-4 col-md-4">
+                                <label class="custom-control custom-control-primary custom-checkbox" style="margin-top: 40px">
+                                    @Html.CheckBox("visiableCheckbox", new {@class = "custom-control-input", Identity = "PropertyboolValue", value = item.Isvisiable, bPropertyId = item.PriceTypeId})<span style="margin: 20px">قابل مشاهده برای بازاریاب</span>
+                                    <span class="custom-control-indicator"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                    }
+
+                    <div class="col-xs-12 col-md-12">
+                        <div class="md-form-group md-label-static margin-top">
+                            <input id="Add" class="btn btn-success" type="submit" value="ثبت اطلاعات"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="profile-13">
+                <div class="md-form-group md-label-floating col-md-6">
+                    <input class="md-form-control" type="text" name="name" id="searchboxProduct" spellcheck="false" required="" aria-required="true">
+                    <label class="md-control-label">جستجو</label>
+                </div>
+                <div class="md-form-group md-label-floating col-md-6">
+
+                </div>
+                <table id="ProductList" class="table table-striped table-nowrap dataTable" cellspacing="0" width="100%" style="overflow: scroll">
+                    <thead>
+                        <tr class="columnSize">
+
+                            <th>
+                                ردیف
+                            </th>
+                            <th>
+                                تاریخ
+                            </th>
+                            <th>
+                                شماره سند
+                            </th>
+                            <th>
+                                سند
+                            </th>
+                            <th>
+                                نوع سند
+                            </th>
+                            <th>
+                                انبار تحویل گیرنده
+                            </th>
+                            <th>
+                                انبار تحویل دهنده
+                            </th>
+                            <th>
+                                مقدار وارده
+                            </th>
+                            <th>
+                                مقدار صادره
+                            </th>
+                            <th>
+                                مانده
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.InvoiceItems)
+                        {
+                            var invoice = item.Invoice;
+                            string invoiceType = string.Empty;
+                            if (invoice.OtherWareHouseId.HasValue)
+                            {
+                                invoiceType = "انبار به انبار";
+                            }
+                            else if (invoice.PersonnelId.HasValue)
+                            {
+                                invoiceType = invoice.IsReceive ? "تولید به انبار" : "انبار به تولید";
+                            }
+                            else if (!string.IsNullOrWhiteSpace(invoice.FactorNum))
+                            {
+                                invoiceType = invoice.IsReceive ? "خرید" : "فروش";
+                            }
+
+                            Warehouse senderWarehouse = invoice.IsReceive ? invoice.Warehouse : invoice.Warehouse1;
+                            Warehouse receiverWarehouse = invoice.IsReceive ? invoice.Warehouse1 : invoice.Warehouse;
+
+                            var mainUnitCount = invoice.IsReceive ? item.MainUnitCount : item.MainUnitCount * -1;
+
+
+                            <tr class="columnSize">
+                                <td>
+                                    @(++counter)
+                                </td>
+                                <td>
+                                    @invoice.CreatedDateTime.ToPersianDateTime().ToString("yyyy/MM/dd")
+                                </td>
+                                <td>
+                                    <a onclick="ShowInvoiceDetails(@invoice.Id)" style="cursor: pointer">@invoice.Id</a>
+                                </td>
+                                <td>
+                                    @(invoice.IsReceive ? "رسید" : "حواله")
+                                </td>
+                                <td>
+                                    @invoiceType
+                                </td>
+                                <td>
+                                    @(receiverWarehouse?.Name)
+                                </td>
+                                <td>
+                                    @(senderWarehouse?.Name)
+                                </td>
+                                <td>
+                                    @(mainUnitCount >= 0 ? Math.Abs(mainUnitCount).ToPrice() : "")
+                                </td>
+                                <td>
+                                    @(mainUnitCount < 0 ? Math.Abs(mainUnitCount).ToPrice() : "")
+                                </td>
+                                <td style="direction: ltr; text-align: right">
+                                    @{remained += mainUnitCount;}
+                                    @(remained.ToPrice())
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-xs-12 col-md-12">
+    <div class="margin-top">
+        <div class="col-xs-12 col-md-12">
+            <a href="@Url.Action("Products","Product")" class="btn btn-default">بازگشت به فهرست</a>
+            <a href="@Url.Action("UpdateProduct", "Product", new {id = Model.Product.Id})" class="btn btn-success">ویرایش</a>
+        </div>
+    </div>
+</div>
+
+<div id="invoiceModal" tabindex="-1" role="dialog" class="modal fade in" style="display: none;">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div id="invoiceModalBody" class="modal-body" style="padding: 0">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section toastr{
+    @Html.Raw(TempData["SaveMessage"])
+}
+@section scripts{
+    @Scripts.Render("~/bundles/productsJs")
+    <script>
+        ProductManagement();
+    </script>
+}

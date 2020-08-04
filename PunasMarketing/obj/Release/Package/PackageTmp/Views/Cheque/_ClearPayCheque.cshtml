@@ -1,0 +1,32 @@
+﻿@model PunasMarketing.ViewModels.Cheque.ClearPayChequeViewModel
+
+<div class="modal-header bg-success">
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true" style="color: white">×</span>
+        <span class="sr-only">Close</span>
+    </button>
+    <h4 class="modal-title">وصول کردن چک پرداختی</h4>
+</div>
+
+@using (Html.BeginForm("ClearPayModal", "Cheque", FormMethod.Post, new { style = "padding: 10px" }))
+{
+    @Html.HiddenFor(model => model.ChequeId)
+
+    <div class="col-xs-12 col-md-12">
+        <div class="md-form-group md-label-static">
+            <input class="md-form-control" type="text" spellcheck="false" readonly="readonly" id="txtClearDate" value="@Model.ClearDate.ToMiladiDate().ToPersianDateTime().ToStringDate()" name="ClearDate" />
+            @Html.LabelFor(model => model.ClearDate, new { @class = "md-control-label" })
+            <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.ClearDate)</span>
+        </div>
+    </div>
+
+    <input class="btn btn-success btn-next" type="submit" value="تأیید" />
+    <input class="btn btn-danger btn-next" type="button" value="لغو" data-dismiss="modal" />
+
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/cheques")
+<script>
+    ClearPayCheque();
+</script>

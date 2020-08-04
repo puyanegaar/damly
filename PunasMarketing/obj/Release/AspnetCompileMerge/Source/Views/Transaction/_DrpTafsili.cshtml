@@ -1,0 +1,7 @@
+﻿@model PunasMarketing.ViewModels.Transaction.PaymentViewModel
+<div class="md-form-group md-label-static">
+    @Html.LabelFor(model => model.pay.Tafsili, new { @class = "form-label" })
+    @Html.DropDownListFor(model => model.pay.Tafsili, Model.Tafsili, "انتخاب کنید", new { @class = "form-control" })
+    @*<span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.pay.Tafsili)</span>*@
+</div>
+

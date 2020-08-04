@@ -1,0 +1,66 @@
+﻿@*@model  IEnumerable<NewApa.Models.DomainModel.Comment>
+<ul class="nav navbar-nav navbar-right">
+
+        <li class="dropdown">
+            <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true">
+                <span class="icon-with-child hidden-xs">
+                    <span class="icon icon-comments-o icon-lg"></span>
+                    <span class="badge badge-danger badge-above right">@Model.Count()</span>
+                </span>
+                <span class="visible-xs-block">
+                    <span class="icon icon-comments-o icon-lg"></span>
+                    <span class="badge badge-danger pull-right">@Model.Count()</span>
+                    نظرات
+                </span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg">
+                <div class="dropdown-header">
+                    <h5 class="dropdown-heading">نظرات جدید</h5>
+                </div>
+                <div class="dropdown-body">
+                    <div class="list-group list-group-divided custom-scrollbar">
+                        @{
+                            Random rnd = new Random();
+                        }
+                        @foreach (var item in Model)
+                        {
+                            <a class="list-group-item" href="/Admin/CommentDetails/@item.id">
+                                <div class="notification">
+                                    <div class="notification-media">
+                                        @{
+                                            int number = rnd.Next(1, 7);
+                                            string src = "/Content/Avatar/" + number + ".png";
+                                        }
+                                        <img class="rounded" width="40" height="40" src="@src" />
+                                    </div>
+                                    <div class="notification-content">
+                                        <small class="notification-timestamp">@item.Date</small>
+                                        <h5 class="notification-heading">@item.userName</h5>
+                                        <p class="notification-text">
+                                            <small class="truncate">@item.Body</small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                                            }
+                    </div>
+                </div>
+                <div class="dropdown-footer">
+                    <a class="dropdown-btn" href="/Admin/Comments">مشاهده همه</a>
+                </div>
+            </div>
+        </li>
+
+                                          
+    <li class="dropdown hidden-xs">
+        <button class="navbar-account-btn" data-toggle="dropdown" aria-haspopup="true">
+            @((string)Session["Name"])<img class="rounded" width="36" height="36" src="~/Content/Template/images/logo2.png" alt="Apa">
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-right">
+            <li><a href="/Admin/Logout">خروج</a></li>
+        </ul>
+    </li>
+
+
+</ul>*@

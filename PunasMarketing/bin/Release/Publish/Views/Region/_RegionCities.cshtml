@@ -1,0 +1,6 @@
+﻿@model PunasMarketing.ViewModels.Region.RegionViewModel
+
+@Html.DropDownListFor(model => model.RegionModel.CityId, new SelectList(Model.Cities, "Id", "Name"), "شهر", new { @class = "md-form-control" })
+@Html.LabelFor(model => model.RegionModel.CityId, new { @class = "md-control-label" })
+<span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.RegionModel.CityId)</span>
+

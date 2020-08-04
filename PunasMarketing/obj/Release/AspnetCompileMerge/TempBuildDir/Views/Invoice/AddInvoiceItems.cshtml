@@ -1,0 +1,396 @@
+﻿@model PunasMarketing.ViewModels.Invoice.InvoiceItemViewModel
+@{
+    if (Model.Invoice.IsReceive)
+    {
+        ViewBag.Title = "ثبت رسید جدید";
+    }
+    else
+    {
+        ViewBag.Title = "ثبت حواله جدید";
+    }
+
+    string invoiceType = string.Empty;
+
+    if (Model.Invoice.OtherWareHouseId != null)
+    {
+        invoiceType = "انبار به انبار";
+    }
+    else if (Model.Invoice.PersonnelId != null)
+    {
+        if (Model.Invoice.IsReceive)
+        {
+            invoiceType = "تولید به انبار";
+        }
+        else
+        {
+            invoiceType = "انبار به تولید";
+        }
+    }
+    else if (Model.Invoice.FactorNum != null)
+    {
+        invoiceType = "خارج به انبار";
+    }
+}
+
+<div class="layout-content-body">
+    @using (Ajax.BeginForm("AddInvoiceItems", "Invoice", FormMethod.Post, new AjaxOptions
+    {
+        UpdateTargetId = "Items",
+        OnBegin = "start",
+        OnComplete = "Complete",
+    }, new { autocomplete = "off" }))
+    {
+        <div id="divInfo">
+            <legend>
+                @if (Model.Invoice.IsReceive)
+                {
+                    <h2> رسید</h2>
+                }
+                else
+                {
+                    <h2>حواله</h2>
+                }
+
+            </legend>
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(a => a.InvoiceItemModel.InvoiceId)
+            <div class="col-xs-12 col-md-12">
+                <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19); border-radius:5px;">
+                    <div class="card-header">
+                        <div class="card-actions">
+                            <button type="button" class="card-action card-toggler" title="Collapse"></button>
+                        </div>
+                        @if (Model.Invoice.IsReceive)
+                        {
+                            <strong>مشخصات رسید</strong>
+                        }
+                        else
+                        {
+                            <strong>مشخصات حواله</strong>
+                        }
+                    </div>
+
+                    <div class="card-body">
+                        <div class="col-xs-12 col-md-4">
+                            <div class="md-form-group md-label-static">
+                                <input type="text" readonly class="md-form-control" value="@invoiceType" />
+                                <span class="md-control-label">نوع حواله</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-4">
+                            <div class="md-form-group md-label-static">
+                                <input type="text" readonly class="md-form-control" value="@Model.Invoice.Warehouse1.Name" />
+                                @if (Model.Invoice.IsReceive)
+                                {
+                                    <span class="md-control-label">مقصد حواله</span>
+                                }
+                                else
+                                {
+                                    <span class="md-control-label">مبدا حواله</span>
+                                }
+
+
+                            </div>
+                        </div>
+
+                        @if (Model.Invoice.OtherWareHouseId != null)
+                        {
+                            <div class="col-xs-12 col-md-4">
+                                <div class="md-form-group md-label-static">
+                                    <input type="text" readonly class="md-form-control" value="@Model.Invoice.Warehouse.Name" />
+                                    @if (Model.Invoice.IsReceive)
+                                    {
+                                        <span class="md-control-label">مبدا حواله</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="md-control-label">مقصد حواله</span>
+                                    }
+                                </div>
+                            </div>
+                        }
+                        else if (Model.Invoice.PersonnelId != null)
+                        {
+                            <div class="col-xs-12 col-md-4">
+                                <div class="md-form-group md-label-static">
+                                    <input type="text" readonly class="md-form-control" value="@Model.Invoice.Personnel.FullName" />
+                                    @if (Model.Invoice.IsReceive)
+                                    {
+                                        <span class="md-control-label">مبدا حواله</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="md-control-label">مقصد حواله</span>
+                                    }
+                                </div>
+                            </div>
+                        }
+                        else if (Model.Invoice.FactorNum != null)
+                        {
+                            <div class="col-xs-12 col-md-4">
+                                <div class="md-form-group md-label-static">
+                                    <input type="text" readonly class="md-form-control" value="@Model.Invoice.FactorNum" />
+                                    @if (Model.Invoice.IsReceive)
+                                    {
+                                        <span class="md-control-label">مبدا حواله</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="md-control-label">مقصد حواله</span>
+                                    }
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-md-12">
+                <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19); border-radius:5px;">
+                    <div class="card-header">
+                        <div class="card-actions">
+                            <button type="button" class="card-action card-toggler" title="Collapse"></button>
+                        </div>
+                        <strong>اضافه کردن کالا</strong>
+                    </div>
+
+                    <div class="card-body">
+                        @*<div class="col-xs-12 col-md-6">
+                                <div class="md-form-group md-label-static">
+                                    <input type="text" id="SendInvoiceProduct" class="md-form-control" />
+                                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.InvoiceItemModel.ProductId)</span>
+                                    <input type="hidden" id="InvoiceItemModel_ProductId" name="InvoiceItemModel.ProductId" />
+                                    @Html.LabelFor(model => model.InvoiceItemModel.ProductId, new { @class = "md-control-label" })
+                                </div>
+                            </div>*@
+
+                        <div class="col-xs-12 col-md-6">
+                            <div class="md-form-group md-label-static">
+                                @Html.DropDownListFor(model => model.InvoiceItemModel.ProductId, new SelectList(Model.Products, "Id", "Name"), "-", new { @class = "md-form-control", theme = "google", })
+                                @Html.LabelFor(model => model.InvoiceItemModel.ProductId, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.InvoiceItemModel.ProductId)</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-6" style="@(Model.Invoice.IsReceive ? "visibility: hidden" : "")">
+                            <div class="md-form-group md-label-static">
+                                <input type="text" readonly class="md-form-control" id="SendInvoiceInventory" />
+                                <span class="md-control-label" style="@(Model.Invoice.IsReceive ? "visibility: hidden" : "")">موجودی</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-4">
+                            <div class="md-form-group md-label-static">
+                                @Html.TextBoxFor(model => model.InvoiceItemModel.MainUnitCount, new { @class = "md-form-control", type = "text", spellcheck = "false", value = 23 })
+                                @Html.LabelFor(model => model.InvoiceItemModel.MainUnitCount, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.InvoiceItemModel.MainUnitCount)</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-4">
+                            <div class="md-form-group md-label-static">
+                                @Html.TextBoxFor(model => model.InvoiceItemModel.SubUnitCount, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                                @Html.LabelFor(model => model.InvoiceItemModel.SubUnitCount, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.InvoiceItemModel.SubUnitCount)</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-4">
+                            <div class="md-form-group md-label-static">
+                                @Html.TextBoxFor(model => model.InvoiceItemModel.UnitsRate, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                                @Html.LabelFor(model => model.InvoiceItemModel.UnitsRate, new { @class = "md-control-label" })
+                                <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.InvoiceItemModel.UnitsRate)</span>
+                            </div>
+                        </div>
+
+
+                        <div class="col-xs-12 col-md-12">
+                            <div class="margin-top">
+                                <div class="col-xs-12 col-md-12">
+                                    <input class="btn btn-success" type="submit" value="ثبت" />
+
+                                    @if (Model.Invoice.IsReceive)
+                                    {
+                                        <a href="@Url.Action("ReceiveInvoices","Invoice")" class="btn btn-default">برگشت</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="@Url.Action("SendInvoices","Invoice")" class="btn btn-default">برگشت</a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    }
+
+</div>
+
+<div class="layout-content-body">
+    <div class="col-xs-12 col-md-12">
+        <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19); border-radius:5px;">
+            <div class="card-header">
+                <div class="card-actions">
+                    <button type="button" class="card-action card-toggler" title="Collapse"></button>
+                </div>
+                <strong>لیست کالا ها</strong>
+            </div>
+
+            <div class="card-body">
+                <div id="Items">
+                    @Html.Action("InvoiceItemList", "Invoice", new { id = Model.InvoiceItemModel.InvoiceId })
+                </div>
+
+                <div class="col-xs-12 col-md-12">
+                    <a href="@Url.Action("SetComplete","Invoice" , new{id = Model.InvoiceItemModel.InvoiceId})" class="btn btn-info margin-top" type="submit">ثبت نهایی</a>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<div id="InvoiceItemModal" tabindex="-1" role="dialog" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">ویرایش</h4>
+            </div>
+            <div class="modal-body" id="InvoiceItemModalBody">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section toastr {
+    @Html.Raw(TempData["SaveMessage"])
+}
+
+
+@section scripts{
+
+    @*<script src="~/Scripts/jquery-3.2.1.min.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.0.min.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript"></script>
+        <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.2/themes/blitzer/jquery-ui.css" />*@
+
+
+
+    @*<script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        <script src="~/Scripts/Jquery-toast/jquery.toast.js"></script>*@
+
+    <script type="text/javascript">
+        function EditInvoiceItem(id) {
+            $.get("/Invoice/EditInvoiceItem/" + id,
+                function (result) {
+                    $("#InvoiceItemModal").modal();
+                    $("#InvoiceItemModalBody").html(result);
+                });
+        }
+
+        function CloseModal() {
+            $("#InvoiceItemModal").modal('hide');
+        }
+
+        $(document).on("change",
+            "#InvoiceItemModel_ProductId",
+            function () {
+                $.ajax({
+                    url: "/Product/GetInventory/" + $("#InvoiceItemModel_ProductId").val(),
+                    type: "GET",
+                    dataType: "Json",
+                    success: function (result) {
+                        $("#SendInvoiceInventory").val(result.inventory);
+                    },
+                    error: function () {
+
+                    }
+                });
+            });
+
+        //$('#SendInvoiceProduct').autocomplete({
+        //    source: function (request, response) {
+        //        $.ajax({
+        //            url: '/Invoice/GetProducts/',
+        //            data: "{ 'prefix': '" + request.term + "'}",
+        //            dataType: "json",
+        //            type: "POST",
+        //            contentType: "application/json; charset=utf-8",
+        //            global: false,
+        //            success: function (data) {
+        //                response($.map(data,
+        //                    function (item) {
+        //                        return item;
+        //                    }));
+        //            },
+        //            error: function () {
+        //                alert("خطا!!");
+        //            },
+        //            failure: function () {
+        //                alert("خطا!!");
+        //            }
+        //        });
+        //    },
+        //    select: function (e, i) {
+        //        $('#InvoiceItemModel_ProductId').val(i.item.val);
+        //        $.ajax({
+        //            url: "/Invoice/GetProductInventory",
+        //            data: { id: i.item.val },
+        //            type: "Post",
+        //            dataType: "Json",
+
+        //            success: function (result) {
+        //                $("#SendInvoiceInventory").val(result);
+        //            }
+        //        });
+
+        //    },
+        //    minLength: 1
+
+        //});
+
+
+        DeleteInvoiceItem();
+    </script>
+
+    @if (!Model.Invoice.IsReceive)
+    {
+        <script>
+            $("#InvoiceItemModel_MainUnitCount").focusout(function () {
+                var inventory = $("#InvoiceItemModel_MainUnitCount").val();
+                var pro = $("#InvoiceItemModel_ProductId").val();
+
+                $.ajax({
+                    url: "/Invoice/CheckInventory",
+                    data: { id: pro, inventory: inventory },
+                    type: "Post",
+                    dataType: "Json",
+
+                    success: function (result) {
+                        if (!result.Success) {
+                            Toast("تعداد کالای ثبت شده، بیشتر از موجودی کالا است.,info");
+                        }
+                    }
+                });
+            });
+        </script>
+    }
+
+}
+

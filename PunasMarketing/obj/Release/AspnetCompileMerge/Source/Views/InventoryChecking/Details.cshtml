@@ -1,0 +1,146 @@
+﻿@model PunasMarketing.ViewModels.InventoryChecking.InventoryCheckingViewModel
+@{
+    ViewBag.Title = "جزئیات انبارگردانی";
+}
+
+<div class="layout-content-body">
+    @using (Html.BeginForm("AddInventoryChecking", "InventoryChecking", FormMethod.Post))
+    {
+        <div id="divInfo">
+            <legend>
+                <h2>جزئیات انبارگردانی</h2>
+            </legend>
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            @Html.HiddenFor(model => model.InventoryChecking.Id, new { id = "txtInventoryCheckingId" })
+            @Html.HiddenFor(model => model.InventoryChecking.CreatedByUserId, new { id = "txtCreatedByUserId" })
+            @Html.HiddenFor(model => model.InventoryChecking.WarehouseId, new { id = "txtWarehouseId" })
+
+
+            <div class="col-xs-12 col-md-12">
+                <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19); border-radius: 5px;">
+                    <div class="card-header">
+                        <strong>اطلاعات انبارگردانی</strong>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="col-xs-3 col-md-3">
+                            <div class="md-form-group md-label-static" , id="txtWarehouseId">
+                                @Html.DisplayNameFor(model => model.InventoryChecking.Warehouse.Name):
+                                @Html.DisplayFor(model => model.InventoryChecking.Warehouse.Name)
+                            </div>
+                        </div>
+
+                        <div class="col-xs-3 col-md-3">
+                            <div class="md-form-group md-label-static">
+                                @Html.DisplayNameFor(model => model.InventoryChecking.Id):
+                                @Html.DisplayFor(model => model.InventoryChecking.Id)
+                            </div>
+                        </div>
+
+                        <div class="col-xs-3 col-md-3">
+                            <div class="md-form-group md-label-static">
+                                @Html.DisplayNameFor(model => model.InventoryChecking.CreatedDate):
+                                @(Model.InventoryChecking.CreatedDate.ToStringShamsiDate())
+                            </div>
+                        </div>
+
+                        <div class="col-xs-3 col-md-3">
+                            <div class="md-form-group md-label-static">
+                                @("کاربر ثبت کننده"):
+                                @Html.DisplayFor(model => model.InventoryChecking.User.Username)
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-12">
+                            <div class="md-form-group md-label-static">
+                                @Html.DisplayNameFor(model => model.InventoryChecking.Description):
+                                @(Model.InventoryChecking.Description)
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19); border-radius: 5px;">
+                    <div class="card-header">
+                        <strong>لیست کالاهای شمارش شده</strong>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="col-xs-12 col-md-12">
+                            <div id="offeritemlist">
+                                <table id="tblItems" class="table table-bordered table-hover " cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr class="columnSize">
+                                            <th width="60px">
+                                                ردیف
+                                            </th>
+                                            <th width="200px">
+                                                نام کالا
+                                            </th>
+                                            <th width="100px">
+                                                واحد اندازه گیری
+                                            </th>
+                                            <th width="100px">
+                                                موجودی واقعی
+                                            </th>
+                                            <th width="100px">
+                                                موجودی سیستم
+                                            </th>
+                                            <th width="100px">
+                                                اختلاف موجودی
+                                            </th>
+                                            <th>
+                                                شرح
+                                            </th>
+                                            <th width="150px">
+                                                تعدیل موجودی
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbodyItems">
+                                        <tr></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-12">
+                        <div class="margin-top">
+                            <div class="col-xs-12 col-md-12">
+                                <a href="@Url.Action("InventoryCheckings","InventoryChecking")" class="btn btn-default">بازگشت به فهرست</a>
+                                @Html.ActionLink("ویرایش", "UpdateInventoryChecking", new { id = Model.InventoryChecking.Id }, new { @class = "btn btn-outline-success" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div id="modal" tabindex="-1" role="dialog" class="modal fade in" style="display: none;">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div id="modalBody" class="modal-body" style="padding: 0">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section toastr {
+    @Html.Raw(TempData["SaveMessage"])
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/inventoryCheckingJs")
+    <script>
+        var inventoryCheckingItems = @Html.Raw(Json.Encode(Model.JsInventoryCheckingItemses));
+        details(inventoryCheckingItems);
+    </script>
+}

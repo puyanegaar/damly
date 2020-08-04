@@ -1,0 +1,300 @@
+﻿@model PunasMarketing.ViewModels.Receipt.ReceiptViewModel
+
+@{
+    switch (Model.type)
+    {
+        case 1:
+            <div class="md-form-group md-label-static col-md-6">
+                <input class="md-form-control" type="text" name="name" id="searchbox" spellcheck="false" required="" aria-required="true">
+                <label class="md-control-label">جستجو</label>
+            </div>
+            <table id="ItemTable" class="table table-striped table-nowrap dataTable" cellspacing="0">
+                <thead>
+                    <tr class="columnSize">
+                        <th>
+                            نام بانک
+                        </th>
+                        <th>
+                            نام صاحب حساب
+                        </th>
+                        <th>
+                            شماره حساب
+                        </th>
+                        <th>
+                            شعبه
+                        </th>
+                        <th>عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Banks)
+                    {
+
+                        <tr class="columnSize">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Bank.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Owner)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AccountNum)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BranchName)
+                            </td>
+
+                            <td>
+                                <a id="SelectItem" value="@item.Id" class="icon icon-square-o iconColor text-center" style="cursor:pointer;text-decoration:none"></a>
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+            break;
+        case 2:
+            <div class="md-form-group md-label-static col-md-6">
+                <input class="md-form-control" type="text" name="name" id="searchbox" spellcheck="false" required="" aria-required="true">
+                <label class="md-control-label">جستجو</label>
+            </div>
+            <table id="ItemTable" class="table table-striped table-nowrap dataTable" cellspacing="0">
+                <thead>
+                    <tr class="columnSize">
+                        <th>
+                            عنوان هزینه
+                        </th>
+                        <th>
+                            گروه هزینه
+                        </th>
+                        <th>عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.costs)
+                    {
+
+                        <tr class="columnSize">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CostCategory.Name)
+                            </td>
+                            <td>
+                                <a id="SelectItem" value="@item.Id" UserName="@item.Name" class="icon icon-square-o iconColor text-center" style="cursor:pointer;text-decoration:none"></a>
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+            break;
+        case 3:
+            <div class="md-form-group md-label-static col-md-6">
+                <input class="md-form-control" type="text" name="name" id="searchbox" spellcheck="false" required="" aria-required="true">
+                <label class="md-control-label">جستجو</label>
+            </div>
+            <table id="ItemTable" class="table table-striped table-nowrap dataTable" cellspacing="0">
+                <thead>
+                    <tr class="columnSize">
+                        <th>
+                            عنوان کسب و کار
+                        </th>
+                        <th>
+                            نام مشتری
+                        </th>
+                        <th>
+                            شهر
+                        </th>
+                        <th>
+                            منطقه
+                        </th>
+                        <th>
+                            موبایل
+                        </th>
+
+                        <th>عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.customers)
+                    {
+
+                        <tr class="columnSize">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BusinessName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OwnerName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Region.City.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Region.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Mobile1)
+                            </td>
+                            <td>
+                                <a id="SelectItem" value="@item.Id" class="icon icon-square-o iconColor text-center" style="cursor:pointer;text-decoration:none"></a>
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+            break;
+        case 4:
+            <div class="md-form-group md-label-static col-md-6">
+                <input class="md-form-control" type="text" name="name" id="searchbox" spellcheck="false" required="" aria-required="true">
+                <label class="md-control-label">جستجو</label>
+            </div>
+            <table id="ItemTable" class="table table-striped table-nowrap dataTable" cellspacing="0">
+                <thead>
+                    <tr class="columnSize">
+                        <th>
+                            نام تامین کننده
+                        </th>
+                        <th>
+                            شهر
+                        </th>
+
+                        <th>
+                            شماره موبایل
+                        </th>
+                        <th>عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.suppliers)
+                    {
+
+                        <tr class="columnSize">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.City.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Mobile)
+                            </td>
+                            <td>
+                                <a id="SelectItem" value="@item.Id" class="icon icon-square-o iconColor text-center" style="cursor:pointer;text-decoration:none"></a>
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+            break;
+        case 5:
+            <div class="md-form-group md-label-static col-md-6">
+                <input class="md-form-control" type="text" name="name" id="searchbox" spellcheck="false" required="" aria-required="true">
+                <label class="md-control-label">جستجو</label>
+            </div>
+            <table id="ItemTable" class="table table-striped table-nowrap dataTable" cellspacing="0">
+                <thead>
+                    <tr class="columnSize">
+                        <th>
+                            کد پرسنلی
+                        </th>
+                        <th>
+                            نام
+                        </th>
+                        <th>
+                            نام خانوادگی
+                        </th>
+                        <th>
+                            عنوان شغلی
+                        </th>
+                        <th>
+                            شماره موبایل
+                        </th>
+                        <th>عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.personnels)
+                    {
+
+                        <tr class="columnSize">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PersonnelCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FirstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.JobTitle.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Mobile1)
+                            </td>
+                            <td>
+                                <a id="SelectItem" value="@item.Id"  class="icon icon-square-o iconColor text-center" style="cursor:pointer;text-decoration:none"></a>
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+            break;
+        case 6:
+            <div class="md-form-group md-label-static col-md-6">
+                <input class="md-form-control" type="text" name="name" id="searchbox" spellcheck="false" required="" aria-required="true">
+                <label class="md-control-label">جستجو</label>
+            </div>
+            <table id="ItemTable" class="table table-striped table-nowrap dataTable" cellspacing="0">
+                <thead>
+                    <tr class="columnSize">
+                        <th>
+                            کد بازار یاب
+                        </th>
+                        <th>
+                            نام
+                        </th>
+                        <th>
+                            نام خانوادگی
+                        </th>
+                        <th>
+                            شماره موبایل
+                        </th>
+                        <th>عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.personnels)
+                    {
+
+                        <tr class="columnSize">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PersonnelCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FirstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Mobile1)
+                            </td>
+
+                            <td>
+                                <a id="SelectUser" value="@item.Id" class="icon icon-square-o iconColor text-center" style="cursor:pointer;text-decoration:none"></a>
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+            break;
+
+    }
+}
